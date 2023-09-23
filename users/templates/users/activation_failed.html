@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Activation Failed</h2>
+            <p class="alert alert-danger">
+                We're sorry, but we couldn't activate your account. This could be because the activation link has expired or is invalid.
+            </p>
+            <p>
+                If you believe this is an error, please <a href="{% url 'register' %}">register again</a> or contact our support team.
+            </p>
+            <p>
+                <a href="{% url 'login' %}" class="btn btn-primary">Go to Login</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

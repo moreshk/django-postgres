@@ -1,0 +1,9 @@
+<!-- users/templates/users/myaccount.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Welcome to your account, {{ user.username }}!</h2>
+  <p>This is your account dashboard. You can add more features and details here as needed.</p>
+  <a href="{% url 'logout' %}">Logout</a>
+{% endblock %}
