@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('ENV_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('ENV_DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['.render.com']
+ALLOWED_HOSTS = ['*']
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
