@@ -32,7 +32,7 @@ DEBUG = os.environ.get('ENV_DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['django-postgres-41zd.onrender.com']
 if DEBUG:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1','*']
 
 # Application definition
 
