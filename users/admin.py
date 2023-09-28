@@ -1,10 +1,13 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
+from payments.models import UserSubscription
 
-class CustomUserAdmin(UserAdmin):
-    list_display = ('email', 'last_login')
-    search_fields = ('email',)  # Note the comma to make it a tuple
-    ordering = ('email',)  # Note the comma to make it a tuple
+class UserSubscriptionInline(admin.TabularInline):
+    model = UserSubscription
+    extra = 0
 
-admin.site.register(CustomUser, CustomUserAdmin)
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ('email', 'first_name', 'last_name', 'date_joined', 'is_active')
+    search_fields = ('email', 'first_name', 'last_name')
+    inlines = [UserSubscriptionInline]

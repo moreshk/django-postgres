@@ -19,6 +19,8 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from users import views
 from django.views.generic.base import RedirectView
+from payments import views as payment_views
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -34,4 +36,9 @@ urlpatterns = [
     path('email_verification_sent/', views.email_verification_sent, name='email_verification_sent'),
     path('myaccount/', views.myaccount, name='myaccount'),
     path('logout/', views.user_logout, name='logout'),
+    path('billing/', payment_views.billing, name='billing'),
+    path('stripe_webhook/', payment_views.stripe_webhook, name='stripe_webhook'),
 ]
+
+
+

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Billing & Subscription</h2>
+    <form method="post" id="billing-form">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.cardholder_name.label_tag }} 
+            {{ form.cardholder_name|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            {{ form.subscription_plan.label_tag }} 
+            {{ form.subscription_plan|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label>Card Details</label>
+            <div id="card-element" class="form-control"></div>
+        </div>
+        {{ form.stripe_token }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
+    var elements = stripe.elements();
+    var style = {
+        base: {
+            fontSize: '16px',
+            color: '#32325d',
+            '::placeholder': {
+                color: '#aab7c4'
+            }
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+        }
+    };
+    var card = elements.create('card', {style: style});
+    card.mount('#card-element');
+
+    var form = document.getElementById('billing-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                // Display error.message in your UI.
+            } else {
+                // Send the token to your server
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'stripe_token');
+                hiddenInput.setAttribute('value', result.token.id);
+                form.appendChild(hiddenInput);
+
+                // Submit the form
+                form.submit();
+            }
+        });
+    });
+</script>
+{% endblock %}
+

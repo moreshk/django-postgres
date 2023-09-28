@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "users",
     "widget_tweaks",
+    "crispy_forms",
+    "payments",
 ]
 
 MIDDLEWARE = [
@@ -143,3 +145,8 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 LOGIN_REDIRECT_URL = 'myaccount'
 LOGIN_URL = 'login'
 AUTH_USER_MODEL = 'users.CustomUser'
+
+
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
