@@ -16,6 +16,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from django.contrib.auth import get_user_model
+from .forms import UserUpdateForm, CustomPasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
 User = get_user_model()
 
 # Initialize a logger
@@ -48,16 +51,18 @@ def send_verification_email(request, user):
     link = reverse('activate', kwargs={'uidb64': uid, 'token': token})
     activate_url = 'http://' + domain + link
     email_subject = 'Activate your account'
-    email_body = 'Hi ' + user.username + ', please use this link to verify your account: ' + activate_url
+    email_body = 'Hi, please use this link to verify your account: ' + activate_url
     email = EmailMessage(email_subject, email_body, 'noreply@mydomain.com', [user.email])
     email.send()
 
 def user_login(request):
     context = {}
     if request.method == 'POST':
-        username = request.POST['username']
+        
+        email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
+
         if user:
             if user.is_active:
                 login(request, user)
@@ -91,6 +96,64 @@ def activate(request, uidb64, token):
 def email_verification_sent(request):
     return render(request, 'users/email_verification_sent.html')
 
+# @login_required
+# def myaccount(request):
+#     if request.method == 'POST':
+#         user_form = UserUpdateForm(request.POST, instance=request.user)
+#         password_form = CustomPasswordChangeForm(request.user, request.POST)
+
+#         if user_form.is_valid():
+#             user_form.save()
+#             messages.success(request, 'Details updated!')
+
+#         # Check if either the old password field or new password field is filled out
+#         if request.POST.get('old_password') or request.POST.get('new_password1'):
+#             if password_form.is_valid():
+#                 password_form.save()
+#                 # Update the session with the new password hash to keep the user logged in
+#                 update_session_auth_hash(request, request.user)
+#                 messages.success(request, 'Password updated!')
+#             else:
+#                 # Add the form errors to the messages to display them to the user
+#                 for field, errors in password_form.errors.items():
+#                     for error in errors:
+#                         messages.error(request, f"{field}: {error}")
+
+#         return redirect('myaccount')
+#     else:
+#         user_form = UserUpdateForm(instance=request.user)
+#         password_form = CustomPasswordChangeForm(request.user)
+
+#     return render(request, 'users/myaccount.html', {
+#         'user_form': user_form,
+#         'password_form': password_form
+#     })
+
 @login_required
 def myaccount(request):
-    return render(request, 'users/myaccount.html')
+    user_form = UserUpdateForm(instance=request.user, data=request.POST or None)
+    password_form = CustomPasswordChangeForm(request.user, data=request.POST or None)
+
+    if request.method == 'POST':
+        details_updated = False
+
+        # Check if user details form is valid and save
+        if user_form.is_valid():
+            user_form.save()
+            details_updated = True
+
+        # Check if password form fields are filled and form is valid
+        if (request.POST.get('old_password') or request.POST.get('new_password1')) and password_form.is_valid():
+            password_form.save()
+            # Update the session to keep the user logged in after password change
+            update_session_auth_hash(request, request.user)
+            details_updated = True
+
+        # Display a success message if any details were updated
+        if details_updated:
+            messages.success(request, 'Details updated!')
+
+    return render(request, 'users/myaccount.html', {
+        'user_form': user_form,
+        'password_form': password_form
+    })

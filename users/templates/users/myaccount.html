@@ -1,9 +1,57 @@
-<!-- users/templates/users/myaccount.html -->
-
 {% extends "base.html" %}
-
+{% load widget_tweaks %}
 {% block content %}
-  <h2>Welcome to your account, {{ user.username }}!</h2>
-  <p>This is your account dashboard. You can add more features and details here as needed.</p>
+<div class="container">
+  <h2>My Account</h2>
+
+  <div class="alert-container" style="height: 60px;">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="{{ user_form.first_name.id_for_label }}">First Name:</label>
+      {{ user_form.first_name|add_class:"form-control" }}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ user_form.last_name.id_for_label }}">Last Name:</label>
+      {{ user_form.last_name|add_class:"form-control" }}
+    </div>
+
+    <h3>Change Password</h3>
+    <div class="form-group">
+      <label for="{{ password_form.old_password.id_for_label }}">Old Password:</label>
+      {{ password_form.old_password|add_class:"form-control" }}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ password_form.new_password1.id_for_label }}">New Password:</label>
+      {{ password_form.new_password1|add_class:"form-control" }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+</div>
+<div class="mt-4">
   <a href="{% url 'logout' %}">Logout</a>
+</div>
+<script>
+  setTimeout(function() {
+      const alerts = document.querySelectorAll('.alert');
+      alerts.forEach(alert => {
+          alert.style.display = 'none';
+      });
+  }, 3000);  // 3 seconds
+</script>
+
 {% endblock %}
