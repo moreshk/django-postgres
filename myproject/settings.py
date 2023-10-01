@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "crispy_forms",
     "payments",
+    "essay_grader_app",
 ]
 
 MIDDLEWARE = [

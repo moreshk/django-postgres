@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from users import views
 from django.views.generic.base import RedirectView
@@ -38,6 +38,7 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('billing/', payment_views.billing, name='billing'),
     path('stripe_webhook/', payment_views.stripe_webhook, name='stripe_webhook'),
+    path('essay_grader_app/', include('essay_grader_app.urls')),
 ]
 
 
