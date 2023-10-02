@@ -1,29 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-  <h2>Essay Grader App</h2>
-  
-  <form method="post">
-    {% csrf_token %}
-    
-    <!-- Keep the Generate Test button at the top -->
-    <button type="submit" name="generate_test" class="btn btn-secondary mb-3">Generate Test</button>
-    
-    <!-- Display the Hello World message below the button -->
-    {% if message %}
-    <div class="alert alert-info mt-3 mb-3">
-        {{ message }}
+    <h2>Essay Grader App</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Keep the Generate Test button at the top -->
+        <button type="submit" name="generate_test" class="btn btn-secondary mb-3">Generate Test</button>
+
+        <!-- Display the Hello World message below the button -->
+        {% if message %}
+        <div class="alert alert-info mt-3 mb-3">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="text_input">Your Text:</label>
+            <!-- <textarea id="text_input" name="text_input" class="form-control" rows="10"></textarea> -->
+            <textarea id="text_input" name="text_input" class="form-control"
+                rows="10">{{ request.POST.text_input }}</textarea>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <!-- Add this new section for feedback -->
+    {% if feedback %}
+    <div class="form-group mt-4">
+        <label for="feedback_area">Feedback:</label>
+        <textarea id="feedback_area" name="feedback_area" class="form-control" rows="10"
+            readonly>{{ feedback }}</textarea>
     </div>
     {% endif %}
-    
-    <div class="form-group">
-      <label for="text_input">Your Text:</label>
-      <textarea id="text_input" name="text_input" class="form-control" rows="10"></textarea>
+    <div class="mt-4">
+        <a href="{% url 'logout' %}">Logout</a>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-  <div class="mt-4">
-    <a href="{% url 'logout' %}">Logout</a>
-</div>
 </div>
 {% endblock %}
