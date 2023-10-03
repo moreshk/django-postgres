@@ -1,13 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <h2>Essay Grader App</h2>
+    <h2>Grade Your Essay</h2>
 
     <form method="post">
         {% csrf_token %}
 
-        <!-- Keep the Generate Test button at the top -->
-        <button type="submit" name="generate_test" class="btn btn-secondary mb-3">Generate Test</button>
+       
+        <!-- Dropdown for exam type -->
+        <div class="form-group">
+            <label for="examType">Choose an exam type:</label>
+            <select name="examType" id="examType" class="form-control" onchange="showDropdowns(this.value)">
+                <option value="NAPLAN">NAPLAN</option>
+                <option value="IELTS">IELTS</option>
+            </select>
+        </div>
+
+        <!-- Dropdowns for NAPLAN specifics -->
+        <div id="naplanDropdowns" style="display: none;">
+            <div class="form-group">
+                <label for="essayType">Essay Type:</label>
+                <select name="essayType" id="essayType" class="form-control">
+                    <option value="Narrative">Narrative</option>
+                    <option value="Persuasive">Persuasive</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="grade">Grade:</label>
+                <select name="grade" id="grade" class="form-control">
+                    <option value="Grade 3">Grade 3</option>
+                    <option value="Grade 5">Grade 5</option>
+                    <option value="Grade 7">Grade 7</option>
+                    <option value="Grade 9">Grade 9</option>
+                </select>
+            </div>
+        </div>
+
+         <!-- Keep the Generate Test button at the top -->
+         <button type="submit" name="generate_test" class="btn btn-secondary mb-3">Generate Test</button>
 
         <!-- Display the Hello World message below the button -->
         {% if message %}
@@ -18,14 +49,13 @@
 
         <div class="form-group">
             <label for="text_input">Your Text:</label>
-            <!-- <textarea id="text_input" name="text_input" class="form-control" rows="10"></textarea> -->
             <textarea id="text_input" name="text_input" class="form-control"
                 rows="10">{{ request.POST.text_input }}</textarea>
-
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <!-- Add this new section for feedback -->
+
+    <!-- Feedback section -->
     {% if feedback %}
     <div class="form-group mt-4">
         <label for="feedback_area">Feedback:</label>
@@ -33,8 +63,20 @@
             readonly>{{ feedback }}</textarea>
     </div>
     {% endif %}
+
     <div class="mt-4">
         <a href="{% url 'logout' %}">Logout</a>
     </div>
 </div>
+
+<script>
+    function showDropdowns(value) {
+        if (value === "NAPLAN") {
+            document.getElementById("naplanDropdowns").style.display = "block";
+        } else {
+            document.getElementById("naplanDropdowns").style.display = "none";
+        }
+    }
+</script>
+
 {% endblock %}
