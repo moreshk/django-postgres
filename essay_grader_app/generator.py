@@ -27,41 +27,30 @@ def generate_test_data(exam_type, essay_type, grade):
     llm = ChatOpenAI(temperature=1, model_name="gpt-3.5-turbo")
 
 
-    ielts_template = """You are a test task creator for {test_type}. I will provide you the test type and your job is to create a task for a test taker.
-
-    You will provide a topic and ask the user if they agree or disagree, provide pros and cons etc and provide their views on the topic.
+    naplan_narrative_template = """You are a test task creator for {test_type}. I will provide you the test type and your job is to create a prompt for a narrative (story) writing task for a test taker.
 
     Sample Tasks for {test_type}
-    Sample 1: Technology
-    Task: "Some people believe that technological advancements lead to the loss of traditional cultures. To what extent do you agree or disagree?"
+    Sample 1: Imagine
+    Task: "Imagine if a character found an object that made something amazing happen. Write a narrative (story) about the adventure. You can use the characters and objects on this page OR you can make up your own."
 
-    Sample 2: Education
-    Task: "Some educators argue that every child should be taught how to play a musical instrument. Discuss the advantages and disadvantages of this. Give your own opinion."
+    Sample 2: What a mess!
+    Task: "Today you are going to write a narrative (a story). The idea for your story is `What a mess!` Your story might be about a messy person, an untidy place or a complicated or tricky situation. 
+    It might be a mix-up between people, or it might be about a plan gone wrong. It could be about a broken promise or friendship, or an unexpected event that causes confusion."
 
-    Sample 3: Environment
-    Task: "Climate change is now an accepted threat to our planet, but there is not enough political action to control excessive consumerism and pollution. Discuss both views and give your own opinion."
+    Sample 3: Found
+    Task: "Today you are going to write a narrative or story. The idea for your story is `FOUND`. Your story might be about finding a lost pet, hidden treasures or new friends.
+    It could be about finding the solution to a problem or finding an opportunity to do something different and exciting. Your story could be about how people in difficult situations find courage, help or understanding."
 
-    Sample 4: Health
-    Task: "Some people think that governments should focus on reducing healthcare costs, rather than funding arts and sports. Do you agree or disagree?"
-
-    Sample 5: Society
-    Task: "Some people think that the best way to reduce crime is to give longer prison sentences. Others, however, believe there are better alternative ways of reducing crime. Discuss both views and give your opinion."
-
-    Sample 6: Work
-    Task: "Remote work is becoming increasingly popular. Discuss the advantages and disadvantages of working from home."
-
-    Sample 7: Global Issues
-    Task: "Some people argue that developed countries have a higher obligation to combat climate change than developing countries. Discuss both sides and give your own opinion."
-
-    Sample 8: Science
-    Task: "Genetic engineering is an important issue in modern society. Some people think that it will improve people’s lives in many ways. Others feel that it may be a threat to life on earth. Discuss both these views and give your own opinion."
+    Sample 4: The Box
+    Task: "Today you are going to write a narrative or story. The idea for your story is `The Box`. What is inside the Box? How did it get there? Is it valuable? Perhaps it is alive! 
+    The Box might reveal a message or something that was hidden. What happens in your story if the Box is opened?"
 
     You will use the above examples only as a guideline for framing the task and create a new task and description randomly on a different topic. No need to use the word Sample in the task description. 
 
     Create 5 such tasks and descriptions based on the above guidelines. In your output mention these 5 tasks and format the output as Title:  and Description: .
     """
 
-    naplan_narrative_template = """You are a test task creator for {test_type}. I will provide you the test type and your job is to create a task for a test taker.
+    ielts_template = """You are a test task creator for {test_type}. I will provide you the test type and your job is to create a task for a test taker.
 
     You will provide a topic and ask the user if they agree or disagree, provide pros and cons etc and provide their views on the topic.
 
@@ -195,10 +184,29 @@ Remember to:
 """
             result += additional_text  # Append the additional text to the result
 
+    # Check if the exam_type is "naplan" and essay_type is "narrative"
+        if exam_type.lower() == "naplan" and essay_type.lower() == "narrative":
+            narrative_text = """
+    Think about:
+    • the characters in your story
+    • when and where your story takes place
+    • the complication or problem and how it is solved
+    • how the story ends.
+    Remember to:
+    • plan your story before you start
+    • choose your words carefully
+    • write in sentences
+    • pay attention to your spelling, punctuation and
+    paragraphs
+    • check and edit your writing.
+    """
+            result += narrative_text  # Append the narrative text to the result
+
         return result
     else:
         return "Error: Unexpected data format"
 
+       
 
 def grade_essay(user_response, title, description):
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
