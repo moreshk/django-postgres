@@ -17,7 +17,7 @@ if not OPENAI_API_KEY:
     raise ValueError("Please set the OPENAI_API_KEY in the .env file.")
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
-def generate_test_data():
+def generate_test_data(exam_type, essay_type, grade):
     # ... (Place the logic from the Flask code here) ...
 
 
@@ -82,7 +82,7 @@ def generate_test_data():
     overall_chain = SimpleSequentialChain(chains=[task_creator_chain, task_selector_chain], verbose=True)
 
 
-    generated_data = overall_chain.run("IELTS Academic Writing Task 2")
+    generated_data = overall_chain.run(exam_type)
     try:
         generated_data = json.loads(generated_data)
     except (json.JSONDecodeError, TypeError):

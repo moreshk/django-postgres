@@ -9,7 +9,14 @@ def index(request):
     feedback = ""
     if request.method == "POST":
         if "generate_test" in request.POST:
-            message = generate_test_data()
+            # Fetch the values from the dropdowns
+            exam_type = request.POST.get('examType')
+            essay_type = request.POST.get('essayType', '')  # This might be empty if the exam type is not NAPLAN
+            grade = request.POST.get('grade', '')  # This might be empty if the exam type is not NAPLAN
+
+            # Pass the values to the generate_test_data function
+            message = generate_test_data(exam_type, essay_type, grade)
+            # message = generate_test_data()   
             # Assuming the message format is "Title: xxx\nDescription: yyy"
             title, description = message.split("\n")
             request.session['task_title'] = title.split(":")[1].strip()
