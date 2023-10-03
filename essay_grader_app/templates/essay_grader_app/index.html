@@ -6,14 +6,14 @@
     <form method="post">
         {% csrf_token %}
 
-       
+
         <!-- Dropdown for exam type -->
         <div class="form-group">
             <label for="examType">Choose an exam type:</label>
             <select name="examType" id="examType" class="form-control" onchange="showDropdowns(this.value)">
                 <option value="IELTS">IELTS</option>
                 <option value="NAPLAN">NAPLAN</option>
-                
+
             </select>
         </div>
 
@@ -38,15 +38,19 @@
             </div>
         </div>
 
-         <!-- Keep the Generate Test button at the top -->
-         <button type="submit" name="generate_test" class="btn btn-secondary mb-3">Generate Test</button>
+        <!-- Keep the Generate Test button at the top -->
+        <button type="submit" name="generate_test" class="btn btn-secondary mb-3">Generate Test</button>
 
         <!-- Display the Hello World message below the button -->
         {% if message %}
         <div class="alert alert-info mt-3 mb-3">
             {{ message }}
+            <!-- <strong>Title:</strong> {{ title }}<br>
+            <strong>Description:</strong> {{ description|linebreaks }} -->
+
         </div>
         {% endif %}
+
 
         <div class="form-group">
             <label for="text_input">Your Text:</label>

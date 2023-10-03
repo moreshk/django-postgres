@@ -18,7 +18,11 @@ def index(request):
             message = generate_test_data(exam_type, essay_type, grade)
             # message = generate_test_data()   
             # Assuming the message format is "Title: xxx\nDescription: yyy"
-            title, description = message.split("\n")
+            # title, description = message.split("\n")
+            segments = message.split("\n")
+            title = segments[0]
+            description = "\n".join(segments[1:])
+
             request.session['task_title'] = title.split(":")[1].strip()
             request.session['task_description'] = description.split(":")[1].strip()
         elif "text_input" in request.POST:
@@ -27,3 +31,4 @@ def index(request):
             description = request.session.get('task_description', 'Default Description')  # You can fetch this from the session or database
             feedback = grade_essay(user_response, title, description)
     return render(request, 'essay_grader_app/index.html', {'message': message, 'feedback': feedback})
+
