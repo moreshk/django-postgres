@@ -10,10 +10,10 @@
         <!-- Dropdown for exam type -->
         <div class="form-group">
             <label for="examType">Choose an exam type:</label>
-            <select name="examType" id="examType" class="form-control" onchange="showDropdowns(this.value)">
-                <option value="IELTS">IELTS</option>
-                <option value="NAPLAN">NAPLAN</option>
 
+            <select name="examType" id="examType" class="form-control" onchange="showDropdowns(this.value)">
+                <option value="IELTS" {% if exam_type == "IELTS" %}selected{% endif %}>IELTS</option>
+                <option value="NAPLAN" {% if exam_type == "NAPLAN" %}selected{% endif %}>NAPLAN</option>
             </select>
         </div>
 
@@ -21,19 +21,21 @@
         <div id="naplanDropdowns" style="display: none;">
             <div class="form-group">
                 <label for="essayType">Essay Type:</label>
+
                 <select name="essayType" id="essayType" class="form-control">
-                    <option value="Narrative">Narrative</option>
-                    <option value="Persuasive">Persuasive</option>
+                    <option value="Narrative" {% if essay_type == "Narrative" %}selected{% endif %}>Narrative</option>
+                    <option value="Persuasive" {% if essay_type == "Persuasive" %}selected{% endif %}>Persuasive</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="grade">Grade:</label>
+
                 <select name="grade" id="grade" class="form-control">
-                    <option value="Grade 3">Grade 3</option>
-                    <option value="Grade 5">Grade 5</option>
-                    <option value="Grade 7">Grade 7</option>
-                    <option value="Grade 9">Grade 9</option>
+                    <option value="Grade 3" {% if grade == "Grade 3" %}selected{% endif %}>Grade 3</option>
+                    <option value="Grade 5" {% if grade == "Grade 5" %}selected{% endif %}>Grade 5</option>
+                    <option value="Grade 7" {% if grade == "Grade 7" %}selected{% endif %}>Grade 7</option>
+                    <option value="Grade 9" {% if grade == "Grade 9" %}selected{% endif %}>Grade 9</option>
                 </select>
             </div>
         </div>
@@ -82,6 +84,14 @@
             document.getElementById("naplanDropdowns").style.display = "none";
         }
     }
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the value of the examType dropdown
+        var examTypeValue = document.getElementById("examType").value;
+        // Call the showDropdowns function with the current value
+        showDropdowns(examTypeValue);
+    });
+
+
 </script>
 
 {% endblock %}
