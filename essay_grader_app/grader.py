@@ -298,7 +298,481 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
         """,
     )
 
-    
+    naplan_narrative_grade3_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc"],
+        template="""You are an story grader for Naplan narrative writing task for grade 3 students. You will follow the below criteria and grade the students on all the provided criteria using the provided guidelines.
+
+        Grade 3 Narrative Writing Grading Criteria
+
+Criteria 1. Audience: The writer’s capacity to orient, engage and affect the reader. 
+Score Range: 0-6
+Scoring guide: 
+0 - symbols or drawings which have the intention of conveying meaning.
+1- response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
+2 - shows basic awareness of audience expectations through attempting to orient the reader • provides some information to support reader understanding. may include simple narrative markers, e.g. – simple title – formulaic story opening: Long, long ago …; Once a boy was walking when … • description of people or places • reader may need to fill gaps in information • text may be short but is easily read.
+3- • orients the reader –an internally consistent story that attempts to support the reader by developing a shared understanding of context • contains sufficient information for the reader to follow the story fairly easily
+4- • supports reader understanding AND • begins to engage the reader
+5- supports and engages the reader through deliberate choice of language and use of narrative devices.
+6- caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
+
+Criteria 2. Text structure: The organisation of narrative features including orientation, complication and resolution into an appropriate and effective text structure. 
+Score Range: 0-4 
+Scoring guide: 
+0- no evidence of any structural components of a times equenced text • symbols or drawings • inappropriate genre, e.g. a recipe, argument • title only
+1- minimal evidence of narrative structure, e.g. a story beginning only or a ‘middle’ with no orientation • a recount of events with no complication • note that not all recounts are factual • may be description
+2- contains a beginning and a complication • where a resolution is present it is weak, contrived or ‘tacked on’ (e.g. I woke up, I died, They lived happily ever after) • a complication presents a problem to be solved, introduces tension, and requires a response. It drives the story forward and leads to a series of events or responses • complications should always be read in context • may also be a complete story where all parts of the story are weak or minimal (the story has a problem to be solved but it does not add to the tension or excitement).
+3 - contains orientation, complication and resolution • detailed longer text may resolve one complication and lead into a new complication or layer a new complication onto an existing one rather than conclude
+4- coherent, controlled and complete narrative, employing effective plot devices in an appropriate structure, and including an effective ending. sophisticated structures or plot devices include: – foreshadowing/flashback – red herring/cliffhanger – coda/twist – evaluation/reflection – circular/parallel plots
+
+Criteria 3. Ideas: The creation, selection and crafting of ideas for a narrative.
+Score Range: 0-5 
+Scoring guide: 
+0 - • no evidence or insufficient evidence • symbols or drawings • title only
+1 - • one idea OR • ideas are very few and very simple OR • ideas appear unrelated to each other OR • ideas appear unrelated to prompt
+2 - • one idea with simple elaboration OR • ideas are few and related but not elaborated OR • many simple ideas are related but not elaborated
+3 - • ideas show some development or elaboration • all ideas relate coherently
+4 - • ideas are substantial and elaborated AND contribute effectively to a central storyline • the story contains a suggestion of an underlying theme
+5 - ideas are generated, selected and crafted to explore a recognisable theme • ideas are skilfully used in the service of the storyline • ideas may include: – psychological subjects – unexpected topics – mature viewpoints – elements of popular culture – satirical perspectives – extended metaphor – traditional sub-genre subjects: heroic quest / whodunnit / good vs evil / overcoming the odds
+
+Criteria 4 .Character and setting: Character: the portrayal and development of character. 
+Setting: the development of a sense of place, time and atmosphere.
+Score Range: 0-4 
+Scoring guide: 
+
+0 - no evidence or insufficient evidence, symbols or drawings, writes in wrong genre, title only
+
+1 - only names characters or gives their roles (e.g. father, the teacher, my friend, dinosaur, we, Jim) AND/OR only names the setting (e.g.school, the place we were at) setting is vague or confused	
+2 - suggestion of characterisation through brief descriptions or speech or feelings, but lacks substance or continuity 
+AND/OR
+suggestion of setting through very brief and superficial descriptions of place and/or time	
+basic dialogue or a few adjectives to describe a character or a place
+
+3 - characterisation emerges through descriptions, actions, speech or the attribution of thoughts and feelings to a character
+AND/OR
+setting emerges through description of place, time and atmosphere	
+
+4 - effective characterisation: details are selected to create distinct characters
+AND/OR
+Maintains a sense of setting throughout. Details are selected to create a sense of place and atmosphere. convincing dialogue, introspection and reactions to other characters
+
+Criteria 5. Vocabulary: The range and precision of language choices. 
+Score Range: 0-5 
+Scoring guide: 
+0 - symbols or drawings
+1 - very short script
+2 - mostly simple verbs, adverbs, adjectives or nouns may include two or three precise words or word groups
+3 - four or more precise words or word groups (may be verbs, adverbs, adjectives or nouns)
+4 - sustained and consistent use of precise words and word groups that enhance the meaning or mood
+may be occasional inappropriate or inaccurate word choice
+5 - a range of precise and effective words and word groups used in a natural and articulate manner, language choice is well matched to genre
+
+Criteria 6. Cohesion: The control of multiple threads and relationships over the whole text, achieved through the use of referring words, substitutions, word associations and text connectives. 
+Score Range: 0-4 
+Scoring guide: 
+0 - symbols or drawings
+1 - links are missing or incorrect short script often confusing for the reader
+2 - some correct links between sentences (do not penalise for poor punctuation), 
+most referring words are accurate. reader may occasionally need to re-read and provide their own links to clarify meaning
+3 - cohesive devices are used correctly to support reader understanding, accurate use of referring words,
+meaning is clear and text flows well in a sustained piece of writing
+4 - a range of cohesive devices is used correctly and deliberately to enhance reading, an extended, highly cohesive piece of writing showing continuity of ideas and tightly linked sections of text
+
+Criteria 7. Paragraphs: The segmenting of text into paragraphs that assists the reader to negotiate the narrative. 
+Score Range: 0-2 
+Scoring guide: 
+0 - no use of paragraphing
+1 - writing is organised into paragraphs that are mainly focused on a single idea or set of like ideas that assist the reader to digest chunks of text
+contains at least one correct paragraph break
+2 - all paragraphs are focused on one idea or set of like ideas and enhance the narrative
+
+Criteria 8. Sentence structure: The production of grammatically correct, structurally sound and meaningful sentences. 
+Score Range: 0-6 
+Scoring guide: 
+0 -	no evidence of sentences
+1 - some correct formation of sentences, some meaning can be construed
+2 - correct sentences are mainly simple and/or compound sentences, meaning is predominantly clear
+3 - most (approx. 80%) simple and compound sentences correct
+AND some complex sentences are correct meaning is predominantly clear
+4 - most (approx. 80%) simple, compound and complex sentences are correct
+OR all simple, compound and complex sentences are correct but do not demonstrate variety meaning is clear
+5 - sentences are correct (allow for occasional error in more sophisticated structures)
+demonstrates variety meaning is clear and sentences enhance meaning
+6 - all sentences are correct (allow for occasional slip, e.g. a missing word) writing contains controlled and well developed sentences that express precise meaning and are
+consistently effective
+
+Criteria 9. Punctuation: The use of correct and appropriate punctuation to aid reading of the text. 
+Score Range: 0-5 
+Criteria 10. Spelling: The accuracy of spelling and the difficulty of the words used. 
+Score Range: 0-6
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        story: {essay}
+
+        Grade the story based on the provided guidelines keeping in mind the test taker is grade 3 student and score them according to the level expected from a student in that grade while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
+        For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
+        Finally sum up the individual scores to provide an overall score out of 47.
+        """,
+    )
+
+    naplan_narrative_grade5_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc"],
+        template="""You are an story grader for Naplan narrative writing task for grade 5 students. You will follow the below criteria and grade the students on all the provided criteria using the provided guidelines.
+
+        Grade 5 Narrative Writing Grading Criteria
+
+Criteria 1. Audience: The writer’s capacity to orient, engage and affect the reader. 
+Score Range: 0-6
+Scoring guide: 
+0 - symbols or drawings which have the intention of conveying meaning.
+1- response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
+2 - shows basic awareness of audience expectations through attempting to orient the reader • provides some information to support reader understanding. may include simple narrative markers, e.g. – simple title – formulaic story opening: Long, long ago …; Once a boy was walking when … • description of people or places • reader may need to fill gaps in information • text may be short but is easily read.
+3- • orients the reader –an internally consistent story that attempts to support the reader by developing a shared understanding of context • contains sufficient information for the reader to follow the story fairly easily
+4- • supports reader understanding AND • begins to engage the reader
+5- supports and engages the reader through deliberate choice of language and use of narrative devices.
+6- caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
+
+Criteria 2. Text structure: The organisation of narrative features including orientation, complication and resolution into an appropriate and effective text structure. 
+Score Range: 0-4 
+Scoring guide: 
+0- no evidence of any structural components of a times equenced text • symbols or drawings • inappropriate genre, e.g. a recipe, argument • title only
+1- minimal evidence of narrative structure, e.g. a story beginning only or a ‘middle’ with no orientation • a recount of events with no complication • note that not all recounts are factual • may be description
+2- contains a beginning and a complication • where a resolution is present it is weak, contrived or ‘tacked on’ (e.g. I woke up, I died, They lived happily ever after) • a complication presents a problem to be solved, introduces tension, and requires a response. It drives the story forward and leads to a series of events or responses • complications should always be read in context • may also be a complete story where all parts of the story are weak or minimal (the story has a problem to be solved but it does not add to the tension or excitement).
+3 - contains orientation, complication and resolution • detailed longer text may resolve one complication and lead into a new complication or layer a new complication onto an existing one rather than conclude
+4- coherent, controlled and complete narrative, employing effective plot devices in an appropriate structure, and including an effective ending. sophisticated structures or plot devices include: – foreshadowing/flashback – red herring/cliffhanger – coda/twist – evaluation/reflection – circular/parallel plots
+
+Criteria 3. Ideas: The creation, selection and crafting of ideas for a narrative.
+Score Range: 0-5 
+Scoring guide: 
+0 - • no evidence or insufficient evidence • symbols or drawings • title only
+1 - • one idea OR • ideas are very few and very simple OR • ideas appear unrelated to each other OR • ideas appear unrelated to prompt
+2 - • one idea with simple elaboration OR • ideas are few and related but not elaborated OR • many simple ideas are related but not elaborated
+3 - • ideas show some development or elaboration • all ideas relate coherently
+4 - • ideas are substantial and elaborated AND contribute effectively to a central storyline • the story contains a suggestion of an underlying theme
+5 - ideas are generated, selected and crafted to explore a recognisable theme • ideas are skilfully used in the service of the storyline • ideas may include: – psychological subjects – unexpected topics – mature viewpoints – elements of popular culture – satirical perspectives – extended metaphor – traditional sub-genre subjects: heroic quest / whodunnit / good vs evil / overcoming the odds
+
+Criteria 4 .Character and setting: Character: the portrayal and development of character. 
+Setting: the development of a sense of place, time and atmosphere.
+Score Range: 0-4 
+Scoring guide: 
+
+0 - no evidence or insufficient evidence, symbols or drawings, writes in wrong genre, title only
+
+1 - only names characters or gives their roles (e.g. father, the teacher, my friend, dinosaur, we, Jim) AND/OR only names the setting (e.g.school, the place we were at) setting is vague or confused	
+2 - suggestion of characterisation through brief descriptions or speech or feelings, but lacks substance or continuity 
+AND/OR
+suggestion of setting through very brief and superficial descriptions of place and/or time	
+basic dialogue or a few adjectives to describe a character or a place
+
+3 - characterisation emerges through descriptions, actions, speech or the attribution of thoughts and feelings to a character
+AND/OR
+setting emerges through description of place, time and atmosphere	
+
+4 - effective characterisation: details are selected to create distinct characters
+AND/OR
+Maintains a sense of setting throughout. Details are selected to create a sense of place and atmosphere. convincing dialogue, introspection and reactions to other characters
+
+Criteria 5. Vocabulary: The range and precision of language choices. 
+Score Range: 0-5 
+Scoring guide: 
+0 - symbols or drawings
+1 - very short script
+2 - mostly simple verbs, adverbs, adjectives or nouns may include two or three precise words or word groups
+3 - four or more precise words or word groups (may be verbs, adverbs, adjectives or nouns)
+4 - sustained and consistent use of precise words and word groups that enhance the meaning or mood
+may be occasional inappropriate or inaccurate word choice
+5 - a range of precise and effective words and word groups used in a natural and articulate manner, language choice is well matched to genre
+
+Criteria 6. Cohesion: The control of multiple threads and relationships over the whole text, achieved through the use of referring words, substitutions, word associations and text connectives. 
+Score Range: 0-4 
+Scoring guide: 
+0 - symbols or drawings
+1 - links are missing or incorrect short script often confusing for the reader
+2 - some correct links between sentences (do not penalise for poor punctuation), 
+most referring words are accurate. reader may occasionally need to re-read and provide their own links to clarify meaning
+3 - cohesive devices are used correctly to support reader understanding, accurate use of referring words,
+meaning is clear and text flows well in a sustained piece of writing
+4 - a range of cohesive devices is used correctly and deliberately to enhance reading, an extended, highly cohesive piece of writing showing continuity of ideas and tightly linked sections of text
+
+Criteria 7. Paragraphs: The segmenting of text into paragraphs that assists the reader to negotiate the narrative. 
+Score Range: 0-2 
+Scoring guide: 
+0 - no use of paragraphing
+1 - writing is organised into paragraphs that are mainly focused on a single idea or set of like ideas that assist the reader to digest chunks of text
+contains at least one correct paragraph break
+2 - all paragraphs are focused on one idea or set of like ideas and enhance the narrative
+
+Criteria 8. Sentence structure: The production of grammatically correct, structurally sound and meaningful sentences. 
+Score Range: 0-6 
+Scoring guide: 
+0 -	no evidence of sentences
+1 - some correct formation of sentences, some meaning can be construed
+2 - correct sentences are mainly simple and/or compound sentences, meaning is predominantly clear
+3 - most (approx. 80%) simple and compound sentences correct
+AND some complex sentences are correct meaning is predominantly clear
+4 - most (approx. 80%) simple, compound and complex sentences are correct
+OR all simple, compound and complex sentences are correct but do not demonstrate variety meaning is clear
+5 - sentences are correct (allow for occasional error in more sophisticated structures)
+demonstrates variety meaning is clear and sentences enhance meaning
+6 - all sentences are correct (allow for occasional slip, e.g. a missing word) writing contains controlled and well developed sentences that express precise meaning and are
+consistently effective
+
+Criteria 9. Punctuation: The use of correct and appropriate punctuation to aid reading of the text. 
+Score Range: 0-5 
+Criteria 10. Spelling: The accuracy of spelling and the difficulty of the words used. 
+Score Range: 0-6
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        story: {essay}
+
+        Grade the story based on the provided guidelines keeping in mind the test taker is grade 5 student and score them according to the level expected from a student in that grade while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
+        For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
+        Finally sum up the individual scores to provide an overall score out of 47.
+        """,
+    )
+
+    naplan_narrative_grade7_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc"],
+        template="""You are an story grader for Naplan narrative writing task for grade 7 students. You will follow the below criteria and grade the students on all the provided criteria using the provided guidelines.
+
+        Grade 7 Narrative Writing Grading Criteria
+
+Criteria 1. Audience: The writer’s capacity to orient, engage and affect the reader. 
+Score Range: 0-6
+Scoring guide: 
+0 - symbols or drawings which have the intention of conveying meaning.
+1- response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
+2 - shows basic awareness of audience expectations through attempting to orient the reader • provides some information to support reader understanding. may include simple narrative markers, e.g. – simple title – formulaic story opening: Long, long ago …; Once a boy was walking when … • description of people or places • reader may need to fill gaps in information • text may be short but is easily read.
+3- • orients the reader –an internally consistent story that attempts to support the reader by developing a shared understanding of context • contains sufficient information for the reader to follow the story fairly easily
+4- • supports reader understanding AND • begins to engage the reader
+5- supports and engages the reader through deliberate choice of language and use of narrative devices.
+6- caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
+
+Criteria 2. Text structure: The organisation of narrative features including orientation, complication and resolution into an appropriate and effective text structure. 
+Score Range: 0-4 
+Scoring guide: 
+0- no evidence of any structural components of a times equenced text • symbols or drawings • inappropriate genre, e.g. a recipe, argument • title only
+1- minimal evidence of narrative structure, e.g. a story beginning only or a ‘middle’ with no orientation • a recount of events with no complication • note that not all recounts are factual • may be description
+2- contains a beginning and a complication • where a resolution is present it is weak, contrived or ‘tacked on’ (e.g. I woke up, I died, They lived happily ever after) • a complication presents a problem to be solved, introduces tension, and requires a response. It drives the story forward and leads to a series of events or responses • complications should always be read in context • may also be a complete story where all parts of the story are weak or minimal (the story has a problem to be solved but it does not add to the tension or excitement).
+3 - contains orientation, complication and resolution • detailed longer text may resolve one complication and lead into a new complication or layer a new complication onto an existing one rather than conclude
+4- coherent, controlled and complete narrative, employing effective plot devices in an appropriate structure, and including an effective ending. sophisticated structures or plot devices include: – foreshadowing/flashback – red herring/cliffhanger – coda/twist – evaluation/reflection – circular/parallel plots
+
+Criteria 3. Ideas: The creation, selection and crafting of ideas for a narrative.
+Score Range: 0-5 
+Scoring guide: 
+0 - • no evidence or insufficient evidence • symbols or drawings • title only
+1 - • one idea OR • ideas are very few and very simple OR • ideas appear unrelated to each other OR • ideas appear unrelated to prompt
+2 - • one idea with simple elaboration OR • ideas are few and related but not elaborated OR • many simple ideas are related but not elaborated
+3 - • ideas show some development or elaboration • all ideas relate coherently
+4 - • ideas are substantial and elaborated AND contribute effectively to a central storyline • the story contains a suggestion of an underlying theme
+5 - ideas are generated, selected and crafted to explore a recognisable theme • ideas are skilfully used in the service of the storyline • ideas may include: – psychological subjects – unexpected topics – mature viewpoints – elements of popular culture – satirical perspectives – extended metaphor – traditional sub-genre subjects: heroic quest / whodunnit / good vs evil / overcoming the odds
+
+Criteria 4 .Character and setting: Character: the portrayal and development of character. 
+Setting: the development of a sense of place, time and atmosphere.
+Score Range: 0-4 
+Scoring guide: 
+
+0 - no evidence or insufficient evidence, symbols or drawings, writes in wrong genre, title only
+
+1 - only names characters or gives their roles (e.g. father, the teacher, my friend, dinosaur, we, Jim) AND/OR only names the setting (e.g.school, the place we were at) setting is vague or confused	
+2 - suggestion of characterisation through brief descriptions or speech or feelings, but lacks substance or continuity 
+AND/OR
+suggestion of setting through very brief and superficial descriptions of place and/or time	
+basic dialogue or a few adjectives to describe a character or a place
+
+3 - characterisation emerges through descriptions, actions, speech or the attribution of thoughts and feelings to a character
+AND/OR
+setting emerges through description of place, time and atmosphere	
+
+4 - effective characterisation: details are selected to create distinct characters
+AND/OR
+Maintains a sense of setting throughout. Details are selected to create a sense of place and atmosphere. convincing dialogue, introspection and reactions to other characters
+
+Criteria 5. Vocabulary: The range and precision of language choices. 
+Score Range: 0-5 
+Scoring guide: 
+0 - symbols or drawings
+1 - very short script
+2 - mostly simple verbs, adverbs, adjectives or nouns may include two or three precise words or word groups
+3 - four or more precise words or word groups (may be verbs, adverbs, adjectives or nouns)
+4 - sustained and consistent use of precise words and word groups that enhance the meaning or mood
+may be occasional inappropriate or inaccurate word choice
+5 - a range of precise and effective words and word groups used in a natural and articulate manner, language choice is well matched to genre
+
+Criteria 6. Cohesion: The control of multiple threads and relationships over the whole text, achieved through the use of referring words, substitutions, word associations and text connectives. 
+Score Range: 0-4 
+Scoring guide: 
+0 - symbols or drawings
+1 - links are missing or incorrect short script often confusing for the reader
+2 - some correct links between sentences (do not penalise for poor punctuation), 
+most referring words are accurate. reader may occasionally need to re-read and provide their own links to clarify meaning
+3 - cohesive devices are used correctly to support reader understanding, accurate use of referring words,
+meaning is clear and text flows well in a sustained piece of writing
+4 - a range of cohesive devices is used correctly and deliberately to enhance reading, an extended, highly cohesive piece of writing showing continuity of ideas and tightly linked sections of text
+
+Criteria 7. Paragraphs: The segmenting of text into paragraphs that assists the reader to negotiate the narrative. 
+Score Range: 0-2 
+Scoring guide: 
+0 - no use of paragraphing
+1 - writing is organised into paragraphs that are mainly focused on a single idea or set of like ideas that assist the reader to digest chunks of text
+contains at least one correct paragraph break
+2 - all paragraphs are focused on one idea or set of like ideas and enhance the narrative
+
+Criteria 8. Sentence structure: The production of grammatically correct, structurally sound and meaningful sentences. 
+Score Range: 0-6 
+Scoring guide: 
+0 -	no evidence of sentences
+1 - some correct formation of sentences, some meaning can be construed
+2 - correct sentences are mainly simple and/or compound sentences, meaning is predominantly clear
+3 - most (approx. 80%) simple and compound sentences correct
+AND some complex sentences are correct meaning is predominantly clear
+4 - most (approx. 80%) simple, compound and complex sentences are correct
+OR all simple, compound and complex sentences are correct but do not demonstrate variety meaning is clear
+5 - sentences are correct (allow for occasional error in more sophisticated structures)
+demonstrates variety meaning is clear and sentences enhance meaning
+6 - all sentences are correct (allow for occasional slip, e.g. a missing word) writing contains controlled and well developed sentences that express precise meaning and are
+consistently effective
+
+Criteria 9. Punctuation: The use of correct and appropriate punctuation to aid reading of the text. 
+Score Range: 0-5 
+Criteria 10. Spelling: The accuracy of spelling and the difficulty of the words used. 
+Score Range: 0-6
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        story: {essay}
+
+        Grade the story based on the provided guidelines keeping in mind the test taker is grade 7 student and score them according to the level expected from a student in that grade while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
+        For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
+        Finally sum up the individual scores to provide an overall score out of 47.
+        """,
+    )
+
+    naplan_narrative_grade9_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc"],
+        template="""You are an story grader for Naplan narrative writing task for grade 9 students. You will follow the below criteria and grade the students on all the provided criteria using the provided guidelines.
+
+        Grade 9 Narrative Writing Grading Criteria
+
+Criteria 1. Audience: The writer’s capacity to orient, engage and affect the reader. 
+Score Range: 0-6
+Scoring guide: 
+0 - symbols or drawings which have the intention of conveying meaning.
+1- response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
+2 - shows basic awareness of audience expectations through attempting to orient the reader • provides some information to support reader understanding. may include simple narrative markers, e.g. – simple title – formulaic story opening: Long, long ago …; Once a boy was walking when … • description of people or places • reader may need to fill gaps in information • text may be short but is easily read.
+3- • orients the reader –an internally consistent story that attempts to support the reader by developing a shared understanding of context • contains sufficient information for the reader to follow the story fairly easily
+4- • supports reader understanding AND • begins to engage the reader
+5- supports and engages the reader through deliberate choice of language and use of narrative devices.
+6- caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
+
+Criteria 2. Text structure: The organisation of narrative features including orientation, complication and resolution into an appropriate and effective text structure. 
+Score Range: 0-4 
+Scoring guide: 
+0- no evidence of any structural components of a times equenced text • symbols or drawings • inappropriate genre, e.g. a recipe, argument • title only
+1- minimal evidence of narrative structure, e.g. a story beginning only or a ‘middle’ with no orientation • a recount of events with no complication • note that not all recounts are factual • may be description
+2- contains a beginning and a complication • where a resolution is present it is weak, contrived or ‘tacked on’ (e.g. I woke up, I died, They lived happily ever after) • a complication presents a problem to be solved, introduces tension, and requires a response. It drives the story forward and leads to a series of events or responses • complications should always be read in context • may also be a complete story where all parts of the story are weak or minimal (the story has a problem to be solved but it does not add to the tension or excitement).
+3 - contains orientation, complication and resolution • detailed longer text may resolve one complication and lead into a new complication or layer a new complication onto an existing one rather than conclude
+4- coherent, controlled and complete narrative, employing effective plot devices in an appropriate structure, and including an effective ending. sophisticated structures or plot devices include: – foreshadowing/flashback – red herring/cliffhanger – coda/twist – evaluation/reflection – circular/parallel plots
+
+Criteria 3. Ideas: The creation, selection and crafting of ideas for a narrative.
+Score Range: 0-5 
+Scoring guide: 
+0 - • no evidence or insufficient evidence • symbols or drawings • title only
+1 - • one idea OR • ideas are very few and very simple OR • ideas appear unrelated to each other OR • ideas appear unrelated to prompt
+2 - • one idea with simple elaboration OR • ideas are few and related but not elaborated OR • many simple ideas are related but not elaborated
+3 - • ideas show some development or elaboration • all ideas relate coherently
+4 - • ideas are substantial and elaborated AND contribute effectively to a central storyline • the story contains a suggestion of an underlying theme
+5 - ideas are generated, selected and crafted to explore a recognisable theme • ideas are skilfully used in the service of the storyline • ideas may include: – psychological subjects – unexpected topics – mature viewpoints – elements of popular culture – satirical perspectives – extended metaphor – traditional sub-genre subjects: heroic quest / whodunnit / good vs evil / overcoming the odds
+
+Criteria 4 .Character and setting: Character: the portrayal and development of character. 
+Setting: the development of a sense of place, time and atmosphere.
+Score Range: 0-4 
+Scoring guide: 
+
+0 - no evidence or insufficient evidence, symbols or drawings, writes in wrong genre, title only
+
+1 - only names characters or gives their roles (e.g. father, the teacher, my friend, dinosaur, we, Jim) AND/OR only names the setting (e.g.school, the place we were at) setting is vague or confused	
+2 - suggestion of characterisation through brief descriptions or speech or feelings, but lacks substance or continuity 
+AND/OR
+suggestion of setting through very brief and superficial descriptions of place and/or time	
+basic dialogue or a few adjectives to describe a character or a place
+
+3 - characterisation emerges through descriptions, actions, speech or the attribution of thoughts and feelings to a character
+AND/OR
+setting emerges through description of place, time and atmosphere	
+
+4 - effective characterisation: details are selected to create distinct characters
+AND/OR
+Maintains a sense of setting throughout. Details are selected to create a sense of place and atmosphere. convincing dialogue, introspection and reactions to other characters
+
+Criteria 5. Vocabulary: The range and precision of language choices. 
+Score Range: 0-5 
+Scoring guide: 
+0 - symbols or drawings
+1 - very short script
+2 - mostly simple verbs, adverbs, adjectives or nouns may include two or three precise words or word groups
+3 - four or more precise words or word groups (may be verbs, adverbs, adjectives or nouns)
+4 - sustained and consistent use of precise words and word groups that enhance the meaning or mood
+may be occasional inappropriate or inaccurate word choice
+5 - a range of precise and effective words and word groups used in a natural and articulate manner, language choice is well matched to genre
+
+Criteria 6. Cohesion: The control of multiple threads and relationships over the whole text, achieved through the use of referring words, substitutions, word associations and text connectives. 
+Score Range: 0-4 
+Scoring guide: 
+0 - symbols or drawings
+1 - links are missing or incorrect short script often confusing for the reader
+2 - some correct links between sentences (do not penalise for poor punctuation), 
+most referring words are accurate. reader may occasionally need to re-read and provide their own links to clarify meaning
+3 - cohesive devices are used correctly to support reader understanding, accurate use of referring words,
+meaning is clear and text flows well in a sustained piece of writing
+4 - a range of cohesive devices is used correctly and deliberately to enhance reading, an extended, highly cohesive piece of writing showing continuity of ideas and tightly linked sections of text
+
+Criteria 7. Paragraphs: The segmenting of text into paragraphs that assists the reader to negotiate the narrative. 
+Score Range: 0-2 
+Scoring guide: 
+0 - no use of paragraphing
+1 - writing is organised into paragraphs that are mainly focused on a single idea or set of like ideas that assist the reader to digest chunks of text
+contains at least one correct paragraph break
+2 - all paragraphs are focused on one idea or set of like ideas and enhance the narrative
+
+Criteria 8. Sentence structure: The production of grammatically correct, structurally sound and meaningful sentences. 
+Score Range: 0-6 
+Scoring guide: 
+0 -	no evidence of sentences
+1 - some correct formation of sentences, some meaning can be construed
+2 - correct sentences are mainly simple and/or compound sentences, meaning is predominantly clear
+3 - most (approx. 80%) simple and compound sentences correct
+AND some complex sentences are correct meaning is predominantly clear
+4 - most (approx. 80%) simple, compound and complex sentences are correct
+OR all simple, compound and complex sentences are correct but do not demonstrate variety meaning is clear
+5 - sentences are correct (allow for occasional error in more sophisticated structures)
+demonstrates variety meaning is clear and sentences enhance meaning
+6 - all sentences are correct (allow for occasional slip, e.g. a missing word) writing contains controlled and well developed sentences that express precise meaning and are
+consistently effective
+
+Criteria 9. Punctuation: The use of correct and appropriate punctuation to aid reading of the text. 
+Score Range: 0-5 
+Criteria 10. Spelling: The accuracy of spelling and the difficulty of the words used. 
+Score Range: 0-6
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        story: {essay}
+
+        Grade the story based on the provided guidelines keeping in mind the test taker is grade 9 student and score them according to the level expected from a student in that grade while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
+        For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
+        Finally sum up the individual scores to provide an overall score out of 47.
+        """,
+    )
 
  # Determine which prompt to use based on the parameters
     if exam_type.strip().lower() == "ielts":
@@ -313,9 +787,15 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
                 prompt = naplan_persuasive_grade7_prompt  # Placeholder, you'll need to define this
             elif grade == "Grade 9":
                 prompt = naplan_persuasive_grade9_prompt  # Placeholder, you'll need to define this
-        # elif essay_type.strip().lower() == "narrative":
-        #     if grade == "Grade 3":
-        #         prompt = naplan_narrative_grade3_prompt  # Placeholder, you'll need to define this
+        elif essay_type.strip().lower() == "narrative":
+            if grade == "Grade 3":
+                prompt = naplan_narrative_grade3_prompt  # Placeholder, you'll need to define this
+            elif grade == "Grade 5":
+                prompt = naplan_narrative_grade5_prompt  # Placeholder, you'll need to define this
+            elif grade == "Grade 7":
+                prompt = naplan_narrative_grade7_prompt  # Placeholder, you'll need to define this
+            elif grade == "Grade 9":
+                prompt = naplan_narrative_grade9_prompt  # Placeholder, you'll need to define this
         #     # ... [Continue for other grades and essay types] ...
 
     chain = LLMChain(llm=llm, prompt=prompt)
