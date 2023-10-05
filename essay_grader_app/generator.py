@@ -24,7 +24,7 @@ def generate_test_data(exam_type, essay_type, grade):
     # This is an LLMChain to create a task for a particular exam
     print(exam_type, essay_type,grade)
 
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    llm = ChatOpenAI(temperature=1, model_name="gpt-3.5-turbo")
 
 
     naplan_narrative_template = """You are a test task creator for {test_type}. I will provide you the test type and your job is to create a prompt for a narrative (story) writing task for a test taker.
