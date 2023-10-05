@@ -163,24 +163,26 @@ well-known to everyone. The person may be young or old, male or female. Write to
         # Check if the exam_type is "naplan" and essay_type is "persuasive"
         if exam_type.lower() == "naplan" and essay_type.lower() == "persuasive":
             additional_text = """
-Start with an introduction.
-An introduction lets a reader know what
-you are going to write about.
-• Write your reasons for your choice.
-Why is it important for others to get
-involved in this activity? Explain your
-reasons.
-• Finish with a conclusion.
-A conclusion sums up your reasons
-so that a reader is convinced of your
-opinion.
-Remember to:
-• plan your writing
-• use paragraphs to organise your ideas
-• write in sentences
-• choose your words carefully to convince a reader of your opinion
-• pay attention to your spelling and punctuation
-• check and edit your writing so it is clear.
+<div class="container mt-4">
+    <h5 class="mt-4 mb-2">Start with an introduction.</h5>
+    <p>An introduction lets a reader know what you are going to write about.</p>
+
+    <h5 class="mt-4 mb-2">Write your reasons for your choice.</h5>
+    <p>Why is it important for others to get involved in this activity? Explain your reasons.</p>
+
+    <h5 class="mt-4 mb-2">Finish with a conclusion.</h5>
+    <p>A conclusion sums up your reasons so that a reader is convinced of your opinion.</p>
+
+    <h5 class="mt-4 mb-2">Remember to:</h5>
+    <ul>
+        <li>plan your writing</li>
+        <li>use paragraphs to organise your ideas</li>
+        <li>write in sentences</li>
+        <li>choose your words carefully to convince a reader of your opinion</li>
+        <li>pay attention to your spelling and punctuation</li>
+        <li>check and edit your writing so it is clear.</li>
+    </ul>
+</div>
 """
             result += additional_text  # Append the additional text to the result
 

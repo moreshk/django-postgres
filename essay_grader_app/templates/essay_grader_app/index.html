@@ -46,7 +46,7 @@
         <!-- Display the Hello World message below the button -->
         {% if message %}
         <div class="alert alert-info mt-3 mb-3">
-            {{ message }}
+            {{ message|safe }}
             <!-- <strong>Title:</strong> {{ title }}<br>
             <strong>Description:</strong> {{ description|linebreaks }} -->
 
