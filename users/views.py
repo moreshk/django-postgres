@@ -66,7 +66,8 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect('myaccount')
+                # return redirect('myaccount')
+                return redirect('essay_grader_app:index')
             else:
                 context['error'] = "Your account is not active. Please verify your email."
         else:
@@ -95,39 +96,6 @@ def activate(request, uidb64, token):
 
 def email_verification_sent(request):
     return render(request, 'users/email_verification_sent.html')
-
-# @login_required
-# def myaccount(request):
-#     if request.method == 'POST':
-#         user_form = UserUpdateForm(request.POST, instance=request.user)
-#         password_form = CustomPasswordChangeForm(request.user, request.POST)
-
-#         if user_form.is_valid():
-#             user_form.save()
-#             messages.success(request, 'Details updated!')
-
-#         # Check if either the old password field or new password field is filled out
-#         if request.POST.get('old_password') or request.POST.get('new_password1'):
-#             if password_form.is_valid():
-#                 password_form.save()
-#                 # Update the session with the new password hash to keep the user logged in
-#                 update_session_auth_hash(request, request.user)
-#                 messages.success(request, 'Password updated!')
-#             else:
-#                 # Add the form errors to the messages to display them to the user
-#                 for field, errors in password_form.errors.items():
-#                     for error in errors:
-#                         messages.error(request, f"{field}: {error}")
-
-#         return redirect('myaccount')
-#     else:
-#         user_form = UserUpdateForm(instance=request.user)
-#         password_form = CustomPasswordChangeForm(request.user)
-
-#     return render(request, 'users/myaccount.html', {
-#         'user_form': user_form,
-#         'password_form': password_form
-#     })
 
 @login_required
 def myaccount(request):
