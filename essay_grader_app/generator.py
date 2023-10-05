@@ -189,18 +189,24 @@ well-known to everyone. The person may be young or old, male or female. Write to
     # Check if the exam_type is "naplan" and essay_type is "narrative"
         if exam_type.lower() == "naplan" and essay_type.lower() == "narrative":
             narrative_text = """
-    Think about:
-    • the characters in your story
-    • when and where your story takes place
-    • the complication or problem and how it is solved
-    • how the story ends.
-    Remember to:
-    • plan your story before you start
-    • choose your words carefully
-    • write in sentences
-    • pay attention to your spelling, punctuation and
-    paragraphs
-    • check and edit your writing.
+    <div class="container mt-4">
+    <h5 class="mt-4 mb-2">Think about:</h5>
+    <ul>
+        <li>the characters in your story</li>
+        <li>when and where your story takes place</li>
+        <li>the complication or problem and how it is solved</li>
+        <li>how the story ends</li>
+    </ul>
+
+    <h5 class="mt-4 mb-2">Remember to:</h5>
+    <ul>
+        <li>plan your story before you start</li>
+        <li>choose your words carefully</li>
+        <li>write in sentences</li>
+        <li>pay attention to your spelling, punctuation, and paragraphs</li>
+        <li>check and edit your writing</li>
+    </ul>
+</div>
     """
             result += narrative_text  # Append the narrative text to the result
 
