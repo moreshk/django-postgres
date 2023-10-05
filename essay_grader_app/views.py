@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .generator import generate_test_data
-from .grader import grade_essay  # Update this importfrom .grader import grade_essay  # Update this import
+from .grader import grade_essay
 
 @login_required
 def index(request):
@@ -35,6 +35,13 @@ def index(request):
 
             request.session['task_title'] = title.split(":")[1].strip()
             request.session['task_description'] = description.split(":")[1].strip()
+            # Format the title and description with HTML tags
+            description_content = ":".join(description.split(":")[1:]).strip()  # Capture all content after the first colon
+            formatted_title = f'<h5 class="mt-4 mb-2">{title}</h5>'
+            formatted_description = f'<p>{description_content}</p>'
+
+            # Combine them to create the final formatted message
+            message = formatted_title + formatted_description
         elif "text_input" in request.POST:
             user_response = request.POST.get('text_input')
             title = request.session.get('task_title', 'Default Title')

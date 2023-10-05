@@ -135,7 +135,7 @@ well-known to everyone. The person may be young or old, male or female. Write to
 
     You will select one of the tasks randomly and output it along with its description in a json format that has the following fields:
 
-    "title": "picked randomly from the ten tasks",
+    "title": "picked randomly from the five tasks",
     "description": "description for the randomly picked title"
     """
 

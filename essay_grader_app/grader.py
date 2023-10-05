@@ -88,7 +88,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 
         Essay: {essay}
 
-        First make sure that the essay is following the requirements of the Task Title and Task Description and then grade the essay based on the provided guidelines keeping in mind the test taker is grade 3 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
+        First make sure that the essay is following the expectations as per the Task Title and Task Description, if it does not then mention so and do not grade any further. If it does then grade the essay based on the provided guidelines keeping in mind the test taker is grade 3 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
         Finally sum up the individual scores to provide an overall score out of 48.
         """,
@@ -156,7 +156,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 
         Essay: {essay}
 
-        First make sure that the essay is following the requirements of the Task Title and Task Description and then grade the essay based on the provided guidelines keeping in mind the test taker is grade 5 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
+        First make sure that the essay is following the expectations as per the Task Title and Task Description, if it does not then mention so and do not grade any further. If it does then grade the essay based on the provided guidelines keeping in mind the test taker is grade 5 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
         Finally sum up the individual scores to provide an overall score out of 48.
         """,
@@ -224,7 +224,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 
         Essay: {essay}
 
-        First make sure that the essay is following the requirements of the Task Title and Task Description and then grade the essay based on the provided guidelines keeping in mind the test taker is grade 7 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
+        First make sure that the essay is following the expectations as per the Task Title and Task Description, if it does not then mention so and do not grade any further. If it does then grade the essay based on the provided guidelines keeping in mind the test taker is grade 7 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
         Finally sum up the individual scores to provide an overall score out of 48.
         """,
@@ -263,7 +263,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 5 Points: The student's vocabulary is rich, sophisticated, and purposefully chosen, significantly elevating the persuasive quality of the writing with nuance.
 6. Cohesion (Scored out of 4)
 
-1 Point: The student's writing shows connections between ideas, but these might occasionally lack sophistication.
+1 Point: The student's writing shows connections between ideas, but these might occasion of the Task Titleally lack sophistication.
 2-3 Points: Effective use of advanced cohesive devices to link ideas, demonstrating a deeper understanding of textual flow.
 4 Points: The student expertly controls multiple threads and relationships across the text, ensuring a cohesive, unified, and flowing argument with advanced techniques.
 7. Paragraphing (Scored out of 2)
@@ -292,7 +292,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 
         Essay: {essay}
 
-        First make sure that the essay is following the requirements of the Task Title and Task Description and then grade the essay based on the provided guidelines keeping in mind the test taker is grade 9 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
+        First make sure that the essay is following the expectations as per the Task Title and Task Description, if it does not then mention so and do not grade any further. If it does then grade the essay based on the provided guidelines keeping in mind the test taker is grade 9 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
         Finally sum up the individual scores to provide an overall score out of 48.
         """,
@@ -806,5 +806,6 @@ Score Range: 0-6
         "task_desc": description
     }
 
+    print(essay_type, title, description, prompt)
     feedback_from_api = chain.run(inputs)
     return feedback_from_api
