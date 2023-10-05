@@ -108,7 +108,7 @@ well-known to everyone. The person may be young or old, male or female. Write to
 
     You will use the above examples only as a guideline for framing the task and create a new task and description randomly on a different topic. No need to use the word Sample in the task description. 
 
-    Create 5 such tasks and descriptions based on the above guidelines. In your output mention these 5 tasks and format the output as Title:  and Description: .
+    Create 5 such tasks and descriptions based on the above guidelines. Make sure these tasks are appropriate for a wide range of student age starting grade 3 to grade 9. In your output mention these 5 tasks and format the output as Title:  and Description: .
     """
 
 
