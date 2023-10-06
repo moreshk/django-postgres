@@ -1,5 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
+<!-- Embed the CSS here -->
+<style>
+    /* Styles for the container holding the button and spinner */
+    .button-spinner-container {
+        position: relative;
+        display: inline-block;
+        /* Makes the container size fit its content */
+    }
+
+    .custom-spinner {
+        width: 24px;
+        height: 24px;
+        border: 4px solid transparent;
+        border-top-color: currentColor;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+
+        /* Positioning styles */
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        /* Places it to the right of the button */
+        margin-left: 10px;
+        /* Small space between the button and spinner */
+        transform: translateY(-50%);
+        /* This centers the spinner vertically relative to the button */
+    }
+
+    @keyframes spin {
+        0% {
+            transform: translateY(-50%) rotate(0deg);
+        }
+
+        100% {
+            transform: translateY(-50%) rotate(360deg);
+        }
+    }
+</style>
 <div class="container">
     <h2>Grade Your Essay</h2>
 
@@ -40,8 +78,13 @@
             </div>
         </div>
 
-        <!-- Keep the Generate Test button at the top -->
-        <button type="submit" name="generate_test" class="btn btn-secondary mb-3">Generate Test</button>
+        <div class="button-spinner-container">
+            <button type="submit" name="generate_test" class="btn btn-secondary mb-3">Generate Test</button>
+
+            <div class="custom-spinner" id="loadingSpinner" style="display: none;"></div>
+
+        </div>
+
 
         <!-- Display the Hello World message below the button -->
         {% if message %}
@@ -55,11 +98,15 @@
 
 
         <div class="form-group">
-            <label for="text_input">Your Text:</label>
+            <label for="text_input">Your Response:</label>
             <textarea id="text_input" name="text_input" class="form-control"
                 rows="10">{{ request.POST.text_input }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="button-spinner-container">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="custom-spinner" id="submitSpinner" style="display: none;"></div>
+        </div>
+
     </form>
 
     <!-- Feedback section -->
@@ -89,6 +136,21 @@
         var examTypeValue = document.getElementById("examType").value;
         // Call the showDropdowns function with the current value
         showDropdowns(examTypeValue);
+        // Grab your form element
+        var form = document.querySelector("form");
+
+        form.addEventListener("submit", function () {
+            // When form is submitted, display the spinner
+            document.getElementById("loadingSpinner").style.display = "block";
+        });
+
+        // Grab the submit button
+        var submitBtn = document.querySelector(".btn.btn-primary");
+
+        submitBtn.addEventListener("click", function () {
+            // When the submit button is clicked, display its spinner
+            document.getElementById("submitSpinner").style.display = "block";
+        });
     });
 
 

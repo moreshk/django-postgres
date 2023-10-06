@@ -22,7 +22,7 @@ def generate_test_data(exam_type, essay_type, grade):
 
 
     # This is an LLMChain to create a task for a particular exam
-    print(exam_type, essay_type,grade)
+    # print(exam_type, essay_type,grade)
 
     llm = ChatOpenAI(temperature=1, model_name="gpt-3.5-turbo")
 
