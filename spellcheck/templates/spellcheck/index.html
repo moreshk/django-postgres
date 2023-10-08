@@ -5,8 +5,10 @@
     /* Styles for the container holding the button and spinner */
     .button-spinner-container {
         position: relative;
-        display: inline-flex; /* Changed from inline-block to inline-flex for side by side positioning */
-        align-items: center; /* Vertical centering */
+        display: inline-flex;
+        /* Changed from inline-block to inline-flex for side by side positioning */
+        align-items: center;
+        /* Vertical centering */
     }
 
     .custom-spinner {
@@ -18,7 +20,8 @@
         animation: spin 1s linear infinite;
 
         /* Positioning styles */
-        margin-left: 10px; /* Small space between the input and spinner */
+        margin-left: 10px;
+        /* Small space between the input and spinner */
     }
 
     @keyframes spin {
@@ -34,15 +37,27 @@
 <div class="container">
     <h2>Spellcheck Your Text</h2>
 
+    <!-- Conditionally display either the Start button or the generated message -->
+    {% if not response_message %}
+    <form method="post" class="mb-3">
+        {% csrf_token %}
+        <button type="submit" name="start_test" class="btn btn-primary">Start</button>
+    </form>
+    {% else %}
+    <div class="alert alert-info mb-3">
+        {{ response_message }}
+    </div>
+    {% endif %}
+
     <form method="post" class="d-flex align-items-center">
         {% csrf_token %}
         <div class="form-group mr-2 flex-grow-1 mb-0"> <!-- added flex-grow-1 to allow input to expand -->
-            <input type="text" id="text_input" name="text_input" class="form-control" 
-                placeholder="Enter your text:" value="{{ request.POST.text_input }}">
+            <input type="text" id="text_input" name="text_input" class="form-control" placeholder="Enter your text:"
+                value="{{ request.POST.text_input }}">
         </div>
 
         <div class="button-spinner-container">
-            <button type="submit" class="btn btn-primary">Check Spelling</button>
+            <button type="submit" name="check_spelling" class="btn btn-primary">Check Spelling</button>
             <div class="custom-spinner" id="submitSpinner" style="display: none;"></div>
         </div>
     </form>
