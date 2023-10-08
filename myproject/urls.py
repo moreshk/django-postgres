@@ -39,6 +39,7 @@ urlpatterns = [
     path('billing/', payment_views.billing, name='billing'),
     path('stripe_webhook/', payment_views.stripe_webhook, name='stripe_webhook'),
     path('essay_grader_app/', include('essay_grader_app.urls')),
+    path('spellcheck/', include('spellcheck.urls')),
 ]
 
 
