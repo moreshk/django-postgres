@@ -4,6 +4,7 @@ import os
 import requests
 import uuid
 from dotenv import load_dotenv
+from pathlib import Path
 # Load environment variables from .env file
 load_dotenv()
 
@@ -44,7 +45,7 @@ def generate_reply(conversation: list) -> str:
     conversation = limit_conversation_history(conversation)
     
     # print("Limited conversation length:", len(conversation))
-    # print("New Conversation", conversation)
+    print("New Conversation", conversation)
 
    
     # Get the corresponding character prompt
@@ -179,3 +180,60 @@ Refuse to answer any questions or comments that are not relevant to this task.""
         temperature=1
     )
     return response["choices"][0]["message"]["content"]
+
+def purge_audio_directory(directory_path):
+    """Delete all files in a directory.
+    :param directory_path: Path to the directory to purge.
+    :type directory_path: str
+    """
+    for filename in os.listdir(directory_path):
+        file_path = os.path.join(directory_path, filename)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+        except Exception as e:
+            print(f"Failed to delete {file_path}. Reason: {e}")
+
+
+def generate_audio(text: str) -> str:
+    """Converts text to audio using ElevenLabs API and returns the relative path of the saved audio file.
+
+    :param text: The text to convert to audio.
+    :type text : str
+    :returns: The relative path to the successfully saved audio file.
+    :rtype: str
+    """
+    
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    AUDIO_DIR = os.path.join(BASE_DIR, "static", "audio")
+
+    # Purge the audio directory
+    purge_audio_directory(AUDIO_DIR)
+    
+    voice_id = "21m00Tcm4TlvDq8ikWAM"
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+
+    headers = {
+        "xi-api-key": ELEVENLABS_API_KEY,
+        "content-type": "application/json"
+    }
+
+    data = {
+        "text": text,
+        "voice_settings": {
+            "stability": ELEVENLABS_VOICE_STABILITY,
+            "similarity_boost": ELEVENLABS_VOICE_SIMILARITY,
+        }
+    }
+
+    response = requests.post(url, json=data, headers=headers)
+    
+    # Generate the relative and absolute paths
+    output_path_relative = os.path.join("audio", f"{uuid.uuid4()}.mp3")
+    output_path_absolute = os.path.join(BASE_DIR, "static", output_path_relative)
+    
+    # Save the audio file
+    with open(output_path_absolute, "wb") as output:
+        output.write(response.content)
+    
+    return output_path_relative

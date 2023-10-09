@@ -20,6 +20,9 @@ from django.contrib.auth import views as auth_views
 from users import views
 from django.views.generic.base import RedirectView
 from payments import views as payment_views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 
 urlpatterns = [
@@ -41,6 +44,9 @@ urlpatterns = [
     path('essay_grader_app/', include('essay_grader_app.urls')),
     path('spellcheck/', include('spellcheck.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 

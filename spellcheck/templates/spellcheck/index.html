@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
+
 <!-- Embed the CSS here -->
 <style>
     /* Styles for the container holding the button and spinner */
@@ -35,7 +37,12 @@
     }
 </style>
 <div class="container">
-    <h2>Spellcheck Your Text</h2>
+    <h3>Listen to the sentence and spell the word that is requested. Ensure your audio volume is turned on.</h3>
+    {% if audio_path %}
+    <audio id="responseAudio" src="{% static audio_path %}" autoplay></audio>
+    {% endif %}
+
+
 
     <!-- Conditionally display either the Start button or the generated message -->
     {% if not response_message %}
@@ -44,9 +51,9 @@
         <button type="submit" name="start_test" class="btn btn-primary">Start</button>
     </form>
     {% else %}
-    <div class="alert alert-info mb-3">
+    <!-- <div class="alert alert-info mb-3">
         {{ response_message }}
-    </div>
+    </div> -->
     {% endif %}
 
     <form method="post" class="d-flex align-items-center">
