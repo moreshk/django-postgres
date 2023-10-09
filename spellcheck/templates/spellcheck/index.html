@@ -35,6 +35,23 @@
             transform: rotate(360deg);
         }
     }
+
+    /* Add this to your styles */
+    .flex-container {
+    display: flex;
+    align-items: center; /* This will vertically center align items */
+    width: 100%; /* Full width */
+}
+
+.input-group {
+    flex-grow: 1; /* This makes the input-group take up available space */
+}
+/* Match the button height to form-control height */
+.btn-match-input {
+    height: calc(1.5em + .75rem + 2px); /* This is the default height of a Bootstrap form-control */
+}
+
+
 </style>
 <div class="container">
     <h3>Listen to the sentence and spell the word that is requested. Ensure your audio volume is turned on.</h3>
@@ -58,16 +75,27 @@
 
     <form method="post" class="d-flex align-items-center">
         {% csrf_token %}
-        <div class="form-group mr-2 flex-grow-1 mb-0"> <!-- added flex-grow-1 to allow input to expand -->
-            <input type="text" id="text_input" name="text_input" class="form-control" placeholder="Enter your text:"
-                value="{{ request.POST.text_input }}">
+
+
+        <div class="flex-container">
+            <div class="input-group">
+                <!-- Replay Button -->
+            <div class="input-group-prepend">
+                <button type="button" id="replayAudio" class="btn btn-light">
+                    <i class="fa fa-repeat"></i>
+                </button>
+            </div>
+            <input type="text" id="text_input" name="text_input" class="form-control" placeholder="Enter your text:" value="{{ request.POST.text_input }}">
+       
+            </div>
+            <div class="button-spinner-container ml-3"> <!-- Added ml-3 for a small left margin -->
+                <button type="submit" name="check_spelling" class="btn btn-primary btn-match-input">Check</button>
+
+                <div class="custom-spinner" id="submitSpinner" style="display: none;"></div>
+            </div>
         </div>
 
-        <div class="button-spinner-container">
-            <button type="submit" name="check_spelling" class="btn btn-primary">Check Spelling</button>
-            <div class="custom-spinner" id="submitSpinner" style="display: none;"></div>
-        </div>
-    </form>
+        </form>
 
     <div class="mt-4">
         <a href="{% url 'logout' %}">Logout</a>
@@ -85,6 +113,13 @@
             document.getElementById("submitSpinner").style.display = "block";
         });
     });
+    document.getElementById("replayAudio").addEventListener("click", function() {
+    const audioElement = document.getElementById("responseAudio");
+    if(audioElement) {
+        audioElement.play();
+    }
+});
+
 </script>
 
 {% endblock %}

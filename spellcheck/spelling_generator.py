@@ -210,7 +210,7 @@ def generate_audio(text: str) -> str:
     # Purge the audio directory
     purge_audio_directory(AUDIO_DIR)
     
-    voice_id = "21m00Tcm4TlvDq8ikWAM"
+    voice_id = "abq9iiWwkvIy7ij5Bjod"
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
 
     headers = {
