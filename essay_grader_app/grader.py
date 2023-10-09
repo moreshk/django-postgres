@@ -28,7 +28,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 
     naplan_persuasive_grade3_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc"],
-        template="""You are an essay grader for Naplan persuasive writing task for grade 3 students. You will follow the below criteria and grade the students on all the provided criteria using the provided guidelines.
+        template="""You are an essay grader for Naplan persuasive writing task for grade 3 students. You will follow the below criteria and grade the students on all the provided criteria using the provided guidelines. If the essay was empty or not in line with the Task Title and Description mention that and do not provide a grade.
 
         Grade 3 Persuasive Writing Grading Criteria
 
@@ -90,7 +90,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 
         First make sure that the essay is following the expectations as per the Task Title and Task Description, if it does not then mention so and do not grade any further. If it does then grade the essay based on the provided guidelines keeping in mind the test taker is grade 3 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
-        Finally sum up the individual scores to provide an overall score out of 48.
+        Finally sum up the individual scores to provide an overall score out of 48. If the essay was empty or not in line with the Task Title and Description mention that and do not provide a grade.
         """,
     )
 
@@ -158,7 +158,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 
         First make sure that the essay is following the expectations as per the Task Title and Task Description, if it does not then mention so and do not grade any further. If it does then grade the essay based on the provided guidelines keeping in mind the test taker is grade 5 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
-        Finally sum up the individual scores to provide an overall score out of 48.
+        Finally sum up the individual scores to provide an overall score out of 48. If the essay was empty or not in line with the Task Title and Description mention that and do not provide a grade.
         """,
     )
 
@@ -226,7 +226,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 
         First make sure that the essay is following the expectations as per the Task Title and Task Description, if it does not then mention so and do not grade any further. If it does then grade the essay based on the provided guidelines keeping in mind the test taker is grade 7 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
-        Finally sum up the individual scores to provide an overall score out of 48.
+        Finally sum up the individual scores to provide an overall score out of 48. If the essay was empty or not in line with the Task Title and Description mention that and do not provide a grade.
         """,
     )
 
@@ -294,7 +294,7 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 
         Make sure that the essay is following the expectations as per the Task Title and Task Description, if it does not then mention so and do not grade any further. If it does then grade the essay based on the provided guidelines keeping in mind the test taker is grade 9 student while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
-        Finally sum up the individual scores to provide an overall score out of 48.
+        Finally sum up the individual scores to provide an overall score out of 48. If the essay was empty or not in line with the Task Title and Description mention that and do not provide a grade.
         """,
     )
 
@@ -413,7 +413,7 @@ Score Range: 0-6
 
         Grade the story based on the provided guidelines keeping in mind the test taker is grade 3 student and score them according to the level expected from a student in that grade while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
-        Finally sum up the individual scores to provide an overall score out of 47. Always first check if the story is in line with the Task Title and Task Description, if it is not then mention so and penalize while grading.
+        Finally sum up the individual scores to provide an overall score out of 47. Always first check if the story is in line with the Task Title and Task Description, if it is not then mention so and penalize while grading. If the story was empty or not in line with the Task Title and Description mention that and do not provide a grade.
         """,
     )
 
@@ -532,7 +532,7 @@ Score Range: 0-6
 
         Grade the story based on the provided guidelines keeping in mind the test taker is grade 5 student and score them according to the level expected from a student in that grade while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
-        Finally sum up the individual scores to provide an overall score out of 47. Always first check if the story is in line with the Task Title and Task Description, if it is not then mention so and penalize while grading.
+        Finally sum up the individual scores to provide an overall score out of 47. Always first check if the story is in line with the Task Title and Task Description, if it is not then mention so and penalize while grading. If the story was empty or not in line with the Task Title and Description mention that and do not provide a grade.
         """,
     )
 
@@ -651,7 +651,7 @@ Score Range: 0-6
 
         Grade the story based on the provided guidelines keeping in mind the test taker is grade 7 student and score them according to the level expected from a student in that grade while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
-        Finally sum up the individual scores to provide an overall score out of 47. Always first check if the story is in line with the Task Title and Task Description, if it is not then mention so and penalize while grading.
+        Finally sum up the individual scores to provide an overall score out of 47. Always first check if the story is in line with the Task Title and Task Description, if it is not then mention so and penalize while grading. If the story was empty or not in line with the Task Title and Description mention that and do not provide a grade.
         """,
     )
 
@@ -770,7 +770,7 @@ Score Range: 0-6
 
         Grade the story based on the provided guidelines keeping in mind the test taker is grade 9 student and score them according to the level expected from a student in that grade while providing a 2-3 lines justifying the specic score you provided for each of the criteria. Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria. 
         For each criteria mention what is good in the input essay, and how if it all it cab be improved to meet the guidelines better. 
-        Finally sum up the individual scores to provide an overall score out of 47. Always first check if the story is in line with the Task Title and Task Description, if it is not then mention so and penalize while grading.
+        Finally sum up the individual scores to provide an overall score out of 47. Always first check if the story is in line with the Task Title and Task Description, if it is not then mention so and penalize while grading. If the story was empty or not in line with the Task Title and Description mention that and do not provide a grade.
         """,
     )
 
