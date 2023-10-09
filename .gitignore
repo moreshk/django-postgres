@@ -163,7 +163,3 @@ dj-post/
 render.txt
 temp.txt
 # Ignore all files in static/audio
-static/audio/*
-
-# But not the directory itself
-!static/audio/.gitkeep
