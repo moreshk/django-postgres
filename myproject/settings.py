@@ -163,6 +163,6 @@ STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
 
 WHITENOISE_MAX_AGE = 31536000  # 1 year
 
-SESSION_COOKIE_AGE = 3600  # Two weeks, in seconds.
+SESSION_COOKIE_AGE = 1209600  # Two weeks, in seconds.
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
