@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<!-- Embed the CSS here -->
+<style>
+    /* Styles for the container holding the button and spinner */
+    .button-spinner-container {
+        position: relative;
+        display: inline-flex;
+        /* Changed from inline-block to inline-flex for side by side positioning */
+        align-items: center;
+        /* Vertical centering */
+    }
+
+    .custom-spinner {
+        width: 24px;
+        height: 24px;
+        border: 4px solid transparent;
+        border-top-color: currentColor;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+
+        /* Positioning styles */
+        margin-left: 10px;
+        /* Small space between the input and spinner */
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Add this to your styles */
+    .flex-container {
+    display: flex;
+    align-items: center; /* This will vertically center align items */
+    width: 100%; /* Full width */
+}
+
+.input-group {
+    flex-grow: 1; /* This makes the input-group take up available space */
+}
+/* Match the button height to form-control height */
+.btn-match-input {
+    height: calc(1.5em + .75rem + 2px); /* This is the default height of a Bootstrap form-control */
+}
+
+
+</style>
+<div class="container">
+    <h3>Find the incorrectly spelled word and correct it. </h3>
+    <!-- {% if audio_path %}
+    <audio id="responseAudio" src="{% static audio_path %}" autoplay></audio>
+    {% endif %} -->
+
+
+
+    <!-- Conditionally display either the Start button or the generated message -->
+    {% if not response_message %}
+    <form method="post" class="mb-3">
+        {% csrf_token %}
+        <button type="submit" name="start_test" class="btn btn-primary">Start</button>
+    </form>
+    {% else %}
+    <div class="alert alert-info mb-3">
+        {{ response_message }}
+    </div>
+    {% endif %}
+
+    <form method="post" class="d-flex align-items-center">
+        {% csrf_token %}
+
+
+        <div class="flex-container">
+            <div class="input-group">
+                <!-- Replay Button -->
+            <!-- <div class="input-group-prepend">
+                <button type="button" id="replayAudio" class="btn btn-light">
+                    <i class="fa fa-repeat"></i>
+                </button>
+            </div> -->
+            <input type="text" id="text_input" name="text_input" class="form-control" placeholder="Enter the correct spelling:" value="{{ request.POST.text_input }}">
+       
+            </div>
+            <div class="button-spinner-container ml-3"> <!-- Added ml-3 for a small left margin -->
+                <button type="submit" name="check_spelling" class="btn btn-primary btn-match-input">Check</button>
+
+                <div class="custom-spinner" id="submitSpinner" style="display: none;"></div>
+            </div>
+        </div>
+
+        </form>
+
+    <div class="mt-4">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+
+<script>
+    // For the spinner functionality during form submission
+    document.addEventListener("DOMContentLoaded", function () {
+        // Grab the form element
+        var form = document.querySelector("form");
+
+        form.addEventListener("submit", function () {
+            // When form is submitted, display the spinner
+            document.getElementById("submitSpinner").style.display = "block";
+        });
+    });
+    // document.getElementById("replayAudio").addEventListener("click", function() {
+    // const audioElement = document.getElementById("responseAudio");
+    // if(audioElement) {
+    //     audioElement.play();
+    // }
+// });
+
+</script>
+
+{% endblock %}

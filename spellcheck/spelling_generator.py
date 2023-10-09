@@ -237,3 +237,165 @@ def generate_audio(text: str) -> str:
         output.write(response.content)
     
     return output_path_relative
+
+
+def generate_incorrect_spelling(conversation: list) -> str:
+    """Generate a ChatGPT response.
+    :param conversation: A list of previous user and assistant messages.
+    :returns: The ChatGPT response.
+    :rtype: str
+    """
+    # print("Original conversation length:", len(conversation))
+    # print("Original Conversation", conversation)
+    # Limit conversation history
+    conversation = limit_conversation_history(conversation)
+    
+    # print("Limited conversation length:", len(conversation))
+    print("New Conversation", conversation)
+
+   
+    # Get the corresponding character prompt
+    prompt = """You are a spelling tester bot. Your job is to test a student on their ability to spell a word correctly. 
+    You will start with easy words and steadily make them more complex. Here is a sample for you to pick the words for the test. 
+    Level 1 (Simple, everyday words):
+Cat
+Dog
+Hat
+Sun
+Run
+Cup
+Bed
+Sit
+Pen
+Top
+Level 2 (Common two-syllable words):
+Apple
+Chair
+Happy
+River
+Lemon
+Basket
+Window
+Garden
+Yellow
+Pencil
+Level 3 (Common words with common blends and digraphs):
+Street
+Cloud
+Branch
+Throat
+Grass
+Flight
+Whisper
+Chrome
+Blanket
+Flower
+Level 4 (Three-syllable words and common prefixes/suffixes):
+Chocolate
+Exciting
+Elephant
+Universe
+Dangerous
+Butterfly
+Remember
+Beginning
+Universe
+Exciting
+Level 5 (Common compound words and more syllables):
+Basketball
+Toothbrush
+Raincoat
+Sunflower
+Pineapple
+Butterflies
+Earthquake
+Playground
+Footprint
+Sandcastle
+Level 6 (Words with silent letters and less common blends):
+Knowledge
+Wrinkle
+Thumb
+Gnome
+Castle
+Knight
+Wrist
+Lamb
+Muscle
+Honest
+Level 7 (Challenging multisyllabic words):
+Vocabulary
+Mysterious
+Competition
+Spectacular
+Fundamental
+Literature
+Navigation
+Celebrate
+Preparation
+Captivate
+Level 8 (Words with irregular spellings):
+Colonel
+Rhythm
+Gauge
+Plague
+Cough
+Trough
+Thought
+Drought
+Sovereign
+Scissors
+Level 9 (Words from foreign languages, often used in English):
+Ballet
+Rendezvous
+Faux pas
+Entrepreneur
+Bouquet
+Genre
+Croissant
+Doppelganger
+Hors d'oeuvre
+Déjà vu Level 10 (Advanced vocabulary, often from technical, literary, or cultural contexts):
+Idiosyncrasy
+Disproportionate
+Perspicacious
+Saccharine
+Eviscerate
+Cacophony
+Exsanguinate
+Vicissitude
+Sesquipedalian
+Ineffable. 
+Level 1 being the easiest and Level 10 is the hardest. 
+You will start with words from level 1 and create sentences that use the word but has it spelled incorrectly. You will then ask the user to identify the incorrectly spelled word and enter its correct spelling. 
+For eg: An Appel fell on his head. Find the incorrectly spelled word and enter its correct spelling. The user will then type in the spelling for the relevant word. 
+If the spelling is correct, in the next message use a word from the higher level. 
+Note that the list of words is only for guidance and you can either pick the words from the list for that level or pick another word that would fit at that level. 
+Continue this till the user gets the spelling wrong. At that point mention the last level which the user got right. 
+Refuse to answer any questions or comments that are not relevant to this task."""
+
+    response = openai.ChatCompletion.create(
+      model="gpt-3.5-turbo",
+      messages=[
+                {
+                    "role": "system", 
+                    "content": prompt 
+                }
+
+        ] + conversation,
+        temperature=1
+    )
+    return response["choices"][0]["message"]["content"]
+
+def purge_audio_directory(directory_path):
+    """Delete all files in a directory.
+    :param directory_path: Path to the directory to purge.
+    :type directory_path: str
+    """
+    for filename in os.listdir(directory_path):
+        file_path = os.path.join(directory_path, filename)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+        except Exception as e:
+            print(f"Failed to delete {file_path}. Reason: {e}")
