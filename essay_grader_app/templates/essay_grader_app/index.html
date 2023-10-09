@@ -124,6 +124,18 @@
 </div>
 
 <script>
+    function validateEssayInput() {
+        var essayInput = document.getElementById("text_input").value;
+        var wordCount = essayInput.split(/\s+/).filter(Boolean).length; // count the words
+
+        if (wordCount < 50) {
+            alert("Your essay must be at least 50 words long.");
+            return false;
+        }
+
+        return true;
+    }
+
     function showDropdowns(value) {
         if (value === "NAPLAN") {
             document.getElementById("naplanDropdowns").style.display = "block";
@@ -145,14 +157,29 @@
         });
 
         // Grab the submit button
+        // var submitBtn = document.querySelector(".btn.btn-primary");
+
+        // submitBtn.addEventListener("click", function () {
+        //     // When the submit button is clicked, display its spinner
+        //     document.getElementById("submitSpinner").style.display = "block";
+        // });
+
+        // Grab the submit button
         var submitBtn = document.querySelector(".btn.btn-primary");
 
-        submitBtn.addEventListener("click", function () {
-            // When the submit button is clicked, display its spinner
-            document.getElementById("submitSpinner").style.display = "block";
+        submitBtn.addEventListener("click", function (event) {
+            if (!validateEssayInput()) {
+                // Prevent the form from submitting
+                event.preventDefault();
+                // Hide the spinner since the form won't be submitted
+                document.getElementById("submitSpinner").style.display = "none";
+            } else {
+                // When the submit button is clicked, display its spinner
+                document.getElementById("submitSpinner").style.display = "block";
+            }
         });
-    });
 
+    });
 
 </script>
 
