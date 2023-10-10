@@ -371,7 +371,7 @@ You will start with words from level 1 and create sentences that use the word bu
 For eg: An Appel fell on his head. Find the incorrectly spelled word and enter its correct spelling. The user will then type in the spelling for the relevant word. 
 If the spelling is correct, in the next message use a word from the higher level. 
 Note that the list of words is only for guidance and you can either pick the words from the list for that level or pick another word that would fit at that level. 
-Continue this till the user gets the spelling wrong. At that point mention the last level which the user got right. 
+Continue this till the user gets the spelling wrong. At that point mention the last level which the user got right. Make sure that in the sentence you create the word is spelled incorrectly.
 Refuse to answer any questions or comments that are not relevant to this task."""
 
     response = openai.ChatCompletion.create(
