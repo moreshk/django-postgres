@@ -152,7 +152,8 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') == 'True'
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
-LOGIN_REDIRECT_URL = 'myaccount'
+# LOGIN_REDIRECT_URL = 'myaccount'
+LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 AUTH_USER_MODEL = 'users.CustomUser'
 

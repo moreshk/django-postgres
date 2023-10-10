@@ -67,7 +67,8 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 # return redirect('myaccount')
-                return redirect('essay_grader_app:index')
+                # return redirect('essay_grader_app:index')
+                return redirect('home')
             else:
                 context['error'] = "Your account is not active. Please verify your email."
         else:
@@ -125,3 +126,7 @@ def myaccount(request):
         'user_form': user_form,
         'password_form': password_form
     })
+
+@login_required
+def home(request):
+    return render(request, 'users/home.html')
