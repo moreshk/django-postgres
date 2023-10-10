@@ -1,51 +1,61 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1 class="mb-4">Welcome to the Home Page!</h1>
-        
-        <div class="row">
-            <!-- Essay Grader Tile -->
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <a href="{% url 'essay_grader_app:index' %}">Essay Grader</a>
-                    </div>
-                </div>
-            </div>
+<div class="container mt-5">
+    <h1 class="mb-4">Welcome to the Home Page!</h1>
 
-            <!-- Spell Check Index Tile -->
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <a href="{% url 'spellcheck:index' %}">Spell Check</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Incorrect Spelling Tile -->
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <a href="{% url 'spellcheck:incorrect_spelling' %}">Incorrect Spelling</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Payments Tile -->
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <a href="{% url 'payments:billing' %}">Payments</a>
-                    </div>
+    <div class="row">
+        <!-- Essay Grader Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'essay_grader_app:index' %}">Essay Grader</a>
                 </div>
             </div>
         </div>
 
-                <!-- Logout Link -->
-                <div class="mt-5 text-center">
-                    <a href="{% url 'logout' %}">Logout</a>
+        <!-- Spell Check Index Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'spellcheck:index' %}">Spell Check</a>
                 </div>
-                
+            </div>
+        </div>
+
+        <!-- Incorrect Spelling Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'spellcheck:incorrect_spelling' %}">Incorrect Spelling</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payments Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'payments:billing' %}">Payments</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Account Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'myaccount' %}">My Account</a>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <!-- Logout Link -->
+    <div class="mt-5 text-center">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+</div>
 {% endblock %}
