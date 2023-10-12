@@ -4,6 +4,8 @@
 
 {% block content %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
 
 <div class="container mt-5">
     <h1>NAPLAN Essay Grader</h1>
@@ -31,18 +33,67 @@
             </div>
             <div class="form-group">
                 <label for="descriptionInput">Description:</label>
-                <textarea class="form-control" id="descriptionInput" rows="5" placeholder="Enter description"></textarea>
+                <textarea class="form-control" id="descriptionInput" rows="5"
+                    placeholder="Enter description"></textarea>
             </div>
+
+            <div id="persuasiveGuidelines" class="container mt-4" style="display:none;">
+                <h5 class="mt-4 mb-2">Start with an introduction.</h5>
+                <p>An introduction lets a reader know what you are going to write about.</p>
+
+                <h5 class="mt-4 mb-2">Write your reasons for your choice.</h5>
+                <p>Why is it important for others to get involved in this activity? Explain your reasons.</p>
+
+                <h5 class="mt-4 mb-2">Finish with a conclusion.</h5>
+                <p>A conclusion sums up your reasons so that a reader is convinced of your opinion.</p>
+
+                <h5 class="mt-4 mb-2">Remember to:</h5>
+                <ul>
+                    <li>plan your writing</li>
+                    <li>use paragraphs to organise your ideas</li>
+                    <li>write in sentences</li>
+                    <li>choose your words carefully to convince a reader of your opinion</li>
+                    <li>pay attention to your spelling and punctuation</li>
+                    <li>check and edit your writing so it is clear.</li>
+                </ul>
+            </div>
+            <div id="narrativeGuidelines" class="container mt-4">
+                <h5 class="mt-4 mb-2">Think about:</h5>
+                <ul>
+                    <li>the characters in your story</li>
+                    <li>when and where your story takes place</li>
+                    <li>the complication or problem and how it is solved</li>
+                    <li>how the story ends</li>
+                </ul>
+
+                <h5 class="mt-4 mb-2">Remember to:</h5>
+                <ul>
+                    <li>plan your story before you start</li>
+                    <li>choose your words carefully</li>
+                    <li>write in sentences</li>
+                    <li>pay attention to your spelling, punctuation, and paragraphs</li>
+                    <li>check and edit your writing</li>
+                </ul>
+            </div>
+
             <button type="button" class="btn btn-primary" onclick="submitForm()">Create Test</button>
         </form>
     </div>
 
-    <div id="outputArea" style="display:none;">
-        <p id="essayTypeOutput"></p>
-        <p id="gradeOutput"></p>
-        <p id="titleOutput"></p>
-        <p id="descriptionOutput"></p>
+    <div id="outputArea"
+        style="display:none; background-color: #e9e9e9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+        <p><strong>Essay Type:</strong> <span id="essayTypeOutput"></span></p>
+        <p><strong>Grade:</strong> <span id="gradeOutput"></span></p>
+        <p><strong>Title:</strong> <span id="titleOutput"></span></p>
+        <p><strong>Description:</strong> <span id="descriptionOutput"></span></p>
     </div>
+
+    <div class="mt-2 text-left" id="refreshIcon" style="display:none;">
+        <button onclick="resetForm()" class="btn btn-link">
+            <i class="fas fa-redo-alt"></i>
+        </button>
+    </div>
+
 
 </div>
 
@@ -52,25 +103,81 @@
 </div>
 
 <script>
-function submitForm() {
-    // Get the values
-    let essayType = document.getElementById("essayTypeInput").value;
-    let grade = document.getElementById("gradeInput").value;
-    let title = document.getElementById("titleInput").value;
-    let description = document.getElementById("descriptionInput").value;
+    function submitForm() {
+        // Get the values
+        let essayType = document.getElementById("essayTypeInput").value;
+        let grade = document.getElementById("gradeInput").value;
+        let title = document.getElementById("titleInput").value;
+        let description = document.getElementById("descriptionInput").value;
 
-    // Set the values in the output area
-    document.getElementById("essayTypeOutput").textContent = "Essay Type: " + essayType;
-    document.getElementById("gradeOutput").textContent = "Grade: " + grade;
-    document.getElementById("titleOutput").textContent = "Title: " + title;
-    document.getElementById("descriptionOutput").textContent = "Description: " + description;
+        // Set the values in the output area
+        document.getElementById("essayTypeOutput").textContent = essayType;
+        document.getElementById("gradeOutput").textContent = grade;
+        document.getElementById("titleOutput").textContent = title;
+        document.getElementById("descriptionOutput").textContent = description;
 
-    // Hide input fields
-    document.getElementById("inputArea").style.display = "none";
+        // Hide input fields
+        document.getElementById("inputArea").style.display = "none";
+        // Show output area
+        document.getElementById("outputArea").style.display = "block";
+        // Show refresh icon
+        document.getElementById("refreshIcon").style.display = "block";
 
-    // Show output area
-    document.getElementById("outputArea").style.display = "block";
-}
+        let persuasiveGuidelines = document.getElementById("persuasiveGuidelines");
+        let narrativeGuidelines = document.getElementById("narrativeGuidelines");
+
+        if (essayType === "Persuasive") {
+            persuasiveGuidelines.style.display = "block";
+            narrativeGuidelines.style.display = "none";
+        } else {
+            persuasiveGuidelines.style.display = "none";
+            narrativeGuidelines.style.display = "block";
+        }
+
+        let outputArea = document.getElementById("outputArea");
+        let currentGuidelines = (document.getElementById("essayTypeInput").value === "Persuasive")
+            ? document.getElementById("persuasiveGuidelines")
+            : document.getElementById("narrativeGuidelines");
+
+        let clonedGuidelines = currentGuidelines.cloneNode(true);
+        outputArea.appendChild(clonedGuidelines);
+
+
+    }
+
+
+    function resetForm() {
+        document.getElementById("inputArea").style.display = "block";
+        document.getElementById("outputArea").style.display = "none";
+        // Hide refresh icon
+        document.getElementById("refreshIcon").style.display = "none";
+        document.getElementById("additionalInfo").value = "";
+        // Reset dropdown to default and trigger the change event to display the appropriate guidelines
+        let essayDropdown = document.getElementById("essayTypeInput");
+        essayDropdown.selectedIndex = 0;
+        essayDropdown.dispatchEvent(new Event('change'));
+    }
+
+    document.getElementById("essayTypeInput").addEventListener("change", function () {
+        let persuasiveGuidelines = document.getElementById("persuasiveGuidelines");
+        let narrativeGuidelines = document.getElementById("narrativeGuidelines");
+
+        if (this.value === "Persuasive") {
+            persuasiveGuidelines.style.display = "block";
+            narrativeGuidelines.style.display = "none";
+        } else {
+            persuasiveGuidelines.style.display = "none";
+            narrativeGuidelines.style.display = "block";
+        }
+
+        let outputArea = document.getElementById("outputArea");
+        let clonedGuidelines = outputArea.querySelector('.container.mt-4');
+        if (clonedGuidelines) {
+            outputArea.removeChild(clonedGuidelines);
+        }
+    });
+
+
 </script>
 
 {% endblock %}
