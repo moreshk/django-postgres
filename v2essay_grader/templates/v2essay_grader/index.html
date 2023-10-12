@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<div class="container mt-5">
+    <h1>NAPLAN Essay Grader</h1>
+    <div id="inputArea">
+        <form id="essayForm">
+            <div class="form-group">
+                <label for="essayTypeInput">Essay type:</label>
+                <select class="form-control" id="essayTypeInput">
+                    <option>Narrative</option>
+                    <option>Persuasive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="gradeInput">Grade:</label>
+                <select class="form-control" id="gradeInput">
+                    <option>Grade 3</option>
+                    <option>Grade 5</option>
+                    <option>Grade 7</option>
+                    <option>Grade 9</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="titleInput">Title:</label>
+                <input type="text" class="form-control" id="titleInput" placeholder="Enter title">
+            </div>
+            <div class="form-group">
+                <label for="descriptionInput">Description:</label>
+                <textarea class="form-control" id="descriptionInput" rows="5" placeholder="Enter description"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="submitForm()">Create Test</button>
+        </form>
+    </div>
+
+    <div id="outputArea" style="display:none;">
+        <p id="essayTypeOutput"></p>
+        <p id="gradeOutput"></p>
+        <p id="titleOutput"></p>
+        <p id="descriptionOutput"></p>
+    </div>
+
+</div>
+
+<!-- Logout Link -->
+<div class="mt-5 text-center">
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+
+<script>
+function submitForm() {
+    // Get the values
+    let essayType = document.getElementById("essayTypeInput").value;
+    let grade = document.getElementById("gradeInput").value;
+    let title = document.getElementById("titleInput").value;
+    let description = document.getElementById("descriptionInput").value;
+
+    // Set the values in the output area
+    document.getElementById("essayTypeOutput").textContent = "Essay Type: " + essayType;
+    document.getElementById("gradeOutput").textContent = "Grade: " + grade;
+    document.getElementById("titleOutput").textContent = "Title: " + title;
+    document.getElementById("descriptionOutput").textContent = "Description: " + description;
+
+    // Hide input fields
+    document.getElementById("inputArea").style.display = "none";
+
+    // Show output area
+    document.getElementById("outputArea").style.display = "block";
+}
+</script>
+
+{% endblock %}

@@ -46,6 +46,7 @@ urlpatterns = [
     path('essay_grader_app/', include('essay_grader_app.urls')),
     path('spellcheck/', include('spellcheck.urls')),
     path('home/', views.home, name='home'),
+    path('v2essay_grader/', include('v2essay_grader.urls')),
 ]
 
 if settings.DEBUG:

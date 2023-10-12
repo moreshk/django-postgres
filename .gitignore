@@ -162,4 +162,5 @@ cython_debug/
 dj-post/
 render.txt
 temp.txt
+temp.py
 # Ignore all files in static/audio
