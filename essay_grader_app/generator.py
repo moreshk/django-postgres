@@ -37,17 +37,9 @@ def generate_test_data(exam_type, essay_type, grade):
     Task: "Today you are going to write a narrative (a story). The idea for your story is `What a mess!` Your story might be about a messy person, an untidy place or a complicated or tricky situation. 
     It might be a mix-up between people, or it might be about a plan gone wrong. It could be about a broken promise or friendship, or an unexpected event that causes confusion."
 
-    Sample 3: Found
-    Task: "Today you are going to write a narrative or story. The idea for your story is `FOUND`. Your story might be about finding a lost pet, hidden treasures or new friends.
-    It could be about finding the solution to a problem or finding an opportunity to do something different and exciting. Your story could be about how people in difficult situations find courage, help or understanding."
-
-    Sample 4: The Box
-    Task: "Today you are going to write a narrative or story. The idea for your story is `The Box`. What is inside the Box? How did it get there? Is it valuable? Perhaps it is alive! 
-    The Box might reveal a message or something that was hidden. What happens in your story if the Box is opened?"
-
     You will use the above examples only as a guideline for framing the task and create a new task and description randomly on a different topic. No need to use the word Sample in the task description. 
 
-    Create 5 such tasks and descriptions based on the above guidelines. In your output mention these 5 tasks and format the output as Title:  and Description: .
+    Create 3 such tasks and descriptions based on the above guidelines. In your output mention these 3 tasks and format the output as Title:  and Description: .
     """
 
     ielts_template = """You are a test task creator for {test_type}. I will provide you the test type and your job is to create a task for a test taker.
@@ -61,27 +53,9 @@ def generate_test_data(exam_type, essay_type, grade):
     Sample 2: Education
     Task: "Some educators argue that every child should be taught how to play a musical instrument. Discuss the advantages and disadvantages of this. Give your own opinion."
 
-    Sample 3: Environment
-    Task: "Climate change is now an accepted threat to our planet, but there is not enough political action to control excessive consumerism and pollution. Discuss both views and give your own opinion."
-
-    Sample 4: Health
-    Task: "Some people think that governments should focus on reducing healthcare costs, rather than funding arts and sports. Do you agree or disagree?"
-
-    Sample 5: Society
-    Task: "Some people think that the best way to reduce crime is to give longer prison sentences. Others, however, believe there are better alternative ways of reducing crime. Discuss both views and give your opinion."
-
-    Sample 6: Work
-    Task: "Remote work is becoming increasingly popular. Discuss the advantages and disadvantages of working from home."
-
-    Sample 7: Global Issues
-    Task: "Some people argue that developed countries have a higher obligation to combat climate change than developing countries. Discuss both sides and give your own opinion."
-
-    Sample 8: Science
-    Task: "Genetic engineering is an important issue in modern society. Some people think that it will improve people’s lives in many ways. Others feel that it may be a threat to life on earth. Discuss both these views and give your own opinion."
-
     You will use the above examples only as a guideline for framing the task and create a new task and description randomly on a different topic. No need to use the word Sample in the task description. 
 
-    Create 5 such tasks and descriptions based on the above guidelines. In your output mention these 5 tasks and format the output as Title:  and Description: .
+    Create 3 such tasks and descriptions based on the above guidelines. In your output mention these 3 tasks and format the output as Title:  and Description: .
     """
 
     naplan_pesuasive_template = """You are a test task creator for {test_type}. I will provide you the test type and your job is to create a prompt for a persuasive writing task for a test taker.
@@ -99,16 +73,9 @@ has to follow. The change should make the rule or law better. Write to convince 
     Task: "A hero is someone you admire. Choose a hero who you think deserves an award. The person you choose could be someone from your family or community or could be someone
 well-known to everyone. The person may be young or old, male or female. Write to convince a reader why the person you have chosen is special and should be given an award." 
     
-    Sample 4: Everyone should learn to cook.
-    
-    Task: "Do you agree? Do you disagree? Perhaps you can think of ideas for both sides. Write to convince a reader of your opinion. "
-
-    Sample 5: Try this activity
-    Task: "Choose a sport, hobby or activity that you are interested in. Write to persuade a reader why they should try your chosen activity. "
-
     You will use the above examples only as a guideline for framing the task and create a new task and description randomly on a different topic. No need to use the word Sample in the task description. 
 
-    Create 5 such tasks and descriptions based on the above guidelines. Make sure these tasks are appropriate for a wide range of student age starting grade 3 to grade 9. In your output mention these 5 tasks and format the output as Title:  and Description: .
+    Create 3 such tasks and descriptions based on the above guidelines. Make sure these tasks are appropriate for a wide range of student age starting grade 3 to grade 9. In your output mention these 3 tasks and format the output as Title:  and Description: .
     """
 
 
@@ -127,15 +94,15 @@ well-known to everyone. The person may be young or old, male or female. Write to
     prompt_template = PromptTemplate(input_variables=["test_type"], template=template)
     task_creator_chain = LLMChain(llm=llm, prompt=prompt_template)
 
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    llm = ChatOpenAI(temperature=1, model_name="gpt-3.5-turbo")
 
-    template = """You are a test task selector. I will provide you a list of five tasks and their respective descriptions below. 
+    template = """You are a test task selector. I will provide you a list of 3 tasks and their respective descriptions below. 
 
     {five_tasks}
 
     You will select one of the tasks randomly and output it along with its description in a json format that has the following fields:
 
-    "title": "picked randomly from the five tasks",
+    "title": "picked randomly from the 3 tasks",
     "description": "description for the randomly picked title"
     """
 
