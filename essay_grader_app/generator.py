@@ -39,7 +39,7 @@ def generate_test_data(exam_type, essay_type, grade):
 
     You will use the above examples only as a guideline for framing the task and create a new task and description randomly on a different topic. No need to use the word Sample in the task description. 
 
-    Create 3 such tasks and descriptions based on the above guidelines. In your output mention these 3 tasks and format the output as Title:  and Description: .
+    Create 2 such tasks and descriptions based on the above guidelines. In your output mention these 2 tasks and format the output as Title:  and Description: .
     """
 
     ielts_template = """You are a test task creator for {test_type}. I will provide you the test type and your job is to create a task for a test taker.
@@ -55,27 +55,23 @@ def generate_test_data(exam_type, essay_type, grade):
 
     You will use the above examples only as a guideline for framing the task and create a new task and description randomly on a different topic. No need to use the word Sample in the task description. 
 
-    Create 3 such tasks and descriptions based on the above guidelines. In your output mention these 3 tasks and format the output as Title:  and Description: .
+    Create 2 such tasks and descriptions based on the above guidelines. In your output mention these 2 tasks and format the output as Title:  and Description: .
     """
 
     naplan_pesuasive_template = """You are a test task creator for {test_type}. I will provide you the test type and your job is to create a prompt for a persuasive writing task for a test taker.
 
     Sample Tasks for {test_type}
-    Sample 1: Too much money is spent on toys and games
-    Task: "People like to play with toys and games to have fun and to relax. Some people think that too much money is spent on toys and games. They think the money could be used for more
-important things. What do you think? Do you agree or disagree? Perhaps you can think of ideas for both sides of this topic. Write to convince a reader of your opinions"
-
-    Sample 2: Change a rule or law
+    Sample 1: Change a rule or law
     Task: "Rules and laws tell us what we can and cannot do. Choose a rule or law that you think needs to change. It could be a home or school rule. It could be a rule of a game or sport. It could be a law that everyone
 has to follow. The change should make the rule or law better. Write to convince a reader why this rule or law should be changed."
 
-    Sample 3: Hero Award
+    Sample 2: Hero Award
     Task: "A hero is someone you admire. Choose a hero who you think deserves an award. The person you choose could be someone from your family or community or could be someone
 well-known to everyone. The person may be young or old, male or female. Write to convince a reader why the person you have chosen is special and should be given an award." 
     
     You will use the above examples only as a guideline for framing the task and create a new task and description randomly on a different topic. No need to use the word Sample in the task description. 
 
-    Create 3 such tasks and descriptions based on the above guidelines. Make sure these tasks are appropriate for a wide range of student age starting grade 3 to grade 9. In your output mention these 3 tasks and format the output as Title:  and Description: .
+    Create 2 such tasks and descriptions based on the above guidelines. Make sure these tasks are appropriate for a wide range of student age starting grade 3 to grade 9. In your output mention these 2 tasks and format the output as Title:  and Description: .
     """
 
 
@@ -96,13 +92,13 @@ well-known to everyone. The person may be young or old, male or female. Write to
 
     llm = ChatOpenAI(temperature=1, model_name="gpt-3.5-turbo")
 
-    template = """You are a test task selector. I will provide you a list of 3 tasks and their respective descriptions below. 
+    template = """You are a test task selector. I will provide you a list of 2 tasks and their respective descriptions below. 
 
     {five_tasks}
 
     You will select one of the tasks randomly and output it along with its description in a json format that has the following fields:
 
-    "title": "picked randomly from the 3 tasks",
+    "title": "picked randomly from the 2 tasks",
     "description": "description for the randomly picked title"
     """
 
