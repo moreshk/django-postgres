@@ -109,6 +109,8 @@
         <button type="button" class="btn btn-primary" onclick="gradeText()">Grade</button>
     </div>
 
+    <div id="gradingOutput" style="margin-top: 20px;"></div>
+
 </div>
 
 <!-- Logout Link -->
@@ -178,6 +180,15 @@
         essayDropdown.dispatchEvent(new Event('change'));
         // Hide gradingArea when form is reset
         document.getElementById("gradingArea").style.display = "none";
+        // Remove the appended feedback (if exists) from outputArea
+        let outputArea = document.getElementById("outputArea");
+        let feedbackElement = outputArea.lastChild;
+        if (feedbackElement && feedbackElement.nodeName === "DIV" && !feedbackElement.classList.contains('container')) {
+            outputArea.removeChild(feedbackElement);
+        }
+
+        // Clear the gradingOutput content
+        document.getElementById("gradingOutput").innerHTML = "";
     }
 
     document.getElementById("essayTypeInput").addEventListener("change", function () {
@@ -229,41 +240,46 @@
     }
 
     function gradeText() {
-    let user_response = document.getElementById("gradingTextarea").value;
-    let title = document.getElementById("titleOutput").textContent;
-    let description = document.getElementById("descriptionOutput").textContent;
-    let essay_type = document.getElementById("essayTypeOutput").textContent;
-    let grade = document.getElementById("gradeOutput").textContent;
+        let user_response = document.getElementById("gradingTextarea").value;
+        let title = document.getElementById("titleOutput").textContent;
+        let description = document.getElementById("descriptionOutput").textContent;
+        let essay_type = document.getElementById("essayTypeOutput").textContent;
+        let grade = document.getElementById("gradeOutput").textContent;
 
-    let data = {
-        user_response: user_response,
-        title: title,
-        description: description,
-        essay_type: essay_type,
-        grade: grade
-    };
+        let data = {
+            user_response: user_response,
+            title: title,
+            description: description,
+            essay_type: essay_type,
+            grade: grade
+        };
 
-    fetch('/v2essay_grader/grade_essay/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        let feedback = data.feedback;
-        // Display the result in the desired area
-        let outputArea = document.getElementById("outputArea");
-        let feedbackElement = document.createElement("div");
-        feedbackElement.textContent = feedback;
-        outputArea.appendChild(feedbackElement);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
+        fetch('/v2essay_grader/grade_essay/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                let feedback = data.feedback;
+
+                // Get the grading output div and clear its previous content
+                let gradingOutputDiv = document.getElementById("gradingOutput");
+                gradingOutputDiv.innerHTML = "";
+
+                // Display the result in the grading output div
+                let feedbackElement = document.createElement("div");
+                feedbackElement.textContent = feedback;
+                gradingOutputDiv.appendChild(feedbackElement);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
 
 </script>
 
