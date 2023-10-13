@@ -6,11 +6,17 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
+<style>
+    .invalid-input {
+        border: 1px solid red;
+    }
+</style>
 
 <div class="container mt-5">
     <h1>NAPLAN Essay Grader</h1>
     <div id="inputArea">
         <form id="essayForm">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="essayTypeInput">Essay type:</label>
                 <select class="form-control" id="essayTypeInput">
@@ -94,6 +100,14 @@
         </button>
     </div>
 
+    <div id="gradingArea" style="display:none;">
+        <div class="form-group mt-4">
+            <textarea class="form-control" id="gradingTextarea" rows="5"
+                placeholder="Your text goes here ..."></textarea>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="gradeText()">Grade</button>
+    </div>
 
 </div>
 
@@ -104,6 +118,9 @@
 
 <script>
     function submitForm() {
+        if (!validateForm()) {
+            return; // Stop the function if validation fails
+        }
         // Get the values
         let essayType = document.getElementById("essayTypeInput").value;
         let grade = document.getElementById("gradeInput").value;
@@ -142,6 +159,9 @@
         let clonedGuidelines = currentGuidelines.cloneNode(true);
         outputArea.appendChild(clonedGuidelines);
 
+        // Show gradingArea after form is submitted
+        document.getElementById("gradingArea").style.display = "block";
+
 
     }
 
@@ -151,11 +171,13 @@
         document.getElementById("outputArea").style.display = "none";
         // Hide refresh icon
         document.getElementById("refreshIcon").style.display = "none";
-        document.getElementById("additionalInfo").value = "";
+        // document.getElementById("additionalInfo").value = "";
         // Reset dropdown to default and trigger the change event to display the appropriate guidelines
         let essayDropdown = document.getElementById("essayTypeInput");
         essayDropdown.selectedIndex = 0;
         essayDropdown.dispatchEvent(new Event('change'));
+        // Hide gradingArea when form is reset
+        document.getElementById("gradingArea").style.display = "none";
     }
 
     document.getElementById("essayTypeInput").addEventListener("change", function () {
@@ -177,6 +199,71 @@
         }
     });
 
+
+    function validateForm() {
+        let titleInput = document.getElementById("titleInput");
+        let descriptionInput = document.getElementById("descriptionInput");
+
+        // Check if the inputs are empty and highlight them if they are
+        let isTitleEmpty = titleInput.value.trim() === "";
+        let isDescriptionEmpty = descriptionInput.value.trim() === "";
+
+        if (isTitleEmpty) {
+            titleInput.classList.add("invalid-input");
+        } else {
+            titleInput.classList.remove("invalid-input");
+        }
+
+        if (isDescriptionEmpty) {
+            descriptionInput.classList.add("invalid-input");
+        } else {
+            descriptionInput.classList.remove("invalid-input");
+        }
+
+        if (isTitleEmpty || isDescriptionEmpty) {
+            alert("Both title and description must be filled out!");
+            return false;
+        }
+
+        return true;
+    }
+
+    function gradeText() {
+    let user_response = document.getElementById("gradingTextarea").value;
+    let title = document.getElementById("titleOutput").textContent;
+    let description = document.getElementById("descriptionOutput").textContent;
+    let essay_type = document.getElementById("essayTypeOutput").textContent;
+    let grade = document.getElementById("gradeOutput").textContent;
+
+    let data = {
+        user_response: user_response,
+        title: title,
+        description: description,
+        essay_type: essay_type,
+        grade: grade
+    };
+
+    fetch('/v2essay_grader/grade_essay/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        let feedback = data.feedback;
+        // Display the result in the desired area
+        let outputArea = document.getElementById("outputArea");
+        let feedbackElement = document.createElement("div");
+        feedbackElement.textContent = feedback;
+        outputArea.appendChild(feedbackElement);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
 </script>
 
