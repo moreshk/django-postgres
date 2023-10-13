@@ -5,5 +5,6 @@ urlpatterns = [
     # Example path: path('example/', views.example_view, name='example_view_name'),
     path('', views.index, name='index'),
     path('grade_essay/', views.grade_essay, name='grade_essay'),
+    path('hello_world/', views.hello_world_view, name='hello_world'),
 ]
 

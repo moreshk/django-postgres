@@ -274,6 +274,25 @@
                 let feedbackElement = document.createElement("div");
                 feedbackElement.textContent = feedback;
                 gradingOutputDiv.appendChild(feedbackElement);
+                // Check if the feedback is "Provided essay input is relevant to the title and description."
+                if (feedback === "Provided essay input is relevant to the title and description.") {
+                    // Make an AJAX call to the hello_world function
+                    fetch('/v2essay_grader/hello_world/', {
+                        method: 'GET',
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            let helloWorldOutput = data.message;
+
+                            // Display the result in the grading output div
+                            let helloWorldElement = document.createElement("div");
+                            helloWorldElement.textContent = helloWorldOutput;
+                            gradingOutputDiv.appendChild(helloWorldElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
             })
             .catch(error => {
                 console.error('Error:', error);

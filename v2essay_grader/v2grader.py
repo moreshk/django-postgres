@@ -35,3 +35,6 @@ def check_relevance(user_response, title, description, essay_type, grade):
     # print(essay_type, title, description)
     feedback_from_api = chain.run(inputs)
     return feedback_from_api
+
+def hello_world():
+    return "Hello, World!"
