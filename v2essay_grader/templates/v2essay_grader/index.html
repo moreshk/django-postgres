@@ -326,6 +326,29 @@
                             console.error('Error:', error);
                         });
                     // End of text structure grading
+                    // Make an AJAX call to the Ideas grading function
+                    fetch('/v2essay_grader/grade_essay_ideas/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of text structure grading
 
                 }
             })

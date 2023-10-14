@@ -7,7 +7,7 @@ from langchain.chat_models import ChatOpenAI
 def check_relevance(user_response, title, description, essay_type, grade):
     print("I am in check relevance")
     print(essay_type, grade, title, description)
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo-16k")
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
     relevance_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc"],
@@ -46,7 +46,7 @@ def hello_world():
 def check_audience_persuasive(user_response, title, description, essay_type, grade):
     print("I am in check audience")
     print(essay_type, grade, title, description)
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo-16k")
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
     relevance_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
@@ -75,7 +75,7 @@ def check_audience_persuasive(user_response, title, description, essay_type, gra
         5-6 Points: The student masterfully engages, orients, and persuades the reader, showcasing a sophisticated and insightful connection with the audience.
 
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
-        Be more lenient to the lower grades. So the same essay would score higher for a grade 3 vs for grade 5 and for grade 7 vs grade 9.
+        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade.
  """,
@@ -103,7 +103,7 @@ def check_audience_persuasive(user_response, title, description, essay_type, gra
 def check_text_structure_persuasive(user_response, title, description, essay_type, grade):
     print("I am in check text structure")
     print(essay_type, grade, title, description)
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo-16k")
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
     relevance_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
@@ -132,7 +132,63 @@ def check_text_structure_persuasive(user_response, title, description, essay_typ
         4 Points: The writing is expertly organized with seamless transitions, guiding the reader effortlessly through a well-structured, sophisticated, and nuanced argument.
 
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
-        Be more lenient to the lower grades. So the same essay would score higher for a grade 3 vs for grade 5 and for grade 7 vs grade 9.
+        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade.
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+    }
+
+    # print(essay_type, title, description)
+    feedback_from_api = chain.run(inputs)
+    print(feedback_from_api)
+    return feedback_from_api
+
+# Check Ideas
+
+def check_ideas_persuasive(user_response, title, description, essay_type, grade):
+    print("I am in check ideas")
+    print(essay_type, grade, title, description)
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        template="""You are an essay grader for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of Ideas (Scored out of 5)
+
+        Grade 3 and Grade 5 criteria: 
+        1-2 Points: The student presents a simple argument or point of view with minimal supporting details.
+        3-4 Points: The student's argument is clearer, with some relevant supporting details. The writing may occasionally lack depth or elaboration.
+        5 Points: The student presents a well-thought-out argument, supported by relevant and detailed examples or reasons.
+
+        Grade 7 and Grade 9 criteria:
+        1-2 Points: The student presents a clear argument with supporting details, but these might occasionally lack originality or depth.
+        3-4 Points: The student's argument is robust and demonstrates critical thinking. The writing showcases depth, relevance, and originality in its supporting evidence.
+        5 Points: The student presents a comprehensive, insightful, and original argument, bolstered by highly relevant, detailed, and unique examples or reasons.
+
+        Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
+        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade.
  """,

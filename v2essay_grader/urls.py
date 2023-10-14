@@ -8,5 +8,6 @@ urlpatterns = [
     path('hello_world/', views.hello_world_view, name='hello_world'),
     path('grade_essay_audience/', views.grade_essay_audience, name='grade_essay_audience'),
     path('grade_essay_text_structure/', views.grade_essay_text_structure, name='grade_essay_text_structure'),
+    path('grade_essay_ideas/', views.grade_essay_ideas, name='grade_essay_ideas'),
 ]
 
