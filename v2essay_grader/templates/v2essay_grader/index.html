@@ -246,7 +246,7 @@
         let essay_type = document.getElementById("essayTypeOutput").textContent;
         let grade = document.getElementById("gradeOutput").textContent;
 
-        let data = {
+        let requestData = {
             user_response: user_response,
             title: title,
             description: description,
@@ -254,17 +254,18 @@
             grade: grade
         };
 
+        console.log("first api call", requestData);
         fetch('/v2essay_grader/grade_essay/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': '{{ csrf_token }}'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(requestData)
         })
             .then(response => response.json())
-            .then(data => {
-                let feedback = data.feedback;
+            .then(responseData => {
+                let feedback = responseData.feedback;
 
                 // Get the grading output div and clear its previous content
                 let gradingOutputDiv = document.getElementById("gradingOutput");
@@ -274,20 +275,28 @@
                 let feedbackElement = document.createElement("div");
                 feedbackElement.textContent = feedback;
                 gradingOutputDiv.appendChild(feedbackElement);
+
+                console.log("second api call", requestData);
                 // Check if the feedback is "Provided essay input is relevant to the title and description."
                 if (feedback === "Provided essay input is relevant to the title and description.") {
                     // Make an AJAX call to the hello_world function
-                    fetch('/v2essay_grader/hello_world/', {
-                        method: 'GET',
+                    fetch('/v2essay_grader/grade_essay_audience/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(data => {
-                            let helloWorldOutput = data.message;
+                        .then(responseData => {
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
 
                             // Display the result in the grading output div
-                            let helloWorldElement = document.createElement("div");
-                            helloWorldElement.textContent = helloWorldOutput;
-                            gradingOutputDiv.appendChild(helloWorldElement);
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
                         })
                         .catch(error => {
                             console.error('Error:', error);
