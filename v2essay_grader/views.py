@@ -10,6 +10,7 @@ from .v2grader import check_relevance, hello_world, check_audience_persuasive, c
 def index(request):
     return render(request, 'v2essay_grader/index.html')
 
+# 0
 @login_required
 def grade_essay(request):
     if request.method == "POST":
@@ -30,6 +31,7 @@ def grade_essay(request):
 def hello_world_view(request):
     return JsonResponse({'message': hello_world()})
 
+# 1
 @login_required
 def grade_essay_audience(request):
     if request.method == "POST":
@@ -46,6 +48,7 @@ def grade_essay_audience(request):
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
 
+# 2
 @login_required
 def grade_essay_text_structure(request):
     if request.method == "POST":
@@ -62,6 +65,7 @@ def grade_essay_text_structure(request):
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
 
+# 3
 @login_required
 def grade_essay_ideas(request):
     if request.method == "POST":

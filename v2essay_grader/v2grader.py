@@ -3,7 +3,7 @@ from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 
-# Check for relevance of the input essay to the topic
+# 0. Check for relevance of the input essay to the topic
 def check_relevance(user_response, title, description, essay_type, grade):
     print("I am in check relevance")
     print(essay_type, grade, title, description)
@@ -41,7 +41,7 @@ def check_relevance(user_response, title, description, essay_type, grade):
 def hello_world():
     return "Hello, World!"
 
-# Check for Audience criteria
+# 1. Check for Audience criteria
 
 def check_audience_persuasive(user_response, title, description, essay_type, grade):
     print("I am in check audience")
@@ -77,7 +77,7 @@ def check_audience_persuasive(user_response, title, description, essay_type, gra
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade.
+        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
  """,
     )
 
@@ -98,7 +98,7 @@ def check_audience_persuasive(user_response, title, description, essay_type, gra
     return feedback_from_api
 
 
-# Check Text structure
+# 2. Check Text structure
 
 def check_text_structure_persuasive(user_response, title, description, essay_type, grade):
     print("I am in check text structure")
@@ -134,7 +134,7 @@ def check_text_structure_persuasive(user_response, title, description, essay_typ
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade.
+        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
  """,
     )
 
@@ -154,7 +154,7 @@ def check_text_structure_persuasive(user_response, title, description, essay_typ
     print(feedback_from_api)
     return feedback_from_api
 
-# Check Ideas
+# 3. Check Ideas
 
 def check_ideas_persuasive(user_response, title, description, essay_type, grade):
     print("I am in check ideas")
@@ -190,7 +190,7 @@ def check_ideas_persuasive(user_response, title, description, essay_type, grade)
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade.
+        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
  """,
     )
 
