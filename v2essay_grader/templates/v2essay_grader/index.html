@@ -278,8 +278,9 @@
 
                 console.log("second api call", requestData);
                 // Check if the feedback is "Provided essay input is relevant to the title and description."
-                if (feedback === "Provided essay input is relevant to the title and description.") {
-                    // Make an AJAX call to the hello_world function
+                // if (feedback === "Provided essay input is relevant to the title and description.") {
+                if (feedback === "Provided essay input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Persuasive") {
+                    // Make an AJAX call to the audience grading function
                     fetch('/v2essay_grader/grade_essay_audience/', {
                         method: 'POST',
                         headers: {
@@ -301,6 +302,31 @@
                         .catch(error => {
                             console.error('Error:', error);
                         });
+                    // End of audience grading
+                    // Make an AJAX call to the text structure grading function
+                    fetch('/v2essay_grader/grade_essay_text_structure/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of text structure grading
+
                 }
             })
             .catch(error => {
