@@ -9,5 +9,6 @@ urlpatterns = [
     path('grade_essay_audience/', views.grade_essay_audience, name='grade_essay_audience'),
     path('grade_essay_text_structure/', views.grade_essay_text_structure, name='grade_essay_text_structure'),
     path('grade_essay_ideas/', views.grade_essay_ideas, name='grade_essay_ideas'),
+    path('grade_essay_persuasive_devices/', views.grade_essay_persuasive_devices, name='grade_essay_persuasive_devices'),
 ]
 

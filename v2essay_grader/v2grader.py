@@ -209,3 +209,59 @@ def check_ideas_persuasive(user_response, title, description, essay_type, grade)
     feedback_from_api = chain.run(inputs)
     print(feedback_from_api)
     return feedback_from_api
+
+# 4. Persuasive Devices (Scored out of 4)
+
+def check_persuasive_devices_persuasive(user_response, title, description, essay_type, grade):
+    print("I am in check ideas")
+    print(essay_type, grade, title, description)
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        template="""You are an essay grader for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of Persuasive Devices (Scored out of 4).
+
+        Grade 3 and Grade 5 criteria: 
+        1 Point: Some use of persuasive devices, though they may be basic or not always effective.
+        2-3 Points: The student uses persuasive devices, such as rhetorical questions, emotive language, or anecdotes, with varying effectiveness.
+        4 Points: The student skillfully employs a range of persuasive devices to enhance and strengthen their argument.
+
+        Grade 7 and Grade 9 criteria:
+        1 Point: The student employs persuasive devices, but they may lack variety or sophistication.
+        2-3 Points: The student uses a diverse range of persuasive devices with consistent effectiveness, demonstrating a deeper understanding of rhetorical techniques.
+        4 Points: The student adeptly and creatively uses a diverse range of persuasive devices, masterfully enhancing their argument with sophistication.
+
+        Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
+        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+    }
+
+    # print(essay_type, title, description)
+    feedback_from_api = chain.run(inputs)
+    print(feedback_from_api)
+    return feedback_from_api

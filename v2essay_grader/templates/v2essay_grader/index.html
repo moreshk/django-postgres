@@ -107,6 +107,9 @@
         </div>
 
         <button type="button" class="btn btn-primary" onclick="gradeText()">Grade</button>
+        <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
 
     <div id="gradingOutput" style="margin-top: 20px;"></div>
@@ -240,6 +243,9 @@
     }
 
     function gradeText() {
+        // Show the spinner
+        document.getElementById("loadingSpinner").style.display = "block";
+
         let user_response = document.getElementById("gradingTextarea").value;
         let title = document.getElementById("titleOutput").textContent;
         let description = document.getElementById("descriptionOutput").textContent;
@@ -278,8 +284,6 @@
 
                 if (feedback === "Provided essay input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Persuasive") {
 
-
-
                     fetch('/v2essay_grader/grade_essay_audience/', {
                         method: 'POST',
                         headers: {
@@ -310,10 +314,6 @@
                     // End of audience grading
                     // Make an AJAX call to the text structure grading function
 
-
-
-
-
                     fetch('/v2essay_grader/grade_essay_text_structure/', {
                         method: 'POST',
                         headers: {
@@ -342,7 +342,6 @@
                     // End of text structure grading
                     // Make an AJAX call to the Ideas grading function
 
-
                     fetch('/v2essay_grader/grade_essay_ideas/', {
                         method: 'POST',
                         headers: {
@@ -368,6 +367,34 @@
                         .catch(error => {
                             console.error('Error:', error);
                         });
+                    // End of Ideas grading
+                    // Make an AJAX call to the Persuasive Devices grading function
+
+                    fetch('/v2essay_grader/grade_essay_persuasive_devices/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            // Create a new header element
+                            let headerElement4 = document.createElement("h4");
+                            headerElement4.textContent = "Persuasive Devices (max 4 points)";
+                            gradingOutputDiv.appendChild(headerElement4);
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                     // End of Ideas structure grading
 
                 }
@@ -375,6 +402,9 @@
             .catch(error => {
                 console.error('Error:', error);
             });
+
+        // Hide the spinner
+        document.getElementById("loadingSpinner").style.display = "none";
     }
 
 
