@@ -10,7 +10,7 @@ def check_relevance(user_response, title, description, essay_type, grade):
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
     relevance_prompt = PromptTemplate(
-        input_variables=["essay", "task_title", "task_desc"],
+        input_variables=["essay", "task_title", "task_desc", "essay_type"],
         template="""You are an essay grader for Naplan. Your inputs are
 
         Task Title: {task_title}
@@ -19,7 +19,9 @@ def check_relevance(user_response, title, description, essay_type, grade):
 
         Essay: {essay}
 
-        Your job is to check relevance of the essay with respect to the task title and task description.
+        Essay Type: {essay_type}
+
+        Your job is to check relevance of the essay with respect to the task title and task description and essay type.
         If the essay is completely irrelevant then mention "Provided essay is not relevant to the title and description and cannot be graded further."
         If it is relevant (or has some degree of relevance) then mention "Provided essay input is relevant to the title and description.".
         """,
@@ -31,7 +33,8 @@ def check_relevance(user_response, title, description, essay_type, grade):
     inputs = {
         "essay": user_response,
         "task_title": title,
-        "task_desc": description
+        "task_desc": description,
+        "essay_type": essay_type,
     }
 
     # print(essay_type, title, description)
@@ -402,10 +405,12 @@ def check_paragraphing_persuasive(user_response, title, description, essay_type,
         Your task is to grade the provided essay on the criteria of Paragraphing (Scored out of 2).
 
         Grade 3 and Grade 5 criteria: 
+        0 - no use of paragraphing
         1 Point: The student groups related ideas into paragraphs, though there might be occasional lapses in coherence.
         2 Points: Ideas are effectively and logically grouped into clear paragraphs, enhancing the structure and flow of the argument.
 
         Grade 7 and Grade 9 criteria:
+        0 - no use of paragraphing
         1 Point: The student logically groups related ideas into paragraphs, but transitions might occasionally lack depth.
         2 Points: Ideas are effectively and logically grouped into clear paragraphs, enhancing the structure and flow of the argument with sophistication.
 
@@ -455,18 +460,21 @@ def check_sentence_structure_persuasive(user_response, title, description, essay
 
         Your task is to grade the provided essay on the criteria of Sentence Structure (Scored out of 6).
 
-        Grade 3 and Grade 5 criteria: 
-        1-2 Points: The student forms sentences with occasional complexity, though there might be inconsistencies in clarity.
-        3-4 Points: The student uses a mix of simple, compound, and some complex sentences, with few errors.
-        5-6 Points: The student effectively employs a variety of sentence structures, enhancing the clarity, rhythm, and sophistication of the writing.
+        Scoring Guide:
 
-        Grade 7 and Grade 9 criteria:
-        1-2 Points: The student forms sentences with complexity, but there might be occasional inconsistencies or errors.
-        3-4 Points: The student effectively uses a mix of simple, compound, and complex sentences, enhancing clarity and rhythm with more advanced structures.
-        5-6 Points: The student masterfully employs a diverse range of sentence structures, adding depth, clarity, and sophistication to the writing with nuance.
+        0 -	no evidence of sentences
+        1 - some correct formation of sentences, some meaning can be construed
+        2 - use of some complex sentences, correct sentences are mainly simple and/or compound sentences, meaning is predominantly clear
+        3 - most (approx. 80%) simple and compound sentences correct
+        AND some complex sentences are correct meaning is predominantly clear
+        4 - most (approx. 80%) simple, compound and complex sentences are correct
+        OR all simple, compound and complex sentences are correct but do not demonstrate variety, meaning is clear
+        5 - sentences are correct (allow for occasional error in more sophisticated structures). The student effectively employs a variety of sentence structures, enhancing the clarity, rhythm, and sophistication of the writing.
+        6 - all sentences are correct (allow for occasional slip, e.g. a missing word) writing contains controlled and well developed sentences that express precise meaning and are
+        consistently effective. The student masterfully employs a diverse range of sentence structures, adding depth, clarity, and sophistication to the writing with nuance.
 
-        Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
-        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
+        Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
+        Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
@@ -892,23 +900,6 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
 
 
 # 16. Cohesion (0 - 4)
-
-# Criteria 6. Cohesion: The control of multiple threads and relationships over the whole text, achieved through the use of referring words, substitutions, word associations and text connectives. 
-# Score Range: 0-4 
-# Scoring guide: 
-# 0 - symbols or drawings
-# 1 - links are missing or incorrect short script often confusing for the reader
-# 2 - some correct links between sentences (do not penalise for poor punctuation), 
-# most referring words are accurate. reader may occasionally need to re-read and provide their own links to clarify meaning
-# 3 - cohesive devices are used correctly to support reader understanding, accurate use of referring words,
-# meaning is clear and text flows well in a sustained piece of writing
-# 4 - a range of cohesive devices is used correctly and deliberately to enhance reading, an extended, highly cohesive piece of writing showing continuity of ideas and tightly linked sections of text
-
-# 6. Cohesion (Scored out of 4)
-# 1 Point: The student's writing shows connections between ideas, but these might occasion of the Task Titleally lack sophistication.
-# 2-3 Points: Effective use of advanced cohesive devices to link ideas, demonstrating a deeper understanding of textual flow.
-# 4 Points: The student expertly controls multiple threads and relationships across the text, ensuring a cohesive, unified, and flowing argument with advanced techniques.
-
 
 def check_cohesion_narrative(user_response, title, description, essay_type, grade):
     print("I am in setting narrative")

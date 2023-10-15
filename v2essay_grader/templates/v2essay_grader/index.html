@@ -578,7 +578,7 @@
 
                 if (feedback === "Provided essay input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Narrative") {
 
-                       fetch('/v2essay_grader/grade_narrative_audience/', {
+                    fetch('/v2essay_grader/grade_narrative_audience/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -748,6 +748,64 @@
                             console.error('Error:', error);
                         });
                     // End of vocabulary grading
+
+                    // 2.7 Make an AJAX call to the paragraphing grading function
+
+                    fetch('/v2essay_grader/grade_essay_paragraphing/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            // Create a new header element
+                            let headerElement17 = document.createElement("h4");
+                            headerElement17.textContent = "Paragraphing (Scored out of 2)";
+                            gradingOutputDiv.appendChild(headerElement17);
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of paragraphing grading
+
+                    // Make an AJAX call to the grade_essay_sentence_structure grading function
+
+                    fetch('/v2essay_grader/grade_essay_sentence_structure/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            // Create a new header element
+                            let headerElement18 = document.createElement("h4");
+                            headerElement18.textContent = "Sentence Structure (Scored out of 6)";
+                            gradingOutputDiv.appendChild(headerElement18);
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of Sentence Structure
 
 
                     // 2.10. Make an AJAX call to the grade_essay_spelling grading function
