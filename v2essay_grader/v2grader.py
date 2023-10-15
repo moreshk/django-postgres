@@ -77,7 +77,7 @@ def check_audience_persuasive(user_response, title, description, essay_type, gra
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
 
@@ -134,7 +134,7 @@ def check_text_structure_persuasive(user_response, title, description, essay_typ
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
 
@@ -190,7 +190,7 @@ def check_ideas_persuasive(user_response, title, description, essay_type, grade)
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
 
@@ -246,7 +246,7 @@ def check_persuasive_devices_persuasive(user_response, title, description, essay
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
 
@@ -302,7 +302,7 @@ def check_vocabulary_persuasive(user_response, title, description, essay_type, g
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
 
@@ -358,7 +358,7 @@ def check_cohesion_persuasive(user_response, title, description, essay_type, gra
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
 
@@ -412,7 +412,175 @@ def check_paragraphing_persuasive(user_response, title, description, essay_type,
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and provide a numeric (not range) overall grade at the end of the message while mentioning what it is out of.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+    }
+
+    # print(essay_type, title, description)
+    feedback_from_api = chain.run(inputs)
+    print(feedback_from_api)
+    return feedback_from_api
+
+# 8. Sentence Structure (Scored out of 6)
+
+def check_sentence_structure_persuasive(user_response, title, description, essay_type, grade):
+    print("I am in check Sentence Structure")
+    print(essay_type, grade, title, description)
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        template="""You are an essay grader for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of Sentence Structure (Scored out of 6).
+
+        Grade 3 and Grade 5 criteria: 
+        1-2 Points: The student forms sentences with occasional complexity, though there might be inconsistencies in clarity.
+        3-4 Points: The student uses a mix of simple, compound, and some complex sentences, with few errors.
+        5-6 Points: The student effectively employs a variety of sentence structures, enhancing the clarity, rhythm, and sophistication of the writing.
+
+        Grade 7 and Grade 9 criteria:
+        1-2 Points: The student forms sentences with complexity, but there might be occasional inconsistencies or errors.
+        3-4 Points: The student effectively uses a mix of simple, compound, and complex sentences, enhancing clarity and rhythm with more advanced structures.
+        5-6 Points: The student masterfully employs a diverse range of sentence structures, adding depth, clarity, and sophistication to the writing with nuance.
+
+        Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
+        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+    }
+
+    # print(essay_type, title, description)
+    feedback_from_api = chain.run(inputs)
+    print(feedback_from_api)
+    return feedback_from_api
+
+
+# 9. Punctuation (Scored out of 6)
+def check_punctuation_persuasive(user_response, title, description, essay_type, grade):
+    print("I am in check punctuation")
+    print(essay_type, grade, title, description)
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        template="""You are an essay grader for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of Punctuation (Scored out of 6).
+
+        Grade 3 and Grade 5 criteria: 
+        1-2 Points: The student uses basic and some advanced punctuation with occasional errors.
+        3-4 Points: The student correctly uses a range of punctuation, including quotation marks and apostrophes, with few mistakes.
+        5-6 Points: Punctuation is used skillfully and accurately throughout the writing, significantly aiding the reader's understanding.
+
+        Grade 7 and Grade 9 criteria:
+        1-2 Points: The student uses a mix of basic and advanced punctuation with some errors.
+        3-4 Points: The student accurately uses a wide range of punctuation, including more advanced forms, with few mistakes and for stylistic effect.
+        5-6 Points: Punctuation is used expertly and accurately throughout the writing, not just for clarity but also for stylistic and rhetorical effect.
+
+        Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
+        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+    }
+
+    # print(essay_type, title, description)
+    feedback_from_api = chain.run(inputs)
+    print(feedback_from_api)
+    return feedback_from_api
+
+# 10. Spelling (Scored out of 6)
+
+def check_spelling_persuasive(user_response, title, description, essay_type, grade):
+    print("I am in check spelling")
+    print(essay_type, grade, title, description)
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        template="""You are an essay grader for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of Spelling (Scored out of 6).
+
+        Grade 3 and Grade 5 criteria: 
+        1-2 Points: The student spells most common words correctly, with errors in more challenging or less common words.
+        3-4 Points: A majority of words, including challenging ones, are spelled correctly.
+        5-6 Points: The student demonstrates an excellent grasp of spelling across a range of word types, with errors being very rare.
+
+        Grade 7 and Grade 9 criteria:
+        1-2 Points: The student spells most words correctly but may have errors with complex or specialized words.
+        3-4 Points: A vast majority of words, including complex and specialized ones, are spelled correctly.
+        5-6 Points: The student demonstrates an impeccable grasp of spelling across a diverse range of word types, including advanced and specialized vocabulary.
+
+        Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
+        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
 

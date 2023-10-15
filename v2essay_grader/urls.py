@@ -13,5 +13,8 @@ urlpatterns = [
     path('grade_essay_vocabulary/', views.grade_essay_vocabulary, name='grade_essay_vocabulary'),
     path('grade_essay_cohesion/', views.grade_essay_cohesion, name='grade_essay_cohesion'),
     path('grade_essay_paragraphing/', views.grade_essay_paragraphing, name='grade_essay_paragraphing'),
+    path('grade_essay_sentence_structure/', views.grade_essay_sentence_structure, name='grade_essay_sentence_structure'),
+    path('grade_essay_punctuation/', views.grade_essay_punctuation, name='grade_essay_punctuation'),
+    path('grade_essay_spelling/', views.grade_essay_spelling, name='grade_essay_spelling'),
 ]
 
