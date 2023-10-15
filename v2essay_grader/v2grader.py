@@ -579,7 +579,7 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
 
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples about any mistakes you notice and their corrections.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
@@ -866,6 +866,81 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
         4 - effective characterisation: details are selected to create distinct characters
         AND/OR
         Maintains a sense of setting throughout. Details are selected to create a sense of place and atmosphere. convincing dialogue, introspection and reactions to other characters
+
+        Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
+        Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+    }
+
+    # print(essay_type, title, description)
+    feedback_from_api = chain.run(inputs)
+    print(feedback_from_api)
+    return feedback_from_api
+
+
+# 16. Cohesion (0 - 4)
+
+# Criteria 6. Cohesion: The control of multiple threads and relationships over the whole text, achieved through the use of referring words, substitutions, word associations and text connectives. 
+# Score Range: 0-4 
+# Scoring guide: 
+# 0 - symbols or drawings
+# 1 - links are missing or incorrect short script often confusing for the reader
+# 2 - some correct links between sentences (do not penalise for poor punctuation), 
+# most referring words are accurate. reader may occasionally need to re-read and provide their own links to clarify meaning
+# 3 - cohesive devices are used correctly to support reader understanding, accurate use of referring words,
+# meaning is clear and text flows well in a sustained piece of writing
+# 4 - a range of cohesive devices is used correctly and deliberately to enhance reading, an extended, highly cohesive piece of writing showing continuity of ideas and tightly linked sections of text
+
+# 6. Cohesion (Scored out of 4)
+# 1 Point: The student's writing shows connections between ideas, but these might occasion of the Task Titleally lack sophistication.
+# 2-3 Points: Effective use of advanced cohesive devices to link ideas, demonstrating a deeper understanding of textual flow.
+# 4 Points: The student expertly controls multiple threads and relationships across the text, ensuring a cohesive, unified, and flowing argument with advanced techniques.
+
+
+def check_cohesion_narrative(user_response, title, description, essay_type, grade):
+    print("I am in setting narrative")
+    print(essay_type, grade, title, description)
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        template="""You are an essay grader for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of 
+        Cohesion: The control of multiple threads and relationships over the whole text, achieved through the use of referring words, substitutions, word associations and text connectives. 
+        Score Range: 0-4 
+
+        Scoring guide: 
+        0 - symbols or drawings
+        1 - links are missing or incorrect short script often confusing for the reader
+        2 - some correct links between sentences (do not penalise for poor punctuation), 
+        most referring words are accurate. reader may occasionally need to re-read and provide their own links to clarify meaning
+        3 - cohesive devices are used correctly to support reader understanding, accurate use of referring words,
+        meaning is clear and text flows well in a sustained piece of writing
+        4 - a range of cohesive devices is used correctly and deliberately to enhance reading, an extended, highly cohesive piece of writing showing continuity of ideas and tightly linked sections of text
 
         Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
         Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.

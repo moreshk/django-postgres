@@ -720,6 +720,35 @@
                         });
                     // End of vocabulary grading
 
+                    // 2.6 Make an AJAX call to the narrative cohesion grading function
+
+                    fetch('/v2essay_grader/grade_narrative_cohesion/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            // Create a new header element
+                            let headerElement16 = document.createElement("h4");
+                            headerElement16.textContent = "Cohesion (Scored out of 4)";
+                            gradingOutputDiv.appendChild(headerElement16);
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of vocabulary grading
+
 
                     // 2.10. Make an AJAX call to the grade_essay_spelling grading function
 
