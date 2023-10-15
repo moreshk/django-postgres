@@ -517,7 +517,7 @@ def check_punctuation_persuasive(user_response, title, description, essay_type, 
 
         Essay Type: {essay_type}
 
-        Your task is to grade the provided essay on the criteria of Punctuation (Scored out of 6).
+        Your task is to grade the provided essay on the criteria of Punctuation (Scored out of 6 for persuasive essay type and scored out of 5 for narrative essay type).
 
         Grade 3 and Grade 5 criteria: 
         1-2 Points: The student uses basic and some advanced punctuation with occasional errors.
@@ -531,8 +531,11 @@ def check_punctuation_persuasive(user_response, title, description, essay_type, 
 
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples. 
+        
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+
+        Remember the max score for persuasive essay type is 6 and narrative essay type is 5. Hence scored out of for persuasive will be 5 and for narrative will be 5.
  """,
     )
 

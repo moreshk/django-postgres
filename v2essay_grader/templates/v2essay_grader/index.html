@@ -778,7 +778,7 @@
                         });
                     // End of paragraphing grading
 
-                    // Make an AJAX call to the grade_essay_sentence_structure grading function
+                    // 2.8 Make an AJAX call to the grade_essay_sentence_structure grading function
 
                     fetch('/v2essay_grader/grade_essay_sentence_structure/', {
                         method: 'POST',
@@ -806,6 +806,36 @@
                             console.error('Error:', error);
                         });
                     // End of Sentence Structure
+
+                    // 2.9 Make an AJAX call to the grade_essay_punctuation grading function
+
+                    fetch('/v2essay_grader/grade_essay_punctuation/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            // Create a new header element
+                            let headerElement19 = document.createElement("h4");
+                            headerElement19.textContent = "Punctuation (Scored out of 5)";
+                            gradingOutputDiv.appendChild(headerElement19);
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of grade_essay_punctuation grading
+
 
 
                     // 2.10. Make an AJAX call to the grade_essay_spelling grading function
