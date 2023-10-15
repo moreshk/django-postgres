@@ -695,7 +695,7 @@
                         });
                     // End of grade_narrative_audience grading
 
-                    // 2.1. Make an AJAX call to the grade_narrative_text_structure grading function
+                    // 2.2. Make an AJAX call to the grade_narrative_text_structure grading function
 
                     fetch('/v2essay_grader/grade_narrative_text_structure/', {
                         method: 'POST',
@@ -711,6 +711,35 @@
                             let headerElement12 = document.createElement("h4");
                             headerElement12.textContent = "Narrative Text Structure (Scored out of 4)";
                             gradingOutputDiv.appendChild(headerElement12);
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of grade_narrative_text_structure grading
+
+                    // 2.3. Make an AJAX call to the grade_narrative_ideas grading function
+
+                    fetch('/v2essay_grader/grade_narrative_ideas/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            // Create a new header element
+                            let headerElement13 = document.createElement("h4");
+                            headerElement13.textContent = "Narrative Ideas (Scored out of 5)";
+                            gradingOutputDiv.appendChild(headerElement13);
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 

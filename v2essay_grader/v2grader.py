@@ -655,45 +655,6 @@ def check_audience_narrative(user_response, title, description, essay_type, grad
     return feedback_from_api
 
 
-# Criteria 2. Text structure: The organisation of narrative features including orientation, complication and resolution into an appropriate and effective text structure. 
-# Score Range: 0-4 
-# Scoring guide: 
-# 0- no evidence of any structural components of a times equenced text • symbols or drawings • inappropriate genre, e.g. a recipe, argument • title only
-# 1- minimal evidence of narrative structure, e.g. a story beginning only or a ‘middle’ with no orientation • a recount of events with no complication • note that not all recounts are factual • may be description
-# 2- contains a beginning and a complication • where a resolution is present it is weak, contrived or ‘tacked on’ (e.g. I woke up, I died, They lived happily ever after) • a complication presents a problem to be solved, introduces tension, and requires a response. It drives the story forward and leads to a series of events or responses • complications should always be read in context • may also be a complete story where all parts of the story are weak or minimal (the story has a problem to be solved but it does not add to the tension or excitement).
-# 3 - contains orientation, complication and resolution • detailed longer text may resolve one complication and lead into a new complication or layer a new complication onto an existing one rather than conclude
-# 4- coherent, controlled and complete narrative, employing effective plot devices in an appropriate structure, and including an effective ending. sophisticated structures or plot devices include: – foreshadowing/flashback – red herring/cliffhanger – coda/twist – evaluation/reflection – circular/parallel plots
-
-
-# Criteria 2. Text structure: The organisation of narrative features including orientation, complication and resolution into an appropriate and effective text structure. 
-# Score Range: 0-4 
-# Scoring guide: 
-# 0- no evidence of any structural components of a times equenced text • symbols or drawings • inappropriate genre, e.g. a recipe, argument • title only
-# 1- minimal evidence of narrative structure, e.g. a story beginning only or a ‘middle’ with no orientation • a recount of events with no complication • note that not all recounts are factual • may be description
-# 2- contains a beginning and a complication • where a resolution is present it is weak, contrived or ‘tacked on’ (e.g. I woke up, I died, They lived happily ever after) • a complication presents a problem to be solved, introduces tension, and requires a response. It drives the story forward and leads to a series of events or responses • complications should always be read in context • may also be a complete story where all parts of the story are weak or minimal (the story has a problem to be solved but it does not add to the tension or excitement).
-# 3 - contains orientation, complication and resolution • detailed longer text may resolve one complication and lead into a new complication or layer a new complication onto an existing one rather than conclude
-# 4- coherent, controlled and complete narrative, employing effective plot devices in an appropriate structure, and including an effective ending. sophisticated structures or plot devices include: – foreshadowing/flashback – red herring/cliffhanger – coda/twist – evaluation/reflection – circular/parallel plots
-
-
-# Criteria 2. Text structure: The organisation of narrative features including orientation, complication and resolution into an appropriate and effective text structure. 
-# Score Range: 0-4 
-# Scoring guide: 
-# 0- no evidence of any structural components of a times equenced text • symbols or drawings • inappropriate genre, e.g. a recipe, argument • title only
-# 1- minimal evidence of narrative structure, e.g. a story beginning only or a ‘middle’ with no orientation • a recount of events with no complication • note that not all recounts are factual • may be description
-# 2- contains a beginning and a complication • where a resolution is present it is weak, contrived or ‘tacked on’ (e.g. I woke up, I died, They lived happily ever after) • a complication presents a problem to be solved, introduces tension, and requires a response. It drives the story forward and leads to a series of events or responses • complications should always be read in context • may also be a complete story where all parts of the story are weak or minimal (the story has a problem to be solved but it does not add to the tension or excitement).
-# 3 - contains orientation, complication and resolution • detailed longer text may resolve one complication and lead into a new complication or layer a new complication onto an existing one rather than conclude
-# 4- coherent, controlled and complete narrative, employing effective plot devices in an appropriate structure, and including an effective ending. sophisticated structures or plot devices include: – foreshadowing/flashback – red herring/cliffhanger – coda/twist – evaluation/reflection – circular/parallel plots
-
-
-# Criteria 2. Text structure: The organisation of narrative features including orientation, complication and resolution into an appropriate and effective text structure. 
-# Score Range: 0-4 
-# Scoring guide: 
-# 0- no evidence of any structural components of a times equenced text • symbols or drawings • inappropriate genre, e.g. a recipe, argument • title only
-# 1- minimal evidence of narrative structure, e.g. a story beginning only or a ‘middle’ with no orientation • a recount of events with no complication • note that not all recounts are factual • may be description
-# 2- contains a beginning and a complication • where a resolution is present it is weak, contrived or ‘tacked on’ (e.g. I woke up, I died, They lived happily ever after) • a complication presents a problem to be solved, introduces tension, and requires a response. It drives the story forward and leads to a series of events or responses • complications should always be read in context • may also be a complete story where all parts of the story are weak or minimal (the story has a problem to be solved but it does not add to the tension or excitement).
-# 3 - contains orientation, complication and resolution • detailed longer text may resolve one complication and lead into a new complication or layer a new complication onto an existing one rather than conclude
-# 4- coherent, controlled and complete narrative, employing effective plot devices in an appropriate structure, and including an effective ending. sophisticated structures or plot devices include: – foreshadowing/flashback – red herring/cliffhanger – coda/twist – evaluation/reflection – circular/parallel plots
-
 # 12. Narrative Text Structure (0 - 4)
 
 def check_text_structure_narrative(user_response, title, description, essay_type, grade):
@@ -722,6 +683,70 @@ def check_text_structure_narrative(user_response, title, description, essay_type
         2 - contains a beginning and a complication • where a resolution is present it is weak, contrived or `tacked on` (e.g. I woke up, I died, They lived happily ever after) • a complication presents a problem to be solved, introduces tension, and requires a response. It drives the story forward and leads to a series of events or responses • complications should always be read in context • may also be a complete story where all parts of the story are weak or minimal (the story has a problem to be solved but it does not add to the tension or excitement).
         3 - contains orientation, complication and resolution • detailed longer text may resolve one complication and lead into a new complication or layer a new complication onto an existing one rather than conclude
         4 - coherent, controlled and complete narrative, employing effective plot devices in an appropriate structure, and including an effective ending. sophisticated structures or plot devices include: - foreshadowing/flashback - red herring/cliffhanger - coda/twist - evaluation/reflection - circular/parallel plots
+
+        Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
+        Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+    }
+
+    # print(essay_type, title, description)
+    feedback_from_api = chain.run(inputs)
+    print(feedback_from_api)
+    return feedback_from_api
+
+# Criteria 3. Ideas: The creation, selection and crafting of ideas for a narrative.
+# Score Range: 0-5 
+# Scoring guide: 
+# 0 - • no evidence or insufficient evidence • symbols or drawings • title only
+# 1 - • one idea OR • ideas are very few and very simple OR • ideas appear unrelated to each other OR • ideas appear unrelated to prompt
+# 2 - • one idea with simple elaboration OR • ideas are few and related but not elaborated OR • many simple ideas are related but not elaborated
+# 3 - • ideas show some development or elaboration • all ideas relate coherently
+# 4 - • ideas are substantial and elaborated AND contribute effectively to a central storyline • the story contains a suggestion of an underlying theme
+# 5 - ideas are generated, selected and crafted to explore a recognisable theme • ideas are skilfully used in the service of the storyline • ideas may include: – psychological subjects – unexpected topics – mature viewpoints – elements of popular culture – satirical perspectives – extended metaphor – traditional sub-genre subjects: heroic quest / whodunnit / good vs evil / overcoming the odds
+
+
+# 12. Narrative Ideas (0 - 5)
+
+def check_ideas_narrative(user_response, title, description, essay_type, grade):
+    print("I am in text structure narrative")
+    print(essay_type, grade, title, description)
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        template="""You are an essay grader for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of Ideas: The creation, selection and crafting of ideas for a narrative. (Scored out of 5).
+        Scoring guide: 
+        0 - no evidence or insufficient evidence • symbols or drawings • title only
+        1 - one idea OR • ideas are very few and very simple OR • ideas appear unrelated to each other OR • ideas appear unrelated to prompt
+        2 - one idea with simple elaboration OR • ideas are few and related but not elaborated OR • many simple ideas are related but not elaborated
+        3 - ideas show some development or elaboration • all ideas relate coherently
+        4 - ideas are substantial and elaborated AND contribute effectively to a central storyline • the story contains a suggestion of an underlying theme
+        5 - ideas are generated, selected and crafted to explore a recognisable theme • ideas are skilfully used in the service of the storyline • ideas may include: - psychological subjects - unexpected topics - mature viewpoints - elements of popular culture - satirical perspectives - extended metaphor - traditional sub-genre subjects: heroic quest / whodunnit / good vs evil / overcoming the odds
 
         Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
         Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
