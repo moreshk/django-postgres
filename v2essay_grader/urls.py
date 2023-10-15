@@ -10,5 +10,8 @@ urlpatterns = [
     path('grade_essay_text_structure/', views.grade_essay_text_structure, name='grade_essay_text_structure'),
     path('grade_essay_ideas/', views.grade_essay_ideas, name='grade_essay_ideas'),
     path('grade_essay_persuasive_devices/', views.grade_essay_persuasive_devices, name='grade_essay_persuasive_devices'),
+    path('grade_essay_vocabulary/', views.grade_essay_vocabulary, name='grade_essay_vocabulary'),
+    path('grade_essay_cohesion/', views.grade_essay_cohesion, name='grade_essay_cohesion'),
+    path('grade_essay_paragraphing/', views.grade_essay_paragraphing, name='grade_essay_paragraphing'),
 ]
 

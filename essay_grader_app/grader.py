@@ -101,51 +101,51 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
         Grade 5 Persuasive Writing Grading Criteria
 
 1. Audience (Scored out of 6)
-
 1-2 Points: The student shows an awareness of the reader but may not consistently engage or persuade throughout the piece.
 3-4 Points: The student engages the reader with a clear intent to persuade. The tone is mostly consistent, and the reader's interest is maintained.
 5-6 Points: The student effectively engages, orients, and persuades the reader throughout, demonstrating a strong connection with the audience.
-2. Text Structure (Scored out of 4)
 
+2. Text Structure (Scored out of 4)
 1 Point: The student provides a structure with recognizable components, though transitions might be inconsistent.
 2-3 Points: The student's writing has a clear introduction, body, and conclusion. Transitions between ideas are mostly smooth.
 4 Points: The writing is well-organized with effective transitions, guiding the reader seamlessly through a coherent argument.
-3. Ideas (Scored out of 5)
 
+3. Ideas (Scored out of 5)
 1-2 Points: The student presents an argument with some supporting details, though these might lack depth.
 3-4 Points: The student's argument is developed with relevant supporting details. The writing shows some depth and elaboration.
 5 Points: The student presents a comprehensive argument, supported by detailed and relevant examples or reasons.
-4. Persuasive Devices (Scored out of 4)
 
+4. Persuasive Devices (Scored out of 4)
 1 Point: Some use of persuasive devices, though they may be basic or not always effective.
 2-3 Points: The student uses persuasive devices, such as rhetorical questions, emotive language, or anecdotes, with varying effectiveness.
 4 Points: The student skillfully employs a range of persuasive devices to enhance and strengthen their argument.
-5. Vocabulary (Scored out of 5)
 
+5. Vocabulary (Scored out of 5)
 1-2 Points: The student uses appropriate vocabulary for their age, though word choice might occasionally be repetitive or imprecise.
 3-4 Points: The student's vocabulary is varied, with words often chosen for effect and clarity.
 5 Points: The student's vocabulary is rich and purposeful, significantly enhancing the persuasive quality of the writing.
+
 6. Cohesion (Scored out of 4)
 
 1 Point: The student's writing shows some connections between ideas, though these might be basic or unclear at times.
 2-3 Points: Use of referring words, text connectives, and other cohesive devices to link ideas, with occasional lapses.
 4 Points: The student masterfully controls multiple threads and relationships across the text, ensuring a cohesive and unified argument.
-7. Paragraphing (Scored out of 2)
 
+7. Paragraphing (Scored out of 2)
 1 Point: The student groups related ideas into paragraphs, though there might be occasional lapses in coherence.
 2 Points: Ideas are effectively and logically grouped into clear paragraphs, enhancing the structure and flow of the argument.
-8. Sentence Structure (Scored out of 6)
 
+8. Sentence Structure (Scored out of 6)
 1-2 Points: The student forms sentences with occasional complexity, though there might be inconsistencies in clarity.
 3-4 Points: The student uses a mix of simple, compound, and some complex sentences, with few errors.
 5-6 Points: The student effectively employs a variety of sentence structures, enhancing the clarity, rhythm, and sophistication of the writing.
-9. Punctuation (Scored out of 6)
 
+9. Punctuation (Scored out of 6)
 1-2 Points: The student uses basic and some advanced punctuation with occasional errors.
 3-4 Points: The student correctly uses a range of punctuation, including quotation marks and apostrophes, with few mistakes.
 5-6 Points: Punctuation is used skillfully and accurately throughout the writing, significantly aiding the reader's understanding.
-10. Spelling (Scored out of 6)
 
+10. Spelling (Scored out of 6)
 1-2 Points: The student spells most common words correctly, with errors in more challenging or less common words.
 3-4 Points: A majority of words, including challenging ones, are spelled correctly.
 5-6 Points: The student demonstrates an excellent grasp of spelling across a range of word types, with errors being very rare.
@@ -261,27 +261,27 @@ def grade_essay(user_response, title, description, exam_type, essay_type, grade)
 1-2 Points: The student's vocabulary is appropriate but might occasionally lack precision or sophistication.
 3-4 Points: The student's vocabulary is varied, sophisticated, and often chosen for its effect, enhancing clarity and persuasion.
 5 Points: The student's vocabulary is rich, sophisticated, and purposefully chosen, significantly elevating the persuasive quality of the writing with nuance.
-6. Cohesion (Scored out of 4)
 
+6. Cohesion (Scored out of 4)
 1 Point: The student's writing shows connections between ideas, but these might occasion of the Task Titleally lack sophistication.
 2-3 Points: Effective use of advanced cohesive devices to link ideas, demonstrating a deeper understanding of textual flow.
 4 Points: The student expertly controls multiple threads and relationships across the text, ensuring a cohesive, unified, and flowing argument with advanced techniques.
-7. Paragraphing (Scored out of 2)
 
+7. Paragraphing (Scored out of 2)
 1 Point: The student logically groups related ideas into paragraphs, but transitions might occasionally lack depth.
 2 Points: Ideas are effectively and logically grouped into clear paragraphs, enhancing the structure and flow of the argument with sophistication.
-8. Sentence Structure (Scored out of 6)
 
+8. Sentence Structure (Scored out of 6)
 1-2 Points: The student forms sentences with complexity, but there might be occasional inconsistencies or errors.
 3-4 Points: The student effectively uses a mix of simple, compound, and complex sentences, enhancing clarity and rhythm with more advanced structures.
 5-6 Points: The student masterfully employs a diverse range of sentence structures, adding depth, clarity, and sophistication to the writing with nuance.
-9. Punctuation (Scored out of 6)
 
+9. Punctuation (Scored out of 6)
 1-2 Points: The student uses a mix of basic and advanced punctuation with some errors.
 3-4 Points: The student accurately uses a wide range of punctuation, including more advanced forms, with few mistakes and for stylistic effect.
 5-6 Points: Punctuation is used expertly and accurately throughout the writing, not just for clarity but also for stylistic and rhetorical effect.
-10. Spelling (Scored out of 6)
 
+10. Spelling (Scored out of 6)
 1-2 Points: The student spells most words correctly but may have errors with complex or specialized words.
 3-4 Points: A vast majority of words, including complex and specialized ones, are spelled correctly.
 5-6 Points: The student demonstrates an impeccable grasp of spelling across a diverse range of word types, including advanced and specialized vocabulary.

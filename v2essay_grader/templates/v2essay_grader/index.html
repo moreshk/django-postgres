@@ -296,7 +296,7 @@
                         .then(responseData => {
                             // Create a new header element
                             let headerElement1 = document.createElement("h4");
-                            headerElement1.textContent = "Audience (max 6 points)";
+                            headerElement1.textContent = "Audience (Scored out of 6)";
                             gradingOutputDiv.appendChild(headerElement1);
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
@@ -326,7 +326,7 @@
                         .then(responseData => {
                             // Create a new header element
                             let headerElement2 = document.createElement("h4");
-                            headerElement2.textContent = "Text Structure (max 4 points)";
+                            headerElement2.textContent = "Text Structure (Scored out of 4)";
                             gradingOutputDiv.appendChild(headerElement2);
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
@@ -354,7 +354,7 @@
                         .then(responseData => {
                             // Create a new header element
                             let headerElement3 = document.createElement("h4");
-                            headerElement3.textContent = "Ideas (max 5 points)";
+                            headerElement3.textContent = "Ideas (Scored out of 5)";
                             gradingOutputDiv.appendChild(headerElement3);
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
@@ -382,7 +382,7 @@
                         .then(responseData => {
                             // Create a new header element
                             let headerElement4 = document.createElement("h4");
-                            headerElement4.textContent = "Persuasive Devices (max 4 points)";
+                            headerElement4.textContent = "Persuasive Devices (Scored out of 4)";
                             gradingOutputDiv.appendChild(headerElement4);
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
@@ -395,7 +395,94 @@
                         .catch(error => {
                             console.error('Error:', error);
                         });
-                    // End of Ideas structure grading
+                    // End of Persuasive devices grading
+
+                    // Make an AJAX call to the vocabulary grading function
+
+                    fetch('/v2essay_grader/grade_essay_vocabulary/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            // Create a new header element
+                            let headerElement5 = document.createElement("h4");
+                            headerElement5.textContent = "Vocabulary (Scored out of 5)";
+                            gradingOutputDiv.appendChild(headerElement5);
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of vocabulary grading
+
+                    // Make an AJAX call to the cohesion grading function
+
+                    fetch('/v2essay_grader/grade_essay_cohesion/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            // Create a new header element
+                            let headerElement6 = document.createElement("h4");
+                            headerElement6.textContent = "Cohesion (Scored out of 4)";
+                            gradingOutputDiv.appendChild(headerElement6);
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of cohesion grading
+
+                    // Make an AJAX call to the paragraphing grading function
+
+                    fetch('/v2essay_grader/grade_essay_paragraphing/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(requestData) // 'data' should include the required parameters
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            // Create a new header element
+                            let headerElement7 = document.createElement("h4");
+                            headerElement7.textContent = "Paragraphing (Scored out of 2)";
+                            gradingOutputDiv.appendChild(headerElement7);
+                            console.log(responseData)
+                            let grade_essay_audienceOutput = responseData.feedback;
+
+                            // Display the result in the grading output div
+                            let grade_essay_audienceElement = document.createElement("div");
+                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    // End of cohesion grading
 
                 }
             })

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.http import JsonResponse
 from .v2grader import check_relevance, hello_world, check_audience_persuasive, check_text_structure_persuasive
-from .v2grader import check_ideas_persuasive, check_persuasive_devices_persuasive
+from .v2grader import check_ideas_persuasive, check_persuasive_devices_persuasive, check_vocabulary_persuasive, check_cohesion_persuasive, check_paragraphing_persuasive
 
 @login_required
 def index(request):
@@ -92,9 +92,62 @@ def grade_essay_persuasive_devices(request):
         description = data.get('description')
         essay_type = data.get('essay_type')
         grade = data.get('grade')
-        print("I am in grade essay audience")
+        print("I am in grade essay persuasive devices")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_persuasive_devices_persuasive(user_response, title, description, essay_type, grade)
+        return JsonResponse({'feedback': feedback_from_api})
+
+    return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
+
+# 5
+@login_required
+def grade_essay_vocabulary(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_response = data.get('user_response')
+        title = data.get('title')
+        description = data.get('description')
+        essay_type = data.get('essay_type')
+        grade = data.get('grade')
+        print("I am in grade essay vocabulary")
+        print(user_response, title, description, essay_type, grade)
+        feedback_from_api = check_vocabulary_persuasive(user_response, title, description, essay_type, grade)
+        return JsonResponse({'feedback': feedback_from_api})
+
+    return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
+
+
+# 6
+@login_required
+def grade_essay_cohesion(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_response = data.get('user_response')
+        title = data.get('title')
+        description = data.get('description')
+        essay_type = data.get('essay_type')
+        grade = data.get('grade')
+        print("I am in grade essay cohesion")
+        print(user_response, title, description, essay_type, grade)
+        feedback_from_api = check_cohesion_persuasive(user_response, title, description, essay_type, grade)
+        return JsonResponse({'feedback': feedback_from_api})
+
+    return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
+
+
+# 7
+@login_required
+def grade_essay_paragraphing(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_response = data.get('user_response')
+        title = data.get('title')
+        description = data.get('description')
+        essay_type = data.get('essay_type')
+        grade = data.get('grade')
+        print("I am in grade essay paragraphing")
+        print(user_response, title, description, essay_type, grade)
+        feedback_from_api = check_paragraphing_persuasive(user_response, title, description, essay_type, grade)
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
