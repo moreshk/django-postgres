@@ -599,3 +599,102 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
     feedback_from_api = chain.run(inputs)
     print(feedback_from_api)
     return feedback_from_api
+
+# 11. Narrative Audience (Scored out of 6)
+# Criteria 1. Audience: The writer’s capacity to orient, engage and affect the reader. 
+# Score Range: 0-6
+# Scoring guide: 
+# 0 - symbols or drawings which have the intention of conveying meaning.
+# 1- response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
+# 2 - shows basic awareness of audience expectations through attempting to orient the reader • provides some information to support reader understanding. may include simple narrative markers, e.g. – simple title – formulaic story opening: Long, long ago …; Once a boy was walking when … • description of people or places • reader may need to fill gaps in information • text may be short but is easily read.
+# 3- • orients the reader –an internally consistent story that attempts to support the reader by developing a shared understanding of context • contains sufficient information for the reader to follow the story fairly easily
+# 4- • supports reader understanding AND • begins to engage the reader
+# 5- supports and engages the reader through deliberate choice of language and use of narrative devices.
+# 6- caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
+
+# Criteria 1. Audience: The writer’s capacity to orient, engage and affect the reader. 
+# Score Range: 0-6
+# Scoring guide: 
+# 0 - symbols or drawings which have the intention of conveying meaning.
+# 1- response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
+# 2 - shows basic awareness of audience expectations through attempting to orient the reader • provides some information to support reader understanding. may include simple narrative markers, e.g. – simple title – formulaic story opening: Long, long ago …; Once a boy was walking when … • description of people or places • reader may need to fill gaps in information • text may be short but is easily read.
+# 3- • orients the reader –an internally consistent story that attempts to support the reader by developing a shared understanding of context • contains sufficient information for the reader to follow the story fairly easily
+# 4- • supports reader understanding AND • begins to engage the reader
+# 5- supports and engages the reader through deliberate choice of language and use of narrative devices.
+# 6- caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
+
+# Criteria 1. Audience: The writer’s capacity to orient, engage and affect the reader. 
+# Score Range: 0-6
+# Scoring guide: 
+# 0 - symbols or drawings which have the intention of conveying meaning.
+# 1- response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
+# 2 - shows basic awareness of audience expectations through attempting to orient the reader • provides some information to support reader understanding. may include simple narrative markers, e.g. – simple title – formulaic story opening: Long, long ago …; Once a boy was walking when … • description of people or places • reader may need to fill gaps in information • text may be short but is easily read.
+# 3- • orients the reader –an internally consistent story that attempts to support the reader by developing a shared understanding of context • contains sufficient information for the reader to follow the story fairly easily
+# 4- • supports reader understanding AND • begins to engage the reader
+# 5- supports and engages the reader through deliberate choice of language and use of narrative devices.
+# 6- caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
+
+
+# Criteria 1. Audience: The writer’s capacity to orient, engage and affect the reader. 
+# Score Range: 0-6
+# Scoring guide: 
+# 0 - symbols or drawings which have the intention of conveying meaning.
+# 1- response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
+# 2 - shows basic awareness of audience expectations through attempting to orient the reader • provides some information to support reader understanding. may include simple narrative markers, e.g. – simple title – formulaic story opening: Long, long ago …; Once a boy was walking when … • description of people or places • reader may need to fill gaps in information • text may be short but is easily read.
+# 3- • orients the reader –an internally consistent story that attempts to support the reader by developing a shared understanding of context • contains sufficient information for the reader to follow the story fairly easily
+# 4- • supports reader understanding AND • begins to engage the reader
+# 5- supports and engages the reader through deliberate choice of language and use of narrative devices.
+# 6- caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
+
+
+def check_audience_narrative(user_response, title, description, essay_type, grade):
+    print("I am in audience narrative")
+    print(essay_type, grade, title, description)
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        template="""You are an essay grader for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of Audience (Scored out of 6).
+        Scoring guide: 
+        0 - symbols or drawings which have the intention of conveying meaning.
+        1 - response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
+        2 - shows basic awareness of audience expectations through attempting to orient the reader • provides some information to support reader understanding. may include simple narrative markers, e.g. – simple title – formulaic story opening: Long, long ago …; Once a boy was walking when … • description of people or places • reader may need to fill gaps in information • text may be short but is easily read.
+        3 - orients the reader with an internally consistent story that attempts to support the reader by developing a shared understanding of context • contains sufficient information for the reader to follow the story fairly easily
+        4 - supports reader understanding AND • begins to engage the reader
+        5 - supports and engages the reader through deliberate choice of language and use of narrative devices.
+        6 - caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
+
+        Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
+        Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+    }
+
+    # print(essay_type, title, description)
+    feedback_from_api = chain.run(inputs)
+    print(feedback_from_api)
+    return feedback_from_api

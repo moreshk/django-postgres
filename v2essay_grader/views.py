@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .v2grader import check_relevance, hello_world, check_audience_persuasive, check_text_structure_persuasive, check_sentence_structure_persuasive, check_punctuation_persuasive
 from .v2grader import check_ideas_persuasive, check_persuasive_devices_persuasive, check_vocabulary_persuasive, check_cohesion_persuasive, check_paragraphing_persuasive, check_spelling_persuasive
-
+from .v2grader import check_audience_narrative
 @login_required
 def index(request):
     return render(request, 'v2essay_grader/index.html')
@@ -207,3 +207,22 @@ def grade_essay_spelling(request):
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
+
+
+# 11
+@login_required
+def grade_narrative_audience(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_response = data.get('user_response')
+        title = data.get('title')
+        description = data.get('description')
+        essay_type = data.get('essay_type')
+        grade = data.get('grade')
+        print("I am in grade narrative audience")
+        print(user_response, title, description, essay_type, grade)
+        feedback_from_api = check_audience_narrative(user_response, title, description, essay_type, grade)
+        return JsonResponse({'feedback': feedback_from_api})
+
+    return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
+

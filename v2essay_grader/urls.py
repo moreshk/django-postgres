@@ -16,5 +16,6 @@ urlpatterns = [
     path('grade_essay_sentence_structure/', views.grade_essay_sentence_structure, name='grade_essay_sentence_structure'),
     path('grade_essay_punctuation/', views.grade_essay_punctuation, name='grade_essay_punctuation'),
     path('grade_essay_spelling/', views.grade_essay_spelling, name='grade_essay_spelling'),
+    path('grade_narrative_audience/', views.grade_narrative_audience, name='grade_narrative_audience'),
 ]
 
