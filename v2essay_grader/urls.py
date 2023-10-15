@@ -19,5 +19,6 @@ urlpatterns = [
     path('grade_narrative_audience/', views.grade_narrative_audience, name='grade_narrative_audience'),
     path('grade_narrative_text_structure/', views.grade_narrative_text_structure, name='grade_narrative_text_structure'),
     path('grade_narrative_ideas/', views.grade_narrative_ideas, name='grade_narrative_ideas'),
+    path('grade_narrative_setting/', views.grade_narrative_setting, name='grade_narrative_setting'),
 ]
 
