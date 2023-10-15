@@ -824,3 +824,68 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
     feedback_from_api = chain.run(inputs)
     print(feedback_from_api)
     return feedback_from_api
+
+
+# 15. Narrative Character and Setting (0 - 4)
+
+def check_setting_narrative(user_response, title, description, essay_type, grade):
+    print("I am in setting narrative")
+    print(essay_type, grade, title, description)
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        template="""You are an essay grader for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of Character and Setting.
+        Character: the portrayal and development of character. 
+        Setting: the development of a sense of place, time and atmosphere. (Scored out of 4).
+        Scoring guide: 
+        0 - no evidence or insufficient evidence, symbols or drawings, writes in wrong genre, title only
+
+        1 - only names characters or gives their roles (e.g. father, the teacher, my friend, dinosaur, we, Jim) AND/OR only names the setting (e.g.school, the place we were at) setting is vague or confused	
+        2 - suggestion of characterisation through brief descriptions or speech or feelings, but lacks substance or continuity 
+        AND/OR
+        suggestion of setting through very brief and superficial descriptions of place and/or time	
+        basic dialogue or a few adjectives to describe a character or a place
+
+        3 - characterisation emerges through descriptions, actions, speech or the attribution of thoughts and feelings to a character
+        AND/OR
+        setting emerges through description of place, time and atmosphere	
+
+        4 - effective characterisation: details are selected to create distinct characters
+        AND/OR
+        Maintains a sense of setting throughout. Details are selected to create a sense of place and atmosphere. convincing dialogue, introspection and reactions to other characters
+
+        Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
+        Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+    }
+
+    # print(essay_type, title, description)
+    feedback_from_api = chain.run(inputs)
+    print(feedback_from_api)
+    return feedback_from_api
