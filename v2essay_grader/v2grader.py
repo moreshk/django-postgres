@@ -22,8 +22,8 @@ def check_relevance(user_response, title, description, essay_type, grade):
         Essay Type: {essay_type}
 
         Your job is to check relevance of the essay with respect to the task title and task description and essay type.
-        If the essay is completely irrelevant then mention "Provided essay is not relevant to the title and description and cannot be graded further."
-        If it is relevant (or has some degree of relevance) then mention "Provided essay input is relevant to the title and description.".
+        If the essay is completely irrelevant then mention "Provided input is not relevant to the title and description and cannot be graded further."
+        If it is relevant (or has some degree of relevance) then mention "Provided input is relevant to the title and description.".
         """,
     )
 
@@ -620,7 +620,7 @@ def check_audience_narrative(user_response, title, description, essay_type, grad
 
     relevance_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
-        template="""You are an essay grader for Naplan. Your inputs are
+        template="""You are an narrative writing (story) grader for Naplan. Your inputs are
 
         Task Title: {task_title}
 
@@ -632,7 +632,7 @@ def check_audience_narrative(user_response, title, description, essay_type, grad
 
         Essay Type: {essay_type}
 
-        Your task is to grade the provided essay on the criteria of Audience (Scored out of 6).
+        Your task is to grade the provided story on the criteria of Audience (Scored out of 6).
         Scoring guide: 
         0 - symbols or drawings which have the intention of conveying meaning.
         1 - response to audience needs is limited • contains simple written content. may be a title only OR • meaning is difficult to access OR • copied stimulus material, including prompt topic
@@ -643,8 +643,8 @@ def check_audience_narrative(user_response, title, description, essay_type, grad
         6 - caters to the anticipated values and expectations of the reader • influences or affects the reader through precise and sustained choice of language and use of narrative devices
 
         Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
-        Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Even though all grades have the same criteria, the same story would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
+        Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
@@ -675,7 +675,7 @@ def check_text_structure_narrative(user_response, title, description, essay_type
 
     relevance_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
-        template="""You are an essay grader for Naplan. Your inputs are
+        template="""You are an narrative writing (story) grader for Naplan. Your inputs are
 
         Task Title: {task_title}
 
@@ -687,7 +687,7 @@ def check_text_structure_narrative(user_response, title, description, essay_type
 
         Essay Type: {essay_type}
 
-        Your task is to grade the provided essay on the criteria of Text Structure (Scored out of 4).
+        Your task is to grade the provided story on the criteria of Text Structure (Scored out of 4).
         Scoring guide: 
         0 - no evidence of any structural components of a times equenced text • symbols or drawings • inappropriate genre, e.g. a recipe, argument • title only
         1 - minimal evidence of narrative structure, e.g. a story beginning only or a `middle` with no orientation • a recount of events with no complication • note that not all recounts are factual • may be description
@@ -697,7 +697,7 @@ def check_text_structure_narrative(user_response, title, description, essay_type
 
         Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
         Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
@@ -727,7 +727,7 @@ def check_ideas_narrative(user_response, title, description, essay_type, grade):
 
     relevance_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
-        template="""You are an essay grader for Naplan. Your inputs are
+        template="""You are an narrative writing (story) grader for Naplan. Your inputs are
 
         Task Title: {task_title}
 
@@ -739,7 +739,7 @@ def check_ideas_narrative(user_response, title, description, essay_type, grade):
 
         Essay Type: {essay_type}
 
-        Your task is to grade the provided essay on the criteria of Ideas: The creation, selection and crafting of ideas for a narrative. (Scored out of 5).
+        Your task is to grade the provided story on the criteria of Ideas: The creation, selection and crafting of ideas for a narrative. (Scored out of 5).
         Scoring guide: 
         0 - no evidence or insufficient evidence • symbols or drawings • title only
         1 - one idea OR • ideas are very few and very simple OR • ideas appear unrelated to each other OR • ideas appear unrelated to prompt
@@ -750,7 +750,7 @@ def check_ideas_narrative(user_response, title, description, essay_type, grade):
 
         Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
         Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
@@ -781,7 +781,7 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
 
     relevance_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
-        template="""You are an essay grader for Naplan. Your inputs are
+        template="""You are an narrative writing (story) grader for Naplan. Your inputs are
 
         Task Title: {task_title}
 
@@ -793,7 +793,7 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
 
         Essay Type: {essay_type}
 
-        Your task is to grade the provided essay on the criteria of Character and Setting.
+        Your task is to grade the provided story on the criteria of Character and Setting.
         Character: the portrayal and development of character. 
         Setting: the development of a sense of place, time and atmosphere. (Scored out of 4).
         Scoring guide: 
@@ -814,8 +814,8 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
         Maintains a sense of setting throughout. Details are selected to create a sense of place and atmosphere. convincing dialogue, introspection and reactions to other characters
 
         Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
-        Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Even though all grades have the same criteria, the same story would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
+        Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
@@ -846,7 +846,7 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
 
     relevance_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
-        template="""You are an essay grader for Naplan. Your inputs are
+        template="""You are an narrative writing (story) grader for Naplan. Your inputs are
 
         Task Title: {task_title}
 
@@ -858,7 +858,7 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
 
         Essay Type: {essay_type}
 
-        Your task is to grade the provided essay on the criteria of Character and Setting.
+        Your task is to grade the provided story on the criteria of Character and Setting.
         Character: the portrayal and development of character. 
         Setting: the development of a sense of place, time and atmosphere. (Scored out of 4).
         Scoring guide: 
@@ -879,8 +879,8 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
         Maintains a sense of setting throughout. Details are selected to create a sense of place and atmosphere. convincing dialogue, introspection and reactions to other characters
 
         Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
-        Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Even though all grades have the same criteria, the same story would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
+        Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
@@ -911,7 +911,7 @@ def check_cohesion_narrative(user_response, title, description, essay_type, grad
 
     relevance_prompt = PromptTemplate(
         input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
-        template="""You are an essay grader for Naplan. Your inputs are
+        template="""You are an narrative writing (story) grader for Naplan. Your inputs are
 
         Task Title: {task_title}
 
@@ -923,7 +923,7 @@ def check_cohesion_narrative(user_response, title, description, essay_type, grad
 
         Essay Type: {essay_type}
 
-        Your task is to grade the provided essay on the criteria of 
+        Your task is to grade the provided story on the criteria of 
         Cohesion: The control of multiple threads and relationships over the whole text, achieved through the use of referring words, substitutions, word associations and text connectives. 
         Score Range: 0-4 
 
@@ -937,8 +937,8 @@ def check_cohesion_narrative(user_response, title, description, essay_type, grad
         4 - a range of cohesive devices is used correctly and deliberately to enhance reading, an extended, highly cohesive piece of writing showing continuity of ideas and tightly linked sections of text
 
         Keep in mind the students grade and the essay type. Be more lenient to the lower grades and stricter with higher grades in your scoring. 
-        Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Even though all grades have the same criteria, the same story would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
+        Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )

@@ -282,7 +282,7 @@
                 feedbackElement.textContent = feedback;
                 gradingOutputDiv.appendChild(feedbackElement);
 
-                if (feedback === "Provided essay input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Persuasive") {
+                if (feedback === "Provided input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Persuasive") {
 
                     fetch('/v2essay_grader/grade_essay_audience/', {
                         method: 'POST',
@@ -576,7 +576,7 @@
 
                 // Narrative Grading
 
-                if (feedback === "Provided essay input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Narrative") {
+                if (feedback === "Provided input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Narrative") {
 
                     fetch('/v2essay_grader/grade_narrative_audience/', {
                         method: 'POST',
