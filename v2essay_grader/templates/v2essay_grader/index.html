@@ -177,7 +177,7 @@
                 placeholder="Your text goes here ..."></textarea>
         </div>
 
-        <button type="button" class="btn btn-primary" onclick="gradeText()">Grade</button>
+        <button type="button" class="btn btn-primary"  id="gradeButton" onclick="gradeText()">Grade</button>
         <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
             <span class="sr-only">Loading...</span>
         </div>
@@ -332,7 +332,7 @@
         };
 
         console.log("first api call", requestData);
-        fetch('/v2essay_grader/grade_essay/', {
+        fetchWithCounter('/v2essay_grader/grade_essay/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -355,7 +355,7 @@
 
                 if (feedback === "Provided input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Persuasive") {
 
-                    fetch('/v2essay_grader/grade_essay_audience/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_audience/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -385,7 +385,7 @@
                     // End of audience grading
                     // Make an AJAX call to the text structure grading function
 
-                    fetch('/v2essay_grader/grade_essay_text_structure/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_text_structure/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -413,7 +413,7 @@
                     // End of text structure grading
                     // Make an AJAX call to the Ideas grading function
 
-                    fetch('/v2essay_grader/grade_essay_ideas/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_ideas/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -441,7 +441,7 @@
                     // End of Ideas grading
                     // Make an AJAX call to the Persuasive Devices grading function
 
-                    fetch('/v2essay_grader/grade_essay_persuasive_devices/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_persuasive_devices/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -470,7 +470,7 @@
 
                     // Make an AJAX call to the vocabulary grading function
 
-                    fetch('/v2essay_grader/grade_essay_vocabulary/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_vocabulary/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -499,7 +499,7 @@
 
                     // Make an AJAX call to the cohesion grading function
 
-                    fetch('/v2essay_grader/grade_essay_cohesion/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_cohesion/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -528,7 +528,7 @@
 
                     // Make an AJAX call to the paragraphing grading function
 
-                    fetch('/v2essay_grader/grade_essay_paragraphing/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_paragraphing/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -557,7 +557,7 @@
 
                     // Make an AJAX call to the grade_essay_sentence_structure grading function
 
-                    fetch('/v2essay_grader/grade_essay_sentence_structure/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_sentence_structure/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -586,7 +586,7 @@
 
                     // Make an AJAX call to the grade_essay_punctuation grading function
 
-                    fetch('/v2essay_grader/grade_essay_punctuation/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_punctuation/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -615,7 +615,7 @@
 
                     // Make an AJAX call to the grade_essay_spelling grading function
 
-                    fetch('/v2essay_grader/grade_essay_spelling/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_spelling/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -649,7 +649,7 @@
 
                 if (feedback === "Provided input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Narrative") {
 
-                    fetch('/v2essay_grader/grade_narrative_audience/', {
+                    fetchWithCounter('/v2essay_grader/grade_narrative_audience/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -678,7 +678,7 @@
 
                     // 2.2. Make an AJAX call to the grade_narrative_text_structure grading function
 
-                    fetch('/v2essay_grader/grade_narrative_text_structure/', {
+                    fetchWithCounter('/v2essay_grader/grade_narrative_text_structure/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -707,7 +707,7 @@
 
                     // 2.3. Make an AJAX call to the grade_narrative_ideas grading function
 
-                    fetch('/v2essay_grader/grade_narrative_ideas/', {
+                    fetchWithCounter('/v2essay_grader/grade_narrative_ideas/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -735,7 +735,7 @@
                     // End of grade_narrative_text_structure grading
 
                     // 2.4. Make an AJAX call to the grade_narrative_setting grading function
-                    fetch('/v2essay_grader/grade_narrative_setting/', {
+                    fetchWithCounter('/v2essay_grader/grade_narrative_setting/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -764,7 +764,7 @@
 
                     // 2.5 Make an AJAX call to the vocabulary grading function
 
-                    fetch('/v2essay_grader/grade_essay_vocabulary/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_vocabulary/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -793,7 +793,7 @@
 
                     // 2.6 Make an AJAX call to the narrative cohesion grading function
 
-                    fetch('/v2essay_grader/grade_narrative_cohesion/', {
+                    fetchWithCounter('/v2essay_grader/grade_narrative_cohesion/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -822,7 +822,7 @@
 
                     // 2.7 Make an AJAX call to the paragraphing grading function
 
-                    fetch('/v2essay_grader/grade_essay_paragraphing/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_paragraphing/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -851,7 +851,7 @@
 
                     // 2.8 Make an AJAX call to the grade_essay_sentence_structure grading function
 
-                    fetch('/v2essay_grader/grade_essay_sentence_structure/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_sentence_structure/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -880,7 +880,7 @@
 
                     // 2.9 Make an AJAX call to the grade_essay_punctuation grading function
 
-                    fetch('/v2essay_grader/grade_essay_punctuation/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_punctuation/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -911,7 +911,7 @@
 
                     // 2.10. Make an AJAX call to the grade_essay_spelling grading function
 
-                    fetch('/v2essay_grader/grade_essay_spelling/', {
+                    fetchWithCounter('/v2essay_grader/grade_essay_spelling/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1124,6 +1124,37 @@
     // Call the function immediately to set the correct datalist when the page loads
     updateTitleOptions();
 
+    let activeApiCalls = 0;
+
+    function updateStatus() {
+        let gradeButton = document.getElementById("gradeButton");
+        let loadingSpinner = document.getElementById("loadingSpinner");
+
+        if (activeApiCalls > 0) {
+            gradeButton.disabled = true;
+            loadingSpinner.style.display = "block";
+        } else {
+            gradeButton.disabled = false;
+            loadingSpinner.style.display = "none";
+        }
+    }
+
+    function fetchWithCounter(url, options) {
+        activeApiCalls++;
+        updateStatus();
+
+        return fetch(url, options)
+            .then(response => {
+                activeApiCalls--;
+                updateStatus();
+                return response;
+            })
+            .catch(error => {
+                activeApiCalls--;
+                updateStatus();
+                throw error;
+            });
+    }
 </script>
 
 {% endblock %}
