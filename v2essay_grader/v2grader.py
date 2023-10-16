@@ -576,7 +576,11 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
 
         Essay Type: {essay_type}
 
-        Your task is to grade the provided essay on the criteria of Spelling (Scored out of 6).
+        Your job is to check the essay for any spelling mistakes. 
+        If there are any mistakes you will list them with their correct spelling and mention whether 
+        it was a simple word or complex/compound etc type of word.
+
+        You will then grade the provided essay on the criteria of Spelling (Scored out of 6).
 
         Grade 3 and Grade 5 criteria: 
         1-2 Points: The student spells most common words correctly, with errors in more challenging or less common words.
@@ -588,12 +592,9 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
         3-4 Points: A vast majority of words, including complex and specialized ones, are spelled correctly.
         5-6 Points: The student demonstrates an impeccable grasp of spelling across a diverse range of word types, including advanced and specialized vocabulary.
 
-        Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
-        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. 
-        Make sure to include examples about spelling mistakes you notice (only if there are any) and their corrections. 
-        If there are no mistakes from the user input essay, do not make up examples.
-        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        If there are no mistakes from the user input essay, do not make up examples. 
+        In feedback also mention your reasoning behind the grade you assign.
+        Format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
 
