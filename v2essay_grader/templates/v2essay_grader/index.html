@@ -33,14 +33,50 @@
                     <option>Grade 9</option>
                 </select>
             </div>
+            <datalist id="narrativeGrade3-5">
+                <option value="Narrative Title 1 for Grade 3-5">
+                <option value="Narrative Title 2 for Grade 3-5">
+                    <!-- Add more options as needed -->
+            </datalist>
+
+            <datalist id="narrativeGrade7-9">
+                <option value="Narrative Title 1 for Grade 7-9">
+                <option value="Narrative Title 2 for Grade 7-9">
+                    <!-- Add more options as needed -->
+            </datalist>
+
+            <datalist id="persuasiveGrade3-5">
+                <option value="Persuasive Title 1 for Grade 3-5">
+                <option value="Persuasive Title 2 for Grade 3-5">
+                    <!-- Add more options as needed -->
+            </datalist>
+
+            <datalist id="persuasiveGrade7-9">
+                <option value="Persuasive Title 1 for Grade 7-9">
+                <option value="Persuasive Title 2 for Grade 7-9">
+                    <!-- Add more options as needed -->
+            </datalist>
             <div class="form-group">
                 <label for="titleInput">Title:</label>
-                <input type="text" class="form-control" id="titleInput" placeholder="Enter title">
+                <!-- <input type="text" class="form-control" id="titleInput" placeholder="Enter title"> -->
+                <input list="titleOptions" type="text" class="form-control" id="titleInput" placeholder="Enter title">
+                <!-- <datalist id="titleOptions">
+                    <option value="Title 1">
+                    <option value="Title 2">
+                    <option value="Title 3">
+                </datalist> -->
             </div>
             <div class="form-group">
                 <label for="descriptionInput">Description:</label>
-                <textarea class="form-control" id="descriptionInput" rows="5"
-                    placeholder="Enter description"></textarea>
+                <!-- <textarea class="form-control" id="descriptionInput" rows="5" -->
+                <!-- placeholder="Enter description"></textarea> -->
+                <input list="descriptionOptions" class="form-control" id="descriptionInput" rows="5"
+                    placeholder="Enter description">
+                <!-- <datalist id="descriptionOptions">
+                    <option value="Description for Title 1">
+                    <option value="Description for Title 2">
+                    <option value="Description for Title 3">
+                </datalist> -->
             </div>
 
             <div id="persuasiveGuidelines" class="container mt-4" style="display:none;">
@@ -877,6 +913,63 @@
         document.getElementById("loadingSpinner").style.display = "none";
     }
 
+    document.getElementById("titleInput").addEventListener("input", function () {
+        let title = this.value;
+        let descriptionInput = document.getElementById("descriptionInput");
+
+        switch (title) {
+            case "Narrative Title 1 for Grade 3-5":
+                descriptionInput.value = "Description for Narrative Title 1 for Grade 3-5";
+                break;
+            case "Narrative Title 2 for Grade 3-5":
+                descriptionInput.value = "Description for Narrative Title 2 for Grade 3-5";
+                break;
+            case "Narrative Title 1 for Grade 7-9":
+                descriptionInput.value = "Description for Narrative Title 1 for Grade 7-9";
+                break;
+            case "Narrative Title 2 for Grade 7-9":
+                descriptionInput.value = "Description for Narrative Title 2 for Grade 7-9";
+                break;
+            case "Persuasive Title 1 for Grade 3-5":
+                descriptionInput.value = "Description for Persuasive Title 1 for Grade 3-5";
+                break;
+            case "Persuasive Title 2 for Grade 3-5":
+                descriptionInput.value = "Description for Persuasive Title 2 for Grade 3-5";
+                break;
+            case "Persuasive Title 1 for Grade 7-9":
+                descriptionInput.value = "Description for Persuasive Title 1 for Grade 7-9";
+                break;
+            case "Persuasive Title 2 for Grade 7-9":
+                descriptionInput.value = "Description for Persuasive Title 2 for Grade 7-9";
+                break;
+            default:
+                descriptionInput.value = "";
+        }
+    });
+
+    document.getElementById("essayTypeInput").addEventListener("change", updateTitleOptions);
+document.getElementById("gradeInput").addEventListener("change", updateTitleOptions);
+
+function updateTitleOptions() {
+    let essayType = document.getElementById("essayTypeInput").value;
+    let grade = document.getElementById("gradeInput").value;
+    let titleInput = document.getElementById("titleInput");
+
+    if (essayType === "Narrative" && (grade === "Grade 3" || grade === "Grade 5")) {
+        titleInput.setAttribute("list", "narrativeGrade3-5");
+    } else if (essayType === "Narrative" && (grade === "Grade 7" || grade === "Grade 9")) {
+        titleInput.setAttribute("list", "narrativeGrade7-9");
+    } else if (essayType === "Persuasive" && (grade === "Grade 3" || grade === "Grade 5")) {
+        titleInput.setAttribute("list", "persuasiveGrade3-5");
+    } else if (essayType === "Persuasive" && (grade === "Grade 7" || grade === "Grade 9")) {
+        titleInput.setAttribute("list", "persuasiveGrade7-9");
+    } else {
+        titleInput.removeAttribute("list");
+    }
+}
+
+// Call the function immediately to set the correct datalist when the page loads
+updateTitleOptions();
 
 </script>
 
