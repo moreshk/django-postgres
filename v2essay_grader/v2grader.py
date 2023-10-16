@@ -590,7 +590,9 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
 
         Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples about any mistakes you notice and their corrections.
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. 
+        Make sure to include examples about spelling mistakes you notice (only if there are any) and their corrections. 
+        If there are no mistakes from the user input essay, do not make up examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
  """,
     )
