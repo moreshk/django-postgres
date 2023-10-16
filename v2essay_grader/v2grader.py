@@ -81,6 +81,7 @@ def check_audience_persuasive(user_response, title, description, essay_type, gra
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 6.
  """,
     )
 
@@ -138,6 +139,7 @@ def check_text_structure_persuasive(user_response, title, description, essay_typ
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 4.
  """,
     )
 
@@ -194,6 +196,7 @@ def check_ideas_persuasive(user_response, title, description, essay_type, grade)
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 5.
  """,
     )
 
@@ -250,6 +253,7 @@ def check_persuasive_devices_persuasive(user_response, title, description, essay
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 4.
  """,
     )
 
@@ -306,6 +310,7 @@ def check_vocabulary_persuasive(user_response, title, description, essay_type, g
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 5.
  """,
     )
 
@@ -362,6 +367,7 @@ def check_cohesion_persuasive(user_response, title, description, essay_type, gra
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 4.
  """,
     )
 
@@ -418,6 +424,7 @@ def check_paragraphing_persuasive(user_response, title, description, essay_type,
         Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 2.
  """,
     )
 
@@ -477,6 +484,7 @@ def check_sentence_structure_persuasive(user_response, title, description, essay
         Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
         Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 6.
  """,
     )
 
@@ -595,6 +603,7 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
         If there are no mistakes from the user input essay, do not make up examples. 
         In feedback also mention your reasoning behind the grade you assign.
         Format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        After creating your response, make sure to carefully verify it to ensure that only actual spelling mistakes are being included in your response.
  """,
     )
 
@@ -649,6 +658,7 @@ def check_audience_narrative(user_response, title, description, essay_type, grad
         Even though all grades have the same criteria, the same story would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
         Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 6.
  """,
     )
 
@@ -702,6 +712,7 @@ def check_text_structure_narrative(user_response, title, description, essay_type
         Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
         Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 4.
  """,
     )
 
@@ -755,6 +766,7 @@ def check_ideas_narrative(user_response, title, description, essay_type, grade):
         Even though all grades have the same criteria, the same essay would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
         Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 5.
  """,
     )
 
@@ -820,6 +832,7 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
         Even though all grades have the same criteria, the same story would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
         Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 4.
  """,
     )
 
@@ -885,6 +898,7 @@ def check_setting_narrative(user_response, title, description, essay_type, grade
         Even though all grades have the same criteria, the same story would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
         Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 4.
  """,
     )
 
@@ -943,6 +957,7 @@ def check_cohesion_narrative(user_response, title, description, essay_type, grad
         Even though all grades have the same criteria, the same story would score higher if written by a grade 3 vs a grade 5. Same for grade 7 vs grade 9.
         Provide feedback on the input story in terms of what if anything was done well and what can be improved. Try to include examples.
         Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
+        Remember that your grade cannot exceed 4.
  """,
     )
 
