@@ -602,8 +602,9 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
 
         If there are no mistakes from the user input essay, do not make up examples. 
         In feedback also mention your reasoning behind the grade you assign.
+        After creating your response, make sure to carefully verify it to ensure that it follows the guidelines and revise if necessary.
         Format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
-        After creating your response, make sure to carefully verify it to ensure that only actual spelling mistakes are being included in your response.
+
  """,
     )
 
