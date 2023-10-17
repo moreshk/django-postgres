@@ -177,7 +177,7 @@
                 placeholder="Your text goes here ..."></textarea>
         </div>
 
-        <button type="button" class="btn btn-primary"  id="gradeButton" onclick="gradeText()">Grade</button>
+        <button type="button" class="btn btn-primary" id="gradeButton" onclick="gradeText()">Grade</button>
         <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
             <span class="sr-only">Loading...</span>
         </div>
@@ -316,6 +316,9 @@
     function gradeText() {
         // Show the spinner
         document.getElementById("loadingSpinner").style.display = "block";
+        let fetchPromises = [];
+        let totalScore = 0;
+        let maxScore = 0;
 
         let user_response = document.getElementById("gradingTextarea").value;
         let title = document.getElementById("titleOutput").textContent;
@@ -353,39 +356,55 @@
                 feedbackElement.textContent = feedback;
                 gradingOutputDiv.appendChild(feedbackElement);
 
+
+
                 if (feedback === "Provided input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Persuasive") {
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_audience/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}'
-                        },
-                        body: JSON.stringify(requestData) // 'data' should include the required parameters
-                    })
-                        .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement1 = document.createElement("h4");
-                            headerElement1.textContent = "Audience (Scored out of 6)";
-                            gradingOutputDiv.appendChild(headerElement1);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
-
-
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
+                    fetchPromises.push(
+                        fetchWithCounter('/v2essay_grader/grade_essay_audience/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify(requestData) // 'data' should include the required parameters
                         })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
+                            .then(response => response.json())
+                            .then(responseData => {
+                                // Process the response data here
+
+                                // Create a new header element
+                                let headerElement1 = document.createElement("h4");
+                                headerElement1.textContent = "Audience (Scored out of 6)";
+                                gradingOutputDiv.appendChild(headerElement1);
+                                console.log(responseData)
+                                let grade_essay_audienceOutput = responseData.feedback;
+
+                                // Use a regular expression to extract the score
+                                let scoreRegex = /(\d+)\/(\d+)/;
+                                let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                                if (match) {
+                                    let achievedScore = parseInt(match[1]);
+                                    let possibleScore = parseInt(match[2]);
+
+                                    totalScore += achievedScore;
+                                    maxScore += possibleScore;
+                                }
+
+                                // Display the result in the grading output div
+                                let grade_essay_audienceElement = document.createElement("div");
+                                grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
+                                gradingOutputDiv.appendChild(grade_essay_audienceElement);
+
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            }));
                     // End of audience grading
                     // Make an AJAX call to the text structure grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_text_structure/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_text_structure/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -402,6 +421,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -409,11 +440,11 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of text structure grading
                     // Make an AJAX call to the Ideas grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_ideas/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_ideas/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -430,6 +461,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -437,11 +480,11 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of Ideas grading
                     // Make an AJAX call to the Persuasive Devices grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_persuasive_devices/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_persuasive_devices/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -458,6 +501,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -465,12 +520,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of Persuasive devices grading
 
                     // Make an AJAX call to the vocabulary grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_vocabulary/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_vocabulary/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -487,6 +542,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -494,12 +561,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of vocabulary grading
 
                     // Make an AJAX call to the cohesion grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_cohesion/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_cohesion/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -516,6 +583,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -523,12 +602,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of cohesion grading
 
                     // Make an AJAX call to the paragraphing grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_paragraphing/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_paragraphing/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -545,6 +624,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -552,12 +643,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of paragraphing grading
 
                     // Make an AJAX call to the grade_essay_sentence_structure grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_sentence_structure/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_sentence_structure/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -574,6 +665,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -581,12 +684,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of Sentence Structure
 
                     // Make an AJAX call to the grade_essay_punctuation grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_punctuation/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_punctuation/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -603,6 +706,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -610,12 +725,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of grade_essay_punctuation grading
 
                     // Make an AJAX call to the grade_essay_spelling grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_spelling/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_spelling/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -632,6 +747,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -639,7 +766,7 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of grade_essay_spelling grading
 
 
@@ -649,7 +776,7 @@
 
                 if (feedback === "Provided input is relevant to the title and description." && document.getElementById("essayTypeInput").value === "Narrative") {
 
-                    fetchWithCounter('/v2essay_grader/grade_narrative_audience/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_narrative_audience/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -666,6 +793,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -673,12 +812,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of grade_narrative_audience grading
 
                     // 2.2. Make an AJAX call to the grade_narrative_text_structure grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_narrative_text_structure/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_narrative_text_structure/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -695,6 +834,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -702,12 +853,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of grade_narrative_text_structure grading
 
                     // 2.3. Make an AJAX call to the grade_narrative_ideas grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_narrative_ideas/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_narrative_ideas/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -724,6 +875,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -731,11 +894,11 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of grade_narrative_text_structure grading
 
                     // 2.4. Make an AJAX call to the grade_narrative_setting grading function
-                    fetchWithCounter('/v2essay_grader/grade_narrative_setting/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_narrative_setting/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -752,6 +915,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -759,12 +934,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of grade_narrative_text_structure grading
 
                     // 2.5 Make an AJAX call to the vocabulary grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_vocabulary/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_vocabulary/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -781,6 +956,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -788,12 +975,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of vocabulary grading
 
                     // 2.6 Make an AJAX call to the narrative cohesion grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_narrative_cohesion/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_narrative_cohesion/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -810,6 +997,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -817,12 +1016,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of vocabulary grading
 
                     // 2.7 Make an AJAX call to the paragraphing grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_paragraphing/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_paragraphing/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -839,6 +1038,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -846,12 +1057,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of paragraphing grading
 
                     // 2.8 Make an AJAX call to the grade_essay_sentence_structure grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_sentence_structure/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_sentence_structure/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -868,6 +1079,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -875,12 +1098,12 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of Sentence Structure
 
                     // 2.9 Make an AJAX call to the grade_essay_punctuation grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_punctuation/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_punctuation/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -897,6 +1120,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -904,14 +1139,14 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of grade_essay_punctuation grading
 
 
 
                     // 2.10. Make an AJAX call to the grade_essay_spelling grading function
 
-                    fetchWithCounter('/v2essay_grader/grade_essay_spelling/', {
+                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_spelling/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -928,6 +1163,18 @@
                             console.log(responseData)
                             let grade_essay_audienceOutput = responseData.feedback;
 
+                            // Use a regular expression to extract the score
+                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let match = grade_essay_audienceOutput.match(scoreRegex);
+
+                            if (match) {
+                                let achievedScore = parseInt(match[1]);
+                                let possibleScore = parseInt(match[2]);
+
+                                totalScore += achievedScore;
+                                maxScore += possibleScore;
+                            }
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -935,10 +1182,26 @@
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                        });
+                        }));
                     // End of grade_essay_spelling grading
 
                 }
+
+                // After all API calls
+                Promise.all(fetchPromises)
+                    .then(() => {
+                        // All API calls have completed here
+                        let finalScore = `${totalScore}/${maxScore}`;
+
+                        // Create a new header element
+                        let headerElement = document.createElement("h4");
+                        headerElement.textContent = `Final Score: ${finalScore}`;
+                        gradingOutputDiv.appendChild(headerElement);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+
             })
             .catch(error => {
                 console.error('Error:', error);
