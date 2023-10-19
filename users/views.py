@@ -19,6 +19,8 @@ from django.contrib.auth import get_user_model
 from .forms import UserUpdateForm, CustomPasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 
+from django.conf import settings
+
 User = get_user_model()
 
 # Initialize a logger
@@ -52,7 +54,7 @@ def send_verification_email(request, user):
     activate_url = 'http://' + domain + link
     email_subject = 'Activate your account'
     email_body = 'Hi, please use this link to verify your account: ' + activate_url
-    email = EmailMessage(email_subject, email_body, 'noreply@mydomain.com', [user.email])
+    email = EmailMessage(email_subject, email_body, settings.VERIFIED_SENDER_EMAIL, [user.email])
     email.send()
 
 def user_login(request):

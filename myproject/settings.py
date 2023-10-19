@@ -152,6 +152,10 @@ EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') == 'True'
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+DEFAULT_FROM_EMAIL = 'naplan@koretex.ai'
+EMAIL_FROM = 'naplan@koretex.ai'
+VERIFIED_SENDER_EMAIL = 'naplan@koretex.ai'
+
 
 # LOGIN_REDIRECT_URL = 'myaccount'
 LOGIN_REDIRECT_URL = 'home'
