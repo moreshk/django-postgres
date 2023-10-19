@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Account</title>
+    <style type="text/css">
+        .verify-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff !important; /* Forcefully setting the font color to white */
+    background-color: #007BFF; /* Blue background color */
+    border: none;
+    border-radius: 5px; /* Slightly rounded corners */
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.verify-button:hover {
+    text-decoration: none; /* Ensure the text remains without underline on hover */
+    /* color: #ffffff !important; Forcefully setting the font color to white on hover */
+}
+
+    </style>
+</head>
+
+<body>
+    <p>Hi,</p>
+    <p>Please click the button below to verify your account:</p>
+    <a href="{{ activate_url }}" class="verify-button">Verify My Account</a>
+    <p>If the button doesn't work, you can also copy and paste the link below into your browser:</p>
+    <a href="{{ activate_url }}" class="verification-link">{{ activate_url }}</a>
+    <p>Thanks!</p>
+</body>
+
+</html>

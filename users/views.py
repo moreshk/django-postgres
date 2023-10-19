@@ -20,6 +20,7 @@ from .forms import UserUpdateForm, CustomPasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 
 from django.conf import settings
+from django.template.loader import render_to_string
 
 User = get_user_model()
 
@@ -46,15 +47,31 @@ def register(request):
 
 
 
+# def send_verification_email(request, user):
+#     token = default_token_generator.make_token(user)
+#     uid = urlsafe_base64_encode(force_bytes(user.pk))
+#     domain = get_current_site(request).domain
+#     link = reverse('activate', kwargs={'uidb64': uid, 'token': token})
+#     activate_url = 'http://' + domain + link
+#     email_subject = 'Activate your account'
+#     email_body = 'Hi, please use this link to verify your account: ' + activate_url
+#     email = EmailMessage(email_subject, email_body, settings.VERIFIED_SENDER_EMAIL, [user.email])
+#     email.send()
+
 def send_verification_email(request, user):
     token = default_token_generator.make_token(user)
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     domain = get_current_site(request).domain
     link = reverse('activate', kwargs={'uidb64': uid, 'token': token})
     activate_url = 'http://' + domain + link
+    
     email_subject = 'Activate your account'
-    email_body = 'Hi, please use this link to verify your account: ' + activate_url
+    
+    # Render the email template with the activation link
+    email_body = render_to_string('users/verification_email.html', {'activate_url': activate_url})
+    
     email = EmailMessage(email_subject, email_body, settings.VERIFIED_SENDER_EMAIL, [user.email])
+    email.content_subtype = 'html'  # This is essential. It tells that the email has HTML content.
     email.send()
 
 def user_login(request):
