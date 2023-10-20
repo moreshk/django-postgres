@@ -13,7 +13,7 @@ from django.contrib.auth import logout
 import logging
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+# from django.shortcuts import render
 
 from django.contrib.auth import get_user_model
 from .forms import UserUpdateForm, CustomPasswordChangeForm
@@ -45,25 +45,17 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
-
-
-# def send_verification_email(request, user):
-#     token = default_token_generator.make_token(user)
-#     uid = urlsafe_base64_encode(force_bytes(user.pk))
-#     domain = get_current_site(request).domain
-#     link = reverse('activate', kwargs={'uidb64': uid, 'token': token})
-#     activate_url = 'http://' + domain + link
-#     email_subject = 'Activate your account'
-#     email_body = 'Hi, please use this link to verify your account: ' + activate_url
-#     email = EmailMessage(email_subject, email_body, settings.VERIFIED_SENDER_EMAIL, [user.email])
-#     email.send()
-
 def send_verification_email(request, user):
     token = default_token_generator.make_token(user)
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     domain = get_current_site(request).domain
     link = reverse('activate', kwargs={'uidb64': uid, 'token': token})
-    activate_url = 'http://' + domain + link
+
+    protocol = 'https' if request.is_secure() else 'http'
+    activate_url = f'{protocol}://{domain}{link}'
+
+
+    # activate_url = 'http://' + domain + link
     
     email_subject = 'Activate your account'
     
@@ -110,7 +102,8 @@ def activate(request, uidb64, token):
         else:
             return render(request, 'users/activation_failed.html')
     except Exception as ex:
-        logger.error(f"Error during activation: {ex}")
+        # logger.error(f"Error during activation: {ex}")
+        logger.error("Error during activation", exc_info=True)
         pass
     return render(request, 'users/activation_failed.html')
 
@@ -131,11 +124,18 @@ def myaccount(request):
             details_updated = True
 
         # Check if password form fields are filled and form is valid
-        if (request.POST.get('old_password') or request.POST.get('new_password1')) and password_form.is_valid():
-            password_form.save()
-            # Update the session to keep the user logged in after password change
-            update_session_auth_hash(request, request.user)
-            details_updated = True
+        # if (request.POST.get('old_password') or request.POST.get('new_password1')) and password_form.is_valid():
+        #     password_form.save()
+        #     # Update the session to keep the user logged in after password change
+        #     update_session_auth_hash(request, request.user)
+        #     details_updated = True
+
+        if request.POST.get('old_password') and request.POST.get('new_password1'):
+            if password_form.is_valid():
+                password_form.save()
+                update_session_auth_hash(request, request.user)
+                details_updated = True
+
 
         # Display a success message if any details were updated
         if details_updated:

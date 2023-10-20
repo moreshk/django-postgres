@@ -30,5 +30,14 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    USER_TYPES = (
+    ('TEACHER', 'Teacher'),
+    ('STUDENT', 'Student'),
+    ('PARENT', 'Parent'),
+    ('ADMINISTRATOR', 'Administrator')
+    )
+
+    user_type = models.CharField(max_length=15, choices=USER_TYPES, default='Student')
+
     objects = CustomUserManager()
 
