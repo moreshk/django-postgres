@@ -35,18 +35,19 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
-    # path('', RedirectView.as_view(url='login/'), name='index'),
     path('', views.home, name='index'),
     path('email_verification_sent/', views.email_verification_sent, name='email_verification_sent'),
     path('myaccount/', views.myaccount, name='myaccount'),
-    # path('logout/', views.user_logout, name='logout'),
-    # path('billing/', payment_views.billing, name='billing'),
-    # path('stripe_webhook/', payment_views.stripe_webhook, name='stripe_webhook'),
     path('payments/', include('payments.urls')),
     path('essay_grader_app/', include('essay_grader_app.urls')),
     path('spellcheck/', include('spellcheck.urls')),
     path('home/', views.home, name='home'),
     path('v2essay_grader/', include('v2essay_grader.urls')),
+    path('onboarding_first_name/', views.onboarding_first_name, name='onboarding_first_name'),
+    path('onboarding_last_name/', views.onboarding_last_name, name='onboarding_last_name'),
+    path('onboarding_user_type/', views.onboarding_user_type, name='onboarding_user_type'),
+
+    
 ]
 
 if settings.DEBUG:

@@ -22,6 +22,9 @@ from django.contrib.auth import update_session_auth_hash
 from django.conf import settings
 from django.template.loader import render_to_string
 
+from django import forms
+from django.contrib.auth import get_user_model
+
 User = get_user_model()
 
 # Initialize a logger
@@ -66,10 +69,29 @@ def send_verification_email(request, user):
     email.content_subtype = 'html'  # This is essential. It tells that the email has HTML content.
     email.send()
 
+# def user_login(request):
+#     context = {}
+#     if request.method == 'POST':
+        
+#         email = request.POST['email']
+#         password = request.POST['password']
+#         user = authenticate(request, email=email, password=password)
+
+#         if user:
+#             if user.is_active:
+#                 login(request, user)
+#                 # return redirect('myaccount')
+#                 # return redirect('essay_grader_app:index')
+#                 return redirect('home')
+#             else:
+#                 context['error'] = "Your account is not active. Please verify your email."
+#         else:
+#             context['error'] = "Invalid username or password."
+#     return render(request, 'users/login.html', context)
+
 def user_login(request):
     context = {}
     if request.method == 'POST':
-        
         email = request.POST['email']
         password = request.POST['password']
         user = authenticate(request, email=email, password=password)
@@ -77,9 +99,10 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                # return redirect('myaccount')
-                # return redirect('essay_grader_app:index')
-                return redirect('home')
+                if user.has_completed_onboarding:
+                    return redirect('home')
+                else:
+                    return redirect('onboarding_first_name')
             else:
                 context['error'] = "Your account is not active. Please verify your email."
         else:
@@ -149,3 +172,47 @@ def myaccount(request):
 @login_required
 def home(request):
     return render(request, 'users/home.html')
+
+
+@login_required
+def onboarding_first_name(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        if first_name:
+            request.user.first_name = first_name
+            request.user.save()
+            return redirect('onboarding_last_name')
+    return render(request, 'users/onboarding_first_name.html')
+
+@login_required
+def onboarding_last_name(request):
+    if request.method == 'POST':
+        last_name = request.POST.get('last_name')
+        if last_name:
+            request.user.last_name = last_name
+            request.user.save()
+            return redirect('onboarding_user_type')
+    return render(request, 'users/onboarding_last_name.html')
+
+User = get_user_model()
+
+class UserTypeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['user_type']
+        widgets = {
+            'user_type': forms.RadioSelect
+        }
+
+@login_required
+def onboarding_user_type(request):
+    form = UserTypeForm()  # Replace with your actual form
+    if request.method == 'POST':
+        form = UserTypeForm(request.POST)
+        if form.is_valid():
+            user_type = form.cleaned_data.get('user_type')
+            request.user.user_type = user_type
+            request.user.has_completed_onboarding = True
+            request.user.save()
+            return redirect('home')
+    return render(request, 'users/onboarding_user_type.html', {'form': form})

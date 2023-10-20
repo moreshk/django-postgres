@@ -38,6 +38,6 @@ class CustomUser(AbstractUser):
     )
 
     user_type = models.CharField(max_length=15, choices=USER_TYPES, default='Student')
-
+    has_completed_onboarding = models.BooleanField(default=False)
     objects = CustomUserManager()
 

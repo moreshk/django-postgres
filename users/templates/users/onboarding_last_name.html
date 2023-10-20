@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>... And your last name?</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <!-- <label for="lastName">Last Name</label> -->
+        <input type="text" class="form-control" id="lastName" name="last_name" required>
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Next</button>
+</form>
+<a href="{% url 'home' %}">Skip Onboarding</a>
+{% endblock %}
