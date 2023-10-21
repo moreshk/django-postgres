@@ -572,7 +572,8 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
     print(essay_type, grade, title, description)
 
 # Separate words from punctuation
-    words = re.findall(r'\w+|\S', user_response, re.UNICODE)
+    # Improved tokenization to handle contractions as single words
+    words = re.findall(r'\w+\'\w+|\w+|\S', user_response, re.UNICODE)
 
     spell = SpellChecker()
     
@@ -586,23 +587,7 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
         # Only add to mistakes if the correction is different from the original word
         if correct_word != word:
             mistakes[word] = {"correction": correct_word}
-
-
-    # spell = SpellChecker()
-
-    # # Find those words that may be misspelled
-    # misspelled = spell.unknown(user_response.split())
-
-    # mistakes = {}
-    # for word in misspelled:
-    #     # Get the most likely correct spelling for the word
-    #     correct_word = spell.correction(word)
-    #     # Get a list of suggested word corrections (you can use this if needed)
-    #     candidates = spell.candidates(word)
-    #     mistakes[word] = {
-    #         "correction": correct_word,
-    #         # "suggestions": candidates
-    #     }
+                              
 
     print("Spelling mistakes", mistakes)
 
@@ -658,44 +643,7 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
     first_feedback_from_api = chain.run(inputs)
     print("first run", first_feedback_from_api)
 
-    # # Making a second run to be doubly sure
-
-    # llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
-
-    # verification_prompt = PromptTemplate(
-    #     input_variables=["essay", "old_grade"],
-    #     template="""You are an essay grader verifier for Naplan. Your inputs are
-
-    #     Essay: {essay}
-
-    #     Old Grade: {old_grade}
-
-    #     Your job is to verify the work done by a grader.
-        
-    #     Sometimes the old grade will mention spelling mistakes which are not actually in the previous essay. 
-
-    #     You will check the old grade for mentions of any spelling mistakes and check if they actually exist in the provided essay.
-
-    #     If they do not exist in the original essay, remove them from the old grade and then return the remaining feedback from the old grade.
-
-    #     If the previous grading correctly identified spellling mistakes that did exist in the provided essay then return the old grade as is.
-
-    #     Remember your task is only to remove mentions of any spelling mistakes from the old grade if they seem to be made up (they dont actually exist in the essay).
-
-    #     After verification, make sure to return the rest of the feedback from the old grade and numeric values from old grade at the end of your response in the format Grade: (your grade)/(Scored out of).
-    #     """,
-    # )
-
-    # chain = LLMChain(llm=llm, prompt=verification_prompt)
-
-    # inputs = {
-    #     "essay": user_response,
-    #     "old_grade": first_feedback_from_api,
-    # }
-
-    # # print(essay_type, title, description)
-    # second_feedback = chain.run(inputs)
-    # print("second run", second_feedback)
+   
 
     return first_feedback_from_api
 
