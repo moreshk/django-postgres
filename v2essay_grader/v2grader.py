@@ -2,6 +2,8 @@
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
+from spellchecker import SpellChecker
+import re
 
 # 0. Check for relevance of the input essay to the topic
 def check_relevance(user_response, title, description, essay_type, grade):
@@ -568,25 +570,60 @@ def check_punctuation_persuasive(user_response, title, description, essay_type, 
 def check_spelling_persuasive(user_response, title, description, essay_type, grade):
     print("I am in check spelling")
     print(essay_type, grade, title, description)
+
+# Separate words from punctuation
+    words = re.findall(r'\w+|\S', user_response, re.UNICODE)
+
+    spell = SpellChecker()
+    
+    # Find those words that may be misspelled
+    misspelled = spell.unknown(words)
+
+    mistakes = {}
+    for word in misspelled:
+        # Get the most likely correct spelling for the word
+        correct_word = spell.correction(word)
+        # Only add to mistakes if the correction is different from the original word
+        if correct_word != word:
+            mistakes[word] = {"correction": correct_word}
+
+
+    # spell = SpellChecker()
+
+    # # Find those words that may be misspelled
+    # misspelled = spell.unknown(user_response.split())
+
+    # mistakes = {}
+    # for word in misspelled:
+    #     # Get the most likely correct spelling for the word
+    #     correct_word = spell.correction(word)
+    #     # Get a list of suggested word corrections (you can use this if needed)
+    #     candidates = spell.candidates(word)
+    #     mistakes[word] = {
+    #         "correction": correct_word,
+    #         # "suggestions": candidates
+    #     }
+
+    print("Spelling mistakes", mistakes)
+
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
     relevance_prompt = PromptTemplate(
-        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
+        input_variables=["essay", "grade", "mistakes"],
         template="""You are an essay grader for Naplan. Your inputs are
-
-        Task Title: {task_title}
-
-        Task Description: {task_desc}
 
         Essay: {essay}
 
         Students Grade: {grade}
 
-        Essay Type: {essay_type}
+        Spelling mistakes list: {mistakes}
 
-        Your job is to check the essay for any spelling mistakes. 
-        If there are any mistakes you will list them with their correct spelling and mention whether 
-        it was a simple word or complex/compound etc type of word.
+        Your job is to check the essay for spelling quality. 
+
+        If there are any spelling mistakes in the input spelling mistakes list you will list them with their correct spelling and mention whether 
+        it was a simple word or complex/compound etc type of word. 
+        
+        Do not try to find spelling mistakes yourself in the essay and only use the input spelling mistakes list.
 
         You will then grade the provided essay on the criteria of Spelling (Scored out of 6).
 
@@ -613,56 +650,54 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
 
     inputs = {
         "essay": user_response,
-        "task_title": title,
-        "task_desc": description,
         "grade": grade,
-        "essay_type": essay_type,
+        "mistakes": mistakes,
     }
 
     # print(essay_type, title, description)
     first_feedback_from_api = chain.run(inputs)
     print("first run", first_feedback_from_api)
 
-    # Making a second run to be doubly sure
+    # # Making a second run to be doubly sure
 
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    # llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
-    verification_prompt = PromptTemplate(
-        input_variables=["essay", "old_grade"],
-        template="""You are an essay grader verifier for Naplan. Your inputs are
+    # verification_prompt = PromptTemplate(
+    #     input_variables=["essay", "old_grade"],
+    #     template="""You are an essay grader verifier for Naplan. Your inputs are
 
-        Essay: {essay}
+    #     Essay: {essay}
 
-        Old Grade: {old_grade}
+    #     Old Grade: {old_grade}
 
-        Your job is to verify the work done by a grader.
+    #     Your job is to verify the work done by a grader.
         
-        Sometimes the old grade will mention spelling mistakes which are not actually in the previous essay. 
+    #     Sometimes the old grade will mention spelling mistakes which are not actually in the previous essay. 
 
-        You will check the old grade for mentions of any spelling mistakes and check if they actually exist in the provided essay.
+    #     You will check the old grade for mentions of any spelling mistakes and check if they actually exist in the provided essay.
 
-        If they do not exist in the original essay, remove them from the old grade and then return the remaining feedback from the old grade.
+    #     If they do not exist in the original essay, remove them from the old grade and then return the remaining feedback from the old grade.
 
-        If the previous grading correctly identified spellling mistakes that did exist in the provided essay then return the old grade as is.
+    #     If the previous grading correctly identified spellling mistakes that did exist in the provided essay then return the old grade as is.
 
-        Remember your task is only to remove mentions of any spelling mistakes from the old grade if they seem to be made up (they dont actually exist in the essay).
+    #     Remember your task is only to remove mentions of any spelling mistakes from the old grade if they seem to be made up (they dont actually exist in the essay).
 
-        After verification, make sure to return the rest of the feedback from the old grade and numeric values from old grade at the end of your response in the format Grade: (your grade)/(Scored out of).
-        """,
-    )
+    #     After verification, make sure to return the rest of the feedback from the old grade and numeric values from old grade at the end of your response in the format Grade: (your grade)/(Scored out of).
+    #     """,
+    # )
 
-    chain = LLMChain(llm=llm, prompt=verification_prompt)
+    # chain = LLMChain(llm=llm, prompt=verification_prompt)
 
-    inputs = {
-        "essay": user_response,
-        "old_grade": first_feedback_from_api,
-    }
+    # inputs = {
+    #     "essay": user_response,
+    #     "old_grade": first_feedback_from_api,
+    # }
 
-    # print(essay_type, title, description)
-    second_feedback = chain.run(inputs)
-    print("second run", second_feedback)
+    # # print(essay_type, title, description)
+    # second_feedback = chain.run(inputs)
+    # print("second run", second_feedback)
 
-    return second_feedback
+    return first_feedback_from_api
 
 # 11. Narrative Audience (Scored out of 6)
 
