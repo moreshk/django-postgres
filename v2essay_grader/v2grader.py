@@ -566,51 +566,52 @@ def check_punctuation_persuasive(user_response, title, description, essay_type, 
     return feedback_from_api
 
 # 10. Spelling (Scored out of 6)
-
 def check_spelling_persuasive(user_response, title, description, essay_type, grade):
     print("I am in check spelling")
     print(essay_type, grade, title, description)
-
-# Separate words from punctuation
-    # Improved tokenization to handle contractions as single words
-    words = re.findall(r'\w+\'\w+|\w+|\S', user_response, re.UNICODE)
-
-    spell = SpellChecker()
-    
-    # Find those words that may be misspelled
-    misspelled = spell.unknown(words)
-
-    mistakes = {}
-    for word in misspelled:
-        # Get the most likely correct spelling for the word
-        correct_word = spell.correction(word)
-        # Only add to mistakes if the correction is different from the original word
-        if correct_word != word:
-            mistakes[word] = {"correction": correct_word}
-                              
-
-    print("Spelling mistakes", mistakes)
-
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
     relevance_prompt = PromptTemplate(
-        input_variables=["essay", "grade", "mistakes"],
-        template="""You are an essay grader for Naplan. Your inputs are
+        input_variables=["essay"],
+        template="""You are a spelling checker. Your inputs are
 
         Essay: {essay}
 
+        Your job is to check the essay for any spelling mistakes. 
+        If there are any mistakes you will list them with their correct spelling and mention whether 
+        it was a simple word or complex/compound etc type of word.
+
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+    }
+
+    # print(essay_type, title, description)
+    first_feedback_from_api = chain.run(inputs)
+    print("first run", first_feedback_from_api)
+
+    # Making a second run to be doubly sure
+
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    verification_prompt = PromptTemplate(
+        input_variables=["essay", "mistakes", "grade"],
+        template="""You are an spelling grader verifier for Naplan. Your inputs are
+
+        Essay: {essay}
+
+        Spelling mistakes: {mistakes}
+
         Students Grade: {grade}
 
-        Spelling mistakes list: {mistakes}
+        Someone has already done the work of finding the spelling mistakes in the essay.
 
-        Your job is to check the essay for spelling quality. 
-
-        If there are any spelling mistakes in the input spelling mistakes list you will list them with their correct spelling and mention whether 
-        it was a simple word or complex/compound etc type of word. 
-        
-        Do not try to find spelling mistakes yourself in the essay and only use the input spelling mistakes list.
-
-        You will then grade the provided essay on the criteria of Spelling (Scored out of 6).
+        You will verify the provided spelling mistakes and the essay as input and then grade the essay on spellings using the below criteria.
 
         Grade 3 and Grade 5 criteria: 
         1-2 Points: The student spells most common words correctly, with errors in more challenging or less common words.
@@ -622,30 +623,24 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
         3-4 Points: A vast majority of words, including complex and specialized ones, are spelled correctly.
         5-6 Points: The student demonstrates an impeccable grasp of spelling across a diverse range of word types, including advanced and specialized vocabulary.
 
-        If there are no mistakes from the user input essay, do not make up examples. 
         In feedback also mention your reasoning behind the grade you assign.
-        After creating your response, make sure to carefully verify it to ensure that it follows the guidelines and revise if necessary.
         Format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
-
- """,
+        """,
     )
 
-
-    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+    chain = LLMChain(llm=llm, prompt=verification_prompt)
 
     inputs = {
         "essay": user_response,
+        "mistakes": first_feedback_from_api,
         "grade": grade,
-        "mistakes": mistakes,
     }
 
     # print(essay_type, title, description)
-    first_feedback_from_api = chain.run(inputs)
-    print("first run", first_feedback_from_api)
+    second_feedback = chain.run(inputs)
+    print("second run", second_feedback)
 
-   
-
-    return first_feedback_from_api
+    return second_feedback
 
 # 11. Narrative Audience (Scored out of 6)
 
