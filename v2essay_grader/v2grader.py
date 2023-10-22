@@ -609,7 +609,7 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
 
         Students Grade: {grade}
 
-        Someone has already done the work of finding the spelling mistakes in the essay.
+        Another grader has already done the work of finding the spelling mistakes in the essay.
 
         You will verify the provided spelling mistakes and the essay as input and then grade the essay on spellings using the below criteria.
 
