@@ -1,3 +1,4 @@
+import re
 import json
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -6,6 +7,8 @@ from django.http import JsonResponse
 from .v2grader import check_relevance, hello_world, check_audience_persuasive, check_text_structure_persuasive, check_sentence_structure_persuasive, check_punctuation_persuasive
 from .v2grader import check_ideas_persuasive, check_persuasive_devices_persuasive, check_vocabulary_persuasive, check_cohesion_persuasive, check_paragraphing_persuasive, check_spelling_persuasive
 from .v2grader import check_audience_narrative, check_text_structure_narrative, check_ideas_narrative, check_setting_narrative, check_cohesion_narrative
+from users.models import GradeResult
+
 @login_required
 def index(request):
     return render(request, 'v2essay_grader/index.html')
@@ -44,6 +47,24 @@ def grade_essay_audience(request):
         print("I am in grade essay audience")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_audience_persuasive(user_response, title, description, essay_type, grade)
+
+        # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='audience',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -61,6 +82,24 @@ def grade_essay_text_structure(request):
         print("I am in grade essay text structure")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_text_structure_persuasive(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='text structure',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -78,6 +117,24 @@ def grade_essay_ideas(request):
         print("I am in grade essay ideas")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_ideas_persuasive(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='ideas',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -95,6 +152,24 @@ def grade_essay_persuasive_devices(request):
         print("I am in grade essay persuasive devices")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_persuasive_devices_persuasive(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='persuasive devices',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -112,6 +187,24 @@ def grade_essay_vocabulary(request):
         print("I am in grade essay vocabulary")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_vocabulary_persuasive(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='vocabulary',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -130,6 +223,24 @@ def grade_essay_cohesion(request):
         print("I am in grade essay cohesion")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_cohesion_persuasive(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='cohesion',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -148,6 +259,24 @@ def grade_essay_paragraphing(request):
         print("I am in grade essay paragraphing")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_paragraphing_persuasive(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='paragraphing',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -168,6 +297,24 @@ def grade_essay_sentence_structure(request):
         print("I am in grade essay sentence structure")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_sentence_structure_persuasive(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='sentence structure',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -186,6 +333,24 @@ def grade_essay_punctuation(request):
         print("I am in grade essay punctuation")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_punctuation_persuasive(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='punctuation',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -204,6 +369,24 @@ def grade_essay_spelling(request):
         print("I am in grade essay spelling")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_spelling_persuasive(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='spelling',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -222,6 +405,24 @@ def grade_narrative_audience(request):
         print("I am in grade narrative audience")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_audience_narrative(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='audience',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -239,6 +440,24 @@ def grade_narrative_text_structure(request):
         print("I am in grade narrative text_structure")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_text_structure_narrative(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='text structure',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -256,6 +475,24 @@ def grade_narrative_ideas(request):
         print("I am in grade narrative ideas")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_ideas_narrative(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='ideas',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -273,6 +510,24 @@ def grade_narrative_setting(request):
         print("I am in grade narrative setting")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_setting_narrative(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='setting',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
@@ -290,6 +545,24 @@ def grade_narrative_cohesion(request):
         print("I am in grade narrative cohesion")
         print(user_response, title, description, essay_type, grade)
         feedback_from_api = check_cohesion_narrative(user_response, title, description, essay_type, grade)
+        
+         # Extract the numeric grade from the feedback string
+        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
+        if match:
+            numeric_grade = int(match.group(1))
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='cohesion',
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)

@@ -41,3 +41,10 @@ class CustomUser(AbstractUser):
     has_completed_onboarding = models.BooleanField(default=False)
     objects = CustomUserManager()
 
+class GradeResult(models.Model):
+    user_id = models.IntegerField()
+    feedback = models.TextField()
+    numeric_grade = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    grading_criteria = models.CharField(max_length=200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    assignment_id = models.IntegerField(null=True, blank=True)
