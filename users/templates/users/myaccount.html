@@ -28,12 +28,31 @@
       {{ user_form.last_name|add_class:"form-control" }}
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label>User Type:</label><br>
       {% for choice in user_form.user_type %}
       {{ choice.tag }} {{ choice.choice_label }}<br>
       {% endfor %}
+    </div> -->
+
+    <div class="form-group">
+      <label>User Type:</label><br>
+      {% for choice in user_form.user_type %}
+        {{ choice.tag }} {{ choice.choice_label }}<br>
+      {% endfor %}
     </div>
+    
+    {% if request.user.user_type == 'STUDENT' %}
+    <script>
+      window.onload = function() {
+        var radios = document.getElementsByName('{{ user_form.user_type.html_name }}');
+        for (var i = 0; i < radios.length; i++) {
+          radios[i].disabled = true;
+        }
+      }
+    </script>
+    {% endif %}
+
 
 
     <h3>Change Password</h3>

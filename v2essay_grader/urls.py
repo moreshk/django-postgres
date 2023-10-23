@@ -23,5 +23,6 @@ urlpatterns = [
     path('grade_narrative_ideas/', views.grade_narrative_ideas, name='grade_narrative_ideas'),
     path('grade_narrative_setting/', views.grade_narrative_setting, name='grade_narrative_setting'),
     path('grade_narrative_cohesion/', views.grade_narrative_cohesion, name='grade_narrative_cohesion'),
+    path('essay_input/', views.essay_input, name='essay_input'),
 ]
 

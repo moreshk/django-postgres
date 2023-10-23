@@ -13,6 +13,10 @@ from users.models import GradeResult
 def index(request):
     return render(request, 'v2essay_grader/index.html')
 
+@login_required
+def essay_input(request):
+    return render(request, 'v2essay_grader/essay_input.html')
+
 # 0
 @login_required
 def grade_essay(request):

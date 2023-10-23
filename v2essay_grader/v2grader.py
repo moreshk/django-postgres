@@ -579,8 +579,8 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
 
         Your job is to check the essay for any spelling mistakes. 
         If there are any mistakes you will list them with their correct spelling and mention whether 
-        it was a simple word or complex/compound etc type of word.
-
+        it was a simple word or complex/compound etc type of word. Make sure to only list the words that are incorrectly spelled.
+        Do not under any circumstance list words that are correctly spelled in your output.
  """,
     )
 
@@ -611,7 +611,9 @@ def check_spelling_persuasive(user_response, title, description, essay_type, gra
 
         Another grader has already done the work of finding the spelling mistakes in the essay.
 
-        You will verify the provided spelling mistakes and the essay as input and then grade the essay on spellings using the below criteria.
+        You will first verify if the provided spelling mistakes inputs are actually mistakes (the correction should not be the same word).
+
+        You will then grade the essay on spellings using the below criteria.
 
         Grade 3 and Grade 5 criteria: 
         1-2 Points: The student spells most common words correctly, with errors in more challenging or less common words.

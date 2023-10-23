@@ -146,13 +146,6 @@ def myaccount(request):
             user_form.save()
             details_updated = True
 
-        # Check if password form fields are filled and form is valid
-        # if (request.POST.get('old_password') or request.POST.get('new_password1')) and password_form.is_valid():
-        #     password_form.save()
-        #     # Update the session to keep the user logged in after password change
-        #     update_session_auth_hash(request, request.user)
-        #     details_updated = True
-
         if request.POST.get('old_password') and request.POST.get('new_password1'):
             if password_form.is_valid():
                 password_form.save()
@@ -171,8 +164,8 @@ def myaccount(request):
 
 @login_required
 def home(request):
-    return render(request, 'users/home.html')
-
+    user_type = request.user.user_type  # Get the user type
+    return render(request, 'users/home.html', {'user_type': user_type})
 
 @login_required
 def onboarding_first_name(request):

@@ -6,13 +6,24 @@
 
     <div class="row">
         <!-- Essay Grader Tile -->
-        <div class="col-md-3 mb-4">
+        <!-- <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
                     <a href="{% url 'v2essay_grader:index' %}">Essay Grader</a>
                 </div>
             </div>
+        </div> -->
+
+        {% if user_type != 'STUDENT' %}
+        <!-- Essay Grader Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'v2essay_grader:index' %}">Teacher Essay Grader</a>
+                </div>
+            </div>
         </div>
+        {% endif %}
 
         <!-- Spell Check Index Tile -->
         <!-- <div class="col-md-3 mb-4">
@@ -31,6 +42,16 @@
                 </div>
             </div>
         </div> -->
+
+        <!-- Essay Input Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'v2essay_grader:essay_input' %}">Student Essay Input</a>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Payments Tile -->
         <div class="col-md-3 mb-4">
