@@ -69,26 +69,6 @@ def send_verification_email(request, user):
     email.content_subtype = 'html'  # This is essential. It tells that the email has HTML content.
     email.send()
 
-# def user_login(request):
-#     context = {}
-#     if request.method == 'POST':
-        
-#         email = request.POST['email']
-#         password = request.POST['password']
-#         user = authenticate(request, email=email, password=password)
-
-#         if user:
-#             if user.is_active:
-#                 login(request, user)
-#                 # return redirect('myaccount')
-#                 # return redirect('essay_grader_app:index')
-#                 return redirect('home')
-#             else:
-#                 context['error'] = "Your account is not active. Please verify your email."
-#         else:
-#             context['error'] = "Invalid username or password."
-#     return render(request, 'users/login.html', context)
-
 def user_login(request):
     context = {}
     if request.method == 'POST':

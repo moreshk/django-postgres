@@ -1,13 +1,14 @@
 import re
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.http import JsonResponse
 from .v2grader import check_relevance, hello_world, check_audience_persuasive, check_text_structure_persuasive, check_sentence_structure_persuasive, check_punctuation_persuasive
 from .v2grader import check_ideas_persuasive, check_persuasive_devices_persuasive, check_vocabulary_persuasive, check_cohesion_persuasive, check_paragraphing_persuasive, check_spelling_persuasive
 from .v2grader import check_audience_narrative, check_text_structure_narrative, check_ideas_narrative, check_setting_narrative, check_cohesion_narrative
-from users.models import GradeResult
+from users.models import GradeResult, Assignment
+from django.contrib import messages
 
 @login_required
 def index(request):
@@ -16,6 +17,28 @@ def index(request):
 @login_required
 def essay_input(request):
     return render(request, 'v2essay_grader/essay_input.html')
+
+@login_required
+def create_assignment(request):
+    if request.user.user_type != 'TEACHER':
+        return redirect('home')
+    
+    if request.method == 'POST':
+        # Create a new Assignment record
+        Assignment.objects.create(
+            teacher_id=request.user.id,
+            assignment_type='Writing',
+            assignment_sub_type=request.POST['essayTypeInput'],
+            grade=request.POST['gradeInput'],
+            title=request.POST['titleInput'],
+            task_description=request.POST['descriptionInput'],
+            status='created'
+        )
+        messages.success(request, 'Assignment created successfully')
+        return redirect('v2essay_grader:create_assignment')  # or wherever you want to redirect after form submission
+
+    
+    return render(request, 'v2essay_grader/create_assignment.html')
 
 # 0
 @login_required

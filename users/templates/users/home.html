@@ -14,6 +14,18 @@
             </div>
         </div> -->
 
+        {% if user_type == 'TEACHER' %}
+        <!-- Essay Grader Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'v2essay_grader:create_assignment' %}">Create Assignment</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
         {% if user_type != 'STUDENT' %}
         <!-- Essay Grader Tile -->
         <div class="col-md-3 mb-4">

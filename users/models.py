@@ -55,7 +55,7 @@ class Assignment(models.Model):
     assignment_sub_type = models.CharField(max_length=255)
     grade = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
-    desc = models.TextField()
+    task_description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=255)
 

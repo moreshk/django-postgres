@@ -24,5 +24,6 @@ urlpatterns = [
     path('grade_narrative_setting/', views.grade_narrative_setting, name='grade_narrative_setting'),
     path('grade_narrative_cohesion/', views.grade_narrative_cohesion, name='grade_narrative_cohesion'),
     path('essay_input/', views.essay_input, name='essay_input'),
+    path('create_assignment/', views.create_assignment, name='create_assignment'),
 ]
 
