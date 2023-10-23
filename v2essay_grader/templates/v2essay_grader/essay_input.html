@@ -177,10 +177,11 @@
                 placeholder="Your text goes here ..."></textarea>
         </div>
 
-        <button type="button" class="btn btn-primary" id="gradeButton" onclick="gradeText()">Grade</button>
+        <button type="button" class="btn btn-primary" id="gradeButton" onclick="gradeText()">Submit Essay</button>
         <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
             <span class="sr-only">Loading...</span>
         </div>
+        <span id="loadingText"></span> <!-- Add this line -->
     </div>
 
     <div id="gradingOutput" style="margin-top: 20px;"></div>
@@ -316,6 +317,9 @@
     function gradeText() {
         // Show the spinner
         document.getElementById("loadingSpinner").style.display = "block";
+        // Show the loading text
+        document.getElementById("loadingText").textContent = "Please wait till the essay is processed, do not refresh or close this window while it is loading ...";
+
         let fetchPromises = [];
         let totalScore = 0;
         let maxScore = 0;
@@ -785,9 +789,12 @@
                         let gradingOutputDiv = document.getElementById("gradingOutput");
                         gradingOutputDiv.innerHTML = "";
 
+                        // Clear the loading text
+                        document.getElementById("loadingText").textContent = "";
+
                         // Display the result in the grading output div
                         let finalMessageElement = document.createElement("div");
-                        finalMessageElement.textContent = "Grades sent to your teacher";
+                        finalMessageElement.textContent = "Your essay has been successfully submitted";
                         gradingOutputDiv.appendChild(finalMessageElement);
                     })
                     .catch(error => {
