@@ -493,31 +493,6 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement4 = document.createElement("h4");
-                            headerElement4.textContent = "Persuasive Devices (Scored out of 4)";
-                            gradingOutputDiv.appendChild(headerElement4);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
-
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -534,31 +509,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement5 = document.createElement("h4");
-                            headerElement5.textContent = "Vocabulary (Scored out of 5)";
-                            gradingOutputDiv.appendChild(headerElement5);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -575,31 +526,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement6 = document.createElement("h4");
-                            headerElement6.textContent = "Cohesion (Scored out of 4)";
-                            gradingOutputDiv.appendChild(headerElement6);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -616,31 +543,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement7 = document.createElement("h4");
-                            headerElement7.textContent = "Paragraphing (Scored out of 2)";
-                            gradingOutputDiv.appendChild(headerElement7);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -657,31 +560,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement8 = document.createElement("h4");
-                            headerElement8.textContent = "Sentence Structure (Scored out of 6)";
-                            gradingOutputDiv.appendChild(headerElement8);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -698,31 +577,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement9 = document.createElement("h4");
-                            headerElement9.textContent = "Punctuation (Scored out of 6)";
-                            gradingOutputDiv.appendChild(headerElement9);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -739,31 +594,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement10 = document.createElement("h4");
-                            headerElement10.textContent = "Spelling (Scored out of 6)";
-                            gradingOutputDiv.appendChild(headerElement10);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -785,31 +616,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement11 = document.createElement("h4");
-                            headerElement11.textContent = "Narrative Audience (Scored out of 6)";
-                            gradingOutputDiv.appendChild(headerElement11);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -826,31 +633,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement12 = document.createElement("h4");
-                            headerElement12.textContent = "Narrative Text Structure (Scored out of 4)";
-                            gradingOutputDiv.appendChild(headerElement12);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -867,31 +650,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement13 = document.createElement("h4");
-                            headerElement13.textContent = "Narrative Ideas (Scored out of 5)";
-                            gradingOutputDiv.appendChild(headerElement13);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -907,31 +666,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement14 = document.createElement("h4");
-                            headerElement14.textContent = "Character and Setting (Scored out of 4)";
-                            gradingOutputDiv.appendChild(headerElement14);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -948,31 +683,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement15 = document.createElement("h4");
-                            headerElement15.textContent = "Vocabulary (Scored out of 5)";
-                            gradingOutputDiv.appendChild(headerElement15);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -989,31 +700,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement16 = document.createElement("h4");
-                            headerElement16.textContent = "Cohesion (Scored out of 4)";
-                            gradingOutputDiv.appendChild(headerElement16);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -1030,31 +717,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement17 = document.createElement("h4");
-                            headerElement17.textContent = "Paragraphing (Scored out of 2)";
-                            gradingOutputDiv.appendChild(headerElement17);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -1071,31 +734,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement18 = document.createElement("h4");
-                            headerElement18.textContent = "Sentence Structure (Scored out of 6)";
-                            gradingOutputDiv.appendChild(headerElement18);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -1112,31 +751,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement19 = document.createElement("h4");
-                            headerElement19.textContent = "Punctuation (Scored out of 5)";
-                            gradingOutputDiv.appendChild(headerElement19);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -1155,31 +770,7 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
-                        .then(responseData => {
-                            // Create a new header element
-                            let headerElement20 = document.createElement("h4");
-                            headerElement20.textContent = "Spelling (Scored out of 6)";
-                            gradingOutputDiv.appendChild(headerElement20);
-                            console.log(responseData)
-                            let grade_essay_audienceOutput = responseData.feedback;
 
-                            // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
-                            let match = grade_essay_audienceOutput.match(scoreRegex);
-
-                            if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
-
-                                totalScore += achievedScore;
-                                maxScore += possibleScore;
-                            }
-
-                            // Display the result in the grading output div
-                            let grade_essay_audienceElement = document.createElement("div");
-                            grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
-                            gradingOutputDiv.appendChild(grade_essay_audienceElement);
-                        })
                         .catch(error => {
                             console.error('Error:', error);
                         }));
@@ -1190,13 +781,14 @@
                 // After all API calls
                 Promise.all(fetchPromises)
                     .then(() => {
-                        // All API calls have completed here
-                        let finalScore = `${totalScore}/${maxScore}`;
+                        // Get the grading output div and clear its previous content
+                        let gradingOutputDiv = document.getElementById("gradingOutput");
+                        gradingOutputDiv.innerHTML = "";
 
-                        // Create a new header element
-                        let headerElement = document.createElement("h4");
-                        headerElement.textContent = `Final Score: ${finalScore}`;
-                        gradingOutputDiv.appendChild(headerElement);
+                        // Display the result in the grading output div
+                        let finalMessageElement = document.createElement("div");
+                        finalMessageElement.textContent = "Grades sent to your teacher";
+                        gradingOutputDiv.appendChild(finalMessageElement);
                     })
                     .catch(error => {
                         console.error('Error:', error);

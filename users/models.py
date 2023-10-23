@@ -48,3 +48,16 @@ class GradeResult(models.Model):
     grading_criteria = models.CharField(max_length=200)
     timestamp = models.DateTimeField(auto_now_add=True)
     assignment_id = models.IntegerField(null=True, blank=True)
+
+class Assignment(models.Model):
+    teacher_id = models.IntegerField()
+    assignment_type = models.CharField(max_length=255)
+    assignment_sub_type = models.CharField(max_length=255)
+    grade = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    desc = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'assignments'
