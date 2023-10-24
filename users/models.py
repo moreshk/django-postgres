@@ -61,3 +61,14 @@ class Assignment(models.Model):
 
     class Meta:
         db_table = 'assignments'
+
+
+# New School model
+class School(models.Model):
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    admin_id = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=255)

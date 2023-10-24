@@ -35,6 +35,16 @@
         </div>
         {% endif %}
 
+        {% if request.user.user_type == 'ADMINISTRATOR' %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'create_school' %}">Create School</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         {% if user_type != 'STUDENT' %}
         <!-- Essay Grader Tile -->
         <div class="col-md-3 mb-4">

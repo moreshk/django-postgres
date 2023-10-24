@@ -47,7 +47,7 @@ urlpatterns = [
     path('onboarding_last_name/', views.onboarding_last_name, name='onboarding_last_name'),
     path('onboarding_user_type/', views.onboarding_user_type, name='onboarding_user_type'),
     path('view_assignments/', views.view_assignments, name='view_assignments'),
-    
+    path('create_school/', views.create_school, name='create_school'),
 ]
 
 if settings.DEBUG:

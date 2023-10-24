@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import PasswordChangeForm
+from .models import School
 
 User = get_user_model()
 
@@ -62,3 +63,8 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         # Override the default validation method for new_password2
         # Instead of checking for confirmation, just return the new password
         return self.cleaned_data.get('new_password1')
+
+class SchoolForm(forms.ModelForm):
+    class Meta:
+        model = School
+        fields = ['name', 'city', 'state', 'country']

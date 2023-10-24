@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Create School</h2>
+
+  <div class="alert-container" style="height: 60px;">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  {% if not messages %}
+  <form method="POST" class="needs-validation" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <p>{{ field }}</p>
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary mb-3">Create</button>
+  </form>
+  {% endif %}
+{% endblock %}
+
+{% block footer %}
+  <a href="{% url 'logout' %}">Logout</a>
+{% endblock %}

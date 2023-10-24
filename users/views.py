@@ -25,6 +25,8 @@ from django.template.loader import render_to_string
 from django import forms
 from django.contrib.auth import get_user_model
 
+from .forms import SchoolForm
+from .models import School
 User = get_user_model()
 
 # Initialize a logger
@@ -195,3 +197,19 @@ def view_assignments(request):
     # Fetch assignments that match the teacher_id of the logged in user
     assignments = Assignment.objects.filter(teacher_id=request.user.id)
     return render(request, 'users/view_assignments.html', {'assignments': assignments})
+
+
+
+def create_school(request):
+    if request.method == 'POST':
+        form = SchoolForm(request.POST)
+        if form.is_valid():
+            school = form.save(commit=False)
+            school.admin_id = request.user.id
+            school.status = 'live'
+            school.save()
+            messages.success(request, 'School successfully created.')
+            return redirect('create_school')
+    else:
+        form = SchoolForm()
+    return render(request, 'users/create_school.html', {'form': form})
