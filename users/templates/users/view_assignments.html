@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Assignments created by me</h1>
+    <!-- Table to display assignments will go here -->
+    <table class="table">
+        <!-- Table headers -->
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Essay Type</th>
+                <th>Grade</th>
+                <th>Status</th>
+                <th>Time</th>
+                <!-- Add more headers as needed -->
+            </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+            {% for assignment in assignments %}
+            <tr>
+                <td>{{ assignment.title }}</td>
+                <td>{{ assignment.description }}</td>
+                <td>{{ assignment.assignment_sub_type }}</td>
+                <td>{{ assignment.grade }}</td>
+                <td>{{ assignment.status }}</td>
+                <td>{{ assignment.created_at }}</td>
+                <!-- Add more data fields as needed -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Logout Link -->
+    <div class="mt-5 text-center">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+{% endblock %}

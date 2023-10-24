@@ -25,6 +25,15 @@
         </div>
         {% endif %}
 
+        {% if request.user.user_type == 'TEACHER' %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'view_assignments' %}">View Assignments</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
         {% if user_type != 'STUDENT' %}
         <!-- Essay Grader Tile -->

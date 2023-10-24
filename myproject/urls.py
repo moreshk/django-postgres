@@ -46,7 +46,7 @@ urlpatterns = [
     path('onboarding_first_name/', views.onboarding_first_name, name='onboarding_first_name'),
     path('onboarding_last_name/', views.onboarding_last_name, name='onboarding_last_name'),
     path('onboarding_user_type/', views.onboarding_user_type, name='onboarding_user_type'),
-
+    path('view_assignments/', views.view_assignments, name='view_assignments'),
     
 ]
 

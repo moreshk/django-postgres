@@ -13,7 +13,7 @@ from django.contrib.auth import logout
 import logging
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-# from django.shortcuts import render
+from .models import Assignment
 
 from django.contrib.auth import get_user_model
 from .forms import UserUpdateForm, CustomPasswordChangeForm
@@ -189,3 +189,9 @@ def onboarding_user_type(request):
             request.user.save()
             return redirect('home')
     return render(request, 'users/onboarding_user_type.html', {'form': form})
+
+@login_required
+def view_assignments(request):
+    # Fetch assignments that match the teacher_id of the logged in user
+    assignments = Assignment.objects.filter(teacher_id=request.user.id)
+    return render(request, 'users/view_assignments.html', {'assignments': assignments})
