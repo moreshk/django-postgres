@@ -76,9 +76,9 @@ def grade_essay_audience(request):
         feedback_from_api = check_audience_persuasive(user_response, title, description, essay_type, grade)
 
         # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -111,9 +111,9 @@ def grade_essay_text_structure(request):
         feedback_from_api = check_text_structure_persuasive(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -146,9 +146,9 @@ def grade_essay_ideas(request):
         feedback_from_api = check_ideas_persuasive(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -181,9 +181,9 @@ def grade_essay_persuasive_devices(request):
         feedback_from_api = check_persuasive_devices_persuasive(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -216,9 +216,9 @@ def grade_essay_vocabulary(request):
         feedback_from_api = check_vocabulary_persuasive(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -252,9 +252,9 @@ def grade_essay_cohesion(request):
         feedback_from_api = check_cohesion_persuasive(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -288,9 +288,9 @@ def grade_essay_paragraphing(request):
         feedback_from_api = check_paragraphing_persuasive(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -326,9 +326,9 @@ def grade_essay_sentence_structure(request):
         feedback_from_api = check_sentence_structure_persuasive(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -362,9 +362,9 @@ def grade_essay_punctuation(request):
         feedback_from_api = check_punctuation_persuasive(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -398,9 +398,9 @@ def grade_essay_spelling(request):
         feedback_from_api = check_spelling_persuasive(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -434,9 +434,9 @@ def grade_narrative_audience(request):
         feedback_from_api = check_audience_narrative(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -469,9 +469,9 @@ def grade_narrative_text_structure(request):
         feedback_from_api = check_text_structure_narrative(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -504,9 +504,9 @@ def grade_narrative_ideas(request):
         feedback_from_api = check_ideas_narrative(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -539,9 +539,9 @@ def grade_narrative_setting(request):
         feedback_from_api = check_setting_narrative(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
@@ -574,9 +574,9 @@ def grade_narrative_cohesion(request):
         feedback_from_api = check_cohesion_narrative(user_response, title, description, essay_type, grade)
         
          # Extract the numeric grade from the feedback string
-        match = re.search(r'Grade: (\d+)/\d+', feedback_from_api)
-        if match:
-            numeric_grade = int(match.group(1))
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
         else:
             numeric_grade = None  # or set a default value
 
