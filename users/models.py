@@ -39,6 +39,12 @@ class CustomUser(AbstractUser):
 
     user_type = models.CharField(max_length=15, choices=USER_TYPES, default='Student')
     has_completed_onboarding = models.BooleanField(default=False)
+    
+    # Add your new fields here:
+    school = models.CharField(max_length=255, null=True, blank=True)  # Assuming a max length of 255 characters for the school name.
+    grade = models.CharField(max_length=255, null=True, blank=True)  # Assuming a max length of 255 characters for the grade.
+    homeroom = models.CharField(max_length=255, null=True, blank=True)  # Nullable and can be blank in forms.
+
     objects = CustomUserManager()
 
 class GradeResult(models.Model):

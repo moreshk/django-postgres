@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('ENV_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('ENV_DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['django-postgres-41zd.onrender.com','naplan.koretex.ai']
+ALLOWED_HOSTS = ['django-postgres-41zd.onrender.com','naplan.koretex.ai', 'benchmark.koretex.ai']
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1','*']
 
