@@ -48,6 +48,7 @@ urlpatterns = [
     path('onboarding_user_type/', views.onboarding_user_type, name='onboarding_user_type'),
     path('view_assignments/', views.view_assignments, name='view_assignments'),
     path('create_school/', views.create_school, name='create_school'),
+    path('v3essay_grader/', include('v3essay_grader.urls', namespace='v3essay_grader')),
 ]
 
 if settings.DEBUG:

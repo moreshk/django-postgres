@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "essay_grader_app",
     "spellcheck",
     "v2essay_grader",
+    "v3essay_grader",
 ]
 
 MIDDLEWARE = [

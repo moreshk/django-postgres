@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h1>View/Edit Rubric Criteria</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>State</th>
+                <th>City</th>
+                <th>School</th>
+                <th>Essay Type</th>
+                <th>Grade</th>
+                <th>Curriculum</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rubric in rubrics %}
+            <tr>
+                <td>{{ rubric.name }}</td>
+                <td>{{ rubric.state }}</td>
+                <td>{{ rubric.city }}</td>
+                <td>{{ rubric.school }}</td>
+                <td>{{ rubric.essay_type }}</td>
+                <td>{{ rubric.grade }}</td>
+                <td>{{ rubric.curriculum }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block footer %}
+<div class="mt-5 text-center">
+    <a href="{% url 'logout' %}">Logout</a>
+</div>
+{% endblock %}
