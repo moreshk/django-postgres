@@ -16,8 +16,7 @@
     <h1>NAPLAN Essay Grader</h1>
     <div id="inputArea">
         <form id="essayForm">
-            {% csrf_token %}
-            <div class="form-group">
+            {% csrf_token %}            <div class="form-group">
                 <label for="essayTypeInput">Essay type:</label>
                 <select class="form-control" id="essayTypeInput">
                     <option>Narrative</option>
@@ -437,6 +436,8 @@
                                 maxScore += possibleScore;
                             }
 
+                            console.log("totalScore: ", totalScore);
+
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
                             grade_essay_audienceElement.innerHTML = grade_essay_audienceOutput;
@@ -476,6 +477,8 @@
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
                             }
+
+                            console.log("totalScore: ", totalScore);
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");

@@ -381,12 +381,12 @@
                                 let grade_essay_audienceOutput = responseData.feedback;
 
                                 // Use a regular expression to extract the score
-                                let scoreRegex = /(\d+)\/(\d+)/;
+                                let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                                 let match = grade_essay_audienceOutput.match(scoreRegex);
 
                                 if (match) {
-                                    let achievedScore = parseInt(match[1]);
-                                    let possibleScore = parseInt(match[2]);
+                                    let achievedScore = parseFloat(match[1]);
+                                    let possibleScore = parseFloat(match[3]);
 
                                     totalScore += achievedScore;
                                     maxScore += possibleScore;
@@ -422,16 +422,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -462,16 +471,26 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -502,16 +521,24 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
+
                             }
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -543,16 +570,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -584,16 +620,26 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -625,16 +671,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -666,16 +721,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -707,16 +771,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -748,16 +821,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -794,16 +876,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -835,16 +926,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -876,16 +976,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -916,16 +1025,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -957,16 +1075,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -998,16 +1125,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -1039,16 +1175,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -1080,16 +1225,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -1121,16 +1275,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
@@ -1164,16 +1327,25 @@
                             let grade_essay_audienceOutput = responseData.feedback;
 
                             // Use a regular expression to extract the score
-                            let scoreRegex = /(\d+)\/(\d+)/;
+                            let scoreRegex = /(\d+(\.\d+)?)\/(\d+(\.\d+)?)/;
                             let match = grade_essay_audienceOutput.match(scoreRegex);
 
                             if (match) {
-                                let achievedScore = parseInt(match[1]);
-                                let possibleScore = parseInt(match[2]);
+                                let achievedScore = parseFloat(match[1]);
+                                let possibleScore = parseFloat(match[3]);
 
                                 totalScore += achievedScore;
                                 maxScore += possibleScore;
+
+                                console.log("achievedScore: ", achievedScore);
+                                console.log("totalScore: ", totalScore);
+
+                                console.log("maxScore: ", maxScore);
+                                console.log("possibleScore: ", possibleScore);
                             }
+
+
+
 
                             // Display the result in the grading output div
                             let grade_essay_audienceElement = document.createElement("div");
