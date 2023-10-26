@@ -26,31 +26,28 @@
                 <td>{{ rubric.grade }}</td>
                 <td>{{ rubric.curriculum }}</td>
             </tr>
-            <tr class="criteria-row" data-rubric-id="{{ rubric.id }}" style="display: none;">
-                <td colspan="7">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Criteria Name</th>
-                                <th>Max Score</th>
-                                <th>Criteria Desc</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for criteria in rubric.criteria %}
-                            <tr>
-                                <td>{{ criteria.name }}</td>
-                                <td>{{ criteria.max_score }}</td>
-                                <td>{{ criteria.desc }}</td>
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="3">No criteria found for this rubric.</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+            {% for criteria in rubric.criteria_set.all %}
+            <tr class="criteria-row" data-rubric-id="{{ rubric.id }}" data-criteria-id="{{ criteria.id }}"
+                style="display: none;">
+                <td>{{ criteria.criteria_name }}</td>
+                <td>{{ criteria.max_score }}</td>
+                <td>{{ criteria.criteria_desc }}</td>
+                <td>
+                    <button class="btn btn-primary edit-criteria"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="btn btn-danger delete-criteria"><i class="fas fa-trash-alt"></i></button>
                 </td>
+            </tr>
+            {% empty %}
+            <tr style="display: none;">
+                <td colspan="3">No criteria found for this rubric.</td>
+            </tr>
+            {% endfor %}
+            <!-- Add the new row here -->
+            <tr class="add-criteria-row" data-rubric-id="{{ rubric.id }}" style="display: none;">
+                <td><input type="text" class="form-control" placeholder="Criteria name"></td>
+                <td><input type="text" class="form-control" placeholder="Max Score"></td>
+                <td><input type="text" class="form-control" placeholder="Description"></td>
+                <td><button class="btn btn-primary add-criteria"><i class="fas fa-plus"></i></button></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -64,12 +61,113 @@
 {% endblock %}
 {% block extra_js %}
 <script>
-    $(document).ready(function() {
-        $('.rubric-row').click(function() {
+    $(document).ready(function () {
+        $('.rubric-row').click(function () {
             console.log('Rubric row clicked');
+            // Remove the highlight from all rows
+            $(this).toggleClass('table-primary');
+
+            // Add the highlight to the clicked row
+            // $(this).addClass('table-primary');
             var rubricId = $(this).data('rubric-id');
             $('.criteria-row[data-rubric-id="' + rubricId + '"]').toggle();
+            $('.add-criteria-row[data-rubric-id="' + rubricId + '"]').toggle();
         });
     });
+
+    //ADD NEW CRITERIA
+
+    $('.add-criteria').click(function () {
+        var rubricId = $(this).closest('tr').data('rubric-id');
+        var criteriaName = $(this).closest('tr').find('input').eq(0).val();
+        var maxScore = $(this).closest('tr').find('input').eq(1).val();
+        var description = $(this).closest('tr').find('input').eq(2).val();
+
+        // Check if maxScore is a number
+        if (isNaN(maxScore)) {
+            alert('Max Score must be a number');
+            return;
+        }
+
+        $.ajax({
+            url: '/v3essay_grader/add_criteria/',  // Update this with the correct URL
+            type: 'POST',
+            data: {
+                'rubric_id': rubricId,
+                'criteria_name': criteriaName,
+                'max_score': maxScore,
+                'description': description,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+                // Add a new row to the table with the new criteria
+                var newRow = '<tr class="criteria-row" data-rubric-id="' + rubricId + '">';
+                newRow += '<td>' + criteriaName + '</td>';
+                newRow += '<td>' + maxScore + '</td>';
+                newRow += '<td>' + description + '</td>';
+                newRow += '</tr>';
+                $('.add-criteria-row[data-rubric-id="' + rubricId + '"]').before(newRow);
+
+                // Hide the "No criteria found for this rubric." row
+                $('.criteria-row:contains("No criteria found for this rubric.")').hide();
+            },
+
+            error: function (error) {
+                // Handle the error case
+            }
+        });
+    });
+
+    //EDIT EXISTING CRITERIA
+
+    $('.edit-criteria').click(function () {
+        var row = $(this).closest('tr');
+        var criteriaId = row.data('criteria-id');
+        var criteriaName = row.find('td').eq(0).text();
+        var maxScore = row.find('td').eq(1).text();
+        var description = row.find('td').eq(2).text();
+
+
+        row.find('td').eq(0).html('<input type="text" class="form-control" value="' + criteriaName + '">');
+        row.find('td').eq(1).html('<input type="text" class="form-control" value="' + maxScore + '">');
+        row.find('td').eq(2).html('<input type="text" class="form-control" value="' + description + '">');
+
+        row.find('input').blur(function () {
+            var newCriteriaName = row.find('input').eq(0).val();
+            var newMaxScore = row.find('input').eq(1).val();
+            var newDescription = row.find('input').eq(2).val();
+
+            // Check if newMaxScore is a number
+            if (isNaN(newMaxScore)) {
+                alert('Max Score must be a number');
+                return;
+            }
+
+            row.find('td').eq(0).text(newCriteriaName);
+            row.find('td').eq(1).text(newMaxScore);
+            row.find('td').eq(2).text(newDescription);
+
+            // Make an AJAX request to the server to update the criteria
+            $.ajax({
+                url: '/v3essay_grader/edit_criteria/',  // Update this with the correct URL
+                type: 'POST',
+                data: {
+                    'criteria_id': criteriaId,
+                    'criteria_name': newCriteriaName,
+                    'max_score': newMaxScore,
+                    'description': newDescription,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    console.log('Criteria updated successfully');
+                },
+                error: function (error) {
+                    // Handle the error case
+                    console.log('Error updating criteria');
+                }
+            });
+        });
+    });
+
 </script>
 {% endblock %}

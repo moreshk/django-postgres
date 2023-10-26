@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from v3essay_grader.models import Rubric
+from v3essay_grader.models import Rubric, Criteria
 from django.contrib import messages
+from django.http import JsonResponse
 
 @login_required
 def create_rubric(request):
@@ -35,3 +36,39 @@ def view_edit_rubric_criteria(request):
 
     rubrics = Rubric.objects.filter(creater_id=request.user.id).prefetch_related('criteria_set')
     return render(request, 'v3essay_grader/view_edit_rubric_criteria.html', {'rubrics': rubrics})
+
+@login_required
+def add_criteria(request):
+    if request.method == 'POST':
+        rubric_id = request.POST.get('rubric_id')
+        criteria_name = request.POST.get('criteria_name')
+        max_score = request.POST.get('max_score')
+        criteria_desc = request.POST.get('description')
+
+        rubric = Rubric.objects.get(id=rubric_id)
+
+        criteria = Criteria.objects.create(
+            rubric=rubric,
+            criteria_name=criteria_name,
+            max_score=max_score,
+            criteria_desc=criteria_desc
+        )
+
+        return JsonResponse({'status': 'success'})
+    
+
+@login_required
+def edit_criteria(request):
+    if request.method == 'POST':
+        criteria_id = request.POST.get('criteria_id')
+        criteria_name = request.POST.get('criteria_name')
+        max_score = request.POST.get('max_score')
+        criteria_desc = request.POST.get('description')
+
+        criteria = Criteria.objects.get(id=criteria_id)
+        criteria.criteria_name = criteria_name
+        criteria.max_score = max_score
+        criteria.criteria_desc = criteria_desc
+        criteria.save()
+
+        return JsonResponse({'status': 'success'})
