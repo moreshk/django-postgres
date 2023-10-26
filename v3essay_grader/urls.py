@@ -10,4 +10,5 @@ urlpatterns = [
     path('add_criteria/', views.add_criteria, name='add_criteria'),
     path('edit_criteria/', views.edit_criteria, name='edit_criteria'),
     path('delete_criteria/', views.delete_criteria, name='delete_criteria'),
+    path('custom_rubric_essay_grader/', views.custom_rubric_essay_grader, name='custom_rubric_essay_grader'),
 ]
