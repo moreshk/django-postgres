@@ -26,6 +26,12 @@
                 <td>{{ rubric.grade }}</td>
                 <td>{{ rubric.curriculum }}</td>
             </tr>
+            <tr class="criteria-header-row" data-rubric-id="{{ rubric.id }}" style="display: none;">
+                <td>Criteria Name</td>
+                <td>Max Score</td>
+                <td>Criteria Desc</td>
+                <td>Actions</td>
+            </tr>
             {% for criteria in rubric.criteria_set.all %}
             <tr class="criteria-row" data-rubric-id="{{ rubric.id }}" data-criteria-id="{{ criteria.id }}"
                 style="display: none;">
@@ -38,8 +44,8 @@
                 </td>
             </tr>
             {% empty %}
-            <tr style="display: none;">
-                <td colspan="3">No criteria found for this rubric.</td>
+            <tr class="no-criteria-row" data-rubric-id="{{ rubric.id }}" style="display: none;">
+                <td colspan="7">No criteria found for this rubric.</td>
             </tr>
             {% endfor %}
             <!-- Add the new row here -->
@@ -61,17 +67,41 @@
 {% endblock %}
 {% block extra_js %}
 <script>
+    // $(document).ready(function () {
+    //     $('.rubric-row').click(function () {
+    //         console.log('Rubric row clicked');
+    //         // Remove the highlight from all rows
+    //         $(this).toggleClass('table-primary');
+
+    //         // Add the highlight to the clicked row
+    //         // $(this).addClass('table-primary');
+    //         var rubricId = $(this).data('rubric-id');
+    //         $('.criteria-row[data-rubric-id="' + rubricId + '"]').toggle();
+    //         $('.add-criteria-row[data-rubric-id="' + rubricId + '"]').toggle();
+    //     });
+    // });
+
     $(document).ready(function () {
         $('.rubric-row').click(function () {
-            console.log('Rubric row clicked');
+            var rubricId = $(this).data('rubric-id');
+            var criteriaRows = $('.criteria-row[data-rubric-id="' + rubricId + '"]');
+            var noCriteriaRow = $('.no-criteria-row[data-rubric-id="' + rubricId + '"]');
+            var addCriteriaRow = $('.add-criteria-row[data-rubric-id="' + rubricId + '"]');
+            var criteriaHeaderRow = $('.criteria-header-row[data-rubric-id="' + rubricId + '"]');
             // Remove the highlight from all rows
-            $(this).toggleClass('table-primary');
+            $('.rubric-row').removeClass('table-primary');
 
             // Add the highlight to the clicked row
-            // $(this).addClass('table-primary');
-            var rubricId = $(this).data('rubric-id');
-            $('.criteria-row[data-rubric-id="' + rubricId + '"]').toggle();
-            $('.add-criteria-row[data-rubric-id="' + rubricId + '"]').toggle();
+            $(this).addClass('table-primary');
+            // If there are no criteria for this rubric, show the no-criteria-row
+            if (criteriaRows.length === 0) {
+                noCriteriaRow.toggle();
+            } else {
+                criteriaRows.toggle();
+                criteriaHeaderRow.toggle(); // Show the criteria header row
+            }
+
+            addCriteriaRow.toggle();
         });
     });
 
