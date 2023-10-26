@@ -199,5 +199,28 @@
         });
     });
 
+    // DELETE CRITERIA
+
+    $('.delete-criteria').click(function () {
+        var row = $(this).closest('tr');
+        var criteriaId = row.data('criteria-id');
+
+        $.ajax({
+            url: '/v3essay_grader/delete_criteria/',  // Update this with the correct URL
+            type: 'POST',
+            data: {
+                'criteria_id': criteriaId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+                // Remove the row from the table
+                row.remove();
+            },
+            error: function (error) {
+                // Handle the error case
+                console.log('Error deleting criteria');
+            }
+        });
+    });
 </script>
 {% endblock %}

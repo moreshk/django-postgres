@@ -72,3 +72,13 @@ def edit_criteria(request):
         criteria.save()
 
         return JsonResponse({'status': 'success'})
+    
+@login_required
+def delete_criteria(request):
+    if request.method == 'POST':
+        criteria_id = request.POST.get('criteria_id')
+
+        criteria = Criteria.objects.get(id=criteria_id)
+        criteria.delete()
+
+        return JsonResponse({'status': 'success'})

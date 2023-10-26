@@ -9,4 +9,5 @@ urlpatterns = [
     path('view_edit_rubric_criteria/', views.view_edit_rubric_criteria, name='view_edit_rubric_criteria'),
     path('add_criteria/', views.add_criteria, name='add_criteria'),
     path('edit_criteria/', views.edit_criteria, name='edit_criteria'),
+    path('delete_criteria/', views.delete_criteria, name='delete_criteria'),
 ]
