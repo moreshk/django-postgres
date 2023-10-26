@@ -44,6 +44,7 @@ def add_criteria(request):
         criteria_name = request.POST.get('criteria_name')
         max_score = request.POST.get('max_score')
         criteria_desc = request.POST.get('description')
+        spell_check = request.POST.get('spell_check') == 'true'
 
         rubric = Rubric.objects.get(id=rubric_id)
 
@@ -51,7 +52,8 @@ def add_criteria(request):
             rubric=rubric,
             criteria_name=criteria_name,
             max_score=max_score,
-            criteria_desc=criteria_desc
+            criteria_desc=criteria_desc,
+            spell_check=spell_check
         )
 
         return JsonResponse({'status': 'success'})
@@ -64,11 +66,12 @@ def edit_criteria(request):
         criteria_name = request.POST.get('criteria_name')
         max_score = request.POST.get('max_score')
         criteria_desc = request.POST.get('description')
-
+        spell_check = request.POST.get('spell_check') == 'true'
         criteria = Criteria.objects.get(id=criteria_id)
         criteria.criteria_name = criteria_name
         criteria.max_score = max_score
         criteria.criteria_desc = criteria_desc
+        criteria.spell_check = spell_check
         criteria.save()
 
         return JsonResponse({'status': 'success'})

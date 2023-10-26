@@ -30,6 +30,7 @@
                 <td>Criteria Name</td>
                 <td>Max Score</td>
                 <td>Criteria Desc</td>
+                <td>Spelling</td>
                 <td>Actions</td>
             </tr>
             {% for criteria in rubric.criteria_set.all %}
@@ -38,7 +39,8 @@
                 <td>{{ criteria.criteria_name }}</td>
                 <td>{{ criteria.max_score }}</td>
                 <td>{{ criteria.criteria_desc }}</td>
-                <td>
+                <td><input type="checkbox" {% if criteria.spell_check %}checked{% endif %} disabled></td>
+                   <td>
                     <button class="btn btn-primary edit-criteria"><i class="fas fa-pencil-alt"></i></button>
                     <button class="btn btn-danger delete-criteria"><i class="fas fa-trash-alt"></i></button>
                 </td>
@@ -53,6 +55,7 @@
                 <td><input type="text" class="form-control" placeholder="Criteria name"></td>
                 <td><input type="text" class="form-control" placeholder="Max Score"></td>
                 <td><input type="text" class="form-control" placeholder="Description"></td>
+                <td><input type="checkbox"></td>
                 <td><button class="btn btn-primary add-criteria"><i class="fas fa-plus"></i></button></td>
             </tr>
             {% endfor %}
@@ -67,19 +70,6 @@
 {% endblock %}
 {% block extra_js %}
 <script>
-    // $(document).ready(function () {
-    //     $('.rubric-row').click(function () {
-    //         console.log('Rubric row clicked');
-    //         // Remove the highlight from all rows
-    //         $(this).toggleClass('table-primary');
-
-    //         // Add the highlight to the clicked row
-    //         // $(this).addClass('table-primary');
-    //         var rubricId = $(this).data('rubric-id');
-    //         $('.criteria-row[data-rubric-id="' + rubricId + '"]').toggle();
-    //         $('.add-criteria-row[data-rubric-id="' + rubricId + '"]').toggle();
-    //     });
-    // });
 
     $(document).ready(function () {
         $('.rubric-row').click(function () {
@@ -112,6 +102,7 @@
         var criteriaName = $(this).closest('tr').find('input').eq(0).val();
         var maxScore = $(this).closest('tr').find('input').eq(1).val();
         var description = $(this).closest('tr').find('input').eq(2).val();
+        var spell_check = $(this).closest('tr').find('input').eq(3).is(':checked');
 
         // Check if maxScore is a number
         if (isNaN(maxScore)) {
@@ -127,6 +118,7 @@
                 'criteria_name': criteriaName,
                 'max_score': maxScore,
                 'description': description,
+                'spell_check': spell_check,
                 'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             success: function (data) {
@@ -135,6 +127,7 @@
                 newRow += '<td>' + criteriaName + '</td>';
                 newRow += '<td>' + maxScore + '</td>';
                 newRow += '<td>' + description + '</td>';
+                newRow += '<td><input type="checkbox" ' + (spell_check ? 'checked' : '') + ' disabled></td>';  // Add the spell_check field
                 newRow += '</tr>';
                 $('.add-criteria-row[data-rubric-id="' + rubricId + '"]').before(newRow);
 
@@ -156,16 +149,17 @@
         var criteriaName = row.find('td').eq(0).text();
         var maxScore = row.find('td').eq(1).text();
         var description = row.find('td').eq(2).text();
-
+        var spell_check = row.find('td').eq(3).find('input').prop('checked');
 
         row.find('td').eq(0).html('<input type="text" class="form-control" value="' + criteriaName + '">');
         row.find('td').eq(1).html('<input type="text" class="form-control" value="' + maxScore + '">');
         row.find('td').eq(2).html('<input type="text" class="form-control" value="' + description + '">');
-
+        row.find('td').eq(3).html('<input type="checkbox" ' + (spell_check ? 'checked' : '') + '>');  // Make the checkbox editable
         row.find('input').blur(function () {
             var newCriteriaName = row.find('input').eq(0).val();
             var newMaxScore = row.find('input').eq(1).val();
             var newDescription = row.find('input').eq(2).val();
+            var newSpellCheck = row.find('input').eq(3).prop('checked');  // Update the newSpellCheck variable
 
             // Check if newMaxScore is a number
             if (isNaN(newMaxScore)) {
@@ -176,6 +170,7 @@
             row.find('td').eq(0).text(newCriteriaName);
             row.find('td').eq(1).text(newMaxScore);
             row.find('td').eq(2).text(newDescription);
+            row.find('td').eq(3).html('<input type="checkbox" ' + (newSpellCheck ? 'checked' : '') + ' disabled>');  // Make the checkbox uneditable
 
             // Make an AJAX request to the server to update the criteria
             $.ajax({
@@ -186,6 +181,7 @@
                     'criteria_name': newCriteriaName,
                     'max_score': newMaxScore,
                     'description': newDescription,
+                    'spell_check': newSpellCheck,
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 },
                 success: function (data) {
