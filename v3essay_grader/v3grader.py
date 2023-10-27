@@ -53,8 +53,8 @@ def check_relevance(user_response, title, description, essay_type, grade):
 
 # 1. Check for Audience criteria
 
-def check_audience_persuasive(user_response, title, description, essay_type, grade):
-    print("I am in check audience")
+def check_criteria(user_response, title, description, essay_type, grade):
+    print("I am in check criteria internal function")
     print(essay_type, grade, title, description)
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 

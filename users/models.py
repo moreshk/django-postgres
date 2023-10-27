@@ -54,6 +54,7 @@ class GradeResult(models.Model):
     grading_criteria = models.CharField(max_length=200)
     timestamp = models.DateTimeField(auto_now_add=True)
     assignment_id = models.IntegerField(null=True, blank=True)
+    rubric_id = models.IntegerField(null=True, blank=True)
 
 class Assignment(models.Model):
     teacher_id = models.IntegerField()

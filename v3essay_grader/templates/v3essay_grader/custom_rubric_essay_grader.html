@@ -323,13 +323,16 @@
         let description = document.getElementById("descriptionOutput").textContent;
         let essay_type = document.getElementById("essayTypeOutput").textContent;
         let grade = document.getElementById("gradeOutput").textContent;
+        // Get the selected rubric id
+        let rubricId = document.getElementById("rubricSelect").value;
 
         let requestData = {
             user_response: user_response,
             title: title,
             description: description,
             essay_type: essay_type,
-            grade: grade
+            grade: grade,
+            rubric_id: rubricId  // Add this line
         };
 
         console.log("first api call", requestData);
@@ -361,10 +364,9 @@
                 if (feedback === "Provided input is relevant to the title and description.") {
                     isFeedbackValid = true; // Set the flag to true
 
+                    // Make an AJAX call to the grade_essay_criteria grading function
 
-                    // Make an AJAX call to the grade_essay_punctuation grading function
-
-                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_punctuation/', {
+                    fetchPromises.push(fetchWithCounter('/v3essay_grader/grade_essay_criteria/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -377,7 +379,7 @@
                         .catch(error => {
                             console.error('Error:', error);
                         }));
-                    // End of grade_essay_punctuation grading
+                    // End of grade_essay_criteria grading
 
                 }
 

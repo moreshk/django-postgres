@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from v3essay_grader.models import Rubric, Criteria
 from django.contrib import messages
 from django.http import JsonResponse
-from .v3grader import check_spelling_persuasive
+from .v3grader import check_spelling_persuasive, check_criteria
 from users.models import GradeResult
 import json
 
@@ -93,7 +93,45 @@ def custom_rubric_essay_grader(request):
     return render(request, 'v3essay_grader/custom_rubric_essay_grader.html')
 
 
-# 10
+
+# 1
+@login_required
+def grade_essay_criteria(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_response = data.get('user_response')
+        title = data.get('title')
+        description = data.get('description')
+        essay_type = data.get('essay_type')
+        grade = data.get('grade')
+        rubric_id = data.get('rubric_id')  # Add this line
+        print("I am in grade essay criteria")
+        print(user_response, title, description, essay_type, grade)
+        feedback_from_api = check_criteria(user_response, title, description, essay_type, grade)
+
+        # Extract the numeric grade from the feedback string
+        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
+        if matches:
+            numeric_grade = float(matches[-1][0])
+        else:
+            numeric_grade = None  # or set a default value
+
+         # Create a GradeResult instance and save it to the database
+        graderesult = GradeResult(
+            user_id=request.user.id,  # Assuming the user is authenticated
+            feedback=feedback_from_api,
+            numeric_grade=numeric_grade,
+            grading_criteria='audience',
+            rubric_id=rubric_id,  # Add this line
+            # numeric_grade and assignment_id can be added later
+        )
+        graderesult.save()
+
+        return JsonResponse({'feedback': feedback_from_api})
+
+    return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
+
+
 @login_required
 def grade_essay_spelling(request):
     if request.method == "POST":
