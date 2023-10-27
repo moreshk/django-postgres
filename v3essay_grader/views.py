@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from v3essay_grader.models import Rubric, Criteria
 from django.contrib import messages
 from django.http import JsonResponse
-from .v3grader import check_relevance, check_audience_persuasive, check_spelling_persuasive
+from .v3grader import check_spelling_persuasive
 from users.models import GradeResult
 import json
 
@@ -128,3 +128,10 @@ def grade_essay_spelling(request):
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
 
+
+@login_required
+def get_rubrics(request):
+    user = request.user
+    rubrics = Rubric.objects.filter(creator_id__in=[user.id, 2])  # Fetch rubrics created by the logged-in user or user with id 2
+    rubrics_list = list(rubrics.values('id', 'name'))  # Convert the QuerySet to a list of dictionaries
+    return JsonResponse(rubrics_list, safe=False)  # Return the list as a JSON response

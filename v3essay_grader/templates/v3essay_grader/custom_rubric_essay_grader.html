@@ -16,7 +16,7 @@
     <h1>Essay Grader</h1>
     <div id="inputArea">
         <form id="essayForm">
-            {% csrf_token %}            <div class="form-group">
+            {% csrf_token %} <div class="form-group">
                 <label for="essayTypeInput">Essay type:</label>
                 <select class="form-control" id="essayTypeInput">
                     <option>Narrative</option>
@@ -163,6 +163,13 @@
                 placeholder="Your text goes here ..."></textarea>
         </div>
 
+        <div class="form-group mt-4">
+            <label for="rubricSelect">Grading Rubric:</label>
+            <select class="form-control" id="rubricSelect">
+                <!-- Options will be populated dynamically -->
+            </select>
+        </div>
+
         <button type="button" class="btn btn-primary" id="gradeButton" onclick="gradeText()">Submit Essay</button>
         <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
             <span class="sr-only">Loading...</span>
@@ -301,6 +308,7 @@
     }
 
     function gradeText() {
+        let isFeedbackValid = false;
         // Show the spinner
         document.getElementById("loadingSpinner").style.display = "block";
         // Show the loading text
@@ -337,7 +345,7 @@
             .then(responseData => {
                 let feedback = responseData.feedback;
 
-                
+
                 // Get the grading output div and clear its previous content
                 let gradingOutputDiv = document.getElementById("gradingOutput");
                 gradingOutputDiv.innerHTML = "";
@@ -351,8 +359,8 @@
                 console.log(feedback);
 
                 if (feedback === "Provided input is relevant to the title and description.") {
+                    isFeedbackValid = true; // Set the flag to true
 
-                    
 
                     // Make an AJAX call to the grade_essay_punctuation grading function
 
@@ -371,41 +379,26 @@
                         }));
                     // End of grade_essay_punctuation grading
 
-                    // Make an AJAX call to the grade_essay_spelling grading function
-
-                    fetchPromises.push(fetchWithCounter('/v2essay_grader/grade_essay_spelling/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}'
-                        },
-                        body: JSON.stringify(requestData) // 'data' should include the required parameters
-                    })
-                        .then(response => response.json())
-
-                        .catch(error => {
-                            console.error('Error:', error);
-                        }));
-                    // End of grade_essay_spelling grading
-
-
                 }
 
 
                 // After all API calls
                 Promise.all(fetchPromises)
                     .then(() => {
-                        // Get the grading output div and clear its previous content
-                        let gradingOutputDiv = document.getElementById("gradingOutput");
-                        gradingOutputDiv.innerHTML = "";
+                        // Check the flag before executing the block
+                        if (isFeedbackValid) {
+                            // Get the grading output div and clear its previous content
+                            let gradingOutputDiv = document.getElementById("gradingOutput");
+                            gradingOutputDiv.innerHTML = "";
 
-                        // Clear the loading text
-                        document.getElementById("loadingText").textContent = "";
+                            // Clear the loading text
+                            document.getElementById("loadingText").textContent = "";
 
-                        // Display the result in the grading output div
-                        let finalMessageElement = document.createElement("div");
-                        finalMessageElement.textContent = "Your essay has been successfully submitted";
-                        gradingOutputDiv.appendChild(finalMessageElement);
+                            // Display the result in the grading output div
+                            let finalMessageElement = document.createElement("div");
+                            finalMessageElement.textContent = "Your essay has been successfully submitted";
+                            gradingOutputDiv.appendChild(finalMessageElement);
+                        }
                     })
                     .catch(error => {
                         console.error('Error:', error);
@@ -627,6 +620,33 @@
                 throw error;
             });
     }
+
+    function loadRubrics() {
+        fetch('/api/get_rubrics/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                let rubricSelect = document.getElementById('rubricSelect');
+                data.forEach(rubric => {
+                    let option = document.createElement('option');
+                    option.value = rubric.id;
+                    option.text = rubric.name;
+                    rubricSelect.add(option);
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    // Call the function when the page loads
+    loadRubrics();
+
 </script>
 
 {% endblock %}
