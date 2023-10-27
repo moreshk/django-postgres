@@ -132,6 +132,6 @@ def grade_essay_spelling(request):
 @login_required
 def get_rubrics(request):
     user = request.user
-    rubrics = Rubric.objects.filter(creator_id__in=[user.id, 2])  # Fetch rubrics created by the logged-in user or user with id 2
+    rubrics = Rubric.objects.filter(creater_id__in=[user.id, 2])  # Fetch rubrics created by the logged-in user or user with id 2
     rubrics_list = list(rubrics.values('id', 'name'))  # Convert the QuerySet to a list of dictionaries
     return JsonResponse(rubrics_list, safe=False)  # Return the list as a JSON response
