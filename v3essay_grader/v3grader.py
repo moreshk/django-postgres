@@ -8,7 +8,7 @@ import requests
 import re
 import os
 from dotenv import load_dotenv
-
+from .models import Rubric, Criteria
 load_dotenv()
 
 # 0. Check for relevance of the input essay to the topic
@@ -53,9 +53,44 @@ def check_relevance(user_response, title, description, essay_type, grade):
 
 # 1. Check for Audience criteria
 
-def check_criteria(user_response, title, description, essay_type, grade):
+def check_criteria(user_response, title, description, essay_type, grade, rubric_id):
     print("I am in check criteria internal function")
-    print(essay_type, grade, title, description)
+    # print("Rubric id: ", rubric_id)
+    # print(essay_type, grade, title, description)
+
+# Fetch the Rubric instance with the given rubric_id
+    rubric = Rubric.objects.get(id=rubric_id)
+
+    # Fetch the Criteria instances related to the Rubric instance
+    criteria_set = Criteria.objects.filter(rubric=rubric)
+
+    # Create a list to store the dataset
+    dataset = []
+
+    # Iterate over the Criteria instances
+    for criteria in criteria_set:
+        # Create a dictionary with the Rubric and Criteria data
+        data = {
+            'rubric_name': rubric.name,
+            'state': rubric.state,
+            'city': rubric.city,
+            'school': rubric.school,
+            'essay_type': rubric.essay_type,
+            'grade': rubric.grade,
+            'curriculum': rubric.curriculum,
+            # 'created_at': rubric.created_at,
+            'criteria_name': criteria.criteria_name,
+            'max_score': criteria.max_score,
+            'criteria_desc': criteria.criteria_desc,
+            'spell_check': criteria.spell_check,
+        }
+
+        # Add the dictionary to the dataset
+        dataset.append(data)
+
+    # Print the dataset
+    print(dataset)
+
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
     relevance_prompt = PromptTemplate(

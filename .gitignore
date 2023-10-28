@@ -166,3 +166,5 @@ temp.py
 # Ignore all files in static/audio
 
 .DS_Store
+temp.py
+.vscode

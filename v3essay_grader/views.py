@@ -106,8 +106,8 @@ def grade_essay_criteria(request):
         grade = data.get('grade')
         rubric_id = data.get('rubric_id')  # Add this line
         print("I am in grade essay criteria")
-        print(user_response, title, description, essay_type, grade)
-        feedback_from_api = check_criteria(user_response, title, description, essay_type, grade)
+        print(user_response, title, description, essay_type, grade, rubric_id)
+        feedback_from_api = check_criteria(user_response, title, description, essay_type, grade, rubric_id)
 
         # Extract the numeric grade from the feedback string
         matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
