@@ -309,6 +309,7 @@
 
     function gradeText() {
         let isFeedbackValid = false;
+        let criteriaExists = false;
         // Show the spinner
         document.getElementById("loadingSpinner").style.display = "block";
         // Show the loading text
@@ -346,6 +347,7 @@
         })
             .then(response => response.json())
             .then(responseData => {
+
                 let feedback = responseData.feedback;
 
 
@@ -375,6 +377,15 @@
                         body: JSON.stringify(requestData) // 'data' should include the required parameters
                     })
                         .then(response => response.json())
+                        .then(responseData => {
+                            console.log(responseData);
+                            if (responseData.error) {
+                                // Display the error message on the UI
+                                document.getElementById("gradingOutput").textContent = responseData.error;
+                            } else {
+                                criteriaExists = true; // Set the flag to true if there is no error
+                            }
+                        })
 
                         .catch(error => {
                             console.error('Error:', error);
@@ -387,8 +398,8 @@
                 // After all API calls
                 Promise.all(fetchPromises)
                     .then(() => {
-                        // Check the flag before executing the block
-                        if (isFeedbackValid) {
+                        // Check both the feedback valid and criteria exists flag before executing the block
+                        if (isFeedbackValid && criteriaExists) {
                             // Get the grading output div and clear its previous content
                             let gradingOutputDiv = document.getElementById("gradingOutput");
                             gradingOutputDiv.innerHTML = "";
@@ -406,6 +417,7 @@
                         console.error('Error:', error);
                     });
 
+                //add end bracket here
             })
             .catch(error => {
                 console.error('Error:', error);

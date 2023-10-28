@@ -109,6 +109,10 @@ def grade_essay_criteria(request):
         print(user_response, title, description, essay_type, grade, rubric_id)
         feedback_from_api = check_criteria(user_response, title, description, essay_type, grade, rubric_id)
 
+        if feedback_from_api in ["No criteria in the rubric.", "Rubric with the provided ID does not exist."]:
+                    print("error",feedback_from_api)
+                    return JsonResponse({'error': feedback_from_api})
+
         # Extract the numeric grade from the feedback string
         matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
         if matches:

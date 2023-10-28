@@ -58,11 +58,19 @@ def check_criteria(user_response, title, description, essay_type, grade, rubric_
     # print("Rubric id: ", rubric_id)
     # print(essay_type, grade, title, description)
 
-# Fetch the Rubric instance with the given rubric_id
-    rubric = Rubric.objects.get(id=rubric_id)
+    # Fetch the Rubric instance with the given rubric_id
+    try:
+        rubric = Rubric.objects.get(id=rubric_id)
+    except Rubric.DoesNotExist:
+        return "Rubric with the provided ID does not exist."
 
     # Fetch the Criteria instances related to the Rubric instance
     criteria_set = Criteria.objects.filter(rubric=rubric)
+
+    # Check if there are no Criteria instances
+    if not criteria_set.exists():
+        print("No criteria exists in the rubric")
+        return "No criteria in the rubric."
 
     # Create a list to store the dataset
     dataset = []
