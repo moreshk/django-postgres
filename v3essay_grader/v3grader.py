@@ -1,4 +1,4 @@
- 
+from django.contrib.auth import get_user_model 
 import re
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
@@ -10,6 +10,7 @@ import os
 from dotenv import load_dotenv
 from .models import Rubric, Criteria
 load_dotenv()
+from users.models import GradeResult
 
 # 0. Check for relevance of the input essay to the topic
 def check_relevance(user_response, title, description, essay_type, grade):
@@ -49,14 +50,110 @@ def check_relevance(user_response, title, description, essay_type, grade):
     feedback_from_api = chain.run(inputs)
     return feedback_from_api
 
+def process_individual_criteria(
+    request,
+    rubric_id,
+    essay_type, 
+    grade, 
+    criteria_name, 
+    max_score, 
+    criteria_desc, 
+    spell_check, 
+    user_response, 
+    title, 
+    description
+):
+    print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    print("I am in the process individual criteria function")
+    print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    print("Essay Type: ", essay_type)
+    print("Grade: ", grade)
+    print("Criteria Name: ", criteria_name)
+    print("Max Score: ", max_score)
+    print("Criteria Description: ", criteria_desc)
+    print("Spell Check: ", spell_check)
+    print("Input Essay: ", user_response)
+    print("Essay Title: ", title)
+    print("Essay Description: ", description)
+
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+    relevance_prompt = PromptTemplate(
+        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type", "criteria_name", "max_score", "criteria_desc"],
+        template="""You are an essay scorer for Naplan. Your inputs are
+
+        Task Title: {task_title}
+
+        Task Description: {task_desc}
+
+        Essay: {essay}
+
+        Students Grade: {grade}
+
+        Essay Type: {essay_type}
+
+        Your task is to grade the provided essay on the criteria of {criteria_name} (Scored out of {max_score})
+
+        {criteria_desc}
+
+        Keep in mind the students grade and the essay type.
+        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs a grade 5 even if the criteria was same.
+
+        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Score: (your score)/(Scored out of).
+        Remember that your grade cannot exceed {max_score}.
+ """,
+    )
+
+
+    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+
+    inputs = {
+        "essay": user_response,
+        "task_title": title,
+        "task_desc": description,
+        "grade": grade,
+        "essay_type": essay_type,
+        "criteria_name": criteria_name,
+        "max_score": max_score,
+        "criteria_desc": criteria_desc,
+    }
+
+    # print(essay_type, title, description)
+    criteria_response = chain.run(inputs)
+    print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    print(criteria_response)
+    print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    
+    # Extract the numeric grade from the feedback string
+    matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', criteria_response)
+    if matches:
+        numeric_grade = float(matches[-1][0])
+    else:
+        numeric_grade = None  # or set a default value
+
+    # Get the current logged in user's id
+    # Note: This assumes that you have access to the request object here
+    # If not, you might need to pass it as a parameter to this function
+    user_id = request.user.id
+
+    # Create a new GradeResult instance and save it to the database
+    grade_result = GradeResult(
+        user_id=user_id,
+        feedback=criteria_response,
+        numeric_grade=numeric_grade,
+        grading_criteria=criteria_name,
+        assignment_id=None,
+        rubric_id=rubric_id,
+    )
+    grade_result.save()
+    
 
 
 # 1. Check for Audience criteria
 
-def check_criteria(user_response, title, description, essay_type, grade, rubric_id):
+def check_criteria(request, user_response, title, description, essay_type, grade, rubric_id):
     print("I am in check criteria internal function")
-    # print("Rubric id: ", rubric_id)
-    # print(essay_type, grade, title, description)
 
     # Fetch the Rubric instance with the given rubric_id
     try:
@@ -72,84 +169,22 @@ def check_criteria(user_response, title, description, essay_type, grade, rubric_
         print("No criteria exists in the rubric")
         return "No criteria in the rubric."
 
-    # Create a list to store the dataset
-    dataset = []
-
     # Iterate over the Criteria instances
     for criteria in criteria_set:
-        # Create a dictionary with the Rubric and Criteria data
-        data = {
-            'rubric_name': rubric.name,
-            'state': rubric.state,
-            'city': rubric.city,
-            'school': rubric.school,
-            'essay_type': rubric.essay_type,
-            'grade': rubric.grade,
-            'curriculum': rubric.curriculum,
-            # 'created_at': rubric.created_at,
-            'criteria_name': criteria.criteria_name,
-            'max_score': criteria.max_score,
-            'criteria_desc': criteria.criteria_desc,
-            'spell_check': criteria.spell_check,
-        }
-
-        # Add the dictionary to the dataset
-        dataset.append(data)
-
-    # Print the dataset
-    print(dataset)
-
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
-
-    relevance_prompt = PromptTemplate(
-        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type"],
-        template="""You are an essay grader for Naplan. Your inputs are
-
-        Task Title: {task_title}
-
-        Task Description: {task_desc}
-
-        Essay: {essay}
-
-        Students Grade: {grade}
-
-        Essay Type: {essay_type}
-
-        Your task is to grade the provided essay on the criteria of Audience (Scored out of 6)
-
-        Grade 3 and Grade 5 criteria: 
-        1-2 Points: The student shows an awareness of the reader but may not consistently engage or persuade throughout the piece.
-        3-4 Points: The student engages the reader with a clear intent to persuade. The tone is mostly consistent, and the reader's interest is maintained.
-        5-6 Points: The student effectively engages, orients, and persuades the reader throughout, demonstrating a strong connection with the audience.
-
-        Grade 7 and Grade 9 criteria:
-        1-2 Points: The student demonstrates an understanding of the reader but may occasionally lack depth in engagement or persuasion.
-        3-4 Points: The student consistently engages the reader, demonstrating a mature intent to persuade with a nuanced and consistent tone.
-        5-6 Points: The student masterfully engages, orients, and persuades the reader, showcasing a sophisticated and insightful connection with the audience.
-
-        Keep in mind the students grade and the essay type. Grade 3 and 5 have the same criteria, Grade 7 and Grade 9 have the same criteria. 
-        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs for grade 5 even if the criteria was same. Same for grade 7 vs grade 9.
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of).
-        Remember that your grade cannot exceed 6.
- """,
-    )
-
-
-    chain = LLMChain(llm=llm, prompt=relevance_prompt)
-
-    inputs = {
-        "essay": user_response,
-        "task_title": title,
-        "task_desc": description,
-        "grade": grade,
-        "essay_type": essay_type,
-    }
-
-    # print(essay_type, title, description)
-    feedback_from_api = chain.run(inputs)
-    print(feedback_from_api)
-    return feedback_from_api
+        process_individual_criteria(
+            request,
+            rubric_id,
+            rubric.essay_type,
+            rubric.grade, 
+            criteria.criteria_name, 
+            criteria.max_score,
+            criteria.criteria_desc, 
+            criteria.spell_check, 
+            user_response, 
+            title, 
+            description)
+        
+    return "All criteria processed successfully"
 
 
 

@@ -107,64 +107,11 @@ def grade_essay_criteria(request):
         rubric_id = data.get('rubric_id')  # Add this line
         print("I am in grade essay criteria")
         print(user_response, title, description, essay_type, grade, rubric_id)
-        feedback_from_api = check_criteria(user_response, title, description, essay_type, grade, rubric_id)
+        feedback_from_api = check_criteria(request, user_response, title, description, essay_type, grade, rubric_id)
 
         if feedback_from_api in ["No criteria in the rubric.", "Rubric with the provided ID does not exist."]:
                     print("error",feedback_from_api)
                     return JsonResponse({'error': feedback_from_api})
-
-        # Extract the numeric grade from the feedback string
-        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
-        if matches:
-            numeric_grade = float(matches[-1][0])
-        else:
-            numeric_grade = None  # or set a default value
-
-         # Create a GradeResult instance and save it to the database
-        graderesult = GradeResult(
-            user_id=request.user.id,  # Assuming the user is authenticated
-            feedback=feedback_from_api,
-            numeric_grade=numeric_grade,
-            grading_criteria='audience',
-            rubric_id=rubric_id,  # Add this line
-            # numeric_grade and assignment_id can be added later
-        )
-        graderesult.save()
-
-        return JsonResponse({'feedback': feedback_from_api})
-
-    return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
-
-
-@login_required
-def grade_essay_spelling(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
-        user_response = data.get('user_response')
-        title = data.get('title')
-        description = data.get('description')
-        essay_type = data.get('essay_type')
-        grade = data.get('grade')
-        print("I am in grade essay spelling")
-        print(user_response, title, description, essay_type, grade)
-        feedback_from_api = check_spelling_persuasive(user_response, title, description, essay_type, grade)
-        
-         # Extract the numeric grade from the feedback string
-        matches = re.findall(r'(\d+\.?\d*)/(\d+\.?\d*)', feedback_from_api)
-        if matches:
-            numeric_grade = float(matches[-1][0])
-        else:
-            numeric_grade = None  # or set a default value
-
-         # Create a GradeResult instance and save it to the database
-        graderesult = GradeResult(
-            user_id=request.user.id,  # Assuming the user is authenticated
-            feedback=feedback_from_api,
-            numeric_grade=numeric_grade,
-            grading_criteria='spelling',
-            # numeric_grade and assignment_id can be added later
-        )
-        graderesult.save()
 
         return JsonResponse({'feedback': feedback_from_api})
 
