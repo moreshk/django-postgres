@@ -15,4 +15,5 @@ urlpatterns = [
     path('grade_essay_criteria/', views.grade_essay_criteria, name='grade_essay_criteria'),
     path('view-grades/', views.view_grades, name='view-grades'),
     path('filter_grades/', views.filter_grades, name='filter-grades'),
+    path('pipeline/', views.pipeline, name='pipeline'),
 ]

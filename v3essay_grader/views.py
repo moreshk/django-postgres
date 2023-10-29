@@ -158,3 +158,7 @@ def filter_grades(request):
     grades_list = list(grades)
 
     return JsonResponse(grades_list, safe=False)
+
+@login_required
+def pipeline(request):
+    return render(request, 'v3essay_grader/pipeline.html')
