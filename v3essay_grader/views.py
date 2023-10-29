@@ -105,9 +105,12 @@ def grade_essay_criteria(request):
         essay_type = data.get('essay_type')
         grade = data.get('grade')
         rubric_id = data.get('rubric_id')  # Add this line
+        assignment_name = data.get('assignment_name')
+        student_name = data.get('student_name')
+        
         print("I am in grade essay criteria")
-        print(user_response, title, description, essay_type, grade, rubric_id)
-        feedback_from_api = check_criteria(request, user_response, title, description, essay_type, grade, rubric_id)
+        print(user_response, title, description, essay_type, grade, rubric_id, assignment_name, student_name)
+        feedback_from_api = check_criteria(request, user_response, title, description, essay_type, grade, rubric_id, assignment_name, student_name)
 
         if feedback_from_api in ["No criteria in the rubric.", "Rubric with the provided ID does not exist."]:
                     print("error",feedback_from_api)

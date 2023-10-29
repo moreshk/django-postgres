@@ -158,12 +158,23 @@
     </div>
 
     <div id="gradingArea" style="display:none;">
+        
+        <div class="form-group mt-4">
+            <label for="assignmentNameInput">Assignment Name:</label>
+            <input type="text" class="form-control" id="assignmentNameInput" placeholder="Enter assignment name">
+        </div>
+        <div class="form-group mt-4">
+            <label for="studentNameInput">Student Name:</label>
+            <input type="text" class="form-control" id="studentNameInput" placeholder="Enter student name">
+        </div>
+
         <div class="form-group mt-4">
             <label for="rubricSelect">Grading Rubric:</label>
             <select class="form-control" id="rubricSelect">
                 <!-- Options will be populated dynamically -->
             </select>
         </div>
+        
         <div class="form-group mt-4">
             <textarea class="form-control" id="gradingTextarea" rows="5"
                 placeholder="Your text goes here ..."></textarea>
@@ -327,6 +338,9 @@
         let grade = document.getElementById("gradeOutput").textContent;
         // Get the selected rubric id
         let rubricId = document.getElementById("rubricSelect").value;
+        let assignmentName = document.getElementById("assignmentNameInput").value;
+        let studentName = document.getElementById("studentNameInput").value;
+
 
         let requestData = {
             user_response: user_response,
@@ -334,7 +348,9 @@
             description: description,
             essay_type: essay_type,
             grade: grade,
-            rubric_id: rubricId  // Add this line
+            rubric_id: rubricId,  // Add this line
+            assignment_name: assignmentName,  // Add this line
+            student_name: studentName  // Add this line
         };
 
         console.log("first api call", requestData);

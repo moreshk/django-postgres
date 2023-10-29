@@ -56,6 +56,8 @@ class GradeResult(models.Model):
     assignment_id = models.IntegerField(null=True, blank=True)
     rubric_id = models.IntegerField(null=True, blank=True)
     task_id = models.IntegerField(null=True, blank=True)
+    assignment_name = models.TextField(null=True, blank=True)
+    student_name = models.TextField(null=True, blank=True)
 
 class Assignment(models.Model):
     teacher_id = models.IntegerField()

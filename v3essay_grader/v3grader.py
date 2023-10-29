@@ -109,7 +109,9 @@ def process_individual_criteria(
     spell_check, 
     user_response, 
     title, 
-    description
+    description,
+    assignment_name, 
+    student_name
 ):
     print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
     print("I am in the process individual criteria function")
@@ -123,6 +125,8 @@ def process_individual_criteria(
     print("Input Essay: ", user_response)
     print("Essay Title: ", title)
     print("Essay Description: ", description)
+    print("Assignment Name: ", assignment_name)
+    print("Student Name: ", student_name)
 
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
@@ -238,14 +242,16 @@ def process_individual_criteria(
         grading_criteria=criteria_name,
         assignment_id=None,
         rubric_id=rubric_id,
-    )
+        assignment_name=assignment_name,
+        student_name=student_name,
+        )
     grade_result.save()
     
 
 
 # 1. Check for Audience criteria
 
-def check_criteria(request, user_response, title, description, essay_type, grade, rubric_id):
+def check_criteria(request, user_response, title, description, essay_type, grade, rubric_id, assignment_name, student_name):
     print("I am in check criteria internal function")
 
     # Fetch the Rubric instance with the given rubric_id
@@ -275,7 +281,9 @@ def check_criteria(request, user_response, title, description, essay_type, grade
             criteria.spell_check, 
             user_response, 
             title, 
-            description)
+            description,
+            assignment_name, 
+            student_name)
         
     return "All criteria processed successfully"
 
