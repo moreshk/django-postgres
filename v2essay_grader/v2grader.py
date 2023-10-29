@@ -2,7 +2,7 @@
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
-from spellchecker import SpellChecker
+# from spellchecker import SpellChecker
 import requests
 import re
 import os

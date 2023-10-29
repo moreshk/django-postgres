@@ -55,6 +55,7 @@ class GradeResult(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     assignment_id = models.IntegerField(null=True, blank=True)
     rubric_id = models.IntegerField(null=True, blank=True)
+    task_id = models.IntegerField(null=True, blank=True)
 
 class Assignment(models.Model):
     teacher_id = models.IntegerField()

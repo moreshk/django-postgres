@@ -50,6 +50,54 @@ def check_relevance(user_response, title, description, essay_type, grade):
     feedback_from_api = chain.run(inputs)
     return feedback_from_api
 
+
+
+# Spell check using BING API
+
+def spell_check_bing(text):
+    print("I am in Bing Spell check")
+    subscription_key = os.environ.get('BING_SPELLCHECK_KEY')
+
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Ocp-Apim-Subscription-Key": subscription_key,
+    }
+    
+    endpoint_url = "https://api.bing.microsoft.com/v7.0/spellcheck"
+    text_to_check = text.replace('\n', ' ').replace('\r', ' ')
+
+    data = {
+        "text": text_to_check,
+        "mode": "proof",  # Use 'proof' mode for comprehensive checks
+    }
+
+    response = requests.post(endpoint_url, headers=headers, data=data)
+    
+    output = ""  # Initialize the output string
+
+    if response.status_code == 200:
+        result = response.json()
+        for flagged_token in result.get('flaggedTokens', []):
+            token = flagged_token['token']
+            for suggestion in flagged_token.get('suggestions', []):
+                suggested_token = suggestion['suggestion']
+                if suggested_token.replace(token, '').strip() in ["", ":", ";", ",", ".", "?", "!"]:
+                    continue
+                if " " not in suggested_token:
+                    output += f"Misspelled word: {token}\n"
+                    output += f"Suggestion: {suggested_token}\n"
+    else:
+        output += f"Error: {response.status_code}\n"
+        output += response.text + "\n"
+
+    # If no mistakes were found, update the output to indicate this.
+    if not output:
+        output = "No spelling mistakes found"
+
+    print("Response from Bing Spell check:", output)
+    return output
+
+
 def process_individual_criteria(
     request,
     rubric_id,
@@ -78,49 +126,94 @@ def process_individual_criteria(
 
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
-    relevance_prompt = PromptTemplate(
-        input_variables=["essay", "task_title", "task_desc", "grade", "essay_type", "criteria_name", "max_score", "criteria_desc"],
-        template="""You are an essay scorer for Naplan. Your inputs are
+    # Conditional check for spell_check
+    if spell_check:
+        # Define the prompt template when spell_check is True
+        print("I am in check spelling")
 
-        Task Title: {task_title}
+        spell_check_response = spell_check_bing(user_response);
 
-        Task Description: {task_desc}
+        llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
-        Essay: {essay}
+        verification_prompt = PromptTemplate(
+            input_variables=["essay", "mistakes", "grade","criteria_name", "max_score", "criteria_desc"],
+            template="""You are an spelling grader verifier for Naplan. Your inputs are
 
-        Students Grade: {grade}
+            Essay: {essay}
 
-        Essay Type: {essay_type}
+            Spelling mistakes: {mistakes}
 
-        Your task is to grade the provided essay on the criteria of {criteria_name} (Scored out of {max_score})
+            Students Grade: {grade}
 
-        {criteria_desc}
+            Another grader has already done the work of finding the spelling mistakes in the essay.
 
-        Keep in mind the students grade and the essay type.
-        Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs a grade 5 even if the criteria was same.
+            Your task is to grade the provided essay on the criteria of {criteria_name} (Scored out of {max_score})
 
-        Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
-        Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Score: (your score)/(Scored out of).
-        Remember that your grade cannot exceed {max_score}.
- """,
-    )
+            {criteria_desc}
+
+            In feedback also mention your reasoning behind the grade you assign and be generous in your grading if no spelling mistakes were received as input.
+            Format your response as Feedback: (your feedback) Grade: (your grade)/(Scored out of). Remember that your score cannot exceed {max_score}.
+            """,
+        )
+
+        chain = LLMChain(llm=llm, prompt=verification_prompt)
+
+        inputs = {
+            "essay": user_response,
+            "mistakes": spell_check_response,
+            "grade": grade,
+            "criteria_name": criteria_name,
+            "max_score": max_score,
+            "criteria_desc": criteria_desc,
+        }
+
+        criteria_response = chain.run(inputs)
+        
+    else:
+        relevance_prompt = PromptTemplate(
+            input_variables=["essay", "task_title", "task_desc", "grade", "essay_type", "criteria_name", "max_score", "criteria_desc"],
+            template="""You are an essay scorer for Naplan. Your inputs are
+
+            Task Title: {task_title}
+
+            Task Description: {task_desc}
+
+            Essay: {essay}
+
+            Students Grade: {grade}
+
+            Essay Type: {essay_type}
+
+            Your task is to score the provided essay on the criteria of {criteria_name} (Scored out of {max_score})
+
+            {criteria_desc}
+
+            Keep in mind the students grade and the essay type.
+            Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs a grade 5 even if the criteria was same.
+
+            Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
+            Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Score: (your score)/(Scored out of).
+            Remember that your score cannot exceed {max_score}.
+    """,
+        )
 
 
-    chain = LLMChain(llm=llm, prompt=relevance_prompt)
+        chain = LLMChain(llm=llm, prompt=relevance_prompt)
 
-    inputs = {
-        "essay": user_response,
-        "task_title": title,
-        "task_desc": description,
-        "grade": grade,
-        "essay_type": essay_type,
-        "criteria_name": criteria_name,
-        "max_score": max_score,
-        "criteria_desc": criteria_desc,
-    }
+        inputs = {
+            "essay": user_response,
+            "task_title": title,
+            "task_desc": description,
+            "grade": grade,
+            "essay_type": essay_type,
+            "criteria_name": criteria_name,
+            "max_score": max_score,
+            "criteria_desc": criteria_desc,
+        }
 
-    # print(essay_type, title, description)
-    criteria_response = chain.run(inputs)
+        # print(essay_type, title, description)
+        criteria_response = chain.run(inputs)
+
     print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
     print(criteria_response)
     print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
