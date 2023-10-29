@@ -1,67 +1,83 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<style>
+    #gradesTable td,
+    #gradesTable th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
 
-  <h1>View Grades</h1>
+    .logout-link {
+    text-align: center;
+}
+</style>
+<h1>View Grades</h1>
 
-  <select id="assignmentNameSelect">
+<label for="assignmentNameSelect">Assignment Name:</label>
+<select id="assignmentNameSelect">
     {% for name in assignment_names %}
-      <option value="{{ name }}">{{ name }}</option>
+    <option value="{{ name }}">{{ name }}</option>
     {% endfor %}
-  </select>
+</select>
 
-  <select id="studentNameSelect">
+<label for="studentNameSelect">Student Name:</label>
+<select id="studentNameSelect">
     {% for name in student_names %}
-      <option value="{{ name }}">{{ name }}</option>
+    <option value="{{ name }}">{{ name }}</option>
     {% endfor %}
-  </select>
+</select>
 
-  <table id="gradesTable">
+<table id="gradesTable">
     <thead>
-      <tr>
-        <th>Grading Criteria</th>
-        <th>Feedback</th>
-        <th>Numeric Grade</th>
-        <th>Timestamp</th>
-      </tr>
+        <tr>
+            <th>Grading Criteria</th>
+            <th>Feedback</th>
+            <th>Numeric Grade</th>
+            <th>Timestamp</th>
+        </tr>
     </thead>
     <tbody id="gradesTableBody">
-      <!-- Table rows will be inserted here -->
+        <!-- Table rows will be inserted here -->
     </tbody>
-  </table>
+</table>
 
-  <div class="mt-4">
+<div class="logout-link">
     <a href="{% url 'logout' %}">Logout</a>
-  </div>
+</div>
 
-  <script>
+<script>
     document.getElementById('assignmentNameSelect').addEventListener('change', filterGrades);
     document.getElementById('studentNameSelect').addEventListener('change', filterGrades);
-    
+
     function filterGrades() {
-      var assignmentName = document.getElementById('assignmentNameSelect').value;
-      var studentName = document.getElementById('studentNameSelect').value;
-    
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', '/v3essay_grader/filter_grades?assignment_name=' + assignmentName + '&student_name=' + studentName, true);
-      xhr.onload = function() {
-        if (this.status == 200) {
-          var grades = JSON.parse(this.responseText);
-          var output = '';
-          for(var i in grades){
-            output +=
-              '<tr>' +
-              '<td>' + grades[i].grading_criteria + '</td>' +
-              '<td>' + grades[i].feedback + '</td>' +
-              '<td>' + grades[i].numeric_grade + '</td>' +
-              '<td>' + grades[i].timestamp + '</td>' +
-              '</tr>';
-          }
-          document.getElementById('gradesTableBody').innerHTML = output;
+        var assignmentName = document.getElementById('assignmentNameSelect').value;
+        var studentName = document.getElementById('studentNameSelect').value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/v3essay_grader/filter_grades?assignment_name=' + assignmentName + '&student_name=' + studentName, true);
+        xhr.onload = function () {
+            if (this.status == 200) {
+                var grades = JSON.parse(this.responseText);
+                var output = '';
+                for (var i in grades) {
+                    var date = new Date(grades[i].timestamp);
+                    var formattedTimestamp = date.toLocaleDateString() + ' ' + date.getHours() + ':' + date.getMinutes();
+
+                    output +=
+                        '<tr>' +
+                        '<td>' + grades[i].grading_criteria + '</td>' +
+                        '<td>' + grades[i].feedback + '</td>' +
+                        '<td>' + grades[i].numeric_grade + '</td>' +
+                        '<td>' + formattedTimestamp + '</td>' +
+                        '</tr>';
+                }
+                document.getElementById('gradesTableBody').innerHTML = output;
+            }
         }
-      }
-      xhr.send();
+
+        xhr.send();
     }
-  </script>
+</script>
 
 {% endblock %}

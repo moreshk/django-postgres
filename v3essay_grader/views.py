@@ -133,19 +133,18 @@ def get_rubrics(request):
 @login_required
 def view_grades(request):
     user_id = request.user.id
-    grades = GradeResult.objects.filter(user_id=user_id)
-    assignment_names = GradeResult.objects.values_list('assignment_name', flat=True).distinct()
-    student_names = GradeResult.objects.values_list('student_name', flat=True).distinct()
+    user_grades = GradeResult.objects.filter(user_id=user_id)
+
+    assignment_names = user_grades.values_list('assignment_name', flat=True).distinct()
+    student_names = user_grades.values_list('student_name', flat=True).distinct()
 
     context = {
-        'grades': grades,
+        'grades': user_grades,
         'assignment_names': assignment_names,
         'student_names': student_names,
     }
 
     return render(request, 'v3essay_grader/view_grades.html', context)
-
-
 
 @login_required
 def filter_grades(request):
