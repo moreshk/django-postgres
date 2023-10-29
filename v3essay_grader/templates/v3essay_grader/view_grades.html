@@ -9,8 +9,8 @@
     }
 
     .logout-link {
-    text-align: center;
-}
+        text-align: center;
+    }
 </style>
 <h1>View Grades</h1>
 
@@ -58,18 +58,16 @@
         xhr.open('GET', '/v3essay_grader/filter_grades?assignment_name=' + assignmentName + '&student_name=' + studentName, true);
         xhr.onload = function () {
             if (this.status == 200) {
-                var grades = JSON.parse(this.responseText);
+                var response = JSON.parse(this.responseText);
+                var grades = Array.isArray(response) ? response : [response];
                 var output = '';
                 for (var i in grades) {
-                    var date = new Date(grades[i].timestamp);
-                    var formattedTimestamp = date.toLocaleDateString() + ' ' + date.getHours() + ':' + date.getMinutes();
-
                     output +=
                         '<tr>' +
                         '<td>' + grades[i].grading_criteria + '</td>' +
                         '<td>' + grades[i].feedback + '</td>' +
                         '<td>' + grades[i].numeric_grade + '</td>' +
-                        '<td>' + formattedTimestamp + '</td>' +
+                        '<td>' + grades[i].timestamp + '</td>' +
                         '</tr>';
                 }
                 document.getElementById('gradesTableBody').innerHTML = output;
@@ -78,6 +76,20 @@
 
         xhr.send();
     }
+
+    // Trigger the change event after the page loads
+    window.onload = function() {
+        var assignmentNameSelect = document.getElementById('assignmentNameSelect');
+        var studentNameSelect = document.getElementById('studentNameSelect');
+
+        if (assignmentNameSelect) {
+            assignmentNameSelect.dispatchEvent(new Event('change'));
+        }
+
+        if (studentNameSelect) {
+            studentNameSelect.dispatchEvent(new Event('change'));
+        }
+    };
 </script>
 
 {% endblock %}

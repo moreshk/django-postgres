@@ -154,4 +154,7 @@ def filter_grades(request):
 
     grades = GradeResult.objects.filter(user_id=user_id, assignment_name=assignment_name, student_name=student_name).values()
 
-    return JsonResponse(list(grades), safe=False)
+    # Ensure the response is always a list
+    grades_list = list(grades)
+
+    return JsonResponse(grades_list, safe=False)
