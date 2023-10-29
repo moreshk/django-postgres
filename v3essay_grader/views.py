@@ -127,3 +127,32 @@ def get_rubrics(request):
     rubrics = Rubric.objects.filter(creater_id__in=[user.id, 2])  # Fetch rubrics created by the logged-in user or user with id 2
     rubrics_list = list(rubrics.values('id', 'name'))  # Convert the QuerySet to a list of dictionaries
     return JsonResponse(rubrics_list, safe=False)  # Return the list as a JSON response
+
+
+
+@login_required
+def view_grades(request):
+    user_id = request.user.id
+    grades = GradeResult.objects.filter(user_id=user_id)
+    assignment_names = GradeResult.objects.values_list('assignment_name', flat=True).distinct()
+    student_names = GradeResult.objects.values_list('student_name', flat=True).distinct()
+
+    context = {
+        'grades': grades,
+        'assignment_names': assignment_names,
+        'student_names': student_names,
+    }
+
+    return render(request, 'v3essay_grader/view_grades.html', context)
+
+
+
+@login_required
+def filter_grades(request):
+    user_id = request.user.id
+    assignment_name = request.GET.get('assignment_name', '')
+    student_name = request.GET.get('student_name', '')
+
+    grades = GradeResult.objects.filter(user_id=user_id, assignment_name=assignment_name, student_name=student_name).values()
+
+    return JsonResponse(list(grades), safe=False)

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+  <h1>View Grades</h1>
+
+  <select id="assignmentNameSelect">
+    {% for name in assignment_names %}
+      <option value="{{ name }}">{{ name }}</option>
+    {% endfor %}
+  </select>
+
+  <select id="studentNameSelect">
+    {% for name in student_names %}
+      <option value="{{ name }}">{{ name }}</option>
+    {% endfor %}
+  </select>
+
+  <table id="gradesTable">
+    <thead>
+      <tr>
+        <th>Grading Criteria</th>
+        <th>Feedback</th>
+        <th>Numeric Grade</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody id="gradesTableBody">
+      <!-- Table rows will be inserted here -->
+    </tbody>
+  </table>
+
+  <div class="mt-4">
+    <a href="{% url 'logout' %}">Logout</a>
+  </div>
+
+  <script>
+    document.getElementById('assignmentNameSelect').addEventListener('change', filterGrades);
+    document.getElementById('studentNameSelect').addEventListener('change', filterGrades);
+    
+    function filterGrades() {
+      var assignmentName = document.getElementById('assignmentNameSelect').value;
+      var studentName = document.getElementById('studentNameSelect').value;
+    
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/v3essay_grader/filter_grades?assignment_name=' + assignmentName + '&student_name=' + studentName, true);
+      xhr.onload = function() {
+        if (this.status == 200) {
+          var grades = JSON.parse(this.responseText);
+          var output = '';
+          for(var i in grades){
+            output +=
+              '<tr>' +
+              '<td>' + grades[i].grading_criteria + '</td>' +
+              '<td>' + grades[i].feedback + '</td>' +
+              '<td>' + grades[i].numeric_grade + '</td>' +
+              '<td>' + grades[i].timestamp + '</td>' +
+              '</tr>';
+          }
+          document.getElementById('gradesTableBody').innerHTML = output;
+        }
+      }
+      xhr.send();
+    }
+  </script>
+
+{% endblock %}

@@ -13,4 +13,6 @@ urlpatterns = [
     path('custom_rubric_essay_grader/', views.custom_rubric_essay_grader, name='custom_rubric_essay_grader'),
     path('get_rubrics/', views.get_rubrics, name='get_rubrics'),
     path('grade_essay_criteria/', views.grade_essay_criteria, name='grade_essay_criteria'),
+    path('view-grades/', views.view_grades, name='view-grades'),
+    path('filter_grades/', views.filter_grades, name='filter-grades'),
 ]

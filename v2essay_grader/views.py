@@ -593,3 +593,4 @@ def grade_narrative_cohesion(request):
         return JsonResponse({'feedback': feedback_from_api})
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
+
