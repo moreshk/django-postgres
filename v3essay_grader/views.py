@@ -141,6 +141,7 @@ def view_grades(request):
         if assignment_name:
             user_grades = user_grades.filter(assignment_name=assignment_name)
 
+        # Move this line here
         student_names = user_grades.values_list('student_name', flat=True).distinct()
 
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -157,7 +158,7 @@ def view_grades(request):
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return JsonResponse({'error': str(e)}, status=500)
         raise  
-
+    
 @login_required
 def filter_grades(request):
     user_id = request.user.id

@@ -46,8 +46,27 @@
     <a href="{% url 'logout' %}">Logout</a>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    document.getElementById('assignmentNameSelect').addEventListener('change', filterGrades);
+    $('#assignmentNameSelect').change(function() {
+        var selectedAssignmentName = $(this).val();
+        $.ajax({
+            url: '/v3essay_grader/view_grades/',  // Update this with the actual URL
+            data: {
+                'assignment_name': selectedAssignmentName
+            },
+            dataType: 'json',
+            success: function(data) {
+                var studentNamesDropdown = $('#studentNameSelect');
+                studentNamesDropdown.empty();
+                $.each(data, function(index, value) {
+                    studentNamesDropdown.append($('<option>').text(value).attr('value', value));
+                });
+                studentNamesDropdown.trigger('change');  // Trigger the change event on the student names dropdown
+            }
+        });
+    });
+
     document.getElementById('studentNameSelect').addEventListener('change', filterGrades);
 
     function filterGrades() {
@@ -90,29 +109,5 @@
             studentNameSelect.dispatchEvent(new Event('change'));
         }
     };
-
-    document.getElementById('assignmentNameSelect').addEventListener('change', function() {
-    var assignmentName = this.value;
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/v3essay_grader/view-grades?assignment_name=' + assignmentName, true);
-    xhr.onload = function () {
-        if (this.status == 200) {
-            var studentNames = JSON.parse(this.responseText);
-            var studentNameSelect = document.getElementById('studentNameSelect');
-            studentNameSelect.innerHTML = '';
-            for (var i in studentNames) {
-                var option = document.createElement('option');
-                option.value = studentNames[i];
-                option.text = studentNames[i];
-                studentNameSelect.appendChild(option);
-            }
-            studentNameSelect.dispatchEvent(new Event('change'));
-        }
-    }
-
-    xhr.send();
-});
 </script>
-
 {% endblock %}
