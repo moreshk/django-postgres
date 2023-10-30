@@ -323,7 +323,7 @@
 
     function gradeText() {
         // Create a new Notyf instance
-        let notyf = new Notyf();
+        let notyf = new Notyf({duration: 10000});
 
         // Get the values
         let user_response = document.getElementById("gradingTextarea").value;
@@ -360,22 +360,34 @@
             beforeSend: function () {
                 // Show the spinner and the loading text
                 document.getElementById("loadingSpinner").style.display = "block";
-                document.getElementById("loadingText").textContent = "Please wait till the essay is processed, do not refresh or close this window while it is loading ...";
+                // document.getElementById("loadingText").textContent = "Please wait till the essay is processed, do not refresh or close this window while it is loading ...";
                 // Show a notification after each submission
-                notyf.success('Your essay has been submitted and is being processed.');
+                notyf.success(`Your essay "${assignmentName}" by "${studentName}" has been submitted and is being processed.`);
             },
             success: function (responseData) {
                 // Handle the response from the server
+                // let feedback = responseData.feedback;
+
+                // // Get the grading output div and clear its previous content
+                // let gradingOutputDiv = document.getElementById("gradingOutput");
+                // gradingOutputDiv.innerHTML = "";
+
+                // // Display the result in the grading output div
+                // let feedbackElement = document.createElement("div");
+                // feedbackElement.textContent = feedback;
+                // gradingOutputDiv.appendChild(feedbackElement);
+
                 let feedback = responseData.feedback;
 
-                // Get the grading output div and clear its previous content
-                let gradingOutputDiv = document.getElementById("gradingOutput");
-                gradingOutputDiv.innerHTML = "";
+                // Create a new Notyf instance
+                let notyf = new Notyf({duration: 10000});
 
-                // Display the result in the grading output div
-                let feedbackElement = document.createElement("div");
-                feedbackElement.textContent = feedback;
-                gradingOutputDiv.appendChild(feedbackElement);
+                // Display the feedback in a Notyf popup
+                if (feedback === "Provided input is relevant to the title and description.") {
+                    notyf.success(feedback);
+                } else {
+                    notyf.error(feedback);
+                }
 
                 if (feedback === "Provided input is relevant to the title and description.") {
                     // Make the second AJAX call if the input is relevant
@@ -391,22 +403,23 @@
                             // Handle the response from the server
                             if (responseData.error) {
                                 // Display the error message on the UI
-                                document.getElementById("gradingOutput").textContent = responseData.error;
+                                // document.getElementById("gradingOutput").textContent = responseData.error;
                             } else {
                                 // Get the grading output div and clear its previous content
                                 let gradingOutputDiv = document.getElementById("gradingOutput");
                                 gradingOutputDiv.innerHTML = "";
 
                                 // Clear the loading text
-                                document.getElementById("loadingText").textContent = "";
+                                // document.getElementById("loadingText").textContent = "";
 
-                                // Display the result in the grading output div
-                                let finalMessageElement = document.createElement("div");
-                                finalMessageElement.textContent = "Your essay has been successfully submitted";
-                                gradingOutputDiv.appendChild(finalMessageElement);
+                                // // Display the result in the grading output div
+                                // let finalMessageElement = document.createElement("div");
+                                // finalMessageElement.textContent = "Your essay has been successfully submitted";
+                                // gradingOutputDiv.appendChild(finalMessageElement);
 
                                 // Show a notification when the processing is complete
-                                notyf.success('Your essay has been processed.');
+                                // notyf.success('Your essay has been processed.');
+                                notyf.success(`Your essay "${assignmentName}" by "${studentName}" has been processed.`);
                             }
                         },
                         error: function (error) {
@@ -425,7 +438,7 @@
             complete: function () {
                 // Hide the spinner and the loading text
                 document.getElementById("loadingSpinner").style.display = "none";
-                document.getElementById("loadingText").textContent = "";
+                // document.getElementById("loadingText").textContent = "";
             }
         });
     }

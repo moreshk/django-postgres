@@ -90,6 +90,29 @@
             studentNameSelect.dispatchEvent(new Event('change'));
         }
     };
+
+    document.getElementById('assignmentNameSelect').addEventListener('change', function() {
+    var assignmentName = this.value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/v3essay_grader/view-grades?assignment_name=' + assignmentName, true);
+    xhr.onload = function () {
+        if (this.status == 200) {
+            var studentNames = JSON.parse(this.responseText);
+            var studentNameSelect = document.getElementById('studentNameSelect');
+            studentNameSelect.innerHTML = '';
+            for (var i in studentNames) {
+                var option = document.createElement('option');
+                option.value = studentNames[i];
+                option.text = studentNames[i];
+                studentNameSelect.appendChild(option);
+            }
+            studentNameSelect.dispatchEvent(new Event('change'));
+        }
+    }
+
+    xhr.send();
+});
 </script>
 
 {% endblock %}

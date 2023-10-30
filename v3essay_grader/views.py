@@ -128,23 +128,35 @@ def get_rubrics(request):
     rubrics_list = list(rubrics.values('id', 'name'))  # Convert the QuerySet to a list of dictionaries
     return JsonResponse(rubrics_list, safe=False)  # Return the list as a JSON response
 
-
-
 @login_required
 def view_grades(request):
-    user_id = request.user.id
-    user_grades = GradeResult.objects.filter(user_id=user_id)
+    try:
+        user_id = request.user.id
+        assignment_name = request.GET.get('assignment_name', None)
 
-    assignment_names = user_grades.values_list('assignment_name', flat=True).distinct()
-    student_names = user_grades.values_list('student_name', flat=True).distinct()
+        user_grades = GradeResult.objects.filter(user_id=user_id)
 
-    context = {
-        'grades': user_grades,
-        'assignment_names': assignment_names,
-        'student_names': student_names,
-    }
+        assignment_names = user_grades.values_list('assignment_name', flat=True).distinct()
 
-    return render(request, 'v3essay_grader/view_grades.html', context)
+        if assignment_name:
+            user_grades = user_grades.filter(assignment_name=assignment_name)
+
+        student_names = user_grades.values_list('student_name', flat=True).distinct()
+
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse(list(student_names), safe=False)
+
+        context = {
+            'grades': user_grades,
+            'assignment_names': assignment_names,
+            'student_names': student_names,
+        }
+
+        return render(request, 'v3essay_grader/view_grades.html', context)
+    except Exception as e:
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'error': str(e)}, status=500)
+        raise  
 
 @login_required
 def filter_grades(request):
