@@ -46,16 +46,42 @@
         {% endif %}
 
         {% if user_type != 'STUDENT' %}
-        <!-- Essay Grader Tile -->
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
-                    <a href="{% url 'v2essay_grader:index' %}">Teacher Essay Grader</a>
+                    <a href="{% url 'v2essay_grader:index' %}">Naplan Essay Grader</a>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'v3essay_grader:create_rubric' %}">Add Custom Rubric</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'v3essay_grader:view-grades' %}">View Grades</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
         {% endif %}
 
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'v3essay_grader:pipeline' %}">Custom Rubric based grader</a>
+                </div>
+            </div>
+        </div>
         <!-- Spell Check Index Tile -->
         <!-- <div class="col-md-3 mb-4">
             <div class="card h-100">
@@ -75,13 +101,13 @@
         </div> -->
 
         <!-- Essay Input Tile -->
-        <div class="col-md-3 mb-4">
+        <!-- <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
                     <a href="{% url 'v2essay_grader:essay_input' %}">Student Essay Input</a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
         <!-- Payments Tile -->
