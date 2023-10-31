@@ -188,6 +188,9 @@
         <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
             <span class="sr-only">Loading...</span>
         </div>
+        <div class="spinner-border text-primary" role="status" id="secondLoadingSpinner" style="display: none;">
+            <span class="sr-only">Loading...</span>
+        </div>
         <span id="loadingText"></span> <!-- Add this line -->
     </div>
 
@@ -323,7 +326,7 @@
 
     function gradeText() {
         // Create a new Notyf instance
-        let notyf = new Notyf({duration: 10000});
+        let notyf = new Notyf({ duration: 10000 });
 
         // Get the values
         let user_response = document.getElementById("gradingTextarea").value;
@@ -365,22 +368,12 @@
                 notyf.success(`Your essay "${assignmentName}" by "${studentName}" has been submitted and is being processed.`);
             },
             success: function (responseData) {
-                // Handle the response from the server
-                // let feedback = responseData.feedback;
 
-                // // Get the grading output div and clear its previous content
-                // let gradingOutputDiv = document.getElementById("gradingOutput");
-                // gradingOutputDiv.innerHTML = "";
-
-                // // Display the result in the grading output div
-                // let feedbackElement = document.createElement("div");
-                // feedbackElement.textContent = feedback;
-                // gradingOutputDiv.appendChild(feedbackElement);
 
                 let feedback = responseData.feedback;
 
                 // Create a new Notyf instance
-                let notyf = new Notyf({duration: 10000});
+                let notyf = new Notyf({ duration: 10000 });
 
                 // Display the feedback in a Notyf popup
                 if (feedback === "Provided input is relevant to the title and description.") {
@@ -391,6 +384,9 @@
 
                 if (feedback === "Provided input is relevant to the title and description.") {
                     // Make the second AJAX call if the input is relevant
+                    // Show the second spinner
+                    document.getElementById("secondLoadingSpinner").style.display = "block";
+
                     $.ajax({
                         url: '/v3essay_grader/grade_essay_criteria/',  // The URL of your API endpoint
                         type: 'POST',
@@ -399,6 +395,10 @@
                         headers: {
                             'X-CSRFToken': csrftoken
                         },
+                        // beforeSend: function () {
+                        //     // Show the spinner and the loading text
+                        //     document.getElementById("loadingSpinner").style.display = "block";
+                        // },
                         success: function (responseData) {
                             // Handle the response from the server
                             if (responseData.error) {
@@ -409,18 +409,10 @@
                                 let gradingOutputDiv = document.getElementById("gradingOutput");
                                 gradingOutputDiv.innerHTML = "";
 
-                                // Clear the loading text
-                                // document.getElementById("loadingText").textContent = "";
-
-                                // // Display the result in the grading output div
-                                // let finalMessageElement = document.createElement("div");
-                                // finalMessageElement.textContent = "Your essay has been successfully submitted";
-                                // gradingOutputDiv.appendChild(finalMessageElement);
-
-                                // Show a notification when the processing is complete
-                                // notyf.success('Your essay has been processed.');
                                 notyf.success(`Your essay "${assignmentName}" by "${studentName}" has been processed.`);
                             }
+                            // Hide the second spinner
+                            document.getElementById("secondLoadingSpinner").style.display = "none";
                         },
                         error: function (error) {
                             console.error('Error:', error);
