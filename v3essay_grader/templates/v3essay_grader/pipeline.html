@@ -27,6 +27,7 @@
                 <select class="form-control" id="essayTypeInput">
                     <option>Narrative</option>
                     <option>Persuasive</option>
+                    <option>Informative</option> <!-- New option added -->
                 </select>
             </div>
             <div class="form-group">
@@ -145,6 +146,31 @@
                 </ul>
             </div>
 
+            <div id="informativeGuidelines" class="container mt-4" style="display:none;">
+                <h5 class="mt-4 mb-2">Plan:</h5>
+                <p>Plan your writing before you begin. Decide which facts you are going to include.</p>
+            
+                <!-- Add more guidelines as needed -->
+            
+                <h5 class="mt-4 mb-2">Remember to include:</h5>
+                <ul>
+                    <li>an introduction - a general statement about the topic</li>
+                    <li>a description - a series of factual paragraphs describing the topic</li>
+                    <li>a conclusion - a summary statement about the topic</li>
+                </ul>
+
+                <h5 class="mt-4 mb-2">Remember to use:</h5>
+                <ul>
+                    <li>paragraphs</li>
+                    <li>formal, factual and subject-specific language.</li>
+                </ul>
+
+                <h5 class="mt-4 mb-2">Remember to check:</h5>
+                <ul>
+                    <li>spelling and punctuation</li>
+                    <li>sentence structure.</li>
+                </ul>
+            </div>
             <button type="button" class="btn btn-primary" onclick="submitForm()">Create Test</button>
         </form>
     </div>
@@ -189,9 +215,10 @@
         <div class="form-group mt-4">
             <button type="button" class="btn btn-primary" id="gradeButton" onclick="gradeText()">Submit Essay</button>
         </div>
-        
+
         <div class="form-group mt-4">
-            <button type="button" class="btn btn-success" id="viewGradesButton" style="display: none;">View Grades</button>
+            <button type="button" class="btn btn-success" id="viewGradesButton" style="display: none;">View
+                Grades</button>
         </div>
 
         <!-- <button type="button" class="btn btn-primary" id="gradeButton" onclick="gradeText()">Submit Essay</button> -->
@@ -241,13 +268,20 @@
 
         let persuasiveGuidelines = document.getElementById("persuasiveGuidelines");
         let narrativeGuidelines = document.getElementById("narrativeGuidelines");
+        let informativeGuidelines = document.getElementById("informativeGuidelines"); // New line
 
         if (essayType === "Persuasive") {
             persuasiveGuidelines.style.display = "block";
             narrativeGuidelines.style.display = "none";
-        } else {
+            informativeGuidelines.style.display = "none"; // New line
+        } else if (essayType === "Narrative") {
             persuasiveGuidelines.style.display = "none";
             narrativeGuidelines.style.display = "block";
+            informativeGuidelines.style.display = "none"; // New line
+        } else if (essayType === "Informative") { // New condition
+            persuasiveGuidelines.style.display = "none";
+            narrativeGuidelines.style.display = "none";
+            informativeGuidelines.style.display = "block";
         }
 
         let outputArea = document.getElementById("outputArea");
@@ -422,7 +456,7 @@
                                 gradingOutputDiv.innerHTML = "";
 
                                 notyf.success(`Your essay "${assignmentName}" by "${studentName}" has been processed.`);
-                                
+
                                 // Show the view grades button and set its link
                                 let viewGradesButton = document.getElementById("viewGradesButton");
                                 viewGradesButton.style.display = "block";

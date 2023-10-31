@@ -141,7 +141,7 @@ def process_individual_criteria(
 
         verification_prompt = PromptTemplate(
             input_variables=["essay", "mistakes", "grade","criteria_name", "max_score", "criteria_desc"],
-            template="""You are an spelling grader verifier for Naplan. Your inputs are
+            template="""You are an essay spelling scorer. Your inputs are
 
             Essay: {essay}
 
@@ -176,7 +176,7 @@ def process_individual_criteria(
     else:
         relevance_prompt = PromptTemplate(
             input_variables=["essay", "task_title", "task_desc", "grade", "essay_type", "criteria_name", "max_score", "criteria_desc"],
-            template="""You are an essay scorer for Naplan. Your inputs are
+            template="""You are an essay scorer. Your inputs are
 
             Task Title: {task_title}
 
@@ -191,9 +191,6 @@ def process_individual_criteria(
             Your task is to score the provided essay on the criteria of {criteria_name} (Scored out of {max_score})
 
             {criteria_desc}
-
-            Keep in mind the students grade and the essay type.
-            Be more lenient to the lower grades. So the same essay would score higher if written by a grade 3 vs a grade 5 even if the criteria was same.
 
             Provide feedback on the input essay in terms of what if anything was done well and what can be improved. Try to include examples.
             Keep your response limited to less than 5 sentences and format your response as Feedback: (your feedback) Score: (your score)/(Scored out of).
