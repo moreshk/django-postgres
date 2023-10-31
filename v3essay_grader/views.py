@@ -124,7 +124,7 @@ def grade_essay_criteria(request):
 @login_required
 def get_rubrics(request):
     user = request.user
-    rubrics = Rubric.objects.filter(creater_id__in=[user.id, 2])  # Fetch rubrics created by the logged-in user or user with id 2
+    rubrics = Rubric.objects.filter(creater_id__in=[user.id, 21])  # Fetch rubrics created by the logged-in user or user with id 21 : Rubrics created by Sean
     rubrics_list = list(rubrics.values('id', 'name'))  # Convert the QuerySet to a list of dictionaries
     return JsonResponse(rubrics_list, safe=False)  # Return the list as a JSON response
 
@@ -133,6 +133,7 @@ def view_grades(request):
     try:
         user_id = request.user.id
         assignment_name = request.GET.get('assignment_name', None)
+        student_name = request.GET.get('student_name', None)
 
         user_grades = GradeResult.objects.filter(user_id=user_id)
 
@@ -151,6 +152,8 @@ def view_grades(request):
             'grades': user_grades,
             'assignment_names': assignment_names,
             'student_names': student_names,
+            'selected_assignment_name': assignment_name,
+            'selected_student_name': student_name,
         }
 
         return render(request, 'v3essay_grader/view_grades.html', context)
@@ -158,7 +161,7 @@ def view_grades(request):
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return JsonResponse({'error': str(e)}, status=500)
         raise  
-    
+
 @login_required
 def filter_grades(request):
     user_id = request.user.id

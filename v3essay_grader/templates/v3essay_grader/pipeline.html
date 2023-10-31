@@ -12,6 +12,10 @@
     .invalid-input {
         border: 1px solid red;
     }
+
+    .view-grades-button {
+        margin: 10px;
+    }
 </style>
 
 <div class="container mt-5">
@@ -182,9 +186,15 @@
                 placeholder="Your text goes here ..."></textarea>
         </div>
 
+        <div class="form-group mt-4">
+            <button type="button" class="btn btn-primary" id="gradeButton" onclick="gradeText()">Submit Essay</button>
+        </div>
+        
+        <div class="form-group mt-4">
+            <button type="button" class="btn btn-success" id="viewGradesButton" style="display: none;">View Grades</button>
+        </div>
 
-
-        <button type="button" class="btn btn-primary" id="gradeButton" onclick="gradeText()">Submit Essay</button>
+        <!-- <button type="button" class="btn btn-primary" id="gradeButton" onclick="gradeText()">Submit Essay</button> -->
         <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
             <span class="sr-only">Loading...</span>
         </div>
@@ -192,6 +202,8 @@
             <span class="sr-only">Loading...</span>
         </div>
         <span id="loadingText"></span> <!-- Add this line -->
+        <!-- Add this button in your HTML where you want it to appear -->
+        <!-- <button type="button" class="btn btn-success" id="viewGradesButton" style="display: none;">View Grades</button> -->
     </div>
 
     <div id="gradingOutput" style="margin-top: 20px;"></div>
@@ -410,6 +422,15 @@
                                 gradingOutputDiv.innerHTML = "";
 
                                 notyf.success(`Your essay "${assignmentName}" by "${studentName}" has been processed.`);
+                                
+                                // Show the view grades button and set its link
+                                let viewGradesButton = document.getElementById("viewGradesButton");
+                                viewGradesButton.style.display = "block";
+                                viewGradesButton.textContent = `View Grades for "${assignmentName}" by "${studentName}"`;
+                                viewGradesButton.onclick = function () {
+                                    window.location.href = `/v3essay_grader/view-grades/?assignment_name=${encodeURIComponent(assignmentName)}&student_name=${encodeURIComponent(studentName)}`;
+                                };
+
                             }
                             // Hide the second spinner
                             document.getElementById("secondLoadingSpinner").style.display = "none";
