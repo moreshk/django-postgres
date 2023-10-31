@@ -149,9 +149,9 @@
             <div id="informativeGuidelines" class="container mt-4" style="display:none;">
                 <h5 class="mt-4 mb-2">Plan:</h5>
                 <p>Plan your writing before you begin. Decide which facts you are going to include.</p>
-            
+
                 <!-- Add more guidelines as needed -->
-            
+
                 <h5 class="mt-4 mb-2">Remember to include:</h5>
                 <ul>
                     <li>an introduction - a general statement about the topic</li>
@@ -285,12 +285,19 @@
         }
 
         let outputArea = document.getElementById("outputArea");
-        let currentGuidelines = (document.getElementById("essayTypeInput").value === "Persuasive")
-            ? document.getElementById("persuasiveGuidelines")
-            : document.getElementById("narrativeGuidelines");
+        let currentGuidelines;
+
+        if (essayType === "Persuasive") {
+            currentGuidelines = document.getElementById("persuasiveGuidelines");
+        } else if (essayType === "Narrative") {
+            currentGuidelines = document.getElementById("narrativeGuidelines");
+        } else if (essayType === "Informative") { // New condition
+            currentGuidelines = document.getElementById("informativeGuidelines");
+        }
 
         let clonedGuidelines = currentGuidelines.cloneNode(true);
         outputArea.appendChild(clonedGuidelines);
+
 
         // Show gradingArea after form is submitted
         document.getElementById("gradingArea").style.display = "block";
@@ -325,19 +332,20 @@
     document.getElementById("essayTypeInput").addEventListener("change", function () {
         let persuasiveGuidelines = document.getElementById("persuasiveGuidelines");
         let narrativeGuidelines = document.getElementById("narrativeGuidelines");
+        let informativeGuidelines = document.getElementById("informativeGuidelines");
 
         if (this.value === "Persuasive") {
             persuasiveGuidelines.style.display = "block";
             narrativeGuidelines.style.display = "none";
-        } else {
+            informativeGuidelines.style.display = "none";
+        } else if (this.value === "Narrative") {
             persuasiveGuidelines.style.display = "none";
             narrativeGuidelines.style.display = "block";
-        }
-
-        let outputArea = document.getElementById("outputArea");
-        let clonedGuidelines = outputArea.querySelector('.container.mt-4');
-        if (clonedGuidelines) {
-            outputArea.removeChild(clonedGuidelines);
+            informativeGuidelines.style.display = "none";
+        } else if (this.value === "Informative") {
+            persuasiveGuidelines.style.display = "none";
+            narrativeGuidelines.style.display = "none";
+            informativeGuidelines.style.display = "block";
         }
     });
 
