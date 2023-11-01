@@ -3,15 +3,14 @@ import re
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
-from spellchecker import SpellChecker
+
 import requests
 import re
 import os
 from dotenv import load_dotenv
 from .models import Rubric, Criteria
 load_dotenv()
-from users.models import GradeResult
-
+from .models import CombinedPromptResults
 
 # Spell check using BING API
 
@@ -85,7 +84,7 @@ def check_criteria_combined_prompt(request, user_response, title, description, e
     output += f"Essay title: {title}\n"
     output += f"Description: {description}\n"
     output += f"Student's input essay: {user_response}\n\n"
-    output += f"Student's input essay: {user_response}\n\n"
+    # output += f"Student's input essay: {user_response}\n\n"
     output += f"You will follow the below criteria and score the input essay on all the provided criteria using the provided guidelines. If the essay was empty or not in line with the Task Title and Description mention that and do not provide a grade.\n\n"
 
     counter = 1
@@ -126,7 +125,24 @@ def check_criteria_combined_prompt(request, user_response, title, description, e
 
     combined_prompt_response = chain.run(inputs)
 
-    
+    # Get the logged in user's id
+    user_id = request.user.id
+
+    # Create a new CombinedPromptResults record
+    combined_prompt_result = CombinedPromptResults(
+        user_response=user_response,
+        title=title,
+        description=description,
+        essay_type=essay_type,
+        grade=grade,
+        rubric=rubric,
+        rubric_name=rubric.name,  # Assuming the Rubric model has a 'name' field
+        assignment_name=assignment_name,
+        student_name=student_name,
+        user_id=user_id,
+        ai_feedback=combined_prompt_response,
+    )
+    combined_prompt_result.save()
 
     print(combined_prompt_response)
       

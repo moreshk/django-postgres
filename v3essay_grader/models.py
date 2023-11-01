@@ -30,6 +30,7 @@ class Criteria(models.Model):
 
 class CombinedPromptResults(models.Model):
     user_response = models.TextField()
+    ai_feedback = models.TextField()
     title = models.CharField(max_length=255)
     description = models.TextField()
     essay_type = models.CharField(max_length=255)
