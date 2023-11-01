@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from v3essay_grader.models import Rubric, Criteria
 from django.contrib import messages
 from django.http import JsonResponse
-from .v3grader import check_spelling_persuasive, check_criteria
+from .v3grader import check_criteria
+from .v3_5grader import check_criteria_combined_prompt
 from users.models import GradeResult
 import json
 
@@ -178,3 +179,35 @@ def filter_grades(request):
 @login_required
 def pipeline(request):
     return render(request, 'v3essay_grader/pipeline.html')
+
+@login_required
+def combined_prompt(request):
+    return render(request, 'v3essay_grader/combined_prompt.html')
+
+
+# 1
+@login_required
+def grade_essay_combined_prompt(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_response = data.get('user_response')
+        title = data.get('title')
+        description = data.get('description')
+        essay_type = data.get('essay_type')
+        grade = data.get('grade')
+        rubric_id = data.get('rubric_id')  # Add this line
+        assignment_name = data.get('assignment_name')
+        student_name = data.get('student_name')
+        
+        print("I am in grade essay combined prompt view")
+        print(user_response, title, description, essay_type, grade, rubric_id, assignment_name, student_name)
+        feedback_from_api = check_criteria_combined_prompt(request, user_response, title, description, essay_type, grade, rubric_id, assignment_name, student_name)
+
+        if feedback_from_api in ["No criteria in the rubric.", "Rubric with the provided ID does not exist."]:
+                    print("error",feedback_from_api)
+                    return JsonResponse({'error': feedback_from_api})
+
+        return JsonResponse({'feedback': feedback_from_api})
+
+    return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
+

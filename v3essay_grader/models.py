@@ -27,3 +27,19 @@ class Criteria(models.Model):
 
     class Meta:
         db_table = 'criteria'
+
+class CombinedPromptResults(models.Model):
+    user_response = models.TextField()
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    essay_type = models.CharField(max_length=255)
+    grade = models.CharField(max_length=255)
+    rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE)
+    rubric_name = models.CharField(max_length=255)
+    assignment_name = models.CharField(max_length=255, null=True, blank=True)
+    student_name = models.CharField(max_length=255, null=True, blank=True)
+    user_id = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'combined_prompt_results'

@@ -16,4 +16,6 @@ urlpatterns = [
     path('view-grades/', views.view_grades, name='view-grades'),
     path('filter_grades/', views.filter_grades, name='filter-grades'),
     path('pipeline/', views.pipeline, name='pipeline'),
+    path('combined_prompt/', views.combined_prompt, name='combined_prompt'),
+    path('grade_essay_combined_prompt/', views.grade_essay_combined_prompt, name='grade_essay_combined_prompt'),
 ]

@@ -246,7 +246,7 @@ def process_individual_criteria(
     
 
 
-# 1. Check for Audience criteria
+# 1
 
 def check_criteria(request, user_response, title, description, essay_type, grade, rubric_id, assignment_name, student_name):
     print("I am in check criteria internal function")
