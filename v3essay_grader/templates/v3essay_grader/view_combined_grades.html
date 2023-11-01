@@ -59,6 +59,24 @@
     </select>
 </div>
 
+<script>
+    function formatFeedback(feedback) {
+    // Add a new line before the pattern "number:"
+    feedback = feedback.replace(/(\d:)/g, '<br><br>$1');
+
+    // Highlight the word following the pattern "number:"
+    feedback = feedback.replace(/(\d: \w+)/g, '<b style="color: green;">$1</b>');
+
+    // Highlight the score and add a new line after it
+    feedback = feedback.replace(/(Score: \d\/\d)/g, '<b style="color: blue;">$1</b><br>');
+
+    // Replace all ". " with ".<br>" to add a new line after each sentence
+    // feedback = feedback.replace(/\. /g, '.<br>');
+
+    // Return the formatted feedback
+    return feedback;
+}
+</script>
 <table id="resultsTable">
     <thead>
         <tr>
@@ -72,8 +90,11 @@
     <tbody>
         {% for result in results %}
         <tr>
-            <td class="userResponse">{{ result.user_response }}</td>
-            <td class="aiFeedback">{{ result.ai_feedback }}</td>
+            <td class="userResponse" style="white-space: pre-wrap;">{{ result.user_response }}</td>
+            <!-- <td class="aiFeedback"><script>document.write(formatFeedback("{{ result.ai_feedback|escapejs }}"));</script></td> -->
+            <td class="aiFeedback" id="aiFeedback{{ forloop.counter }}">
+                <script>document.getElementById('aiFeedback{{ forloop.counter }}').innerHTML = formatFeedback("{{ result.ai_feedback|escapejs }}");</script>
+            </td>
             <td class="assignmentName">{{ result.assignment_name }}</td>
             <td class="studentName">{{ result.student_name }}</td>
             <td class="createdAt">{{ result.created_at|date:"d M Y H:i" }}</td>
@@ -83,43 +104,45 @@
 </table>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-   $(document).ready(function () {
-    // When a dropdown changes
-    $('select').change(function() {
-        // Get the selected values
-        var essayType = $('#essayTypeFilter').val();
-        var grade = $('#gradeFilter').val();
-        var rubricName = $('#rubricNameFilter').val();
-        var assignmentName = $('#assignmentNameFilter').val();
-        var studentName = $('#studentNameFilter').val();
+    $(document).ready(function () {
+        // When a dropdown changes
+        $('select').change(function () {
+            // Get the selected values
+            var essayType = $('#essayTypeFilter').val();
+            var grade = $('#gradeFilter').val();
+            var rubricName = $('#rubricNameFilter').val();
+            var assignmentName = $('#assignmentNameFilter').val();
+            var studentName = $('#studentNameFilter').val();
 
-        $.get('/v3essay_grader/view_combined_grades/', {
-            essay_type: essayType,
-            grade: grade,
-            rubric_name: rubricName,
-            assignment_name: assignmentName,
-            student_name: studentName
-        }, function (data) {
-            // Parse the data into a JavaScript object
-            var results = JSON.parse(data);
+            $.get('/v3essay_grader/view_combined_grades/', {
+                essay_type: essayType,
+                grade: grade,
+                rubric_name: rubricName,
+                assignment_name: assignmentName,
+                student_name: studentName
+            }, function (data) {
+                // Parse the data into a JavaScript object
+                var results = JSON.parse(data);
 
-            // Clear the table
-            $('#resultsTable tbody').empty();
+                // Clear the table
+                $('#resultsTable tbody').empty();
 
-            // Add the filtered results to the table
-            $.each(results, function (i, result) {
-                $('#resultsTable tbody').append(
-                    '<tr>' +
-                    '<td class="userResponse">' + result.fields.user_response + '</td>' +
-                    '<td class="aiFeedback">' + result.fields.ai_feedback + '</td>' +
-                    '<td class="assignmentName">' + result.fields.assignment_name + '</td>' +
-                    '<td class="studentName">' + result.fields.student_name + '</td>' +
-                    '<td class="createdAt">' + result.fields.created_at + '</td>' +
-                    '</tr>'
-                );
+                // Add the filtered results to the table
+                $.each(results, function (i, result) {
+                    $('#resultsTable tbody').append(
+                        '<tr>' +
+                        '<td class="userResponse">' + result.fields.user_response + '</td>' +
+                        '<td class="aiFeedback">' + formatFeedback(result.fields.ai_feedback) + '</td>' +
+                        '<td class="assignmentName">' + result.fields.assignment_name + '</td>' +
+                        '<td class="studentName">' + result.fields.student_name + '</td>' +
+                        '<td class="createdAt">' + result.fields.created_at + '</td>' +
+                        '</tr>'
+                    );
+                });
             });
         });
     });
-});
+
+
 </script>
 {% endblock %}
