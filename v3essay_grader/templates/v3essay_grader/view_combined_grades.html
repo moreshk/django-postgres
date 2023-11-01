@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    #resultsTable td,
+    #resultsTable th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #resultsTable td.userResponse,
+    #resultsTable td.aiFeedback {
+        width: 30%;
+    }
+
+    #resultsTable td.assignmentName,
+    #resultsTable td.createdAt,
+    #resultsTable td.studentName {
+        width: 10%;
+    }
+</style>
+<h1>View Combined Grades</h1>
+
+<!-- Dropdowns for filtering -->
+<div class="filters">
+    <select id="essayTypeFilter">
+        <option value="">All Essay Types</option>
+        {% for essay_type in essay_types %}
+        <option value="{{ essay_type }}">{{ essay_type }}</option>
+        {% endfor %}
+    </select>
+
+    <select id="gradeFilter">
+        <option value="">All Grades</option>
+        {% for grade in grades %}
+        <option value="{{ grade }}">{{ grade }}</option>
+        {% endfor %}
+    </select>
+
+    <select id="rubricNameFilter">
+        <option value="">All Rubric Names</option>
+        {% for rubric_name in rubric_names %}
+        <option value="{{ rubric_name }}">{{ rubric_name }}</option>
+        {% endfor %}
+    </select>
+
+    <select id="assignmentNameFilter">
+        <option value="">All Assignment Names</option>
+        {% for assignment_name in assignment_names %}
+        <option value="{{ assignment_name }}">{{ assignment_name }}</option>
+        {% endfor %}
+    </select>
+
+    <select id="studentNameFilter">
+        <option value="">All Student Names</option>
+        {% for student_name in student_names %}
+        <option value="{{ student_name }}">{{ student_name }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<table id="resultsTable">
+    <thead>
+        <tr>
+            <th>User Response</th>
+            <th>AI Feedback</th>
+            <th>Assignment Name</th>
+            <th>Student Name</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in results %}
+        <tr>
+            <td class="userResponse">{{ result.user_response }}</td>
+            <td class="aiFeedback">{{ result.ai_feedback }}</td>
+            <td class="assignmentName">{{ result.assignment_name }}</td>
+            <td class="studentName">{{ result.student_name }}</td>
+            <td class="createdAt">{{ result.created_at|date:"d M Y H:i" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+   $(document).ready(function () {
+    // When a dropdown changes
+    $('select').change(function() {
+        // Get the selected values
+        var essayType = $('#essayTypeFilter').val();
+        var grade = $('#gradeFilter').val();
+        var rubricName = $('#rubricNameFilter').val();
+        var assignmentName = $('#assignmentNameFilter').val();
+        var studentName = $('#studentNameFilter').val();
+
+        $.get('/v3essay_grader/view_combined_grades/', {
+            essay_type: essayType,
+            grade: grade,
+            rubric_name: rubricName,
+            assignment_name: assignmentName,
+            student_name: studentName
+        }, function (data) {
+            // Parse the data into a JavaScript object
+            var results = JSON.parse(data);
+
+            // Clear the table
+            $('#resultsTable tbody').empty();
+
+            // Add the filtered results to the table
+            $.each(results, function (i, result) {
+                $('#resultsTable tbody').append(
+                    '<tr>' +
+                    '<td class="userResponse">' + result.fields.user_response + '</td>' +
+                    '<td class="aiFeedback">' + result.fields.ai_feedback + '</td>' +
+                    '<td class="assignmentName">' + result.fields.assignment_name + '</td>' +
+                    '<td class="studentName">' + result.fields.student_name + '</td>' +
+                    '<td class="createdAt">' + result.fields.created_at + '</td>' +
+                    '</tr>'
+                );
+            });
+        });
+    });
+});
+</script>
+{% endblock %}

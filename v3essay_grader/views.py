@@ -8,6 +8,9 @@ from .v3grader import check_criteria
 from .v3_5grader import check_criteria_combined_prompt
 from users.models import GradeResult
 import json
+from .models import CombinedPromptResults
+from django.http import JsonResponse
+from django.core import serializers
 
 @login_required
 def create_rubric(request):
@@ -211,3 +214,44 @@ def grade_essay_combined_prompt(request):
 
     return JsonResponse({'error': 'Invalid method or missing parameters'}, status=400)
 
+@login_required
+def view_combined_grades(request):
+    user_id = request.user.id
+    results = CombinedPromptResults.objects.filter(user_id=user_id)
+
+    # Apply filters if they are provided
+    essay_type = request.GET.get('essay_type')
+    if essay_type and essay_type != '':
+        results = results.filter(essay_type=essay_type)
+
+    grade = request.GET.get('grade')
+    if grade and grade != '':
+        results = results.filter(grade=grade)
+
+    rubric_name = request.GET.get('rubric_name')
+    if rubric_name and rubric_name != '':
+        results = results.filter(rubric_name=rubric_name)
+
+    assignment_name = request.GET.get('assignment_name')
+    if assignment_name and assignment_name != '':
+        results = results.filter(assignment_name=assignment_name)
+
+    student_name = request.GET.get('student_name')
+    if student_name and student_name != '':
+        results = results.filter(student_name=student_name)
+
+    # If the request is AJAX, return the filtered results as JSON
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        data = serializers.serialize('json', results)
+        return JsonResponse(data, safe=False)
+
+    # Otherwise, render the template
+    context = {
+        'results': results,
+        'essay_types': results.values_list('essay_type', flat=True).distinct(),
+        'grades': results.values_list('grade', flat=True).distinct(),
+        'rubric_names': results.values_list('rubric_name', flat=True).distinct(),
+        'assignment_names': results.values_list('assignment_name', flat=True).distinct(),
+        'student_names': results.values_list('student_name', flat=True).distinct(),
+    }
+    return render(request, 'v3essay_grader/view_combined_grades.html', context)
