@@ -7,12 +7,17 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-
+from .models import SubscriptionPlan
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
-def billing(request):
+def select_subscription(request):
+    plans = SubscriptionPlan.objects.all()
+    return render(request, 'payments/select_subscription.html', {'plans': plans})
+
+@login_required
+def billing(request, plan_id=None):
     if request.method == 'POST':
         form = BillingForm(request.POST)
         if form.is_valid():
@@ -47,7 +52,11 @@ def billing(request):
                 form.add_error(None, str(e))
 
     else:
-        form = BillingForm()
+        if plan_id:
+            initial_plan = SubscriptionPlan.objects.get(id=plan_id)
+            form = BillingForm(initial={'subscription_plan': initial_plan})
+        else:
+            form = BillingForm()
 
     context = {
             'form': form,
@@ -59,7 +68,7 @@ def billing(request):
 
 
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+# stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @csrf_exempt
 def stripe_webhook(request):

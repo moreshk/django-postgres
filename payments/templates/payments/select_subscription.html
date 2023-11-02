@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Select Plan</h2>
+    <div class="row">
+        {% for plan in plans %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">  <!-- Add text-center for center alignment -->
+                    <h5 class="card-title">{{ plan.name }}</h5>
+                    <p class="card-text">{{ plan.description }}</p>
+                    <p class="card-text">Price: {{ plan.price }}</p>
+                    <p class="card-text">Duration: {{ plan.duration }}</p>
+                    <p class="card-text">Word Count Limit: {{ plan.word_count_limit }}</p>
+                    <p class="card-text">Essay Limit: {{ plan.essay_limit }}</p>
+                    <!-- Add other fields as needed -->
+                    <a href="{% url 'payments:billing_with_plan' plan.id %}" class="btn btn-primary btn-block">Select</a>  <!-- Add btn-block for full width -->
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
