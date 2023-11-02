@@ -90,7 +90,8 @@
     <tbody>
         {% for result in results %}
         <tr>
-            <td class="userResponse" style="white-space: pre-wrap;">{{ result.user_response }}</td>
+            <!-- <td class="userResponse" style="white-space: pre-wrap;">{{ result.user_response }}</td> -->
+            <td class="userResponse" style="white-space: pre-wrap;">{{ result.user_response|linebreaksbr }}</td>
             <!-- <td class="aiFeedback"><script>document.write(formatFeedback("{{ result.ai_feedback|escapejs }}"));</script></td> -->
             <td class="aiFeedback" id="aiFeedback{{ forloop.counter }}">
                 <script>document.getElementById('aiFeedback{{ forloop.counter }}').innerHTML = formatFeedback("{{ result.ai_feedback|escapejs }}");</script>
