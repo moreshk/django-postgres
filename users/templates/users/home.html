@@ -5,35 +5,9 @@
     <!-- <h1 class="mb-4">Welcome to the Home Page!</h1> -->
 
     <div class="row">
-        <!-- Essay Grader Tile -->
-        <!-- <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'v3essay_grader:combined_prompt' %}">Essay Grader</a>
-                </div>
-            </div>
-        </div> -->
 
-        {% if user_type == 'TEACHER' %}
-        <!-- Essay Grader Tile -->
-        <!-- <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'v2essay_grader:create_assignment' %}">Create Assignment</a>
-                </div>
-            </div>
-        </div> -->
-        {% endif %}
 
-        {% if request.user.user_type == 'TEACHER' %}
-        <!-- <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'view_assignments' %}">View Assignments</a>
-                </div>
-            </div>
-        </div> -->
-        {% endif %}
+ 
 
         {% if request.user.user_type == 'ADMINISTRATOR' %}
         <div class="col-md-3 mb-4">
@@ -43,9 +17,8 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+          {% endif %}
 
-        <!-- {% if user_type != 'STUDENT' %} -->
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
@@ -62,10 +35,10 @@
             </div>
         </div>
 
-        <!-- <div class="col-md-3 mb-4">
+        <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
-                    <a href="{% url 'v3essay_grader:create_rubric' %}">Add Custom Rubric</a>
+                    <a href="{% url 'v3essay_grader:create_rubric' %}">Create Rubric</a>
                 </div>
             </div>
         </div>
@@ -73,56 +46,7 @@
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
-                    <a href="{% url 'v3essay_grader:view-grades' %}">View Grades</a>
-                </div>
-            </div>
-        </div> -->
-
-
-
-
-        {% endif %}
-
-        <!-- <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'v3essay_grader:pipeline' %}">Custom Rubric grader</a>
-                </div>
-            </div>
-        </div> -->
-        <!-- Spell Check Index Tile -->
-        <!-- <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'spellcheck:index' %}">Spell Check</a>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Incorrect Spelling Tile -->
-        <!-- <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'spellcheck:incorrect_spelling' %}">Incorrect Spelling</a>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Essay Input Tile -->
-        <!-- <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'v2essay_grader:essay_input' %}">Student Essay Input</a>
-                </div>
-            </div>
-        </div> -->
-
-
-        <!-- Payments Tile -->
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'payments:billing' %}">Payments</a>
+                    <a href="{% url 'v3essay_grader:view_edit_rubric_criteria' %}">View/Add Criteria to Rubric</a>
                 </div>
             </div>
         </div>
@@ -138,10 +62,6 @@
 
     </div>
 
-    <!-- Logout Link -->
-    <div class="mt-5 text-center">
-        <a href="{% url 'logout' %}">Logout</a>
-    </div>
 
 </div>
 {% endblock %}
