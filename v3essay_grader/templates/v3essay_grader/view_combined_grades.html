@@ -68,12 +68,12 @@
     feedback = feedback.replace(/(\d: \w+)/g, '<b style="color: green;">$1</b>');
 
     // Highlight the score and add a new line after it
-    feedback = feedback.replace(/(Score: \d\/\d)/g, '<b style="color: blue;">$1</b><br>');
-
+    feedback = feedback.replace(/(Score: \d+\/\d+)/g, '<b style="color: blue;">$1</b><br><br>');
+    feedback = feedback.replace(/(:-)/g, '$1<br>');
     // Replace all ". " with ".<br>" to add a new line after each sentence
     // feedback = feedback.replace(/\. /g, '.<br>');
-
-    // Return the formatted feedback
+    feedback = feedback.replace(/(Score:)/g, '<br>$1');
+    feedback = feedback.replace(/(.*)(:-)/g, '<b style="color: green;">$1</b>$2');
     return feedback;
 }
 </script>

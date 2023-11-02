@@ -107,8 +107,12 @@ def check_criteria_combined_prompt(request, user_response, title, description, e
     # output += f"First make sure that the essay is following the expectations as per the Task Title and Task Description, if it does not then mention so and do not grade any further.\n" 
     output += f"Score the essay based on the provided guidelines and keeping in mind the students grade. Provide 2-3 lines explaining the specific score you provided for each of the criteria. Do not suggest improvements if the essay was already satisfactory per the criteria. \n"
     output += f"Dont provide a range, use a specific number for the score. Mention your score and what it is out of for each criteria.\n"
-    # output += f"For each criteria mention your reasoning behind the score you assign.\n"
-    output += f"Finally sum up the individual scores and the max scores for the criteria to provide an overall score out of the max. If the essay was empty or not in line with the Task Title and Description mention that and do not provide a grade.\n\n"
+    output += f"""Format your response as 
+    <Criteria name>:-
+    <Your rationale for the score you provide.>
+    Score: <your score>/<max score for the criteria>
+    \n"""
+    output += f"Finally sum up the individual scores and the max scores for the criteria to provide an overall score out of the max in the format Overall Score: <summed up user scores>/<summed up max score>. If the essay was empty or not in line with the Task Title and Description mention that and do not provide a grade.\n\n"
  
     print(output)
 
