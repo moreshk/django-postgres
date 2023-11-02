@@ -19,7 +19,7 @@
 </style>
 
 <div class="container mt-5">
-    <h1>Essay Grader</h1>
+    <!-- <h3>Essay Grader</h3> -->
     <div id="inputArea">
         <form id="essayForm">
             {% csrf_token %} <div class="form-group">
@@ -208,8 +208,9 @@
         </div>
 
         <div class="form-group mt-4">
-            <textarea class="form-control" id="gradingTextarea" rows="5"
-                placeholder="Your text goes here ..."></textarea>
+            <textarea class="form-control" id="gradingTextarea" rows="10"
+                placeholder="Student essay goes here ..."></textarea>
+            <span id="wordCountError" style="color: red; display: none;"></span>
         </div>
 
         <div class="form-group mt-4">
@@ -379,11 +380,29 @@
     }
 
     function gradeText() {
+        // Get the values
+        let user_response = document.getElementById("gradingTextarea").value;
+
+        // Check the word count
+        let wordCount = user_response.split(/\s+/).length;
+        let wordCountError = document.getElementById("wordCountError");
+        let gradingTextarea = document.getElementById("gradingTextarea");
+
+        if (wordCount > 300) {
+            wordCountError.textContent = "The maximum length of the essay can only be 300 words long.";
+            wordCountError.style.display = "block";
+            gradingTextarea.style.borderColor = "red";
+            return; // Stop the function if the word count exceeds 300
+        } else {
+            wordCountError.style.display = "none";
+            gradingTextarea.style.borderColor = ""; // Reset border color
+        }
+
         // Create a new Notyf instance
         let notyf = new Notyf({ duration: 10000 });
 
         // Get the values
-        let user_response = document.getElementById("gradingTextarea").value;
+        // let user_response = document.getElementById("gradingTextarea").value;
         let title = document.getElementById("titleOutput").textContent;
         let description = document.getElementById("descriptionOutput").textContent;
         let essay_type = document.getElementById("essayTypeOutput").textContent;
