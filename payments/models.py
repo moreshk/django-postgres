@@ -6,8 +6,13 @@ class SubscriptionPlan(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     duration = models.DurationField()  # e.g., 30 days for a monthly plan
     description = models.TextField(null=True, blank=True)
+    word_count_limit = models.IntegerField(null=True, blank=True)  # new field
+    essay_limit = models.IntegerField(null=True, blank=True)  # new field
     # ... any other fields like features, etc.
 
+    def __str__(self):
+        return self.name
+    
 class UserSubscription(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     plan = models.ForeignKey(SubscriptionPlan, on_delete=models.CASCADE)
