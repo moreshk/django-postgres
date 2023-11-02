@@ -451,6 +451,25 @@
                 // Display the feedback in a Notyf popup
                 if (feedback === "All criteria processed successfully") {
                     notyf.success(feedback);
+
+                    // Create a new div element
+                    let divElement = document.createElement("div");
+
+                    // Create a new link element
+                    let resultLink = document.createElement("a");
+                    resultLink.textContent = `Score for ${assignmentName} by ${studentName}`;
+                    resultLink.href = `/v3essay_grader/view_combined_grades/?student_name=${studentName}&assignment_name=${assignmentName}`;
+                    resultLink.target = "_blank"; // Open the link in a new tab
+
+                    // Append the link to the div
+                    divElement.appendChild(resultLink);
+
+                    // Append the div below the submit button
+                    document.getElementById("gradeButton").after(divElement);
+
+                    // Hide the spinner
+                    document.getElementById("loadingSpinner").style.display = "none";
+
                 } else {
                     notyf.error(feedback);
                 }
@@ -466,6 +485,7 @@
                 // Hide the spinner and the loading text
                 document.getElementById("loadingSpinner").style.display = "none";
                 // document.getElementById("loadingText").textContent = "";
+
             }
         });
     }

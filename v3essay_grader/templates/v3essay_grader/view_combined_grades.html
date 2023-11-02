@@ -105,6 +105,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
+        // Get URL parameters
+    let urlParams = new URLSearchParams(window.location.search);
+    let studentName = urlParams.get('student_name');
+    let assignmentName = urlParams.get('assignment_name');
+
+    // Set dropdown values
+    if (studentName) {
+        $('#studentNameFilter').val(studentName);
+    }
+    if (assignmentName) {
+        $('#assignmentNameFilter').val(assignmentName);
+    }
         // When a dropdown changes
         $('select').change(function () {
             // Get the selected values
