@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for rubric in rubrics %}
+            {% for rubric in user_rubrics %}
             <tr class="rubric-row" data-rubric-id="{{ rubric.id }}">
                 <td>{{ rubric.name }}</td>
                 <td>{{ rubric.state }}</td>
@@ -40,7 +40,7 @@
                 <td>{{ criteria.max_score }}</td>
                 <td>{{ criteria.criteria_desc }}</td>
                 <td><input type="checkbox" {% if criteria.spell_check %}checked{% endif %} disabled></td>
-                   <td>
+                <td>
                     <button class="btn btn-primary edit-criteria"><i class="fas fa-pencil-alt"></i></button>
                     <button class="btn btn-danger delete-criteria"><i class="fas fa-trash-alt"></i></button>
                 </td>
@@ -50,7 +50,6 @@
                 <td colspan="7">No criteria found for this rubric.</td>
             </tr>
             {% endfor %}
-            <!-- Add the new row here -->
             <tr class="add-criteria-row" data-rubric-id="{{ rubric.id }}" style="display: none;">
                 <td><input type="text" class="form-control" placeholder="Criteria name"></td>
                 <td><input type="text" class="form-control" placeholder="Max Score"></td>
@@ -58,6 +57,40 @@
                 <td><input type="checkbox"></td>
                 <td><button class="btn btn-primary add-criteria"><i class="fas fa-plus"></i></button></td>
             </tr>
+            {% endfor %}
+        
+            {% for rubric in other_rubrics %}
+            <tr class="rubric-row" data-rubric-id="{{ rubric.id }}">
+                <td>{{ rubric.name }}</td>
+                <td>{{ rubric.state }}</td>
+                <td>{{ rubric.city }}</td>
+                <td>{{ rubric.school }}</td>
+                <td>{{ rubric.essay_type }}</td>
+                <td>{{ rubric.grade }}</td>
+                <td>{{ rubric.curriculum }}</td>
+            </tr>
+            <tr class="criteria-header-row" data-rubric-id="{{ rubric.id }}" style="display: none;">
+                <td>Criteria Name</td>
+                <td>Max Score</td>
+                <td>Criteria Desc</td>
+                <td>Spelling</td>
+                <td>Actions</td>
+            </tr>
+            {% for criteria in rubric.criteria_set.all %}
+            <tr class="criteria-row" data-rubric-id="{{ rubric.id }}" data-criteria-id="{{ criteria.id }}"
+                style="display: none;">
+                <td>{{ criteria.criteria_name }}</td>
+                <td>{{ criteria.max_score }}</td>
+                <td>{{ criteria.criteria_desc }}</td>
+                <td><input type="checkbox" {% if criteria.spell_check %}checked{% endif %} disabled></td>
+                <!-- No edit and delete buttons for rubrics created by user 21 -->
+            </tr>
+            {% empty %}
+            <tr class="no-criteria-row" data-rubric-id="{{ rubric.id }}" style="display: none;">
+                <td colspan="7">No criteria found for this rubric.</td>
+            </tr>
+            {% endfor %}
+            <!-- No add-criteria-row for rubrics created by user 21 -->
             {% endfor %}
         </tbody>
     </table>

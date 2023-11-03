@@ -39,8 +39,10 @@ def view_edit_rubric_criteria(request):
     if request.user.user_type == 'STUDENT':
         return redirect('home')
     
-    rubrics = Rubric.objects.filter(creater_id=request.user.id).prefetch_related('criteria_set')
-    return render(request, 'v3essay_grader/view_edit_rubric_criteria.html', {'rubrics': rubrics})
+    user_rubrics = Rubric.objects.filter(creater_id=request.user.id).prefetch_related('criteria_set')
+    other_rubrics = Rubric.objects.filter(creater_id=21).prefetch_related('criteria_set')  # Rubrics created by user 21
+    return render(request, 'v3essay_grader/view_edit_rubric_criteria.html', {'user_rubrics': user_rubrics, 'other_rubrics': other_rubrics})
+
 
 @login_required
 def add_criteria(request):
