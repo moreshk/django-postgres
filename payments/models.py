@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import CustomUser
 
+
 class SubscriptionPlan(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -8,6 +9,7 @@ class SubscriptionPlan(models.Model):
     description = models.TextField(null=True, blank=True)
     word_count_limit = models.IntegerField(null=True, blank=True)  # new field
     essay_limit = models.IntegerField(null=True, blank=True)  # new field
+    stripe_plan_id = models.CharField(max_length=50)  # new field
     # ... any other fields like features, etc.
 
     def __str__(self):
