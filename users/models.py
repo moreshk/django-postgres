@@ -44,7 +44,8 @@ class CustomUser(AbstractUser):
     school = models.CharField(max_length=255, null=True, blank=True)  # Assuming a max length of 255 characters for the school name.
     grade = models.CharField(max_length=255, null=True, blank=True)  # Assuming a max length of 255 characters for the grade.
     homeroom = models.CharField(max_length=255, null=True, blank=True)  # Nullable and can be blank in forms.
-
+    stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
+    
     objects = CustomUserManager()
 
 class GradeResult(models.Model):

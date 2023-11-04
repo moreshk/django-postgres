@@ -27,6 +27,8 @@ from django.contrib.auth import get_user_model
 
 from .forms import SchoolForm
 from .models import School
+from payments.models import UserSubscription
+
 User = get_user_model()
 
 # Initialize a logger
@@ -117,6 +119,7 @@ def email_verification_sent(request):
 
 @login_required
 def myaccount(request):
+    user_subscription = UserSubscription.objects.filter(user=request.user, is_active=True).first()
     user_form = UserUpdateForm(instance=request.user, data=request.POST or None)
     password_form = CustomPasswordChangeForm(request.user, data=request.POST or None)
 
@@ -134,15 +137,16 @@ def myaccount(request):
                 update_session_auth_hash(request, request.user)
                 details_updated = True
 
-
         # Display a success message if any details were updated
         if details_updated:
             messages.success(request, 'Details updated!')
 
     return render(request, 'users/myaccount.html', {
         'user_form': user_form,
-        'password_form': password_form
+        'password_form': password_form,
+        'user_subscription': user_subscription  # Add this line
     })
+
 
 @login_required
 def home(request):

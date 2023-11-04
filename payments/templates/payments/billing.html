@@ -3,15 +3,25 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-4">Billing & Subscription</h2>
+    <!-- Display non-field errors -->
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
     <form method="post" id="billing-form">
         {% csrf_token %}
         <div class="mb-3">
             {{ form.cardholder_name.label_tag }} 
             {{ form.cardholder_name|add_class:"form-control" }}
+            <!-- Display field errors -->
+            {{ form.cardholder_name.errors }}
         </div>
         <div class="mb-3">
             {{ form.subscription_plan.label_tag }} 
             {{ form.subscription_plan|add_class:"form-control" }}
+            <!-- Display field errors -->
+            {{ form.subscription_plan.errors }}
         </div>
         <div class="mb-3">
             <label>Card Details</label>
@@ -25,7 +35,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script>
     var stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
-    var elements = stripe.elements();
+    
     var style = {
         base: {
             fontSize: '16px',
@@ -39,7 +49,21 @@
             iconColor: '#fa755a'
         }
     };
-    var card = elements.create('card', {style: style});
+
+    // var elements = stripe.elements();
+    // var card = elements.create('card', {style: style});
+
+    var elements = stripe.elements({
+    locale: 'auto'  // This will automatically adapt to the user's locale
+});
+
+var card = elements.create('card', {
+    value: {
+        postalCode: '3000',
+        country: 'AU'
+    },
+    style: style
+});
     card.mount('#card-element');
 
     var form = document.getElementById('billing-form');
