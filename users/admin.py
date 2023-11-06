@@ -14,4 +14,11 @@ class CustomUserAdmin(admin.ModelAdmin):
     search_fields = ('email', 'first_name', 'last_name')
     inlines = [UserSubscriptionInline]
 
-admin.site.register(SampleTopic)
+@admin.register(SampleTopic)
+class SampleTopicAdmin(admin.ModelAdmin):
+    readonly_fields = ('creator',)
+
+    def save_model(self, request, obj, form, change):
+        if not change:  # Only set creator during the first save.
+            obj.creator = request.user
+        super().save_model(request, obj, form, change)

@@ -257,3 +257,8 @@ def view_combined_grades(request):
         'student_names': results.values_list('student_name', flat=True).distinct(),
     }
     return render(request, 'v3essay_grader/view_combined_grades.html', context)
+
+
+@login_required
+def dynamic_prompt(request):
+    return render(request, 'v3essay_grader/dynamic_prompt.html')

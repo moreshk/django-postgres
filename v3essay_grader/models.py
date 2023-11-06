@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
 
 class Rubric(models.Model):
@@ -49,7 +49,8 @@ class SampleTopic(models.Model):
     essay_type = models.CharField(max_length=255)
     essay_title = models.CharField(max_length=255)
     essay_description = models.TextField()
-    creator_id = models.PositiveIntegerField()
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    grade = models.IntegerField(null=True, blank=True)
 
     class Meta:
         db_table = 'sample_topics'
