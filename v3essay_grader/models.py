@@ -44,3 +44,12 @@ class CombinedPromptResults(models.Model):
 
     class Meta:
         db_table = 'combined_prompt_results'
+
+class SampleTopic(models.Model):
+    essay_type = models.CharField(max_length=255)
+    essay_title = models.CharField(max_length=255)
+    essay_description = models.TextField()
+    creator_id = models.PositiveIntegerField()
+
+    class Meta:
+        db_table = 'sample_topics'
