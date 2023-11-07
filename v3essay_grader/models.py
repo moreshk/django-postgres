@@ -54,3 +54,6 @@ class SampleTopic(models.Model):
 
     class Meta:
         db_table = 'sample_topics'
+
+    def __str__(self):
+        return f"{self.essay_title} - {self.grade} - {self.essay_type}"

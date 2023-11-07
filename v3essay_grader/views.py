@@ -11,6 +11,8 @@ import json
 from .models import CombinedPromptResults
 from django.http import JsonResponse
 from django.core import serializers
+from .models import SampleTopic
+from django.views import View
 
 @login_required
 def create_rubric(request):
@@ -261,4 +263,21 @@ def view_combined_grades(request):
 
 @login_required
 def dynamic_prompt(request):
-    return render(request, 'v3essay_grader/dynamic_prompt.html')
+    essay_types = SampleTopic.objects.values_list('essay_type', flat=True).distinct()
+    grades = SampleTopic.objects.values_list('grade', flat=True).distinct().order_by('grade')
+    return render(request, 'v3essay_grader/dynamic_prompt.html', {'essay_types': essay_types, 'grades': grades})
+
+@login_required
+def get_titles_and_descriptions(request):
+    print("I am in get titles and descriptions")
+    essay_type = request.GET.get('essay_type', None)
+    if essay_type:
+        essay_type = essay_type.lower()
+    grade = request.GET.get('grade', None)
+
+    if essay_type and grade:
+        data = SampleTopic.objects.filter(essay_type=essay_type, grade=grade).values('essay_title', 'essay_description')
+        print(data)
+        return JsonResponse(list(data), safe=False)
+
+    return JsonResponse({"error": "Invalid parameters"}, status=400)

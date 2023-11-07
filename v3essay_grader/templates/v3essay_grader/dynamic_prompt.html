@@ -22,32 +22,33 @@
     <!-- <h3>Essay Grader</h3> -->
     <div id="inputArea">
         <form id="essayForm">
-            {% csrf_token %} <div class="form-group">
-                <label for="essayTypeInput">Essay type:</label>
-                <select class="form-control" id="essayTypeInput">
-                    <option>Narrative</option>
-                    <option>Persuasive</option>
-                    <option>Informative</option> <!-- New option added -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="gradeInput">Grade:</label>
-                <select class="form-control" id="gradeInput">
-                    <option>Grade 3</option>
-                    <option>Grade 5</option>
-                    <option>Grade 7</option>
-                    <option>Grade 9</option>
-                </select>
-            </div>
-           
+            {% csrf_token %}
+            <label for="essayTypeInput">Essay Type:</label>
+            <input list="essayTypes" class="form-control" id="essayTypeInput">
+            <datalist id="essayTypes">
+                {% for essay_type in essay_types %}
+                <option value="{{ essay_type|capfirst }}">
+                    {% endfor %}
+            </datalist>
+
+            <label for="gradeInput">Grade:</label>
+            <input list="grades" class="form-control" id="gradeInput">
+            <datalist id="grades">
+                {% for grade in grades %}
+                <option value="{{ grade }}">
+                    {% endfor %}
+            </datalist>
+
             <div class="form-group">
                 <label for="titleInput">Title:</label>
                 <input list="titleOptions" type="text" class="form-control" id="titleInput" placeholder="Enter title">
+                <datalist id="titleOptions"></datalist> <!-- Add this line -->
             </div>
             <div class="form-group">
                 <label for="descriptionInput">Description:</label>
                 <input list="descriptionOptions" class="form-control" id="descriptionInput" rows="5"
                     placeholder="Enter description">
+                <datalist id="descriptionOptions"></datalist> <!-- Add this line -->
             </div>
 
             <div id="persuasiveGuidelines" class="container mt-4" style="display:none;">
@@ -488,6 +489,43 @@
     // Call the function when the page loads
     loadRubrics();
 
+</script>
+
+<script>
+    document.getElementById("essayTypeInput").addEventListener("change", updateTitlesAndDescriptions);
+    document.getElementById("gradeInput").addEventListener("change", updateTitlesAndDescriptions);
+
+    function updateTitlesAndDescriptions() {
+        var essayType = document.getElementById("essayTypeInput").value.toLowerCase();
+        var grade = document.getElementById("gradeInput").value;
+
+        if (essayType && grade) {
+            fetch(`/v3essay_grader/get_titles_and_descriptions?essay_type=${essayType}&grade=${grade}`)
+                .then(response => response.json())
+                .then(data => {
+                    var titleInput = document.getElementById("titleInput");
+                    var descriptionInput = document.getElementById("descriptionInput");
+
+                    // Clear the current options
+                    titleInput.innerHTML = "";
+                    descriptionInput.innerHTML = "";
+
+                    // Add the new options
+                    // Add the new options
+                    data.forEach(item => {
+                        var titleOption = document.createElement("option");
+                        titleOption.value = item.essay_title;
+                        titleOption.text = item.essay_title; // Set the text of the option
+                        document.getElementById("titleOptions").appendChild(titleOption); // Change this line
+
+                        var descriptionOption = document.createElement("option");
+                        descriptionOption.value = item.essay_description;
+                        descriptionOption.text = item.essay_description; // Set the text of the option
+                        document.getElementById("descriptionOptions").appendChild(descriptionOption); // Change this line
+                    });
+                });
+        }
+    }
 </script>
 
 {% endblock %}

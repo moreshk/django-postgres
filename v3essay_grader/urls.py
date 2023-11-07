@@ -20,4 +20,5 @@ urlpatterns = [
     path('grade_essay_combined_prompt/', views.grade_essay_combined_prompt, name='grade_essay_combined_prompt'),
     path('view_combined_grades/', views.view_combined_grades, name='view_combined_grades'),
     path('dynamic_prompt/', views.dynamic_prompt, name='dynamic_prompt'),
+    path('get_titles_and_descriptions', views.get_titles_and_descriptions, name='get_titles_and_descriptions'),
 ]
