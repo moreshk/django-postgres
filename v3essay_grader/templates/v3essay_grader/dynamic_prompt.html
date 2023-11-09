@@ -16,6 +16,12 @@
     .view-grades-button {
         margin: 10px;
     }
+
+    #persuasiveGuidelines,
+    #narrativeGuidelines,
+    #informativeGuidelines {
+        display: none;
+    }
 </style>
 
 <div class="container mt-5">
@@ -184,6 +190,8 @@
 
 
 <script>
+    let currentGuidelines;
+    
     function submitForm() {
         if (!validateForm()) {
             return; // Stop the function if validation fails
@@ -223,10 +231,15 @@
             persuasiveGuidelines.style.display = "none";
             narrativeGuidelines.style.display = "none";
             informativeGuidelines.style.display = "block";
+        } else { // New condition
+            persuasiveGuidelines.style.display = "none";
+            narrativeGuidelines.style.display = "none";
+            informativeGuidelines.style.display = "none";
+            currentGuidelines = null; // No guidelines for the "Selective" type
         }
 
         let outputArea = document.getElementById("outputArea");
-        let currentGuidelines;
+        
 
         if (essayType === "Persuasive") {
             currentGuidelines = document.getElementById("persuasiveGuidelines");
@@ -234,10 +247,16 @@
             currentGuidelines = document.getElementById("narrativeGuidelines");
         } else if (essayType === "Informative") { // New condition
             currentGuidelines = document.getElementById("informativeGuidelines");
+        } else { // New condition
+            currentGuidelines = null; // No guidelines for the "Selective" type
         }
 
-        let clonedGuidelines = currentGuidelines.cloneNode(true);
-        outputArea.appendChild(clonedGuidelines);
+
+        // Only append the guidelines if they exist
+        if (currentGuidelines) {
+            let clonedGuidelines = currentGuidelines.cloneNode(true);
+            outputArea.appendChild(clonedGuidelines);
+        }
 
 
         // Show gradingArea after form is submitted
@@ -271,22 +290,27 @@
     }
 
     document.getElementById("essayTypeInput").addEventListener("change", function () {
+        let essayType = this.value;
         let persuasiveGuidelines = document.getElementById("persuasiveGuidelines");
         let narrativeGuidelines = document.getElementById("narrativeGuidelines");
         let informativeGuidelines = document.getElementById("informativeGuidelines");
 
-        if (this.value === "Persuasive") {
+        if (essayType === "Persuasive") {
             persuasiveGuidelines.style.display = "block";
             narrativeGuidelines.style.display = "none";
             informativeGuidelines.style.display = "none";
-        } else if (this.value === "Narrative") {
+        } else if (essayType === "Narrative") {
             persuasiveGuidelines.style.display = "none";
             narrativeGuidelines.style.display = "block";
             informativeGuidelines.style.display = "none";
-        } else if (this.value === "Informative") {
+        } else if (essayType === "Informative") {
             persuasiveGuidelines.style.display = "none";
             narrativeGuidelines.style.display = "none";
             informativeGuidelines.style.display = "block";
+        } else { // New condition for "Selective" and any other unhandled types
+            persuasiveGuidelines.style.display = "none";
+            narrativeGuidelines.style.display = "none";
+            informativeGuidelines.style.display = "none";
         }
     });
 
@@ -507,25 +531,39 @@
                     var descriptionInput = document.getElementById("descriptionInput");
 
                     // Clear the current options
-                    titleInput.innerHTML = "";
-                    descriptionInput.innerHTML = "";
+                    document.getElementById("titleOptions").innerHTML = "";
+                    document.getElementById("descriptionOptions").innerHTML = "";
 
-                    // Add the new options
                     // Add the new options
                     data.forEach(item => {
                         var titleOption = document.createElement("option");
                         titleOption.value = item.essay_title;
                         titleOption.text = item.essay_title; // Set the text of the option
-                        document.getElementById("titleOptions").appendChild(titleOption); // Change this line
+                        document.getElementById("titleOptions").appendChild(titleOption);
 
                         var descriptionOption = document.createElement("option");
                         descriptionOption.value = item.essay_description;
                         descriptionOption.text = item.essay_description; // Set the text of the option
-                        document.getElementById("descriptionOptions").appendChild(descriptionOption); // Change this line
+                        document.getElementById("descriptionOptions").appendChild(descriptionOption);
+                    });
+
+                    // Update the description when the title changes
+                    titleInput.addEventListener("change", function () {
+                        var selectedTitle = this.value;
+                        var matchingItem = data.find(item => item.essay_title === selectedTitle);
+
+                        if (matchingItem) { // Check if a matching item is found
+                            var matchingDescription = matchingItem.essay_description;
+                            descriptionInput.value = matchingDescription;
+                        } else {
+                            descriptionInput.value = ""; // Clear the description input if no matching item is found
+                        }
                     });
                 });
         }
     }
+
+
 </script>
 
 {% endblock %}
