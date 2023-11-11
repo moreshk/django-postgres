@@ -29,6 +29,12 @@ from .forms import SchoolForm
 from .models import School
 from payments.models import UserSubscription
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import uuid
+
+from .models import CustomUser
+
 User = get_user_model()
 
 # Initialize a logger
@@ -41,6 +47,12 @@ def register(request):
             user = form.save(commit=False)  # Don't save to the database yet
             user.is_active = False  # Set user as inactive until they verify their email
             user.save()  # Now save to the database
+
+            # If there's a referrer_id in the session, set the referred_by field
+            if 'referrer_id' in request.session:
+                user.referred_by_id = request.session['referrer_id']
+                user.save()
+                del request.session['referrer_id']
 
             # Send the verification email
             send_verification_email(request, user)
@@ -141,10 +153,13 @@ def myaccount(request):
         if details_updated:
             messages.success(request, 'Details updated!')
 
+    referral_link = request.build_absolute_uri(reverse('register_with_referral', args=[request.user.referral_code]))
+
     return render(request, 'users/myaccount.html', {
         'user_form': user_form,
         'password_form': password_form,
-        'user_subscription': user_subscription  # Add this line
+        'user_subscription': user_subscription,
+        'referral_link': referral_link
     })
 
 
@@ -217,3 +232,28 @@ def create_school(request):
     else:
         form = SchoolForm()
     return render(request, 'users/create_school.html', {'form': form})
+
+
+
+@receiver(post_save, sender=CustomUser)
+def create_referral_code(sender, instance, created, **kwargs):
+    if created and not instance.referral_code:
+        instance.referral_code = str(uuid.uuid4())[:8]
+        instance.save()
+
+
+
+@receiver(post_save, sender=CustomUser)
+def create_referral_code(sender, instance, created, **kwargs):
+    if created and not instance.referral_code:
+        instance.referral_code = str(uuid.uuid4())[:8]
+        instance.save()
+
+
+def register_with_referral(request, code):
+    try:
+        referrer = CustomUser.objects.get(referral_code=code)
+        request.session['referrer_id'] = referrer.id
+        return redirect('register')
+    except CustomUser.DoesNotExist:
+        return redirect('register')  # or handle it differently if the code is invalid

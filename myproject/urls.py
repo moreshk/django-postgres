@@ -22,6 +22,7 @@ from django.views.generic.base import RedirectView
 from payments import views as payment_views
 from django.conf import settings
 from django.conf.urls.static import static
+from users.views import register_with_referral
 
 
 
@@ -49,6 +50,7 @@ urlpatterns = [
     path('view_assignments/', views.view_assignments, name='view_assignments'),
     path('create_school/', views.create_school, name='create_school'),
     path('v3essay_grader/', include('v3essay_grader.urls', namespace='v3essay_grader')),
+    path('register/<str:code>/', register_with_referral, name='register_with_referral'),
 ]
 
 if settings.DEBUG:

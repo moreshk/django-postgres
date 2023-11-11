@@ -23,6 +23,15 @@
   <p>You do not have an active subscription.</p>
 {% endif %}
 
+<div class="form-group">
+  <label>Your Referral Link:</label>
+  <div class="input-group">
+      <input type="text" value="{{ referral_link }}" id="referralLink" class="form-control" readonly>
+      <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" onclick="copyReferralLink()">Copy</button>
+      </div>
+  </div>
+</div>
 
   <form method="post">
     {% csrf_token %}
@@ -81,4 +90,20 @@
   }, 3000);  // 3 seconds
 </script>
 
+<script>
+  function copyReferralLink() {
+      /* Get the text field */
+      var copyText = document.getElementById("referralLink");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+
+      /* Alert the copied text */
+      alert("Copied the text: " + copyText.value);
+  }
+</script>
 {% endblock %}

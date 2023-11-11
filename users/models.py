@@ -45,6 +45,8 @@ class CustomUser(AbstractUser):
     grade = models.CharField(max_length=255, null=True, blank=True)  # Assuming a max length of 255 characters for the grade.
     homeroom = models.CharField(max_length=255, null=True, blank=True)  # Nullable and can be blank in forms.
     stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
+    referral_code = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    referred_by = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
     
     objects = CustomUserManager()
 
