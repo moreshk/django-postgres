@@ -10,7 +10,7 @@
 </style>
 
 <!-- Alert message container -->
-<div id="alert-container" class="alert-container" style="height: 60px;"></div>
+<div id="alert-container" class="alert-container" style="height: 60px; width: 50%; margin: 0 auto;"></div>
 
 <h1 class="text-center">Is this a Doji?</h1>
 
@@ -77,20 +77,25 @@
   });
   
   function checkDoji(choice) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', '{% url 'check_doji' %}');
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]').value);
-      xhr.onload = function() {
-          if (xhr.status === 200) {
-              var response = JSON.parse(xhr.responseText);
-              var alertContainer = document.getElementById('alert-container');
-              alertContainer.innerHTML = '<div class="alert alert-' + (response.is_correct ? 'success' : 'danger') + '">' + (response.is_correct ? 'Correct' : 'Wrong') + '</div>';
-              document.getElementById('token-balance').textContent = 'Token Balance: ' + response.token;
-          }
-      };
-      xhr.send(encodeURI('choice=' + choice));
-  }
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '{% url 'check_doji' %}');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var alertContainer = document.getElementById('alert-container');
+            alertContainer.innerHTML = '<div class="alert alert-' + (response.is_correct ? 'success' : 'danger') + '">' + (response.is_correct ? 'Correct' : 'Wrong') + '</div>';
+            document.getElementById('token-balance').textContent = 'Token Balance: ' + response.token;
+
+            // Automatically show the next candlestick after 3 seconds
+            setTimeout(function() {
+                location.href = '{% url 'forward_view' %}';
+            }, 1500);
+        }
+    };
+    xhr.send(encodeURI('choice=' + choice));
+}
 </script>
   
 {% endblock %}

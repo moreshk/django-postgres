@@ -4,6 +4,7 @@ import os
 import random
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime, timedelta
 
 def fetch_data():
     ticker = os.getenv('TICKER', '^GSPC')
@@ -13,13 +14,14 @@ def fetch_data():
     data = data.drop(columns=['Volume'])  # Drop the 'Volume' column
     data['Date'] = data.index  # Add 'Date' column from index
     data['Date'] = data['Date'].apply(lambda x: x.isoformat())  # Convert all Timestamps to strings
+    
     return data.reset_index(drop=True).to_dict('records')  # Drop the original index
 
 
 def candlestick_view(request):
     if 'data' not in request.session:
         request.session['data'] = fetch_data()
-        request.session['index'] = random.randint(0, len(request.session['data']) - 1)
+        request.session['index'] = 0
     
     index = request.session['index']
     candlestick = request.session['data'][index]
@@ -54,10 +56,11 @@ def forward_view(request):
 @csrf_exempt
 def check_doji(request):
     if request.method == 'POST':
+       
         index = request.session['index']
         candlestick = request.session['data'][index]
         user_choice = request.POST.get('choice')
-        is_doji = abs(candlestick['Open'] - candlestick['Close']) < 0.001  # Adjust this condition as needed
+        is_doji = abs(candlestick['Open'] - candlestick['Close']) <= 0.0005 * candlestick['Open']  # Check if the difference is not more than 0.1%
         is_correct = (user_choice == 'doji' and is_doji) or (user_choice == 'not_doji' and not is_doji)
         if is_correct:
             request.user.token += 1
