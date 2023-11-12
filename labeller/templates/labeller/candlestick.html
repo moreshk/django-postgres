@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+<style>
+    #candlestick-chart {
+        width: 50%;  /* Adjust this to make the chart narrower */
+        height: 500px;
+        margin: 0 auto;  /* Center the chart */
+    }
+</style>
+
+<!-- Alert message container -->
+<div id="alert-container" class="alert-container" style="height: 60px;"></div>
+
+<h1 class="text-center">Is this a Doji?</h1>
+
+<!-- Display the token balance -->
+<p id="token-balance" class="text-center">Token Balance: {{ request.user.token }}</p>
+
+<div id="candlestick-chart"></div>
+
+<div class="d-flex justify-content-center my-3">
+  <button id="doji-button" class="btn btn-success mx-2"><i class="fa fa-check"></i></button>
+  <button id="not-doji-button" class="btn btn-danger mx-2"><i class="fa fa-times"></i></button>
+</div>
+
+<div class="d-flex justify-content-center">
+    <button class="btn btn-primary mx-2" {% if index == 0 %}disabled{% endif %} onclick="location.href='{% url 'back_view' %}'">&lt;</button>
+    <button class="btn btn-primary mx-2" {% if is_last %}disabled{% endif %} onclick="location.href='{% url 'forward_view' %}'">&gt;</button>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+<script>
+  var trace = {
+    x: [new Date('{{ candlestick.Date }}')],
+    close: [{{ candlestick.Close }}],
+    high: [{{ candlestick.High }}],
+    low: [{{ candlestick.Low }}],
+    open: [{{ candlestick.Open }}],
+  
+    increasing: {line: {color: 'black'}},
+    decreasing: {line: {color: 'red'}},
+  
+    type: 'candlestick',
+    xaxis: 'x',
+    yaxis: 'y'
+  };
+  
+  var data = [trace];
+  
+  var layout = {
+    showlegend: false,
+    xaxis: {
+      autorange: true,
+      domain: [0, 1],
+      title: 'Date',
+      rangeslider: {visible: false}  // Add this line
+    },
+    yaxis: {
+      autorange: true,
+      domain: [0, 1],
+      type: 'linear'
+    }
+  };
+  
+  Plotly.plot('candlestick-chart', data, layout);
+  </script>
+
+<script>
+  document.getElementById('doji-button').addEventListener('click', function() {
+      checkDoji('doji');
+  });
+  document.getElementById('not-doji-button').addEventListener('click', function() {
+      checkDoji('not_doji');
+  });
+  
+  function checkDoji(choice) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '{% url 'check_doji' %}');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+      xhr.onload = function() {
+          if (xhr.status === 200) {
+              var response = JSON.parse(xhr.responseText);
+              var alertContainer = document.getElementById('alert-container');
+              alertContainer.innerHTML = '<div class="alert alert-' + (response.is_correct ? 'success' : 'danger') + '">' + (response.is_correct ? 'Correct' : 'Wrong') + '</div>';
+              document.getElementById('token-balance').textContent = 'Token Balance: ' + response.token;
+          }
+      };
+      xhr.send(encodeURI('choice=' + choice));
+  }
+</script>
+  
+{% endblock %}

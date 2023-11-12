@@ -52,6 +52,7 @@ urlpatterns = [
     path('v3essay_grader/', include('v3essay_grader.urls', namespace='v3essay_grader')),
     path('register/<str:code>/', register_with_referral, name='register_with_referral'),
     path('onboarding_wallet/', views.onboarding_wallet, name='onboarding_wallet'),
+    path('labeller/', include('labeller.urls')),
 ]
 
 if settings.DEBUG:
