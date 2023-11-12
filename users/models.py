@@ -30,11 +30,15 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    wallet = models.CharField(max_length=255, null=True, blank=True)
+    token = models.IntegerField(default=0)
+    
     USER_TYPES = (
     ('TEACHER', 'Teacher'),
     ('STUDENT', 'Student'),
     ('PARENT', 'Parent'),
-    ('ADMINISTRATOR', 'Administrator')
+    ('ADMINISTRATOR', 'Administrator'),
+    ('LABELLER', 'Labeller') # Add this line
     )
 
     user_type = models.CharField(max_length=15, choices=USER_TYPES, default='Student')

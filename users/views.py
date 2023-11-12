@@ -46,6 +46,11 @@ def register(request):
         if form.is_valid():
             user = form.save(commit=False)  # Don't save to the database yet
             user.is_active = False  # Set user as inactive until they verify their email
+            
+            if 'special_onboarding' in request.session:
+                user.user_type = 'LABELLER'
+                del request.session['special_onboarding']
+            
             user.save()  # Now save to the database
 
             # If there's a referrer_id in the session, set the referred_by field
@@ -185,7 +190,12 @@ def onboarding_last_name(request):
         if last_name:
             request.user.last_name = last_name
             request.user.save()
-            return redirect('onboarding_user_type')
+        
+            if request.user.user_type == 'LABELLER':
+                return redirect('onboarding_wallet')
+            else:
+                return redirect('onboarding_user_type')
+    
     return render(request, 'users/onboarding_last_name.html')
 
 User = get_user_model()
@@ -254,6 +264,20 @@ def register_with_referral(request, code):
     try:
         referrer = CustomUser.objects.get(referral_code=code)
         request.session['referrer_id'] = referrer.id
+        if code == '2bf453ad':
+            request.session['special_onboarding'] = True
         return redirect('register')
     except CustomUser.DoesNotExist:
-        return redirect('register')  # or handle it differently if the code is invalid
+        return redirect('register')    
+
+
+@login_required
+def onboarding_wallet(request):
+    if request.method == 'POST':
+        wallet = request.POST.get('wallet')
+        if wallet:
+            request.user.wallet = wallet
+            request.user.has_completed_onboarding = True  # Set the onboarding complete flag to True
+            request.user.save()
+            return redirect('home')
+    return render(request, 'users/onboarding_wallet.html')

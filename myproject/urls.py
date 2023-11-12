@@ -51,6 +51,7 @@ urlpatterns = [
     path('create_school/', views.create_school, name='create_school'),
     path('v3essay_grader/', include('v3essay_grader.urls', namespace='v3essay_grader')),
     path('register/<str:code>/', register_with_referral, name='register_with_referral'),
+    path('onboarding_wallet/', views.onboarding_wallet, name='onboarding_wallet'),
 ]
 
 if settings.DEBUG:
