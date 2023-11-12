@@ -14,14 +14,21 @@
     {% endif %}
   </div>
 
-  {% if user_subscription %}
+  {% if request.user.user_type == 'LABELLER' %}
   <div class="form-group">
-    <label>Subscription Plan:</label>
-    <p>{{ user_subscription.plan.name }}</p>
+    <label>Token Balance:</label>
+    <p>{{ request.user.token }}</p>
   </div>
-{% else %}
-  <p>You do not have an active subscription.</p>
-{% endif %}
+  {% else %}
+    {% if user_subscription %}
+    <div class="form-group">
+      <label>Subscription Plan:</label>
+      <p>{{ user_subscription.plan.name }}</p>
+    </div>
+    {% else %}
+    <p>You do not have an active subscription.</p>
+    {% endif %}
+  {% endif %}
 
 <div class="form-group">
   <label>Your Referral Link:</label>
