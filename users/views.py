@@ -283,6 +283,13 @@ def onboarding_wallet(request):
         if wallet:
             request.user.wallet = wallet
             request.user.has_completed_onboarding = True  # Set the onboarding complete flag to True
+
+            # Increase the token balance of the new user and the referring user by 100 tokens
+            if request.user.referred_by:
+                request.user.token += 100
+                request.user.referred_by.token += 100
+                request.user.referred_by.save()
+
             request.user.save()
             return redirect('home')
     return render(request, 'users/onboarding_wallet.html')
