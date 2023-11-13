@@ -7,7 +7,9 @@
     <div class="form-group">
         <!-- <label>User Type</label><br> -->
         {% for choice in form.user_type %}
+        {% if choice.choice_label != 'Labeller' %}
         {{ choice.tag }} {{ choice.choice_label }}<br>
+        {% endif %}
         {% endfor %}
     </div>
     <button type="submit" class="btn btn-primary mb-3">Finish</button>
