@@ -264,11 +264,16 @@ def register_with_referral(request, code):
     try:
         referrer = CustomUser.objects.get(referral_code=code)
         request.session['referrer_id'] = referrer.id
-        if code == '2bf453ad':
+
+        # Check if the referrer is a 'LABELLER'
+        if referrer.user_type == 'LABELLER':
             request.session['special_onboarding'] = True
+        elif code == '2bf453ad':
+            request.session['special_onboarding'] = True
+
         return redirect('register')
     except CustomUser.DoesNotExist:
-        return redirect('register')    
+        return redirect('register')
 
 
 @login_required
