@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+{% block extra_css %}
+<style>
+  .hiddenRow {
+    padding: 0 !important;
+  }
+</style>
+{% endblock %}
+
+<div class="container">
+  <h2>Referred Users</h2>
+
+  <table id="referred-users-table" class="table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Token Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in referred_users %}
+      <tr data-toggle="collapse" data-target="#collapse{{ user.id }}" class="accordion-toggle">
+        <td>{{ user.email }}</td>
+        <td>{{ user.token }}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="hiddenRow">
+          <div class="accordian-body collapse" id="collapse{{ user.id }}">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Token Balance</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for child_user in user.referred_users.all %}
+                <tr>
+                  <td>{{ child_user.email }}</td>
+                  <td>{{ child_user.token }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% block extra_js %}
+<script>
+  $(document).ready(function() {
+    $('#referred-users-table .accordion-toggle').click(function() {
+      $(this).next('tr').find('.accordian-body').collapse('toggle');
+    });
+  });
+</script>
+{% endblock %}
+{% endblock %}

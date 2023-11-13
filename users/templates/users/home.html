@@ -23,6 +23,15 @@
                 </div>
             </div>
         </div>
+
+        <!-- Referrals Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'referred_users_view' %}">Referrals</a>
+                </div>
+            </div>
+        </div>
         {% else %}
         <!-- The rest of your tiles go here -->
         {% if request.user.user_type == 'ADMINISTRATOR' %}

@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from users.models import CustomUser
 
 def fetch_data():
     ticker = os.getenv('TICKER', '^GSPC')
@@ -74,3 +74,9 @@ def check_doji(request):
             request.user.token += 1
             request.user.save()
         return JsonResponse({'is_correct': is_correct, 'token': request.user.token})
+    
+    
+@login_required
+def referred_users_view(request):
+    referred_users = CustomUser.objects.filter(referred_by=request.user)
+    return render(request, 'labeller/referred_users.html', {'referred_users': referred_users})
