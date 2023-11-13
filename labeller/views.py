@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-@login_required
+
 def fetch_data():
     ticker = os.getenv('TICKER', '^GSPC')
     days = os.getenv('DAYS', '7')
