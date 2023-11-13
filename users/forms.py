@@ -28,22 +28,17 @@ class CustomAuthenticationForm(AuthenticationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
-# class UserUpdateForm(forms.ModelForm):
-#     class Meta:
-#         model = User
-#         fields = ['first_name', 'last_name']
 
 class UserUpdateForm(forms.ModelForm):
     user_type = forms.ChoiceField(
         choices=User.USER_TYPES,
         widget=forms.RadioSelect,
-        required=True
+        required=False
     )
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'user_type']
-
+        fields = ['first_name', 'last_name', 'user_type', 'wallet']
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):

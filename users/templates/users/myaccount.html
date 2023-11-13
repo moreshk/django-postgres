@@ -53,6 +53,13 @@
       {{ user_form.last_name|add_class:"form-control" }}
     </div>
 
+    {% if request.user.user_type == 'LABELLER' %}
+<div class="form-group">
+  <label for="{{ user_form.wallet.id_for_label }}">Wallet:</label>
+  {{ user_form.wallet|add_class:"form-control" }}
+</div>
+{% endif %}
+
     {% if request.user.user_type != 'LABELLER' %}
     <div class="form-group">
       <label>User Type:</label><br>
