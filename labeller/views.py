@@ -7,6 +7,10 @@ from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from users.models import CustomUser
+from django.shortcuts import get_object_or_404
+from .models import Course, Lesson
+from .models import Course
+from labeller.models import UserLessonProgress
 
 def fetch_data():
     ticker = os.getenv('TICKER', '^GSPC')
@@ -80,3 +84,69 @@ def check_doji(request):
 def referred_users_view(request):
     referred_users = CustomUser.objects.filter(referred_by=request.user)
     return render(request, 'labeller/referred_users.html', {'referred_users': referred_users})
+
+@login_required
+def training(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+
+    # Retrieve the UserLessonProgress object for the user and course, or create a new one if it doesn't exist
+    user_lesson_progress, created = UserLessonProgress.objects.get_or_create(
+        user=request.user, 
+        course=course,
+        defaults={'lesson': course.lesson_set.order_by('step_id').first()}
+    )
+
+    message = None
+    if request.method == 'POST':
+        selected_option = int(request.POST.get('user_option'))  # Convert the selected option to an integer
+        if selected_option == user_lesson_progress.lesson.correct_answer:
+            message = 'Correct!'
+        else:
+            message = 'Wrong!'
+
+    first_step_id = course.lesson_set.order_by('step_id').first().step_id
+    last_step_id = course.lesson_set.order_by('-step_id').first().step_id
+
+    return render(request, 'labeller/training.html', {
+        'lesson': user_lesson_progress.lesson, 
+        'course': course, 
+        'message': message,
+        'first_step_id': first_step_id,
+        'last_step_id': last_step_id
+    })
+
+@login_required
+def courses_view(request):
+    if request.user.user_type != 'LABELLER':
+        return redirect('home')
+    courses = Course.objects.filter(lesson__isnull=False).distinct()
+    return render(request, 'labeller/courses.html', {'courses': courses})
+
+@login_required
+def previous_lesson(request, course_id):
+    # Retrieve the current lesson for the user in this course
+    current_lesson = UserLessonProgress.objects.get(user=request.user, course_id=course_id).lesson
+
+    # Find the previous lesson in the course
+    previous_lesson = Lesson.objects.filter(course_id=course_id, step_id__lt=current_lesson.step_id).order_by('-step_id').first()
+
+    if previous_lesson is not None:
+        # Update the user's progress to the previous lesson
+        UserLessonProgress.objects.filter(user=request.user, course_id=course_id).update(lesson=previous_lesson)
+
+    # Redirect to the training view
+    return redirect('training', course_id=course_id)
+
+def next_lesson(request, course_id):
+    # Retrieve the current lesson for the user in this course
+    current_lesson = UserLessonProgress.objects.get(user=request.user, course_id=course_id).lesson
+    print("Current Lesson",current_lesson)
+    # Find the next lesson in the course
+    next_lesson = Lesson.objects.filter(course_id=course_id, step_id__gt=current_lesson.step_id).order_by('step_id').first()
+    print("Next Lesson", next_lesson)
+    if next_lesson is not None:
+        # Update the user's progress to the next lesson
+        UserLessonProgress.objects.filter(user=request.user, course_id=course_id).update(lesson=next_lesson)
+
+    # Redirect to the training view
+    return redirect('training', course_id=course_id)

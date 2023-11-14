@@ -10,3 +10,4 @@ langchain==0.0.305
 openai==0.28.1
 pyspellchecker==0.7.2
 yfinance==0.2.31
+Pillow==10.1.0
