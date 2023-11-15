@@ -41,6 +41,11 @@ User = get_user_model()
 logger = logging.getLogger(__name__)
 
 def register(request):
+    context = {}
+    if 'referral_error' in request.session:
+        context['referral_error'] = request.session['referral_error']
+        del request.session['referral_error']
+        
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -164,7 +169,8 @@ def myaccount(request):
         'user_form': user_form,
         'password_form': password_form,
         'user_subscription': user_subscription,
-        'referral_link': referral_link
+        'referral_link': referral_link,
+        'referral_slots': request.user.referral_slots
     })
 
 
@@ -263,6 +269,9 @@ def create_referral_code(sender, instance, created, **kwargs):
 def register_with_referral(request, code):
     try:
         referrer = CustomUser.objects.get(referral_code=code)
+        if referrer.referral_slots <= 0:
+            request.session['referral_error'] = "This referral code has been exhausted, please try another."
+            return redirect('register')
         request.session['referrer_id'] = referrer.id
 
         # Check if the referrer is a 'LABELLER'
@@ -293,3 +302,11 @@ def onboarding_wallet(request):
             request.user.save()
             return redirect('home')
     return render(request, 'users/onboarding_wallet.html')
+
+
+@receiver(post_save, sender=CustomUser)
+def update_referral_slots(sender, instance, created, **kwargs):
+    if created and instance.referred_by:
+        referrer = instance.referred_by
+        referrer.referral_slots -= 1
+        referrer.save()
