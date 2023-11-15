@@ -19,6 +19,7 @@ class Lesson(models.Model):
     audio_path = models.FileField(upload_to='audio/', null=True, blank=True)
     user_options = JSONField(null=True, blank=True)
     correct_answer = models.IntegerField(null=True, blank=True)
+    youtube_video_url = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.course.name} - Step {self.step_id}"

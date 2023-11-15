@@ -1,47 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-  <h2 class="text-center my-4">Token Balance: {{ request.user.token }}</h2>
+    <h2 class="text-center my-4">Token Balance: {{ request.user.token }}</h2>
 
-  {% if lesson.image_path %}
-  <div class="text-center">
-    <img src="{{ lesson.image_path.url }}" alt="Lesson Image" class="img-fluid" style="max-height: 500px;">
-  </div>
-  {% endif %}
-  
-  <p class="my-4">{{ lesson.dialog }}</p>
-
-  {% if lesson.audio_path %}
-  <div class="text-center">
-    <audio src="{{ lesson.audio_path.url }}" controls autoplay class="w-100"></audio>
-  </div>
-  {% endif %}
-
-  {% if message %}
-  <div class="alert alert-info">{{ message }}</div>
-  {% endif %}
-
-  {% if lesson.user_options %}
-  <form method="post" class="my-4">
-    {% csrf_token %}
-    {% for option in lesson.user_options %}
-    <div class="form-check">
-      <input class="form-check-input" type="radio" id="option{{ forloop.counter }}" name="user_option" value="{{ forloop.counter }}" {% if message %}disabled{% endif %}>
-      <label class="form-check-label" for="option{{ forloop.counter }}">{{ option }}</label>
+    {% if lesson.youtube_video_url %}
+    <div class="text-center">
+        <iframe width="560" height="315" src="{{ lesson.youtube_video_url }}" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
     </div>
-    {% endfor %}
-    <input type="submit" value="Submit" class="btn btn-primary mt-3" {% if message %}disabled{% endif %}>
-  </form>
-  {% endif %}
-
-  <div class="text-center">
-    {% if lesson.step_id != first_step_id %}
-    <a href="{% url 'previous_lesson' course.id %}" class="btn btn-secondary">&lt;</a>
+    {% elif lesson.image_path %}
+    <div class="text-center">
+        <img src="{{ lesson.image_path.url }}" alt="Lesson Image" class="img-fluid" style="max-height: 500px;">
+    </div>
     {% endif %}
 
-    {% if lesson.step_id != last_step_id %}
-    <a href="{% url 'next_lesson' course.id %}" class="btn btn-secondary">&gt;</a>
+    <p class="my-4">{{ lesson.dialog }}</p>
+
+    {% if lesson.audio_path %}
+    <div class="text-center">
+        <audio src="{{ lesson.audio_path.url }}" controls autoplay class="w-100"></audio>
+    </div>
     {% endif %}
-  </div>
+
+    {% if message %}
+    <div class="alert alert-info">{{ message }}</div>
+    {% endif %}
+
+    {% if lesson.user_options %}
+    <form method="post" class="my-4">
+        {% csrf_token %}
+        {% for option in lesson.user_options %}
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="option{{ forloop.counter }}" name="user_option"
+                value="{{ forloop.counter }}" {% if message %}disabled{% endif %}>
+            <label class="form-check-label" for="option{{ forloop.counter }}">{{ option }}</label>
+        </div>
+        {% endfor %}
+        <input type="submit" value="Submit" class="btn btn-primary mt-3" {% if message %}disabled{% endif %}>
+    </form>
+    {% endif %}
+
+    <div class="text-center">
+        {% if lesson.step_id != first_step_id %}
+        <a href="{% url 'previous_lesson' course.id %}" class="btn btn-secondary">&lt;</a>
+        {% endif %}
+
+        {% if lesson.step_id != last_step_id %}
+        <a href="{% url 'next_lesson' course.id %}" class="btn btn-secondary">&gt;</a>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
