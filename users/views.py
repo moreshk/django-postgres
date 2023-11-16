@@ -40,12 +40,13 @@ User = get_user_model()
 # Initialize a logger
 logger = logging.getLogger(__name__)
 
+
 def register(request):
     context = {}
     if 'referral_error' in request.session:
         context['referral_error'] = request.session['referral_error']
         del request.session['referral_error']
-        
+
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -55,14 +56,13 @@ def register(request):
             if 'special_onboarding' in request.session:
                 user.user_type = 'LABELLER'
                 del request.session['special_onboarding']
-            
-            user.save()  # Now save to the database
 
             # If there's a referrer_id in the session, set the referred_by field
             if 'referrer_id' in request.session:
                 user.referred_by_id = request.session['referrer_id']
-                user.save()
                 del request.session['referrer_id']
+
+            user.save()  # Now save to the database
 
             # Send the verification email
             send_verification_email(request, user)
@@ -258,14 +258,6 @@ def create_referral_code(sender, instance, created, **kwargs):
         instance.save()
 
 
-
-@receiver(post_save, sender=CustomUser)
-def create_referral_code(sender, instance, created, **kwargs):
-    if created and not instance.referral_code:
-        instance.referral_code = str(uuid.uuid4())[:8]
-        instance.save()
-
-
 def register_with_referral(request, code):
     try:
         referrer = CustomUser.objects.get(referral_code=code)
@@ -306,7 +298,14 @@ def onboarding_wallet(request):
 
 @receiver(post_save, sender=CustomUser)
 def update_referral_slots(sender, instance, created, **kwargs):
+    print("I am triggering update referral slots")
+    print("Created", created)
+    print("Referred by ", instance.referred_by)
     if created and instance.referred_by:
+        print("I am in the reduce referral slots conditional code")
         referrer = instance.referred_by
+        print("Referred by", referrer)
+        print("Referral slots ", referrer.referral_slots)
         referrer.referral_slots -= 1
+        print("I have reduced referral slots, new referral slots are ", referrer.referral_slots)
         referrer.save()
