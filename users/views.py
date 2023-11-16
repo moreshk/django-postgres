@@ -42,6 +42,10 @@ logger = logging.getLogger(__name__)
 
 
 def register(request):
+    if 'referrer_id' not in request.session:
+        # Redirect the user to a page that tells them to use a referral link
+        return redirect('referral_required')
+
     context = {}
     if 'referral_error' in request.session:
         context['referral_error'] = request.session['referral_error']
@@ -262,9 +266,10 @@ def register_with_referral(request, code):
     try:
         referrer = CustomUser.objects.get(referral_code=code)
         if referrer.referral_slots <= 0:
-            request.session['referral_error'] = "This referral code has been exhausted, please try another."
-            return redirect('register')
+            # Redirect the user to a page that tells them the referral code has been exhausted
+            return redirect('referral_exhausted')
         request.session['referrer_id'] = referrer.id
+        request.session.save()  # Manually save the session
 
         # Check if the referrer is a 'LABELLER'
         if referrer.user_type == 'LABELLER':
@@ -274,7 +279,8 @@ def register_with_referral(request, code):
 
         return redirect('register')
     except CustomUser.DoesNotExist:
-        return redirect('register')
+        # Redirect the user to a page that tells them to use a valid referral link
+        return redirect('referral_required')
 
 
 @login_required
@@ -309,3 +315,10 @@ def update_referral_slots(sender, instance, created, **kwargs):
         referrer.referral_slots -= 1
         print("I have reduced referral slots, new referral slots are ", referrer.referral_slots)
         referrer.save()
+
+
+def referral_required(request):
+    return render(request, 'users/referral_required.html')
+
+def referral_exhausted(request):
+    return render(request, 'users/referral_exhausted.html')

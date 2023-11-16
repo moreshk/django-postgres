@@ -28,7 +28,6 @@ from users.views import register_with_referral
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('register/', views.register, name='register'),  # Assuming you have a register view
     path('login/', views.user_login, name='login'),      # Assuming you have a user_login view
     path('logout/', views.user_logout, name='logout'),   # Assuming you have a user_logout view
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='users/password_reset.html'), name='password_reset'),
@@ -50,9 +49,12 @@ urlpatterns = [
     path('view_assignments/', views.view_assignments, name='view_assignments'),
     path('create_school/', views.create_school, name='create_school'),
     path('v3essay_grader/', include('v3essay_grader.urls', namespace='v3essay_grader')),
-    path('register/<str:code>/', register_with_referral, name='register_with_referral'),
     path('onboarding_wallet/', views.onboarding_wallet, name='onboarding_wallet'),
     path('labeller/', include('labeller.urls')),
+    path('referral_required/', views.referral_required, name='referral_required'),
+    path('referral_exhausted/', views.referral_exhausted, name='referral_exhausted'),
+    path('register/<str:code>/', register_with_referral, name='register_with_referral'),
+    path('register/', views.register, name='register'),  # Assuming you have a register view
 ]
 
 if settings.DEBUG:
