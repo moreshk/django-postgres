@@ -9,20 +9,42 @@
 {% endblock %}
 
 <div class="container">
+  <div class="form-group">
+    <label style="font-size: 20px;">Refer your friends to both receive a 100 $KTX sign up bonus. </label>
+    <p style="font-size: 18px;"> Referral Link:</p>
+    <div class="input-group">
+        <input type="text" value="{{ referral_link }}" id="referralLink" class="form-control" readonly>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="copyReferralLink()">Copy</button>
+        </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label style="font-size: 18px;">Available Referral Slots:</label>
+    <p>{{ referral_slots }}</p>
+    <p>If you are an influencer or group owner reach out to @dokunoo on Telegram to request more referral slots</p>
+  </div>
+
+  <div class="form-group">
+    <h4>Total Referral Bonus:</h4>
+    <p>{{ total_referral_bonus }}</p>
+  </div>
+  
   <h2>Referred Users</h2>
 
   <table id="referred-users-table" class="table">
     <thead>
       <tr>
         <th>Username</th>
-        <th>Token Balance</th>
+        <th>Referral Bonus</th>
       </tr>
     </thead>
     <tbody>
       {% for user in referred_users %}
       <tr data-toggle="collapse" data-target="#collapse{{ user.id }}" class="accordion-toggle">
         <td>{{ user.email }}</td>
-        <td>{{ user.token }}</td>
+        <td>100</td>
       </tr>
       <tr>
         <td colspan="2" class="hiddenRow">
@@ -31,14 +53,14 @@
               <thead>
                 <tr>
                   <th>Username</th>
-                  <th>Token Balance</th>
+                  <th>Referral Bonus</th>
                 </tr>
               </thead>
               <tbody>
                 {% for child_user in user.referred_users.all %}
                 <tr>
                   <td>{{ child_user.email }}</td>
-                  <td>{{ child_user.token }}</td>
+                  <td>100</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -58,6 +80,25 @@
       $(this).next('tr').find('.accordian-body').collapse('toggle');
     });
   });
+</script>
+<script>
+  $(document).ready(function() {
+    $('#referred-users-table .accordion-toggle').click(function() {
+      $(this).next('tr').find('.accordian-body').collapse('toggle');
+    });
+  });
+
+  function copyReferralLink() {
+      /* Get the text field */
+      var copyText = document.getElementById("referralLink");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+  }
 </script>
 {% endblock %}
 {% endblock %}

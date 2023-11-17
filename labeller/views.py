@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from .models import Course, Lesson
 from .models import Course
 from labeller.models import UserLessonProgress
+from django.urls import reverse
 
 def fetch_data():
     ticker = os.getenv('TICKER', '^GSPC')
@@ -83,7 +84,15 @@ def check_doji(request):
 @login_required
 def referred_users_view(request):
     referred_users = CustomUser.objects.filter(referred_by=request.user)
-    return render(request, 'labeller/referred_users.html', {'referred_users': referred_users})
+    referral_link = request.build_absolute_uri(reverse('register_with_referral', args=[request.user.referral_code]))
+    total_referral_bonus = referred_users.count() * 100
+    return render(request, 'labeller/referred_users.html', {
+        'referred_users': referred_users,
+        'referral_link': referral_link,
+        'referral_slots': request.user.referral_slots,
+        'total_referral_bonus': total_referral_bonus
+    })
+
 
 @login_required
 def training(request, course_id):
