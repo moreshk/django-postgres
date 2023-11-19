@@ -20,6 +20,7 @@ class Lesson(models.Model):
     user_options = JSONField(null=True, blank=True)
     correct_answer = models.IntegerField(null=True, blank=True)
     youtube_video_url = models.URLField(null=True, blank=True)
+    correct_answer_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.course.name} - Step {self.step_id}"

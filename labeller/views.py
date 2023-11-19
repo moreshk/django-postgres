@@ -106,12 +106,17 @@ def training(request, course_id):
     )
 
     message = None
+    correct_answer = None
+    selected_option = None
+    correct_answer_image = None
     if request.method == 'POST':
         selected_option = int(request.POST.get('user_option'))  # Convert the selected option to an integer
+        correct_answer_image = user_lesson_progress.lesson.correct_answer_image
         if selected_option == user_lesson_progress.lesson.correct_answer:
             message = 'Correct!'
         else:
-            message = 'Wrong!'
+            correct_answer = user_lesson_progress.lesson.user_options[user_lesson_progress.lesson.correct_answer - 1]
+            message = f'Wrong! The correct answer is "{correct_answer}".'
 
     first_step_id = course.lesson_set.order_by('step_id').first().step_id
     last_step_id = course.lesson_set.order_by('-step_id').first().step_id
@@ -121,7 +126,10 @@ def training(request, course_id):
         'course': course, 
         'message': message,
         'first_step_id': first_step_id,
-        'last_step_id': last_step_id
+        'last_step_id': last_step_id,
+        'correct_answer': correct_answer,
+        'selected_option': selected_option,
+        'correct_answer_image': correct_answer_image
     })
 
 @login_required
