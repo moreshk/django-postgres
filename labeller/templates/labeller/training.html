@@ -45,6 +45,18 @@
     </form>
     {% endif %}
 
+    {% if is_last_lesson %}
+        {% if not has_completed_course %}
+        <div class="text-center">
+            <a href="{% url 'claim_bonus' course.id %}" class="btn btn-success" id="claim-bonus-button">Claim Bonus</a>
+        </div>
+        {% else %}
+        <div class="text-center">
+            <p>You earned {{ course.completion_token_bonus }} tokens for completing this course.</p>
+        </div>
+        {% endif %}
+    {% endif %}
+
     <div class="text-center">
         {% if lesson.step_id != first_step_id %}
         <a href="{% url 'previous_lesson' course.id %}" class="btn btn-secondary">&lt;</a>
@@ -55,4 +67,14 @@
         {% endif %}
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.2"></script>
+<script>
+document.getElementById('claim-bonus-button').addEventListener('click', function() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+});
+</script>
 {% endblock %}

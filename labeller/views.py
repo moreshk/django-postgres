@@ -93,7 +93,6 @@ def referred_users_view(request):
         'total_referral_bonus': total_referral_bonus
     })
 
-
 @login_required
 def training(request, course_id):
     course = get_object_or_404(Course, id=course_id)
@@ -120,6 +119,8 @@ def training(request, course_id):
 
     first_step_id = course.lesson_set.order_by('step_id').first().step_id
     last_step_id = course.lesson_set.order_by('-step_id').first().step_id
+    is_last_lesson = user_lesson_progress.lesson.step_id == last_step_id
+    has_completed_course = course in request.user.completed_courses.all()
 
     return render(request, 'labeller/training.html', {
         'lesson': user_lesson_progress.lesson, 
@@ -129,7 +130,9 @@ def training(request, course_id):
         'last_step_id': last_step_id,
         'correct_answer': correct_answer,
         'selected_option': selected_option,
-        'correct_answer_image': correct_answer_image
+        'correct_answer_image': correct_answer_image,
+        'is_last_lesson': is_last_lesson,
+        'has_completed_course': has_completed_course
     })
 
 @login_required
@@ -166,4 +169,15 @@ def next_lesson(request, course_id):
         UserLessonProgress.objects.filter(user=request.user, course_id=course_id).update(lesson=next_lesson)
 
     # Redirect to the training view
+    return redirect('training', course_id=course_id)
+
+
+@login_required
+def claim_bonus(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    if course not in request.user.completed_courses.all():
+        request.user.token += course.completion_token_bonus
+        request.user.completed_courses.add(course)
+        request.user.save()
+        messages.success(request, f'Congratulations! You earned {course.completion_token_bonus} tokens.')
     return redirect('training', course_id=course_id)

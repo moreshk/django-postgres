@@ -12,6 +12,9 @@
               <img src="{{ course.logo.url }}" alt="Course Logo" class="rounded-circle" style="width: 150px; height: 150px; border: 1px solid #ddd;">
             </div>
             {% endif %}
+            <div class="text-center mb-3">
+              <p>Completion Token Bonus: {{ course.completion_token_bonus }}</p>
+            </div>
             <h5 class="card-title">{{ course.name }}</h5>
             <p class="card-text mb-3">{{ course.description }}</p>
           </div>

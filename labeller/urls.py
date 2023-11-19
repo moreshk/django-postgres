@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import claim_bonus
 
 urlpatterns = [
     path('candlestick/', views.candlestick_view, name='candlestick_view'),
@@ -11,4 +12,5 @@ urlpatterns = [
     path('courses/', views.courses_view, name='courses'),
     path('previous_lesson/<int:course_id>/', views.previous_lesson, name='previous_lesson'),
     path('next_lesson/<int:course_id>/', views.next_lesson, name='next_lesson'),
+    path('claim_bonus/<int:course_id>/', claim_bonus, name='claim_bonus'),
 ]

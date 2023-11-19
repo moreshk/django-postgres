@@ -34,6 +34,7 @@ from django.dispatch import receiver
 import uuid
 
 from .models import CustomUser
+from .models import GlobalSettings
 
 User = get_user_model()
 
@@ -291,10 +292,15 @@ def onboarding_wallet(request):
             request.user.wallet = wallet
             request.user.has_completed_onboarding = True  # Set the onboarding complete flag to True
 
-            # Increase the token balance of the new user and the referring user by 100 tokens
+            # Fetch the bonuses from the GlobalSettings
+            global_settings = GlobalSettings.objects.first()
+            referring_user_bonus = global_settings.referring_user_bonus
+            referred_user_bonus = global_settings.referred_user_bonus
+
+            # Increase the token balance of the new user and the referring user by the respective bonuses
             if request.user.referred_by:
-                request.user.token += 100
-                request.user.referred_by.token += 100
+                request.user.token += referred_user_bonus
+                request.user.referred_by.token += referring_user_bonus
                 request.user.referred_by.save()
 
             request.user.save()

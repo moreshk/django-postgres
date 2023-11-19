@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser 
+from .models import CustomUser,  GlobalSettings  
 
 from v3essay_grader.models import SampleTopic
 from payments.models import UserSubscription
@@ -22,3 +22,7 @@ class SampleTopicAdmin(admin.ModelAdmin):
         if not change:  # Only set creator during the first save.
             obj.creator = request.user
         super().save_model(request, obj, form, change)
+
+@admin.register(GlobalSettings)
+class GlobalSettingsAdmin(admin.ModelAdmin):
+    list_display = ('referring_user_bonus', 'referred_user_bonus')

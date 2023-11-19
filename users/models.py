@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from labeller.models import Course
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -52,6 +53,7 @@ class CustomUser(AbstractUser):
     referral_code = models.CharField(max_length=20, unique=True, null=True, blank=True)
     referred_by = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
     referral_slots = models.IntegerField(default=2)
+    completed_courses = models.ManyToManyField(Course, related_name='completed_by_users')
     
     objects = CustomUserManager()
 
@@ -90,3 +92,8 @@ class School(models.Model):
     admin_id = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=255)
+
+
+class GlobalSettings(models.Model):
+    referring_user_bonus = models.IntegerField(default=100)
+    referred_user_bonus = models.IntegerField(default=100)
