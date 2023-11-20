@@ -12,6 +12,7 @@ from .models import Course, Lesson
 from .models import Course
 from labeller.models import UserLessonProgress
 from django.urls import reverse
+from users.models import GlobalSettings
 
 def fetch_data():
     ticker = os.getenv('TICKER', '^GSPC')
@@ -85,12 +86,18 @@ def check_doji(request):
 def referred_users_view(request):
     referred_users = CustomUser.objects.filter(referred_by=request.user)
     referral_link = request.build_absolute_uri(reverse('register_with_referral', args=[request.user.referral_code]))
-    total_referral_bonus = referred_users.count() * 100
+
+    # Fetch the bonuses from the GlobalSettings
+    global_settings = GlobalSettings.objects.first()
+    referred_user_bonus = global_settings.referred_user_bonus
+
+    total_referral_bonus = referred_users.count() * referred_user_bonus
     return render(request, 'labeller/referred_users.html', {
         'referred_users': referred_users,
         'referral_link': referral_link,
         'referral_slots': request.user.referral_slots,
-        'total_referral_bonus': total_referral_bonus
+        'total_referral_bonus': total_referral_bonus,
+        'referred_user_bonus': referred_user_bonus,  # Pass the bonus to the template
     })
 
 @login_required

@@ -144,11 +144,16 @@ def activate(request, uidb64, token):
 def email_verification_sent(request):
     return render(request, 'users/email_verification_sent.html')
 
+
 @login_required
 def myaccount(request):
     user_subscription = UserSubscription.objects.filter(user=request.user, is_active=True).first()
     user_form = UserUpdateForm(instance=request.user, data=request.POST or None)
     password_form = CustomPasswordChangeForm(request.user, data=request.POST or None)
+
+    # Fetch the bonus from the GlobalSettings
+    global_settings = GlobalSettings.objects.first()
+    referred_user_bonus = global_settings.referred_user_bonus
 
     if request.method == 'POST':
         details_updated = False
@@ -175,9 +180,9 @@ def myaccount(request):
         'password_form': password_form,
         'user_subscription': user_subscription,
         'referral_link': referral_link,
-        'referral_slots': request.user.referral_slots
+        'referral_slots': request.user.referral_slots,
+        'referred_user_bonus': referred_user_bonus,  # Pass the bonus to the template
     })
-
 
 @login_required
 def home(request):

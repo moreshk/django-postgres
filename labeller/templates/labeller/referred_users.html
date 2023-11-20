@@ -10,7 +10,7 @@
 
 <div class="container">
   <div class="form-group">
-    <label style="font-size: 20px;">Refer your friends to both receive a 100 $KTX sign up bonus. </label>
+    <label style="font-size: 20px;">Refer your friends to both receive a {{ referred_user_bonus }} KTC sign up bonus. </label>
     <p style="font-size: 18px;"> Referral Link:</p>
     <div class="input-group">
         <input type="text" value="{{ referral_link }}" id="referralLink" class="form-control" readonly>
@@ -44,7 +44,7 @@
       {% for user in referred_users %}
       <tr data-toggle="collapse" data-target="#collapse{{ user.id }}" class="accordion-toggle">
         <td>{{ user.email }}</td>
-        <td>100</td>
+        <td>{{ referred_user_bonus }}</td>  <!-- Use the referred_user_bonus variable here -->
       </tr>
       <tr>
         <td colspan="2" class="hiddenRow">
@@ -60,7 +60,7 @@
                 {% for child_user in user.referred_users.all %}
                 <tr>
                   <td>{{ child_user.email }}</td>
-                  <td>100</td>
+                  <td>{{ referring_user_bonus }}</td>  <!-- Use the referring_user_bonus variable here -->
                 </tr>
                 {% endfor %}
               </tbody>
