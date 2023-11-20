@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Label Task</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        /* Set the width and height of the chart to 100% of the viewport */
+        #candlestick-chart {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="candlestick-chart"></div>
+    <script>
+        var data = {{ data| safe }};
+        var trace = {
+            x: data.map(row => new Date(row[0]).toISOString().split('T')[0]),  // Updated this line
+            open: data.map(row => row[1]),  // Corrected index
+            high: data.map(row => row[2]),  // Corrected index
+            low: data.map(row => row[3]),  // Corrected index
+            close: data.map(row => row[4]),  // Corrected index
+            increasing: { line: { color: 'black' } },
+            decreasing: { line: { color: 'red' } },
+            type: 'candlestick',
+            xaxis: 'x',
+            yaxis: 'y'
+        };
+        var layout = {
+            autosize: true,  // Automatically size the chart to fit the container
+            dragmode: 'pan',  // Enable panning
+            showlegend: false,
+            xaxis: {
+                type: 'category',  // Change the xaxis type to 'category'
+                autorange: true,
+                domain: [0, 1],
+                title: 'Date',
+                rangeslider: { visible: true }  // Enable the range slider
+            },
+            yaxis: {
+                autorange: true,
+                domain: [0, 1],
+                type: 'linear'
+            }
+        };
+        Plotly.newPlot('candlestick-chart', [trace], layout);  // Use newPlot instead of plot to ensure the chart is redrawn each time
+    </script>
+</body>
+
+</html>

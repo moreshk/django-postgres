@@ -188,3 +188,18 @@ def claim_bonus(request, course_id):
         request.user.save()
         messages.success(request, f'Congratulations! You earned {course.completion_token_bonus} tokens.')
     return redirect('training', course_id=course_id)
+
+def label_task_view(request):
+    # Fetch the last 180 days of data for NSEI
+    data = yf.download('^NSEI', period='6mo')
+    # Remove rows where 'Open', 'High', 'Low', and 'Close' are all NaN
+    data = data.dropna(subset=['Open', 'High', 'Low', 'Close'])
+    # Reset the index to move the Date from index to columns
+    data.reset_index(inplace=True)
+    # Convert the 'Date' column to a shorter string format
+    data['Date'] = data['Date'].dt.strftime('%Y-%m-%d')  # Include the year in the format
+    # Convert the data to a format that can be used in the template
+    data_list = data.values.tolist()
+    # Print the data to the console
+    print(data[['Open', 'High', 'Low', 'Close']])
+    return render(request, 'labeller/label_task.html', {'data': data_list})
