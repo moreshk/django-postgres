@@ -13,3 +13,5 @@ yfinance==0.2.31
 Pillow==10.1.0
 azure-storage-blob==12.19.0
 django-storages==1.14.2
+yt_dlp==2023.11.16
+librosa==0.10.1
