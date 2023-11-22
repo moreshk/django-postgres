@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "v3essay_grader",
     "labeller",
     "storages",
+    "transcriber",
 ]
 
 MIDDLEWARE = [
@@ -145,7 +146,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-import os
 
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')

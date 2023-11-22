@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="text-center">Transcribe YouTube Video</h1>
+            <form method="post" class="needs-validation" novalidate enctype="multipart/form-data"
+                onsubmit="showSpinner()">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter a name.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" class="form-control" required></textarea>
+                    <div class="invalid-feedback">
+                        Please enter a description.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="youtube_url">YouTube URL:</label>
+                    <input type="text" id="youtube_url" name="youtube_url" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter a YouTube URL.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="logo">Logo:</label>
+                    <input type="file" id="logo" name="logo" class="form-control-file" required>
+                    <div class="invalid-feedback">
+                        Please choose a logo file.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showSpinner() {
+        document.getElementById("spinner").style.display = "block";
+    }
+
+    function hideSpinner() {
+        document.getElementById("spinner").style.display = "none";
+    }
+</script>
+
+{% endblock %}

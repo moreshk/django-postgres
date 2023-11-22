@@ -55,6 +55,7 @@ urlpatterns = [
     path('referral_exhausted/', views.referral_exhausted, name='referral_exhausted'),
     path('register/<str:code>/', register_with_referral, name='register_with_referral'),
     path('register/', views.register, name='register'),  # Assuming you have a register view
+    path('transcriber/', include('transcriber.urls')),
 ]
 
 if settings.DEBUG:

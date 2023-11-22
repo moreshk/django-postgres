@@ -7,6 +7,9 @@ class Course(models.Model):
     description = models.TextField(null=False, blank=False)
     logo = models.ImageField(upload_to='logos/', null=True, blank=True)
     completion_token_bonus = models.IntegerField(default=0)
+    video_link = models.TextField(null=True, blank=True)
+    transcript = models.TextField(null=True, blank=True)
+    timed_transcripts = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
