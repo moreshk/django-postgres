@@ -55,7 +55,7 @@ class TranscribeView(View):
 
         # Extract the transcribed text
         transcribed_text = transcript.text
-
+        timed_transcribed_text = transcript.export_subtitles_vtt()
         # Delete the audio file
         os.remove(filename + '.mp3')
 
@@ -70,7 +70,7 @@ class TranscribeView(View):
             description=description,
             video_link=youtube_url,
             transcript=transcribed_text,
-            # timed_transcripts=srt_json,
+            timed_transcripts=timed_transcribed_text,
             logo=logo_filename,
         )
         course.save()
