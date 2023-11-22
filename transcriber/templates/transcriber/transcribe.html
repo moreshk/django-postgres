@@ -5,39 +5,50 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <h1 class="text-center">Transcribe YouTube Video</h1>
-            <form method="post" class="needs-validation" novalidate enctype="multipart/form-data"
-                onsubmit="showSpinner()">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" class="form-control" required>
-                    <div class="invalid-feedback">
-                        Please enter a name.
+            <div id="form-container">
+                <form id="transcribe-form" method="post" class="needs-validation" novalidate
+                    enctype="multipart/form-data" onsubmit="showSpinner()">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                        <div class="invalid-feedback">x
+                            Please enter a name.
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" class="form-control" required></textarea>
-                    <div class="invalid-feedback">
-                        Please enter a description.
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" class="form-control" required></textarea>
+                        <div class="invalid-feedback">
+                            Please enter a description.
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="youtube_url">YouTube URL:</label>
-                    <input type="text" id="youtube_url" name="youtube_url" class="form-control" required>
-                    <div class="invalid-feedback">
-                        Please enter a YouTube URL.
+                    <div class="form-group">
+                        <label for="youtube_url">YouTube URL:</label>
+                        <input type="text" id="youtube_url" name="youtube_url" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please enter a YouTube URL.
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="logo">Logo:</label>
-                    <input type="file" id="logo" name="logo" class="form-control-file" required>
-                    <div class="invalid-feedback">
-                        Please choose a logo file.
+                    <div class="form-group">
+                        <label for="logo">Logo:</label>
+                        <input type="file" id="logo" name="logo" class="form-control-file" required>
+                        <div class="invalid-feedback">
+                            Please choose a logo file.
+                        </div>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div id="spinner" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <div id="received-text" style="display: none;">
+                <!-- Display the received text here -->
+            </div>
+            <a href="{% url 'transcribe' %}" id="reset-link" style="display: none;">
+                <i class="fas fa-undo"></i> Reset
+            </a>
         </div>
     </div>
 </div>
@@ -50,6 +61,39 @@
     function hideSpinner() {
         document.getElementById("spinner").style.display = "none";
     }
+
+    function showReceivedText() {
+        document.getElementById("received-text").style.display = "block";
+        document.getElementById("reset-link").style.display = "inline";
+    }
+
+    document.getElementById('transcribe-form').addEventListener('submit', function (event) {
+        event.preventDefault();  // Prevent the form from being submitted normally
+
+        showSpinner();  // Show the spinner
+
+        // Create a FormData object from the form
+        var formData = new FormData(event.target);
+
+        // Submit the form using AJAX
+        fetch(event.target.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+        })
+            .then(response => response.text())
+            .then(responseText => {
+                // Hide the form and the spinner
+                document.getElementById('form-container').style.display = 'none';
+                hideSpinner();
+
+                // Show the received text and the reset link
+                document.getElementById('received-text').innerHTML = responseText;
+                showReceivedText();
+            });
+    });
 </script>
 
 {% endblock %}
