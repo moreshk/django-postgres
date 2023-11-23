@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -32,7 +35,10 @@
                     </div>
                     <div class="form-group">
                         <label for="logo">Logo:</label>
-                        <input type="file" id="logo" name="logo" class="form-control-file" required>
+                        <input type="file" id="logo" name="logo" class="form-control-file" required
+                            onchange="previewImage(event)">
+                        <img id="logo-preview" style="display: none; width: 100%;" />
+
                         <div class="invalid-feedback">
                             Please choose a logo file.
                         </div>
@@ -54,6 +60,25 @@
 </div>
 
 <script>
+    let croppedImage;
+    let cropper;
+
+    function dataURLtoBlob(dataurl) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+    }
+
+    function cropImage() {
+        if (cropper) {
+            var canvas = cropper.getCroppedCanvas();
+            croppedImage = canvas.toDataURL('image/png');
+        }
+    }
+
     function showSpinner() {
         document.getElementById("spinner").style.display = "block";
     }
@@ -67,13 +92,23 @@
         document.getElementById("reset-link").style.display = "inline";
     }
 
+
+
     document.getElementById('transcribe-form').addEventListener('submit', function (event) {
         event.preventDefault();  // Prevent the form from being submitted normally
+        // Automatically trigger the cropping
+        cropImage();
 
         showSpinner();  // Show the spinner
 
         // Create a FormData object from the form
         var formData = new FormData(event.target);
+
+        // Append the cropped image data
+        if (croppedImage) {
+            var blob = dataURLtoBlob(croppedImage);
+            formData.append('logo', blob, 'logo.png');
+        }
 
         // Submit the form using AJAX
         fetch(event.target.action, {
@@ -94,6 +129,34 @@
                 showReceivedText();
             });
     });
+
+
+
+    function previewImage(event) {
+        const logo = document.getElementById('logo');
+        const preview = document.getElementById('logo-preview');
+
+
+        const file = logo.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+
+            if (cropper) {
+                cropper.destroy();
+            }
+
+            cropper = new Cropper(preview, {
+                aspectRatio: 1,
+            });
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+
 </script>
 
 {% endblock %}

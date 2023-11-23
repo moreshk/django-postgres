@@ -12,6 +12,9 @@ import time
 from django.core.files.base import ContentFile
 from labeller.models import Course
 
+import base64
+import uuid
+
 @method_decorator(login_required, name='dispatch')
 class TranscribeView(View):
     template_name = 'transcriber/transcribe.html'
@@ -61,6 +64,8 @@ class TranscribeView(View):
 
         logo_filename = None
         if logo_file:
+            # Decode the base64 image data
+            # data = ContentFile(base64.b64decode(logo_file.read()), name=f'{uuid.uuid4()}.png')
             # Save the logo file to Azure
             logo_filename = default_storage.save('logos/' + logo_file.name, logo_file)
 
