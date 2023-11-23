@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import JSONField
 from django.conf import settings
 
+
 class Course(models.Model):
     name = models.CharField(max_length=200, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
@@ -10,6 +11,7 @@ class Course(models.Model):
     video_link = models.TextField(null=True, blank=True)
     transcript = models.TextField(null=True, blank=True)
     timed_transcripts = models.TextField(null=True, blank=True)
+    creator = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, related_name='created_courses', null=True)
 
     def __str__(self):
         return self.name

@@ -64,8 +64,6 @@ class TranscribeView(View):
 
         logo_filename = None
         if logo_file:
-            # Decode the base64 image data
-            # data = ContentFile(base64.b64decode(logo_file.read()), name=f'{uuid.uuid4()}.png')
             # Save the logo file to Azure
             logo_filename = default_storage.save('logos/' + logo_file.name, logo_file)
 
@@ -77,6 +75,7 @@ class TranscribeView(View):
             transcript=transcribed_text,
             timed_transcripts=timed_transcribed_text,
             logo=logo_filename,
+            creator=request.user,  # Set the creator to the current user
         )
         course.save()
 
