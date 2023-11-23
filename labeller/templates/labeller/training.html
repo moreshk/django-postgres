@@ -3,6 +3,11 @@
 <div class="container">
     <!-- <h2 class="text-center my-4">Token Balance: {{ request.user.token }}</h2> -->
 
+    <!-- Add the headline here -->
+    {% if lesson.headline %}
+    <h2 class="text-center my-4">{{ lesson.headline }}</h2>
+    {% endif %}
+    
     {% if lesson.youtube_video_url %}
     <div class="text-center">
         <iframe width="560" height="315" src="{{ lesson.youtube_video_url }}" frameborder="0"
