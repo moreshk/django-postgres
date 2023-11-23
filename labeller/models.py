@@ -28,7 +28,9 @@ class Lesson(models.Model):
     correct_answer = models.IntegerField(null=True, blank=True)
     youtube_video_url = models.URLField(null=True, blank=True)
     correct_answer_image = models.ImageField(upload_to='images/', null=True, blank=True)
-
+    headline = models.CharField(max_length=200, null=True, blank=True)  # new field
+    start_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
     def __str__(self):
         return f"{self.course.name} - Step {self.step_id}"
     
