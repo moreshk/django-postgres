@@ -156,7 +156,8 @@ class TranscribeView(View):
 
         # Generate a unique filename for the audio file
         timestamp = str(int(time.time()))
-        filename = 'audio_' + timestamp
+        audio_filename = 'audio_' + timestamp
+        video_filename = 'video_' + timestamp
 
         ydl_opts = {
             'format': 'bestaudio/best',
@@ -165,18 +166,30 @@ class TranscribeView(View):
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
             }],
-            'outtmpl': filename,  # use the unique filename
+            'outtmpl': audio_filename,  # use the unique filename
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([youtube_url])
 
         # Upload the audio file to Azure
-        with open(filename + '.mp3', 'rb') as f:
-            default_storage.save(filename + '.mp3', f)
+        with open(audio_filename + '.mp3', 'rb') as f:
+            default_storage.save(audio_filename + '.mp3', f)
+
+        # Download the video
+        ydl_opts = {
+            'format': 'best',
+            'outtmpl': video_filename + '.%(ext)s',  # use the unique filename
+        }
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(youtube_url, download=True)
+            video_ext = info_dict['ext']
+
+
 
         # Get the URL of the uploaded audio file
-        audio_url = default_storage.url(filename + '.mp3')
+        audio_url = default_storage.url(audio_filename + '.mp3')
 
         aai.settings.api_key = os.getenv('ASSEMBLY_AI_API_KEY')
         transcriber = aai.Transcriber()
@@ -187,8 +200,7 @@ class TranscribeView(View):
         timed_transcribed_text = transcript.export_subtitles_vtt()
 
         print("Completed Transcription")
-        # Delete the audio file
-        os.remove(filename + '.mp3')
+
 
         logo_filename = None
         if logo_file:
@@ -205,6 +217,16 @@ class TranscribeView(View):
             logo=logo_filename,
             creator=request.user,  # Set the creator to the current user
         )
+
+                # Upload the video file to Azure
+        with open(video_filename + '.' + video_ext, 'rb') as f:
+            video_file = ContentFile(f.read(), name=video_filename + '.' + video_ext)
+            course.video_file.save(video_filename + '.' + video_ext, video_file)
+
+        # Delete the audio and video files
+        os.remove(audio_filename + '.mp3')
+        os.remove(video_filename + '.' + video_ext)
+        
         course.save()
 
         # Post processing
