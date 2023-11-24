@@ -12,6 +12,7 @@ class Course(models.Model):
     transcript = models.TextField(null=True, blank=True)
     timed_transcripts = models.TextField(null=True, blank=True)
     creator = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, related_name='created_courses', null=True)
+    video_file = models.FileField(upload_to='videos/', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -31,6 +32,7 @@ class Lesson(models.Model):
     headline = models.CharField(max_length=200, null=True, blank=True)  # new field
     start_time = models.TimeField(null=True, blank=True)
     end_time = models.TimeField(null=True, blank=True)
+    video_file = models.FileField(upload_to='videos/', null=True, blank=True)
     def __str__(self):
         return f"{self.course.name} - Step {self.step_id}"
     

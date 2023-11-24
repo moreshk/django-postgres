@@ -53,7 +53,8 @@ class TranscribeView(View):
             You will analyze the text and break it down into logical components of one to five sentences each so that only one small concept is discussed in each of them. 
             Note that you are not modifying the text but only breaking down it into small logical parts so that concepts can be explained piecemeal. 
             You will also remove text that references sponsors especially if it does not add to the overall concept that is being explained in the transcript directly. 
-            You will return your response as json with the following column headers, Headline and Dialog. 
+            You will return your response as json with the following column headers, Headline and Dialog.
+            Dialog would be the logically broken up transcript portion and headline would be a title that describes that portions content in brief. 
 
             Transcript: {transcript}
     """,
