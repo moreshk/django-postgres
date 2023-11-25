@@ -20,17 +20,52 @@ from django.http import JsonResponse
 from labeller.models import Lesson
 import json
 
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+from datetime import datetime
+
+import requests
+
 def create_lessons(course, lessons_data):
     for index, lesson_data in enumerate(lessons_data, start=1):
+        # Convert start_time and end_time to datetime.time objects
+        start_time = datetime.strptime(lesson_data['Start time'], '%M:%S.%f').time()
+        end_time = datetime.strptime(lesson_data['End time'], '%M:%S.%f').time()
+
+        # Convert start_time and end_time to seconds
+        start_seconds = start_time.minute * 60 + start_time.second + start_time.microsecond / 1e6
+        end_seconds = end_time.minute * 60 + end_time.second + end_time.microsecond / 1e6
+
+        # Generate a unique filename for the trimmed video
+        trimmed_video_filename = 'trimmed_video_' + str(index) + '.mp4'
+
+        # Download the course video file to a local path
+        course_video_path = 'course_video_' + str(index) + '.mp4'
+        response = requests.get(course.video_file.url, stream=True)
+        with open(course_video_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+
+        # Trim the video
+        ffmpeg_extract_subclip(course_video_path, start_seconds, end_seconds, targetname=trimmed_video_filename)
+
+        # Upload the trimmed video to Azure
+        with open(trimmed_video_filename, 'rb') as f:
+            trimmed_video_file = ContentFile(f.read(), name=trimmed_video_filename)
+            video_file_url = default_storage.save(trimmed_video_filename, trimmed_video_file)
+
+        # Delete the trimmed video file and the downloaded course video file
+        os.remove(trimmed_video_filename)
+        os.remove(course_video_path)
+
         Lesson.objects.create(
             course=course,
             step_id=index * 10,
             dialog=lesson_data['Dialog'],
             headline=lesson_data['Headline'],
-            start_time=lesson_data['Start time'],
-            end_time=lesson_data['End time'],
+            start_time=start_time,
+            end_time=end_time,
+            video_file=video_file_url,
         )
-
 
 @method_decorator(login_required, name='dispatch')
 class TranscribeView(View):
@@ -50,7 +85,7 @@ class TranscribeView(View):
             input_variables=["transcript"],
             template="""You are a course creator that uses Youtube videos as reference. 
             You will be provided a transcript of a video as input. 
-            You will analyze the text and break it down into logical components of one to five sentences each so that only one small concept is discussed in each of them. 
+            You will analyze the text and break it down into logical components of two to five sentences each so that only one small concept is discussed in each of them. 
             Note that you are not modifying the text but only breaking down it into small logical parts so that concepts can be explained piecemeal. 
             You will also remove text that references sponsors especially if it does not add to the overall concept that is being explained in the transcript directly. 
             You will return your response as json with the following column headers, Headline and Dialog.
@@ -226,7 +261,7 @@ class TranscribeView(View):
         # Delete the audio and video files
         os.remove(audio_filename + '.mp3')
         os.remove(video_filename + '.' + video_ext)
-        
+
         course.save()
 
         # Post processing
