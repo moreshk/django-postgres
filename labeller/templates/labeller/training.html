@@ -58,7 +58,7 @@
     {% endif %}
 
     {% if is_last_lesson %}
-        {% if not has_completed_course %}
+    {% if not has_completed_course and course.completion_token_bonus > 0 %}
         <div class="text-center">
             <a href="{% url 'claim_bonus' course.id %}" class="btn btn-success" id="claim-bonus-button">Claim Bonus</a>
         </div>

@@ -1,0 +1,3590 @@
+['So', 'I', 'started', 'doing', 'some', 'journal', 'searches', 'and', 'pretty', 'quickly', 'I', 'found', 'papers', 'from', 'the', '1950s', 'talking', 'about', 'the', 'reanimation', 'of', 'frozen', 'rats', 'and', 'hamsters.', 'Those', 'papers', 'were', 'written', 'by', 'scientists', 'at', 'the', 'National', 'Institute', 'for', 'Medical', 'Research,', 'a', 'government', 'laboratory', 'in', 'Mill', 'Hill', 'in', 'suburban', 'north', 'London.'
+]
+Word timestamps from last index: [
+    {'word': 'The', 'start': 119630, 'end': 119826
+    },
+    {'word': 'best', 'start': 119848, 'end': 120034
+    },
+    {'word': 'analogy', 'start': 120072, 'end': 120526
+    },
+    {'word': "I've", 'start': 120558, 'end': 120658
+    },
+    {'word': 'found', 'start': 120664, 'end': 120834
+    },
+    {'word': 'is', 'start': 120872, 'end': 120978
+    },
+    {'word': 'that', 'start': 120984, 'end': 121106
+    },
+    {'word': "it's", 'start': 121128, 'end': 121278
+    },
+    {'word': 'like', 'start': 121294, 'end': 121522
+    },
+    {'word': 'blowing', 'start': 121576, 'end': 121966
+    },
+    {'word': 'air', 'start': 121998, 'end': 122242
+    },
+    {'word': 'over', 'start': 122296, 'end': 122514
+    },
+    {'word': 'glass', 'start': 122552, 'end': 122766
+    },
+    {'word': 'bottles', 'start': 122798, 'end': 123086
+    },
+    {'word': 'and', 'start': 123118, 'end': 123266
+    },
+    {'word': 'changing', 'start': 123288, 'end': 123518
+    },
+    {'word': 'the', 'start': 123534, 'end': 123666
+    },
+    {'word': 'pitch', 'start': 123688, 'end': 123982
+    },
+    {'word': 'by', 'start': 124046, 'end': 124274
+    },
+    {'word': 'changing', 'start': 124312, 'end': 124558
+    },
+    {'word': 'the', 'start': 124574, 'end': 124658
+    },
+    {'word': 'amount', 'start': 124664, 'end': 124834
+    },
+    {'word': 'of', 'start': 124872, 'end': 124990
+    },
+    {'word': 'water', 'start': 125000, 'end': 125174
+    },
+    {'word': 'inside', 'start': 125212, 'end': 125510
+    },
+    {'word': 'so', 'start': 125580, 'end': 126200
+    },
+    {'word': 'that', 'start': 129050, 'end': 129414
+    },
+    {'word': 'but', 'start': 129452, 'end': 129606
+    },
+    {'word': 'with', 'start': 129628, 'end': 129814
+    },
+    {'word': 'electricity', 'start': 129852, 'end': 130450
+    },
+    {'word': 'look,', 'start': 130530, 'end': 130870
+    },
+    {'word': 'I', 'start': 130940, 'end': 131174
+    },
+    {'word': "don't", 'start': 131212, 'end': 131378
+    },
+    {'word': 'have', 'start': 131394, 'end': 131478
+    },
+    {'word': 'a', 'start': 131484, 'end': 131558
+    },
+    {'word': 'physics', 'start': 131564, 'end': 131826
+    },
+    {'word': 'degree.', 'start': 131858, 'end': 132210
+    },
+    {'word': 'Long', 'start': 132290, 'end': 132534
+    },
+    {'word': 'story', 'start': 132572, 'end': 132774
+    },
+    {'word': 'short,', 'start': 132812, 'end': 133110
+    },
+    {'word': 'a', 'start': 133180, 'end': 133318
+    },
+    {'word': 'magnetron', 'start': 133324, 'end': 134002
+    },
+    {'word': 'converts', 'start': 134066, 'end': 134562
+    },
+    {'word': 'electricity', 'start': 134626, 'end': 135330
+    },
+    {'word': 'into', 'start': 135410, 'end': 135654
+    },
+    {'word': 'electromagnetic', 'start': 135692, 'end': 136514
+    },
+    {'word': 'radiation.', 'start': 136562, 'end': 137298
+    },
+    {'word': 'You', 'start': 137394, 'end': 137606
+    },
+    {'word': 'send', 'start': 137628, 'end': 137766
+    },
+    {'word': 'pulses', 'start': 137788, 'end': 138146
+    },
+    {'word': 'of', 'start': 138178, 'end': 138278
+    },
+    {'word': 'that', 'start': 138284, 'end': 138406
+    },
+    {'word': 'radiation', 'start': 138428, 'end': 138882
+    },
+    {'word': 'out', 'start': 138946, 'end': 139126
+    },
+    {'word': 'into', 'start': 139148, 'end': 139334
+    },
+    {'word': 'the', 'start': 139372, 'end': 139478
+    },
+    {'word': 'sky', 'start': 139484, 'end': 139746
+    },
+    {'word': 'and', 'start': 139778, 'end': 139878
+    },
+    {'word': 'you', 'start': 139884, 'end': 140006
+    },
+    {'word': 'listen', 'start': 140028, 'end': 140214
+    },
+    {'word': 'for', 'start': 140252, 'end': 140358
+    },
+    {'word': 'the', 'start': 140364, 'end': 140486
+    },
+    {'word': 'echoes.', 'start': 140508, 'end': 141010
+    },
+    {'word': "You've", 'start': 141090, 'end': 141346
+    },
+    {'word': 'got', 'start': 141378, 'end': 141526
+    },
+    {'word': 'radar', 'start': 141548, 'end': 141966
+    },
+    {'word': 'and', 'start': 142018, 'end': 142186
+    },
+    {'word': "you've", 'start': 142208, 'end': 142358
+    },
+    {'word': 'helped', 'start': 142374, 'end': 142566
+    },
+    {'word': 'win', 'start': 142598, 'end': 142746
+    },
+    {'word': 'World', 'start': 142768, 'end': 142906
+    },
+    {'word': 'War', 'start': 142928, 'end': 143114
+    },
+    {'word': 'II.', 'start': 143152, 'end': 143798
+    },
+    {'word': 'Or', 'start': 143974, 'end': 144362
+    },
+    {'word': 'you', 'start': 144416, 'end': 144586
+    },
+    {'word': 'could', 'start': 144608, 'end': 144746
+    },
+    {'word': 'put', 'start': 144768, 'end': 144858
+    },
+    {'word': 'a', 'start': 144864, 'end': 144938
+    },
+    {'word': 'magnetron', 'start': 144944, 'end': 145494
+    },
+    {'word': 'inside', 'start': 145542, 'end': 145802
+    },
+    {'word': 'a', 'start': 145856, 'end': 146026
+    },
+    {'word': 'safe', 'start': 146048, 'end': 146342
+    },
+    {'word': 'radiation', 'start': 146406, 'end': 146854
+    },
+    {'word': 'proof', 'start': 146902, 'end': 147126
+    },
+    {'word': 'box', 'start': 147158, 'end': 147354
+    },
+    {'word': 'called', 'start': 147392, 'end': 147546
+    },
+    {'word': 'a', 'start': 147568, 'end': 147658
+    },
+    {'word': 'Faraday', 'start': 147664, 'end': 148086
+    },
+    {'word': 'cage.', 'start': 148118, 'end': 148374
+    },
+    {'word': "You've", 'start': 148422, 'end': 148598
+    },
+    {'word': 'tuned', 'start': 148614, 'end': 148838
+    },
+    {'word': 'the', 'start': 148854, 'end': 148938
+    },
+    {'word': 'wavelength', 'start': 148944, 'end': 149414
+    },
+    {'word': 'so', 'start': 149462, 'end': 149578
+    },
+    {'word': 'that', 'start': 149584, 'end': 149658
+    },
+    {'word': 'water', 'start': 149664, 'end': 149882
+    },
+    {'word': 'absorbs', 'start': 149936, 'end': 150326
+    },
+    {'word': 'the', 'start': 150358, 'end': 150458
+    },
+    {'word': 'radiation', 'start': 150464, 'end': 150806
+    },
+    {'word': 'easily', 'start': 150838, 'end': 151318
+    },
+    {'word': 'and', 'start': 151414, 'end': 151626
+    },
+    {'word': "you've", 'start': 151648, 'end': 151798
+    },
+    {'word': 'got', 'start': 151814, 'end': 151898
+    },
+    {'word': 'a', 'start': 151904, 'end': 151978
+    },
+    {'word': 'microwave', 'start': 151984, 'end': 152890
+    },
+    {'word': 'and', 'start': 153230, 'end': 153546
+    },
+    {'word': 'you', 'start': 153568, 'end': 153670
+    },
+    {'word': 'can', 'start': 153680, 'end': 153806
+    },
+    {'word': 'cook', 'start': 153828, 'end': 154026
+    },
+    {'word': 'lunch.', 'start': 154058, 'end': 154650
+    },
+    {'word': 'The', 'start': 154810, 'end': 155086
+    },
+    {'word': 'technical', 'start': 155108, 'end': 155434
+    },
+    {'word': 'term', 'start': 155482, 'end': 155754
+    },
+    {'word': 'is', 'start': 155802, 'end': 156062
+    },
+    {'word': 'diothermic', 'start': 156116, 'end': 156906
+    },
+    {'word': 'heating.', 'start': 156938, 'end': 157562
+    },
+    {'word': 'And', 'start': 157706, 'end': 158014
+    },
+    {'word': 'less', 'start': 158052, 'end': 158206
+    },
+    {'word': 'than', 'start': 158228, 'end': 158366
+    },
+    {'word': 'a', 'start': 158388, 'end': 158526
+    },
+    {'word': 'year', 'start': 158548, 'end': 158734
+    },
+    {'word': 'after', 'start': 158772, 'end': 158926
+    },
+    {'word': 'the', 'start': 158948, 'end': 159086
+    },
+    {'word': 'melting', 'start': 159108, 'end': 159338
+    },
+    {'word': 'peanut', 'start': 159354, 'end': 159706
+    },
+    {'word': 'bar', 'start': 159738, 'end': 159934
+    },
+    {'word': 'incident,', 'start': 159972, 'end': 160282
+    },
+    {'word': 'which', 'start': 160346, 'end': 160574
+    },
+    {'word': 'could', 'start': 160612, 'end': 160766
+    },
+    {'word': 'so', 'start': 160788, 'end': 160926
+    },
+    {'word': 'easily', 'start': 160948, 'end': 161178
+    },
+    {'word': 'have', 'start': 161194, 'end': 161326
+    },
+    {'word': 'been', 'start': 161348, 'end': 161486
+    },
+    {'word': 'like', 'start': 161508, 'end': 161694
+    },
+    {'word': 'the', 'start': 161732, 'end': 161934
+    },
+    {'word': 'cooked', 'start': 161972, 'end': 162314
+    },
+    {'word': 'hand', 'start': 162362, 'end': 162670
+    },
+    {'word': 'incident', 'start': 162740, 'end': 163210
+    },
+    {'word': 'or', 'start': 163290, 'end': 163534
+    },
+    {'word': 'worse.', 'start': 163572, 'end': 164010
+    },
+    {'word': 'But', 'start': 164090, 'end': 164382
+    },
+    {'word': 'less', 'start': 164436, 'end': 164606
+    },
+    {'word': 'than', 'start': 164628, 'end': 164766
+    },
+    {'word': 'a', 'start': 164788, 'end': 164878
+    },
+    {'word': 'year', 'start': 164884, 'end': 165054
+    },
+    {'word': 'after', 'start': 165092, 'end': 165294
+    },
+    {'word': 'that,', 'start': 165332, 'end': 165678
+    },
+    {'word': 'that', 'start': 165764, 'end': 166014
+    },
+    {'word': "engineer's", 'start': 166052, 'end': 166538
+    },
+    {'word': 'company,', 'start': 166554, 'end': 166782
+    },
+    {'word': 'defence', 'start': 166836, 'end': 167206
+    },
+    {'word': 'contractor', 'start': 167258, 'end': 167774
+    },
+    {'word': 'Raytheon,', 'start': 167822, 'end': 168638
+    },
+    {'word': 'they,', 'start': 168734, 'end': 168994
+    },
+    {'word': 'released', 'start': 169032, 'end': 169374
+    },
+    {'word': 'the', 'start': 169422, 'end': 169586
+    },
+    {'word': 'first', 'start': 169608, 'end': 169938
+    },
+    {'word': 'commercial', 'start': 170024, 'end': 170542
+    },
+    {'word': 'microwave.', 'start': 170606, 'end': 171406
+    },
+    {'word': 'It', 'start': 171518, 'end': 171746
+    },
+    {'word': 'was', 'start': 171768, 'end': 171906
+    },
+    {'word': 'called', 'start': 171928, 'end': 172066
+    },
+    {'word': 'the', 'start': 172088, 'end': 172274
+    },
+    {'word': 'radar', 'start': 172312, 'end': 172734
+    },
+    {'word': 'range.', 'start': 172782, 'end': 173086
+    },
+    {'word': 'It', 'start': 173118, 'end': 173218
+    },
+    {'word': 'was', 'start': 173224, 'end': 173298
+    },
+    {'word': 'the', 'start': 173304, 'end': 173378
+    },
+    {'word': 'size', 'start': 173384, 'end': 173554
+    },
+    {'word': 'of', 'start': 173592, 'end': 173698
+    },
+    {'word': 'a', 'start': 173704, 'end': 173778
+    },
+    {'word': 'fridge,', 'start': 173784, 'end': 174046
+    },
+    {'word': 'it', 'start': 174078, 'end': 174226
+    },
+    {'word': 'had', 'start': 174248, 'end': 174338
+    },
+    {'word': 'to', 'start': 174344, 'end': 174418
+    },
+    {'word': 'be', 'start': 174424, 'end': 174498
+    },
+    {'word': 'actively', 'start': 174504, 'end': 174846
+    },
+    {'word': 'cooled,', 'start': 174878, 'end': 175166
+    },
+    {'word': 'it', 'start': 175198, 'end': 175346
+    },
+    {'word': 'was', 'start': 175368, 'end': 175698
+    },
+    {'word': 'incredibly', 'start': 175784, 'end': 176462
+    },
+    {'word': 'expensive', 'start': 176526, 'end': 177118
+    },
+    {'word': 'and', 'start': 177214, 'end': 177426
+    },
+    {'word': 'it', 'start': 177448, 'end': 177538
+    },
+    {'word': 'was', 'start': 177544, 'end': 177666
+    },
+    {'word': 'designed', 'start': 177688, 'end': 177998
+    },
+    {'word': 'for', 'start': 178014, 'end': 178146
+    },
+    {'word': 'big', 'start': 178168, 'end': 178450
+    },
+    {'word': 'commercial', 'start': 178520, 'end': 178894
+    },
+    {'word': 'kitchens.', 'start': 178942, 'end': 179730
+    },
+    {'word': 'That', 'start': 180170, 'end': 180630
+    },
+    {'word': 'was', 'start': 180700, 'end': 180982
+    },
+    {'word': '1947.', 'start': 181036, 'end': 182118
+    },
+    {'word': 'The', 'start': 182204, 'end': 182406
+    },
+    {'word': 'first', 'start': 182428, 'end': 182566
+    },
+    {'word': 'microwave', 'start': 182588, 'end': 182978
+    },
+    {'word': 'as', 'start': 182994, 'end': 183126
+    },
+    {'word': "we'd", 'start': 183148, 'end': 183298
+    },
+    {'word': 'know', 'start': 183314, 'end': 183398
+    },
+    {'word': 'it', 'start': 183404, 'end': 183526
+    },
+    {'word': 'today.', 'start': 183548, 'end': 183734
+    },
+    {'word': 'A', 'start': 183772, 'end': 183878
+    },
+    {'word': 'cheap', 'start': 183884, 'end': 184066
+    },
+    {'word': 'box', 'start': 184098, 'end': 184342
+    },
+    {'word': 'that', 'start': 184396, 'end': 184518
+    },
+    {'word': 'you', 'start': 184524, 'end': 184646
+    },
+    {'word': 'plug', 'start': 184668, 'end': 184866
+    },
+    {'word': 'in.', 'start': 184898, 'end': 185286
+    },
+    {'word': 'That', 'start': 185388, 'end': 185654
+    },
+    {'word': 'was', 'start': 185692, 'end': 185846
+    },
+    {'word': 'from', 'start': 185868, 'end': 185958
+    },
+    {'word': 'the', 'start': 185964, 'end': 186038
+    },
+    {'word': 'late', 'start': 186044, 'end': 186258
+    },
+    {'word': '1960s,', 'start': 186274, 'end': 186966
+    },
+    {'word': 'once', 'start': 186988, 'end': 187174
+    },
+    {'word': 'magnetron', 'start': 187212, 'end': 187746
+    },
+    {'word': 'technology', 'start': 187778, 'end': 188082
+    },
+    {'word': 'had', 'start': 188156, 'end': 188394
+    },
+    {'word': 'moved', 'start': 188432, 'end': 188646
+    },
+    {'word': 'on', 'start': 188678, 'end': 188778
+    },
+    {'word': 'a', 'start': 188784, 'end': 188906
+    },
+    {'word': 'bit,', 'start': 188928, 'end': 189450
+    },
+    {'word': 'at', 'start': 189600, 'end': 189914
+    },
+    {'word': 'no', 'start': 189952, 'end': 190202
+    },
+    {'word': 'point', 'start': 190256, 'end': 190522
+    },
+    {'word': 'in', 'start': 190576, 'end': 190746
+    },
+    {'word': 'that', 'start': 190768, 'end': 191002
+    },
+    {'word': 'well', 'start': 191056, 'end': 191274
+    },
+    {'word': 'referenced,', 'start': 191312, 'end': 191862
+    },
+    {'word': 'well', 'start': 191926, 'end': 192154
+    },
+    {'word': 'known', 'start': 192192, 'end': 192406
+    },
+    {'word': 'story', 'start': 192438, 'end': 192826
+    },
+    {'word': 'does', 'start': 192928, 'end': 193242
+    },
+    {'word': 'anyone', 'start': 193296, 'end': 193658
+    },
+    {'word': 'mention', 'start': 193744, 'end': 194186
+    },
+    {'word': 'heating', 'start': 194288, 'end': 194694
+    },
+    {'word': 'hamsters', 'start': 194742, 'end': 195254
+    },
+    {'word': 'in', 'start': 195302, 'end': 195466
+    },
+    {'word': 'laboratories', 'start': 195488, 'end': 196054
+    },
+    {'word': 'in', 'start': 196102, 'end': 196218
+    },
+    {'word': 'the', 'start': 196224, 'end': 196346
+    },
+    {'word': '1950s.', 'start': 196368, 'end': 197002
+    },
+    {'word': 'So', 'start': 197056, 'end': 199562
+    },
+    {'word': 'that', 'start': 199616, 'end': 199786
+    },
+    {'word': 'should', 'start': 199808, 'end': 199946
+    },
+    {'word': 'be', 'start': 199968, 'end': 200106
+    },
+    {'word': 'pretty', 'start': 200128, 'end': 200314
+    },
+    {'word': 'easy', 'start': 200352, 'end': 200554
+    },
+    {'word': 'to', 'start': 200592, 'end': 200746
+    },
+    {'word': 'disprove,', 'start': 200768, 'end': 201206
+    },
+    {'word': 'right?', 'start': 201238, 'end': 201434
+    },
+    {'word': "It's", 'start': 201472, 'end': 201638
+    },
+    {'word': 'going', 'start': 201654, 'end': 201738
+    },
+    {'word': 'to', 'start': 201744, 'end': 201806
+    },
+    {'word': 'be', 'start': 201808, 'end': 201890
+    },
+    {'word': 'an', 'start': 201900, 'end': 201978
+    },
+    {'word': 'urban', 'start': 201984, 'end': 202246
+    },
+    {'word': 'legend.', 'start': 202278, 'end': 202566
+    },
+    {'word': 'There', 'start': 202598, 'end': 202746
+    },
+    {'word': 'are', 'start': 202768, 'end': 202858
+    },
+    {'word': 'a', 'start': 202864, 'end': 202938
+    },
+    {'word': 'lot', 'start': 202944, 'end': 203066
+    },
+    {'word': 'of', 'start': 203088, 'end': 203178
+    },
+    {'word': 'urban', 'start': 203184, 'end': 203446
+    },
+    {'word': 'legends', 'start': 203478, 'end': 203858
+    },
+    {'word': 'like', 'start': 203894, 'end': 204046
+    },
+    {'word': 'that.', 'start': 204068, 'end': 204302
+    },
+    {'word': 'So', 'start': 204356, 'end': 204574
+    },
+    {'word': 'I', 'start': 204612, 'end': 204718
+    },
+    {'word': 'started', 'start': 204724, 'end': 204942
+    },
+    {'word': 'doing', 'start': 204996, 'end': 205166
+    },
+    {'word': 'some', 'start': 205188, 'end': 205326
+    },
+    {'word': 'journal', 'start': 205348, 'end': 205626
+    },
+    {'word': 'searches', 'start': 205658, 'end': 205994
+    },
+    {'word': 'and', 'start': 206042, 'end': 206206
+    },
+    {'word': 'pretty', 'start': 206228, 'end': 206414
+    },
+    {'word': 'quickly', 'start': 206452, 'end': 206846
+    },
+    {'word': 'I', 'start': 206948, 'end': 207166
+    },
+    {'word': 'found', 'start': 207188, 'end': 207374
+    },
+    {'word': 'papers', 'start': 207412, 'end': 207786
+    },
+    {'word': 'from', 'start': 207818, 'end': 207918
+    },
+    {'word': 'the', 'start': 207924, 'end': 208046
+    },
+    {'word': '1950s', 'start': 208068, 'end': 208734
+    },
+    {'word': 'talking', 'start': 208772, 'end': 208974
+    },
+    {'word': 'about', 'start': 209012, 'end': 209166
+    },
+    {'word': 'the', 'start': 209188, 'end': 209374
+    },
+    {'word': 'reanimation', 'start': 209412, 'end': 210170
+    },
+    {'word': 'of', 'start': 210250, 'end': 210494
+    },
+    {'word': 'frozen', 'start': 210532, 'end': 210986
+    },
+    {'word': 'rats', 'start': 211018, 'end': 211306
+    },
+    {'word': 'and', 'start': 211338, 'end': 211486
+    },
+    {'word': 'hamsters.', 'start': 211508, 'end': 212106
+    },
+    {'word': 'Those', 'start': 212218, 'end': 212446
+    },
+    {'word': 'papers', 'start': 212468, 'end': 212746
+    },
+    {'word': 'were', 'start': 212778, 'end': 212926
+    },
+    {'word': 'written', 'start': 212948, 'end': 213146
+    },
+    {'word': 'by', 'start': 213178, 'end': 213278
+    },
+    {'word': 'scientists', 'start': 213284, 'end': 213674
+    },
+    {'word': 'at', 'start': 213722, 'end': 213838
+    },
+    {'word': 'the', 'start': 213844, 'end': 214014
+    },
+    {'word': 'National', 'start': 214052, 'end': 214314
+    },
+    {'word': 'Institute', 'start': 214362, 'end': 214746
+    },
+    {'word': 'for', 'start': 214778, 'end': 214926
+    },
+    {'word': 'Medical', 'start': 214948, 'end': 215226
+    },
+    {'word': 'Research,', 'start': 215258, 'end': 215646
+    },
+    {'word': 'a', 'start': 215748, 'end': 215966
+    },
+    {'word': 'government', 'start': 215988, 'end': 216174
+    },
+    {'word': 'laboratory', 'start': 216212, 'end': 216666
+    },
+    {'word': 'in', 'start': 216698, 'end': 216846
+    },
+    {'word': 'Mill', 'start': 216868, 'end': 217054
+    },
+    {'word': 'Hill', 'start': 217092, 'end': 217354
+    },
+    {'word': 'in', 'start': 217402, 'end': 217518
+    },
+    {'word': 'suburban', 'start': 217524, 'end': 217898
+    },
+    {'word': 'north', 'start': 217914, 'end': 218138
+    },
+    {'word': 'London,', 'start': 218154, 'end': 218698
+    },
+    {'word': 'about', 'start': 218794, 'end': 219054
+    },
+    {'word': 'half', 'start': 219092, 'end': 219306
+    },
+    {'word': 'a', 'start': 219348, 'end': 219458
+    },
+    {'word': 'mile', 'start': 219464, 'end': 219646
+    },
+    {'word': 'that', 'start': 219678, 'end': 219826
+    },
+    {'word': 'way.', 'start': 219848, 'end': 220130
+    },
+    {'word': 'I', 'start': 220200, 'end': 220482
+    },
+    {'word': 'would', 'start': 220536, 'end': 220706
+    },
+    {'word': 'have', 'start': 220728, 'end': 220818
+    },
+    {'word': 'filmed', 'start': 220824, 'end': 221054
+    },
+    {'word': 'closer', 'start': 221102, 'end': 221358
+    },
+    {'word': 'to', 'start': 221374, 'end': 221506
+    },
+    {'word': 'that,', 'start': 221528, 'end': 221666
+    },
+    {'word': 'but', 'start': 221688, 'end': 221874
+    },
+    {'word': 'unfortunately', 'start': 221912, 'end': 222238
+    },
+    {'word': 'it', 'start': 222254, 'end': 222338
+    },
+    {'word': 'was', 'start': 222344, 'end': 222466
+    },
+    {'word': 'pulled', 'start': 222488, 'end': 222686
+    },
+    {'word': 'down', 'start': 222718, 'end': 222866
+    },
+    {'word': 'a', 'start': 222888, 'end': 223026
+    },
+    {'word': 'few', 'start': 223048, 'end': 223186
+    },
+    {'word': 'years', 'start': 223208, 'end': 223346
+    },
+    {'word': 'ago', 'start': 223368, 'end': 223554
+    },
+    {'word': 'and', 'start': 223592, 'end': 223746
+    },
+    {'word': 'the', 'start': 223768, 'end': 223858
+    },
+    {'word': 'whole', 'start': 223864, 'end': 224034
+    },
+    {'word': 'area', 'start': 224072, 'end': 224274
+    },
+    {'word': 'is', 'start': 224312, 'end': 224466
+    },
+    {'word': 'now', 'start': 224488, 'end': 224626
+    },
+    {'word': 'a', 'start': 224648, 'end': 224738
+    },
+    {'word': 'load', 'start': 224744, 'end': 224878
+    },
+    {'word': 'of', 'start': 224894, 'end': 225026
+    },
+    {'word': 'new', 'start': 225048, 'end': 225186
+    },
+    {'word': 'build', 'start': 225208, 'end': 225442
+    },
+    {'word': 'housing', 'start': 225496, 'end': 225950
+    },
+    {'word': 'anyway,', 'start': 226030, 'end': 226514
+    },
+    {'word': 'national', 'start': 226632, 'end': 227034
+    },
+    {'word': 'Institute', 'start': 227102, 'end': 227634
+    },
+    {'word': 'for', 'start': 227682, 'end': 227846
+    },
+    {'word': 'Medical', 'start': 227868, 'end': 228242
+    },
+    {'word': 'Research', 'start': 228306, 'end': 228726
+    },
+    {'word': 'in', 'start': 228828, 'end': 228998
+    },
+    {'word': 'the', 'start': 229004, 'end': 229126
+    },
+    {'word': '1950s,', 'start': 229148, 'end': 229942
+    },
+    {'word': 'that', 'start': 229996, 'end': 230214
+    },
+    {'word': 'research', 'start': 230252, 'end': 230598
+    },
+    {'word': 'included', 'start': 230684, 'end': 231154
+    },
+    {'word': 'cryobiology,', 'start': 231202, 'end': 232194
+    },
+    {'word': 'the', 'start': 232242, 'end': 232358
+    },
+    {'word': 'effects', 'start': 232364, 'end': 232578
+    },
+    {'word': 'of', 'start': 232594, 'end': 232726
+    },
+    {'word': 'extreme', 'start': 232748, 'end': 233074
+    },
+    {'word': 'cold', 'start': 233122, 'end': 233346
+    },
+    {'word': 'on', 'start': 233378, 'end': 233526
+    },
+    {'word': 'bodies', 'start': 233548, 'end': 233826
+    },
+    {'word': 'and', 'start': 233858, 'end': 233958
+    },
+    {'word': 'tissue.', 'start': 233964, 'end': 234498
+    },
+    {'word': 'Scientists', 'start': 234594, 'end': 235122
+    },
+    {'word': 'at', 'start': 235186, 'end': 235318
+    },
+    {'word': 'that', 'start': 235324, 'end': 235494
+    },
+    {'word': 'lab', 'start': 235532, 'end': 235830
+    },
+    {'word': 'froze', 'start': 235900, 'end': 236306
+    },
+    {'word': 'rats', 'start': 236338, 'end': 236626
+    },
+    {'word': 'and', 'start': 236658, 'end': 236806
+    },
+    {'word': 'hamsters', 'start': 236828, 'end': 237330
+    },
+    {'word': 'beyond', 'start': 237410, 'end': 237890
+    },
+    {'word': 'the', 'start': 237970, 'end': 238214
+    },
+    {'word': 'point', 'start': 238252, 'end': 238550
+    },
+    {'word': 'of', 'start': 238620, 'end': 238854
+    },
+    {'word': 'death.', 'start': 238892, 'end': 239378
+    },
+    {'word': 'They', 'start': 239474, 'end': 239734
+    },
+    {'word': 'use', 'start': 239772, 'end': 240070
+    },
+    {'word': 'ice', 'start': 240140, 'end': 240466
+    },
+    {'word': 'and', 'start': 240498, 'end': 240694
+    },
+    {'word': 'a', 'start': 240732, 'end': 240838
+    },
+    {'word': 'batopropylene', 'start': 240844, 'end': 241426
+    },
+    {'word': 'glycol,', 'start': 241458, 'end': 241858
+    },
+    {'word': 'which', 'start': 241874, 'end': 241958
+    },
+    {'word': 'is', 'start': 241964, 'end': 242038
+    },
+    {'word': 'airplane', 'start': 242044, 'end': 242350
+    },
+    {'word': 'deicer,', 'start': 242370, 'end': 242758
+    },
+    {'word': 'held', 'start': 242774, 'end': 242998
+    },
+    {'word': 'at', 'start': 243014, 'end': 243098
+    },
+    {'word': 'below', 'start': 243104, 'end': 243274
+    },
+    {'word': 'zero.', 'start': 243312, 'end': 243658
+    },
+    {'word': 'And', 'start': 243744, 'end': 243946
+    },
+    {'word': 'at', 'start': 243968, 'end': 244106
+    },
+    {'word': 'that', 'start': 244128, 'end': 244266
+    },
+    {'word': 'point', 'start': 244288, 'end': 244474
+    },
+    {'word': 'the', 'start': 244512, 'end': 244666
+    },
+    {'word': 'animal', 'start': 244688, 'end': 244966
+    },
+    {'word': 'is', 'start': 244998, 'end': 245194
+    },
+    {'word': 'dead', 'start': 245232, 'end': 245718
+    },
+    {'word': 'and', 'start': 245814, 'end': 246026
+    },
+    {'word': 'will', 'start': 246048, 'end': 246234
+    },
+    {'word': 'not', 'start': 246272, 'end': 246426
+    },
+    {'word': 'recover', 'start': 246448, 'end': 246726
+    },
+    {'word': 'on', 'start': 246758, 'end': 246858
+    },
+    {'word': 'its', 'start': 246864, 'end': 247034
+    },
+    {'word': 'own.', 'start': 247072, 'end': 247322
+    },
+    {'word': 'No', 'start': 247376, 'end': 247546
+    },
+    {'word': 'heart', 'start': 247568, 'end': 247754
+    },
+    {'word': 'rate,', 'start': 247792, 'end': 248042
+    },
+    {'word': 'no', 'start': 248096, 'end': 248314
+    },
+    {'word': 'breathing.', 'start': 248352, 'end': 248822
+    },
+    {'word': 'Core', 'start': 248886, 'end': 249126
+    },
+    {'word': 'temperature', 'start': 249158, 'end': 249414
+    },
+    {'word': 'around', 'start': 249462, 'end': 249674
+    },
+    {'word': 'one', 'start': 249712, 'end': 249866
+    },
+    {'word': 'degree', 'start': 249888, 'end': 250086
+    },
+    {'word': 'Celsius,', 'start': 250118, 'end': 250502
+    },
+    {'word': 'somewhere', 'start': 250566, 'end': 250886
+    },
+    {'word': 'between', 'start': 250918, 'end': 251066
+    },
+    {'word': 'ten', 'start': 251088, 'end': 251274
+    },
+    {'word': 'and', 'start': 251312, 'end': 251418
+    },
+    {'word': '50%', 'start': 251424, 'end': 251754
+    },
+    {'word': 'of', 'start': 251792, 'end': 251898
+    },
+    {'word': 'the', 'start': 251904, 'end': 251978
+    },
+    {'word': "animal's", 'start': 251984, 'end': 252246
+    },
+    {'word': 'body', 'start': 252278, 'end': 252474
+    },
+    {'word': 'water', 'start': 252512, 'end': 252858
+    },
+    {'word': 'frozen', 'start': 252944, 'end': 253410
+    },
+    {'word': 'to', 'start': 253430, 'end': 253614
+    },
+    {'word': 'ice.', 'start': 253652, 'end': 254426
+    },
+    {'word': 'And', 'start': 254618, 'end': 254974
+    },
+    {'word': 'then', 'start': 255012, 'end': 255310
+    },
+    {'word': 'by', 'start': 255380, 'end': 255566
+    },
+    {'word': 'applying', 'start': 255588, 'end': 255914
+    },
+    {'word': 'hot', 'start': 255962, 'end': 256126
+    },
+    {'word': 'spatulas', 'start': 256148, 'end': 256666
+    },
+    {'word': 'to', 'start': 256698, 'end': 256846
+    },
+    {'word': 'the', 'start': 256868, 'end': 256958
+    },
+    {'word': 'chest', 'start': 256964, 'end': 257194
+    },
+    {'word': 'or', 'start': 257242, 'end': 257502
+    },
+    {'word': 'high', 'start': 257556, 'end': 257726
+    },
+    {'word': 'intensity', 'start': 257748, 'end': 258234
+    },
+    {'word': 'hot', 'start': 258282, 'end': 258446
+    },
+    {'word': 'beams', 'start': 258468, 'end': 258778
+    },
+    {'word': 'of', 'start': 258794, 'end': 258926
+    },
+    {'word': 'light,', 'start': 258948, 'end': 259470
+    },
+    {'word': 'the', 'start': 259620, 'end': 259886
+    },
+    {'word': 'researchers', 'start': 259908, 'end': 260346
+    },
+    {'word': 'will', 'start': 260378, 'end': 260574
+    },
+    {'word': 'try', 'start': 260612, 'end': 260766
+    },
+    {'word': 'to', 'start': 260788, 'end': 260926
+    },
+    {'word': 'warm', 'start': 260948, 'end': 261226
+    },
+    {'word': 'the', 'start': 261258, 'end': 261358
+    },
+    {'word': 'animals', 'start': 261364, 'end': 261674
+    },
+    {'word': 'up', 'start': 261722, 'end': 261886
+    },
+    {'word': 'and', 'start': 261908, 'end': 262094
+    },
+    {'word': 'bring', 'start': 262132, 'end': 262286
+    },
+    {'word': 'them', 'start': 262308, 'end': 262542
+    },
+    {'word': 'back', 'start': 262596, 'end': 262814
+    },
+    {'word': 'to', 'start': 262852, 'end': 263006
+    },
+    {'word': 'life.', 'start': 263028, 'end': 263310
+    },
+    {'word': 'The', 'start': 263380, 'end': 263518
+    },
+    {'word': 'success', 'start': 263524, 'end': 263742
+    },
+    {'word': 'rate', 'start': 263796, 'end': 264014
+    },
+    {'word': "wasn't", 'start': 264052, 'end': 264266
+    },
+    {'word': 'great', 'start': 264298, 'end': 264494
+    },
+    {'word': 'and', 'start': 264532, 'end': 264638
+    },
+    {'word': 'the', 'start': 264644, 'end': 264718
+    },
+    {'word': 'animals', 'start': 264724, 'end': 264986
+    },
+    {'word': 'were', 'start': 265018, 'end': 265118
+    },
+    {'word': 'often', 'start': 265124, 'end': 265294
+    },
+    {'word': 'left', 'start': 265332, 'end': 265486
+    },
+    {'word': 'with', 'start': 265508, 'end': 265646
+    },
+    {'word': 'burns,', 'start': 265668, 'end': 266026
+    },
+    {'word': 'but', 'start': 266058, 'end': 266446
+    },
+    {'word': 'it', 'start': 266548, 'end': 266814
+    },
+    {'word': 'did', 'start': 266852, 'end': 267114
+    },
+    {'word': 'sometimes', 'start': 267172, 'end': 267586
+    },
+    {'word': 'work.', 'start': 267688, 'end': 268434
+    },
+    {'word': "We'll", 'start': 268632, 'end': 268958
+    },
+    {'word': 'get', 'start': 268974, 'end': 269106
+    },
+    {'word': 'to', 'start': 269128, 'end': 269314
+    },
+    {'word': 'why', 'start': 269352, 'end': 269506
+    },
+    {'word': 'they', 'start': 269528, 'end': 269666
+    },
+    {'word': 'were', 'start': 269688, 'end': 269778
+    },
+    {'word': 'doing', 'start': 269784, 'end': 269906
+    },
+    {'word': 'that', 'start': 269928, 'end': 270066
+    },
+    {'word': 'later,', 'start': 270088, 'end': 270274
+    },
+    {'word': 'but', 'start': 270312, 'end': 270466
+    },
+    {'word': 'by', 'start': 270488, 'end': 270674
+    },
+    {'word': '1955,', 'start': 270712, 'end': 271538
+    },
+    {'word': 'one', 'start': 271624, 'end': 271874
+    },
+    {'word': 'of', 'start': 271912, 'end': 272018
+    },
+    {'word': 'the', 'start': 272024, 'end': 272098
+    },
+    {'word': 'researchers', 'start': 272104, 'end': 272526
+    },
+    {'word': 'has', 'start': 272558, 'end': 272706
+    },
+    {'word': 'the', 'start': 272728, 'end': 272818
+    },
+    {'word': 'idea', 'start': 272824, 'end': 272994
+    },
+    {'word': 'to', 'start': 273032, 'end': 273186
+    },
+    {'word': 'use', 'start': 273208, 'end': 273346
+    },
+    {'word': 'a', 'start': 273368, 'end': 273458
+    },
+    {'word': 'magnetron', 'start': 273464, 'end': 274238
+    },
+    {'word': 'reasoning', 'start': 274334, 'end': 274718
+    },
+    {'word': 'that', 'start': 274734, 'end': 274866
+    },
+    {'word': "it'd", 'start': 274888, 'end': 275086
+    },
+    {'word': 'be', 'start': 275118, 'end': 275218
+    },
+    {'word': 'a', 'start': 275224, 'end': 275298
+    },
+    {'word': 'lot', 'start': 275304, 'end': 275426
+    },
+    {'word': 'more', 'start': 275448, 'end': 275586
+    },
+    {'word': 'safe', 'start': 275608, 'end': 275806
+    },
+    {'word': 'and', 'start': 275838, 'end': 275986
+    },
+    {'word': 'humane', 'start': 276008, 'end': 276318
+    },
+    {'word': 'to', 'start': 276334, 'end': 276418
+    },
+    {'word': 'reheat', 'start': 276424, 'end': 276718
+    },
+    {'word': 'the', 'start': 276734, 'end': 276818
+    },
+    {'word': 'whole', 'start': 276824, 'end': 276994
+    },
+    {'word': 'animal', 'start': 277032, 'end': 277246
+    },
+    {'word': 'at', 'start': 277278, 'end': 277378
+    },
+    {'word': 'once,', 'start': 277384, 'end': 277602
+    },
+    {'word': 'rather', 'start': 277656, 'end': 277826
+    },
+    {'word': 'than', 'start': 277848, 'end': 277986
+    },
+    {'word': 'risk', 'start': 278008, 'end': 278206
+    },
+    {'word': 'burning', 'start': 278238, 'end': 278526
+    },
+    {'word': 'it.', 'start': 278558, 'end': 278898
+    },
+    {'word': 'Actually,', 'start': 278984, 'end': 279342
+    },
+    {'word': 'I', 'start': 279416, 'end': 279606
+    },
+    {'word': 'say', 'start': 279628, 'end': 279814
+    },
+    {'word': 'one', 'start': 279852, 'end': 279958
+    },
+    {'word': 'of', 'start': 279964, 'end': 280086
+    },
+    {'word': 'the', 'start': 280108, 'end': 280198
+    },
+    {'word': 'researchers.', 'start': 280204, 'end': 280626
+    },
+    {'word': "There's", 'start': 280658, 'end': 280898
+    },
+    {'word': 'a', 'start': 280914, 'end': 280998
+    },
+    {'word': 'name', 'start': 281004, 'end': 281126
+    },
+    {'word': 'on', 'start': 281148, 'end': 281286
+    },
+    {'word': 'that', 'start': 281308, 'end': 281446
+    },
+    {'word': 'paper', 'start': 281468, 'end': 281846
+    },
+    {'word': 'that', 'start': 281948, 'end': 282262
+    },
+    {'word': 'might', 'start': 282316, 'end': 282486
+    },
+    {'word': 'be', 'start': 282508, 'end': 282598
+    },
+    {'word': 'a', 'start': 282604, 'end': 282678
+    },
+    {'word': 'bit', 'start': 282684, 'end': 282806
+    },
+    {'word': 'familiar.', 'start': 282828, 'end': 283378
+    },
+    {'word': 'James', 'start': 283474, 'end': 283874
+    },
+    {'word': 'Lovelock,', 'start': 283922, 'end': 284514
+    },
+    {'word': 'one', 'start': 284562, 'end': 284726
+    },
+    {'word': 'of', 'start': 284748, 'end': 284838
+    },
+    {'word': 'the', 'start': 284844, 'end': 284966
+    },
+    {'word': 'last', 'start': 284988, 'end': 285222
+    },
+    {'word': 'independent', 'start': 285276, 'end': 285826
+    },
+    {'word': 'scientists.', 'start': 285858, 'end': 286274
+    },
+    {'word': 'Born', 'start': 286322, 'end': 286578
+    },
+    {'word': 'in', 'start': 286594, 'end': 286726
+    },
+    {'word': '1919,', 'start': 286748, 'end': 287490
+    },
+    {'word': 'back', 'start': 287570, 'end': 287814
+    },
+    {'word': 'when', 'start': 287852, 'end': 288054
+    },
+    {'word': 'scientists', 'start': 288092, 'end': 288434
+    },
+    {'word': 'could', 'start': 288482, 'end': 288598
+    },
+    {'word': 'be', 'start': 288604, 'end': 288678
+    },
+    {'word': 'an', 'start': 288684, 'end': 288806
+    },
+    {'word': 'entire', 'start': 288828, 'end': 289062
+    },
+    {'word': 'job', 'start': 289116, 'end': 289334
+    },
+    {'word': 'description,', 'start': 289372, 'end': 289746
+    },
+    {'word': 'rather', 'start': 289778, 'end': 289974
+    },
+    {'word': 'than', 'start': 290012, 'end': 290214
+    },
+    {'word': 'botanist', 'start': 290252, 'end': 290786
+    },
+    {'word': 'or', 'start': 290818, 'end': 290930
+    },
+    {'word': 'physicist', 'start': 290940, 'end': 291286
+    },
+    {'word': 'or', 'start': 291318, 'end': 291466
+    },
+    {'word': 'computational', 'start': 291488, 'end': 291942
+    },
+    {'word': 'linguist,', 'start': 292006, 'end': 292550
+    },
+    {'word': 'someone', 'start': 292630, 'end': 292922
+    },
+    {'word': 'who', 'start': 292976, 'end': 293146
+    },
+    {'word': 'worked', 'start': 293168, 'end': 293354
+    },
+    {'word': 'across', 'start': 293392, 'end': 293690
+    },
+    {'word': 'disciplines', 'start': 293760, 'end': 294326
+    },
+    {'word': 'on', 'start': 294358, 'end': 294506
+    },
+    {'word': 'whatever', 'start': 294528, 'end': 294714
+    },
+    {'word': 'they', 'start': 294752, 'end': 294906
+    },
+    {'word': 'found', 'start': 294928, 'end': 295114
+    },
+    {'word': 'interesting', 'start': 295152, 'end': 295498
+    },
+    {'word': 'or', 'start': 295584, 'end': 295930
+    },
+    {'word': 'whatever', 'start': 296000, 'end': 296282
+    },
+    {'word': 'they', 'start': 296336, 'end': 296458
+    },
+    {'word': 'were', 'start': 296464, 'end': 296586
+    },
+    {'word': 'hired', 'start': 296608, 'end': 296886
+    },
+    {'word': 'to', 'start': 296918, 'end': 297066
+    },
+    {'word': 'do.', 'start': 297088, 'end': 297562
+    },
+    {'word': 'Lovelock', 'start': 297696, 'end': 298246
+    },
+    {'word': 'is', 'start': 298278, 'end': 298378
+    },
+    {'word': 'best', 'start': 298384, 'end': 298506
+    },
+    {'word': 'known', 'start': 298528, 'end': 298678
+    },
+    {'word': 'for,', 'start': 298694, 'end': 298826
+    },
+    {'word': 'inventing', 'start': 298848, 'end': 299126
+    },
+    {'word': 'gaia', 'start': 299158, 'end': 299462
+    },
+    {'word': 'theory,', 'start': 299526, 'end': 299814
+    },
+    {'word': 'the', 'start': 299862, 'end': 300026
+    },
+    {'word': 'idea', 'start': 300048, 'end': 300282
+    },
+    {'word': 'of', 'start': 300336, 'end': 300506
+    },
+    {'word': 'Earth', 'start': 300528, 'end': 300774
+    },
+    {'word': 'as', 'start': 300822, 'end': 300986
+    },
+    {'word': 'a', 'start': 301008, 'end': 301098
+    },
+    {'word': 'self', 'start': 301104, 'end': 301274
+    },
+    {'word': 'regulating', 'start': 301312, 'end': 301734
+    },
+    {'word': 'system.', 'start': 301782, 'end': 302282
+    },
+    {'word': 'He', 'start': 302416, 'end': 302666
+    },
+    {'word': 'also', 'start': 302688, 'end': 302874
+    },
+    {'word': 'invented', 'start': 302912, 'end': 303206
+    },
+    {'word': 'the', 'start': 303238, 'end': 303338
+    },
+    {'word': 'electron', 'start': 303344, 'end': 303734
+    },
+    {'word': 'capture', 'start': 303782, 'end': 304086
+    },
+    {'word': 'detector,', 'start': 304118, 'end': 304626
+    },
+    {'word': 'which', 'start': 304678, 'end': 304846
+    },
+    {'word': 'found', 'start': 304868, 'end': 305102
+    },
+    {'word': 'CFCs', 'start': 305156, 'end': 305658
+    },
+    {'word': 'in', 'start': 305674, 'end': 305758
+    },
+    {'word': 'the', 'start': 305764, 'end': 305886
+    },
+    {'word': 'atmosphere', 'start': 305908, 'end': 306346
+    },
+    {'word': 'and', 'start': 306378, 'end': 306526
+    },
+    {'word': 'helped', 'start': 306548, 'end': 306746
+    },
+    {'word': 'discover', 'start': 306778, 'end': 307066
+    },
+    {'word': 'the', 'start': 307098, 'end': 307198
+    },
+    {'word': 'ozone', 'start': 307204, 'end': 307626
+    },
+    {'word': 'hole', 'start': 307658, 'end': 308058
+    },
+    {'word': 'hardware', 'start': 308154, 'end': 308682
+    },
+    {'word': 'that', 'start': 308746, 'end': 308878
+    },
+    {'word': 'he', 'start': 308884, 'end': 309006
+    },
+    {'word': 'helped', 'start': 309028, 'end': 309226
+    },
+    {'word': 'design', 'start': 309258, 'end': 309454
+    },
+    {'word': 'for', 'start': 309492, 'end': 309694
+    },
+    {'word': 'NASA', 'start': 309732, 'end': 310026
+    },
+    {'word': 'is', 'start': 310058, 'end': 310254
+    },
+    {'word': 'sitting', 'start': 310292, 'end': 310506
+    },
+    {'word': 'on', 'start': 310538, 'end': 310686
+    },
+    {'word': 'Mars', 'start': 310708, 'end': 311034
+    },
+    {'word': 'because', 'start': 311082, 'end': 311294
+    },
+    {'word': 'it', 'start': 311332, 'end': 311486
+    },
+    {'word': 'landed', 'start': 311508, 'end': 311738
+    },
+    {'word': 'there', 'start': 311754, 'end': 311886
+    },
+    {'word': 'with', 'start': 311908, 'end': 312046
+    },
+    {'word': 'the', 'start': 312068, 'end': 312158
+    },
+    {'word': 'Viking', 'start': 312164, 'end': 312442
+    },
+    {'word': 'probes', 'start': 312506, 'end': 312874
+    },
+    {'word': 'in', 'start': 312922, 'end': 313134
+    },
+    {'word': '1976.', 'start': 313172, 'end': 314254
+    },
+    {'word': 'And', 'start': 314372, 'end': 314702
+    },
+    {'word': 'one', 'start': 314756, 'end': 314926
+    },
+    {'word': 'of', 'start': 314948, 'end': 315086
+    },
+    {'word': 'the', 'start': 315108, 'end': 315198
+    },
+    {'word': 'earlier', 'start': 315204, 'end': 315430
+    },
+    {'word': 'projects', 'start': 315450, 'end': 315758
+    },
+    {'word': 'in', 'start': 315774, 'end': 315858
+    },
+    {'word': 'his', 'start': 315864, 'end': 315986
+    },
+    {'word': 'career,', 'start': 316008, 'end': 316334
+    },
+    {'word': 'back', 'start': 316382, 'end': 316546
+    },
+    {'word': 'in', 'start': 316568, 'end': 316658
+    },
+    {'word': 'the', 'start': 316664, 'end': 316738
+    },
+    {'word': '1950s,', 'start': 316744, 'end': 317570
+    },
+    {'word': 'was', 'start': 317640, 'end': 317874
+    },
+    {'word': 'at', 'start': 317912, 'end': 318066
+    },
+    {'word': 'the', 'start': 318088, 'end': 318274
+    },
+    {'word': 'National', 'start': 318312, 'end': 318574
+    },
+    {'word': 'Institute', 'start': 318622, 'end': 319086
+    },
+    {'word': 'for', 'start': 319118, 'end': 319266
+    },
+    {'word': 'Medical', 'start': 319288, 'end': 319566
+    },
+    {'word': 'Research,', 'start': 319598, 'end': 320034
+    },
+    {'word': 'freezing', 'start': 320152, 'end': 320606
+    },
+    {'word': 'rats', 'start': 320638, 'end': 320894
+    },
+    {'word': 'and', 'start': 320942, 'end': 321058
+    },
+    {'word': 'hamsters.', 'start': 321064, 'end': 321454
+    },
+    {'word': 'And', 'start': 321502, 'end': 321714
+    },
+    {'word': 'he', 'start': 321752, 'end': 321906
+    },
+    {'word': 'had', 'start': 321928, 'end': 322066
+    },
+    {'word': 'the', 'start': 322088, 'end': 322226
+    },
+    {'word': 'idea', 'start': 322248, 'end': 322578
+    },
+    {'word': 'to', 'start': 322664, 'end': 322866
+    },
+    {'word': 'use', 'start': 322888, 'end': 323074
+    },
+    {'word': 'microwave', 'start': 323112, 'end': 323694
+    },
+    {'word': 'diothermy', 'start': 323742, 'end': 324590
+    },
+    {'word': 'diathamy', 'start': 324670, 'end': 325598
+    },
+    {'word': 'diath', 'start': 325694, 'end': 326530
+    },
+    {'word': 'diothermy,', 'start': 329210, 'end': 330274
+    },
+    {'word': 'to', 'start': 330322, 'end': 330486
+    },
+    {'word': 'reheat', 'start': 330508, 'end': 330946
+    },
+    {'word': 'them.', 'start': 330978, 'end': 331366
+    },
+    {'word': 'But', 'start': 331468, 'end': 331734
+    },
+    {'word': 'the', 'start': 331772, 'end': 331974
+    },
+    {'word': 'papers', 'start': 332012, 'end': 332386
+    },
+    {'word': 'and', 'start': 332418, 'end': 332566
+    },
+    {'word': 'anecdotes', 'start': 332588, 'end': 333186
+    },
+    {'word': 'from', 'start': 333218, 'end': 333366
+    },
+    {'word': 'back', 'start': 333388, 'end': 333526
+    },
+    {'word': 'then', 'start': 333548, 'end': 333782
+    },
+    {'word': 'all', 'start': 333836, 'end': 334054
+    },
+    {'word': 'seem', 'start': 334092, 'end': 334258
+    },
+    {'word': 'to', 'start': 334274, 'end': 334358
+    },
+    {'word': 'contradict', 'start': 334364, 'end': 334786
+    },
+    {'word': 'each', 'start': 334818, 'end': 334966
+    },
+    {'word': 'other.', 'start': 334988, 'end': 335126
+    },
+    {'word': 'The', 'start': 335148, 'end': 335286
+    },
+    {'word': 'timeline', 'start': 335308, 'end': 335586
+    },
+    {'word': 'is', 'start': 335618, 'end': 335766
+    },
+    {'word': 'difficult', 'start': 335788, 'end': 335974
+    },
+    {'word': 'to', 'start': 336012, 'end': 336118
+    },
+    {'word': 'piece', 'start': 336124, 'end': 336294
+    },
+    {'word': 'together.', 'start': 336332, 'end': 336534
+    },
+    {'word': 'There', 'start': 336572, 'end': 336726
+    },
+    {'word': 'are', 'start': 336748, 'end': 336886
+    },
+    {'word': 'reliable', 'start': 336908, 'end': 337266
+    },
+    {'word': 'sources', 'start': 337298, 'end': 337778
+    },
+    {'word': 'with', 'start': 337874, 'end': 338182
+    },
+    {'word': 'completely', 'start': 338236, 'end': 338598
+    },
+    {'word': 'different', 'start': 338684, 'end': 338982
+    },
+    {'word': 'stories', 'start': 339036, 'end': 339314
+    },
+    {'word': 'and', 'start': 339362, 'end': 339526
+    },
+    {'word': 'claims.', 'start': 339548, 'end': 340310
+    },
+    {'word': 'So', 'start': 340650, 'end': 341254
+    },
+    {'word': 'I', 'start': 341372, 'end': 341654
+    },
+    {'word': 'went', 'start': 341692, 'end': 341894
+    },
+    {'word': 'to', 'start': 341932, 'end': 342038
+    },
+    {'word': 'ask', 'start': 342044, 'end': 342214
+    },
+    {'word': 'him', 'start': 342252, 'end': 342418
+    },
+    {'word': 'about', 'start': 342444, 'end': 342634
+    },
+    {'word': 'it.', 'start': 342672, 'end': 342922
+    },
+    {'word': 'Do', 'start': 342976, 'end': 343146
+    },
+    {'word': 'you', 'start': 343168, 'end': 343258
+    },
+    {'word': 'know', 'start': 343264, 'end': 343434
+    },
+    {'word': "you're", 'start': 343472, 'end': 343686
+    },
+    {'word': 'the', 'start': 343718, 'end': 343914
+    },
+    {'word': 'first', 'start': 343952, 'end': 344202
+    },
+    {'word': 'person', 'start': 344256, 'end': 344522
+    },
+    {'word': 'to', 'start': 344576, 'end': 344794
+    },
+    {'word': 'come', 'start': 344832, 'end': 344986
+    },
+    {'word': 'and', 'start': 345008, 'end': 345146
+    },
+    {'word': 'ask', 'start': 345168, 'end': 345402
+    },
+    {'word': 'me', 'start': 345456, 'end': 345674
+    },
+    {'word': 'about', 'start': 345712, 'end': 345914
+    },
+    {'word': 'the', 'start': 345952, 'end': 346058
+    },
+    {'word': 'freezing', 'start': 346064, 'end': 346534
+    },
+    {'word': 'work?', 'start': 346582, 'end': 346890
+    },
+    {'word': 'Because', 'start': 346960, 'end': 347194
+    },
+    {'word': 'James', 'start': 347232, 'end': 347494
+    },
+    {'word': 'Lovelock,', 'start': 347542, 'end': 348054
+    },
+    {'word': 'at', 'start': 348102, 'end': 348266
+    },
+    {'word': '101', 'start': 348288, 'end': 348826
+    },
+    {'word': 'years', 'start': 348848, 'end': 349034
+    },
+    {'word': 'old,', 'start': 349072, 'end': 349322
+    },
+    {'word': 'lives', 'start': 349376, 'end': 349642
+    },
+    {'word': 'somewhere', 'start': 349696, 'end': 349926
+    },
+    {'word': 'vaguely', 'start': 349958, 'end': 350294
+    },
+    {'word': 'around', 'start': 350342, 'end': 350506
+    },
+    {'word': 'here', 'start': 350528, 'end': 350714
+    },
+    {'word': 'on', 'start': 350752, 'end': 350858
+    },
+    {'word': 'the', 'start': 350864, 'end': 350938
+    },
+    {'word': 'south', 'start': 350944, 'end': 351126
+    },
+    {'word': 'coast', 'start': 351158, 'end': 351366
+    },
+    {'word': 'of', 'start': 351398, 'end': 351498
+    },
+    {'word': 'England,', 'start': 351504, 'end': 351862
+    },
+    {'word': 'goes', 'start': 351926, 'end': 352118
+    },
+    {'word': 'for', 'start': 352144, 'end': 352286
+    },
+    {'word': 'a', 'start': 352308, 'end': 352398
+    },
+    {'word': 'walk', 'start': 352404, 'end': 352526
+    },
+    {'word': 'along', 'start': 352548, 'end': 352734
+    },
+    {'word': 'the', 'start': 352772, 'end': 352878
+    },
+    {'word': 'coast', 'start': 352884, 'end': 353114
+    },
+    {'word': 'every', 'start': 353162, 'end': 353374
+    },
+    {'word': 'day', 'start': 353412, 'end': 353758
+    },
+    {'word': 'and', 'start': 353844, 'end': 354142
+    },
+    {'word': 'was', 'start': 354196, 'end': 354366
+    },
+    {'word': 'happy', 'start': 354388, 'end': 354622
+    },
+    {'word': 'to', 'start': 354676, 'end': 354798
+    },
+    {'word': 'be', 'start': 354804, 'end': 354926
+    },
+    {'word': 'interviewed.', 'start': 354948, 'end': 355578
+    },
+    {'word': 'One', 'start': 355674, 'end': 355982
+    },
+    {'word': 'biologist,', 'start': 356036, 'end': 356682
+    },
+    {'word': 'Audrey', 'start': 356746, 'end': 357226
+    },
+    {'word': 'Smith,', 'start': 357258, 'end': 357818
+    },
+    {'word': 'was', 'start': 357914, 'end': 358174
+    },
+    {'word': 'able', 'start': 358212, 'end': 358366
+    },
+    {'word': 'to', 'start': 358388, 'end': 358622
+    },
+    {'word': 'revive', 'start': 358676, 'end': 359402
+    },
+    {'word': 'a', 'start': 359546, 'end': 359854
+    },
+    {'word': 'hamster', 'start': 359892, 'end': 360442
+    },
+    {'word': 'that', 'start': 360506, 'end': 360734
+    },
+    {'word': 'had', 'start': 360772, 'end': 360974
+    },
+    {'word': 'been', 'start': 361012, 'end': 361214
+    },
+    {'word': 'frozen.', 'start': 361252, 'end': 361898
+    },
+    {'word': 'When', 'start': 361994, 'end': 362206
+    },
+    {'word': 'they', 'start': 362228, 'end': 362414
+    },
+    {'word': 'woke', 'start': 362452, 'end': 362666
+    },
+    {'word': 'up,', 'start': 362698, 'end': 362894
+    },
+    {'word': 'they', 'start': 362932, 'end': 363086
+    },
+    {'word': 'got', 'start': 363108, 'end': 363294
+    },
+    {'word': 'a', 'start': 363332, 'end': 363486
+    },
+    {'word': 'gigantic', 'start': 363508, 'end': 364154
+    },
+    {'word': 'burn', 'start': 364202, 'end': 364682
+    },
+    {'word': 'all', 'start': 364746, 'end': 364926
+    },
+    {'word': 'across', 'start': 364948, 'end': 365230
+    },
+    {'word': 'their', 'start': 365300, 'end': 365534
+    },
+    {'word': 'chest', 'start': 365572, 'end': 365894
+    },
+    {'word': 'and', 'start': 365962, 'end': 366146
+    },
+    {'word': 'that', 'start': 366168, 'end': 366354
+    },
+    {'word': 'must', 'start': 366392, 'end': 366594
+    },
+    {'word': 'have', 'start': 366632, 'end': 366786
+    },
+    {'word': 'been', 'start': 366808, 'end': 366994
+    },
+    {'word': 'pretty', 'start': 367032, 'end': 367282
+    },
+    {'word': 'painful.', 'start': 367336, 'end': 367918
+    },
+    {'word': 'And', 'start': 368014, 'end': 368226
+    },
+    {'word': 'it', 'start': 368248, 'end': 368386
+    },
+    {'word': 'was', 'start': 368408, 'end': 368546
+    },
+    {'word': 'messy.', 'start': 368568, 'end': 368974
+    },
+    {'word': 'I', 'start': 369022, 'end': 369234
+    },
+    {'word': 'thought,', 'start': 369272, 'end': 369522
+    },
+    {'word': 'this', 'start': 369576, 'end': 369746
+    },
+    {'word': 'is', 'start': 369768, 'end': 370050
+    },
+    {'word': 'a', 'start': 370120, 'end': 370306
+    },
+    {'word': 'lousy', 'start': 370328, 'end': 370734
+    },
+    {'word': 'way', 'start': 370782, 'end': 370946
+    },
+    {'word': 'to', 'start': 370968, 'end': 371106
+    },
+    {'word': 'do', 'start': 371128, 'end': 371266
+    },
+    {'word': 'it.', 'start': 371288, 'end': 371426
+    },
+    {'word': 'So', 'start': 371448, 'end': 371634
+    },
+    {'word': 'I', 'start': 371672, 'end': 371826
+    },
+    {'word': 'said,', 'start': 371848, 'end': 372034
+    },
+    {'word': 'Why', 'start': 372072, 'end': 372226
+    },
+    {'word': "don't", 'start': 372248, 'end': 372446
+    },
+    {'word': 'you', 'start': 372478, 'end': 372626
+    },
+    {'word': 'use', 'start': 372648, 'end': 372834
+    },
+    {'word': 'diothermic?', 'start': 372872, 'end': 373822
+    },
+    {'word': 'Potentialings', 'start': 373886, 'end': 374986
+    },
+    {'word': 'of', 'start': 375118, 'end': 375414
+    },
+    {'word': 'my', 'start': 375452, 'end': 375606
+    },
+    {'word': 'own', 'start': 375628, 'end': 375814
+    },
+    {'word': 'money?', 'start': 375852, 'end': 376390
+    },
+    {'word': 'I', 'start': 376540, 'end': 376854
+    },
+    {'word': 'bought', 'start': 376892, 'end': 377202
+    },
+    {'word': 'a', 'start': 377266, 'end': 377494
+    },
+    {'word': 'surplus', 'start': 377532, 'end': 378546
+    },
+    {'word': 'RAF', 'start': 378738, 'end': 379830
+    },
+    {'word': 'transmitter,', 'start': 380810, 'end': 382070
+    },
+    {'word': 'joined', 'start': 382570, 'end': 382994
+    },
+    {'word': 'it', 'start': 383042, 'end': 383206
+    },
+    {'word': 'up', 'start': 383228, 'end': 383318
+    },
+    {'word': 'and', 'start': 383324, 'end': 383446
+    },
+    {'word': 'sure', 'start': 383468, 'end': 383654
+    },
+    {'word': 'enough,', 'start': 383692, 'end': 383942
+    },
+    {'word': 'it', 'start': 383996, 'end': 384166
+    },
+    {'word': 'poured', 'start': 384188, 'end': 384434
+    },
+    {'word': 'out', 'start': 384482, 'end': 384790
+    },
+    {'word': '30', 'start': 384860, 'end': 385142
+    },
+    {'word': 'watts', 'start': 385196, 'end': 385602
+    },
+    {'word': 'at', 'start': 385666, 'end': 385942
+    },
+    {'word': '30', 'start': 385996, 'end': 386262
+    },
+    {'word': 'MHz,', 'start': 386316, 'end': 387074
+    },
+    {'word': 'which', 'start': 387122, 'end': 387334
+    },
+    {'word': 'is', 'start': 387372, 'end': 387526
+    },
+    {'word': 'just', 'start': 387548, 'end': 387734
+    },
+    {'word': 'about', 'start': 387772, 'end': 388022
+    },
+    {'word': 'right.', 'start': 388076, 'end': 388630
+    },
+    {'word': 'And', 'start': 388780, 'end': 389094
+    },
+    {'word': 'I', 'start': 389132, 'end': 389298
+    },
+    {'word': 'took', 'start': 389324, 'end': 389514
+    },
+    {'word': 'it', 'start': 389552, 'end': 389706
+    },
+    {'word': 'into', 'start': 389728, 'end': 389962
+    },
+    {'word': 'the', 'start': 390016, 'end': 390234
+    },
+    {'word': 'lab', 'start': 390272, 'end': 390522
+    },
+    {'word': 'the', 'start': 390576, 'end': 390746
+    },
+    {'word': 'next', 'start': 390768, 'end': 391050
+    },
+    {'word': 'day', 'start': 391120, 'end': 391834
+    },
+    {'word': 'and', 'start': 392032, 'end': 392538
+    },
+    {'word': 'said,', 'start': 392624, 'end': 392874
+    },
+    {'word': 'look,', 'start': 392912, 'end': 393354
+    },
+    {'word': "here's", 'start': 393472, 'end': 393766
+    },
+    {'word': 'your', 'start': 393798, 'end': 394042
+    },
+    {'word': 'diothermic.', 'start': 394096, 'end': 395222
+    },
+    {'word': 'I', 'start': 395366, 'end': 395674
+    },
+    {'word': 'thought,', 'start': 395712, 'end': 395914
+    },
+    {'word': 'this', 'start': 395952, 'end': 396154
+    },
+    {'word': 'is', 'start': 396192, 'end': 396346
+    },
+    {'word': 'very', 'start': 396368, 'end': 396554
+    },
+    {'word': 'untidy.', 'start': 396592, 'end': 397526
+    },
+    {'word': 'Made', 'start': 397638, 'end': 397962
+    },
+    {'word': 'some', 'start': 398016, 'end': 398234
+    },
+    {'word': 'inquiries', 'start': 398272, 'end': 398726
+    },
+    {'word': 'and', 'start': 398758, 'end': 398906
+    },
+    {'word': 'sure', 'start': 398928, 'end': 399114
+    },
+    {'word': 'enough,', 'start': 399152, 'end': 399354
+    },
+    {'word': 'there', 'start': 399392, 'end': 399546
+    },
+    {'word': 'were', 'start': 399568, 'end': 399706
+    },
+    {'word': 'ten', 'start': 399728, 'end': 399914
+    },
+    {'word': 'centimeter', 'start': 399952, 'end': 400582
+    },
+    {'word': 'magnetrons', 'start': 400646, 'end': 401670
+    },
+    {'word': 'that', 'start': 401750, 'end': 401994
+    },
+    {'word': 'had', 'start': 402032, 'end': 402234
+    },
+    {'word': 'been', 'start': 402272, 'end': 402474
+    },
+    {'word': 'invented', 'start': 402512, 'end': 403142
+    },
+    {'word': 'by', 'start': 403206, 'end': 403674
+    },
+    {'word': 'Booten', 'start': 403792, 'end': 404326
+    },
+    {'word': 'Randall', 'start': 404358, 'end': 404818
+    },
+    {'word': 'at', 'start': 404854, 'end': 405006
+    },
+    {'word': 'Birmingham', 'start': 405028, 'end': 405594
+    },
+    {'word': 'University', 'start': 405642, 'end': 406202
+    },
+    {'word': 'during', 'start': 406266, 'end': 406542
+    },
+    {'word': 'the', 'start': 406596, 'end': 406766
+    },
+    {'word': 'war.', 'start': 406788, 'end': 407214
+    },
+    {'word': 'To', 'start': 407332, 'end': 407566
+    },
+    {'word': 'get', 'start': 407588, 'end': 407774
+    },
+    {'word': 'hold', 'start': 407812, 'end': 407966
+    },
+    {'word': 'of', 'start': 407988, 'end': 408126
+    },
+    {'word': 'one', 'start': 408148, 'end': 408334
+    },
+    {'word': 'those', 'start': 408372, 'end': 408574
+    },
+    {'word': 'is', 'start': 408612, 'end': 408766
+    },
+    {'word': 'not', 'start': 408788, 'end': 409022
+    },
+    {'word': 'easy.', 'start': 409076, 'end': 409680
+    },
+    {'word': 'And', 'start': 410130, 'end': 410494
+    },
+    {'word': 'this', 'start': 410532, 'end': 410686
+    },
+    {'word': 'is', 'start': 410708, 'end': 410894
+    },
+    {'word': 'where', 'start': 410932, 'end': 411182
+    },
+    {'word': 'being', 'start': 411236, 'end': 411454
+    },
+    {'word': 'in', 'start': 411492, 'end': 411694
+    },
+    {'word': 'the', 'start': 411732, 'end': 411838
+    },
+    {'word': 'Government', 'start': 411844, 'end': 412110
+    },
+    {'word': 'department', 'start': 412180, 'end': 412682
+    },
+    {'word': 'helped', 'start': 412746, 'end': 413066
+    },
+    {'word': 'a', 'start': 413098, 'end': 413246
+    },
+    {'word': 'bit.', 'start': 413268, 'end': 413550
+    },
+    {'word': 'So', 'start': 413620, 'end': 413806
+    },
+    {'word': 'I', 'start': 413828, 'end': 413918
+    },
+    {'word': 'just', 'start': 413924, 'end': 414142
+    },
+    {'word': 'made', 'start': 414196, 'end': 414366
+    },
+    {'word': 'a', 'start': 414388, 'end': 414526
+    },
+    {'word': 'few', 'start': 414548, 'end': 414686
+    },
+    {'word': 'inquiries.', 'start': 414708, 'end': 415194
+    },
+    {'word': 'How', 'start': 415242, 'end': 415406
+    },
+    {'word': 'do', 'start': 415428, 'end': 415518
+    },
+    {'word': 'I', 'start': 415524, 'end': 415646
+    },
+    {'word': 'get', 'start': 415668, 'end': 415854
+    },
+    {'word': 'hold?', 'start': 415892, 'end': 416298
+    },
+    {'word': 'They', 'start': 416404, 'end': 416626
+    },
+    {'word': 'said,', 'start': 416648, 'end': 416834
+    },
+    {'word': 'oh,', 'start': 416872, 'end': 417122
+    },
+    {'word': "they're", 'start': 417176, 'end': 417406
+    },
+    {'word': 'working', 'start': 417438, 'end': 417682
+    },
+    {'word': 'on', 'start': 417736, 'end': 417906
+    },
+    {'word': 'them', 'start': 417928, 'end': 418114
+    },
+    {'word': 'down', 'start': 418152, 'end': 418834
+    },
+    {'word': 'just', 'start': 419032, 'end': 419394
+    },
+    {'word': 'above', 'start': 419432, 'end': 419694
+    },
+    {'word': 'Portsmouth.', 'start': 419742, 'end': 420702
+    },
+    {'word': 'I', 'start': 420846, 'end': 421202
+    },
+    {'word': 'said,', 'start': 421256, 'end': 421762
+    },
+    {'word': 'Any', 'start': 421896, 'end': 422242
+    },
+    {'word': 'chance', 'start': 422296, 'end': 422610
+    },
+    {'word': 'of', 'start': 422680, 'end': 422914
+    },
+    {'word': 'borrowing', 'start': 422952, 'end': 423502
+    },
+    {'word': 'one', 'start': 423566, 'end': 423746
+    },
+    {'word': 'of', 'start': 423768, 'end': 423906
+    },
+    {'word': 'your', 'start': 423928, 'end': 424162
+    },
+    {'word': 'magnetrons?', 'start': 424216, 'end': 425434
+    },
+    {'word': 'And', 'start': 425582, 'end': 425846
+    },
+    {'word': 'he', 'start': 425868, 'end': 426006
+    },
+    {'word': 'said,', 'start': 426028, 'end': 426310
+    },
+    {'word': 'oh,', 'start': 426380, 'end': 426614
+    },
+    {'word': 'no.', 'start': 426652, 'end': 426950
+    },
+    {'word': 'He', 'start': 427020, 'end': 427206
+    },
+    {'word': 'said,', 'start': 427228, 'end': 427414
+    },
+    {'word': 'we', 'start': 427452, 'end': 427606
+    },
+    {'word': 'can', 'start': 427628, 'end': 428054
+    },
+    {'word': 'give', 'start': 428172, 'end': 428406
+    },
+    {'word': 'you', 'start': 428428, 'end': 428566
+    },
+    {'word': 'one', 'start': 428588, 'end': 428726
+    },
+    {'word': 'if', 'start': 428748, 'end': 428886
+    },
+    {'word': 'you', 'start': 428908, 'end': 429046
+    },
+    {'word': 'want.', 'start': 429068, 'end': 429302
+    },
+    {'word': "It's", 'start': 429356, 'end': 429970
+    },
+    {'word': 'an', 'start': 430130, 'end': 430454
+    },
+    {'word': 'interesting', 'start': 430492, 'end': 430886
+    },
+    {'word': 'cause.', 'start': 430988, 'end': 431398
+    },
+    {'word': 'Why', 'start': 431484, 'end': 431734
+    },
+    {'word': 'not?', 'start': 431772, 'end': 432214
+    },
+    {'word': "I've", 'start': 432332, 'end': 432802
+    },
+    {'word': 'joined', 'start': 432866, 'end': 433234
+    },
+    {'word': 'this', 'start': 433282, 'end': 433494
+    },
+    {'word': 'up', 'start': 433532, 'end': 434120
+    },
+    {'word': 'with', 'start': 435210, 'end': 435526
+    },
+    {'word': 'a', 'start': 435548, 'end': 435686
+    },
+    {'word': 'wave', 'start': 435708, 'end': 436034
+    },
+    {'word': 'guide', 'start': 436082, 'end': 436530
+    },
+    {'word': 'into', 'start': 436610, 'end': 436950
+    },
+    {'word': 'a', 'start': 437020, 'end': 437410
+    },
+    {'word': 'metal', 'start': 437500, 'end': 437974
+    },
+    {'word': 'box.', 'start': 438022, 'end': 438618
+    },
+    {'word': 'It', 'start': 438784, 'end': 439114
+    },
+    {'word': "wasn't", 'start': 439152, 'end': 439366
+    },
+    {'word': 'so', 'start': 439398, 'end': 439546
+    },
+    {'word': 'much', 'start': 439568, 'end': 439754
+    },
+    {'word': 'a', 'start': 439792, 'end': 439946
+    },
+    {'word': 'box,', 'start': 439968, 'end': 440202
+    },
+    {'word': 'it', 'start': 440256, 'end': 440426
+    },
+    {'word': 'was', 'start': 440448, 'end': 440586
+    },
+    {'word': 'just', 'start': 440608, 'end': 440794
+    },
+    {'word': 'a', 'start': 440832, 'end': 441418
+    },
+    {'word': 'thing', 'start': 441584, 'end': 441962
+    },
+    {'word': 'made', 'start': 442016, 'end': 442234
+    },
+    {'word': 'out', 'start': 442272, 'end': 442522
+    },
+    {'word': 'of', 'start': 442576, 'end': 443180
+    },
+    {'word': 'chicken', 'start': 445150, 'end': 445734
+    },
+    {'word': 'wire,', 'start': 445782, 'end': 446410
+    },
+    {'word': 'except', 'start': 446990, 'end': 447446
+    },
+    {'word': "it's", 'start': 447478, 'end': 447686
+    },
+    {'word': 'finer', 'start': 447718, 'end': 448118
+    },
+    {'word': 'than', 'start': 448134, 'end': 448362
+    },
+    {'word': 'chicken', 'start': 448416, 'end': 448726
+    },
+    {'word': 'wire,', 'start': 448758, 'end': 448966
+    },
+    {'word': 'a', 'start': 448998, 'end': 449098
+    },
+    {'word': 'bit', 'start': 449104, 'end': 449274
+    },
+    {'word': 'closer', 'start': 449312, 'end': 449734
+    },
+    {'word': 'mesh.', 'start': 449782, 'end': 450438
+    },
+    {'word': 'And', 'start': 450614, 'end': 451146
+    },
+    {'word': 'that', 'start': 451248, 'end': 451514
+    },
+    {'word': 'was', 'start': 451552, 'end': 451706
+    },
+    {'word': 'just', 'start': 451728, 'end': 451914
+    },
+    {'word': 'like', 'start': 451952, 'end': 452154
+    },
+    {'word': 'the', 'start': 452192, 'end': 452346
+    },
+    {'word': 'box', 'start': 452368, 'end': 452566
+    },
+    {'word': 'of', 'start': 452608, 'end': 452766
+    },
+    {'word': 'a', 'start': 452788, 'end': 452926
+    },
+    {'word': 'microwave', 'start': 452948, 'end': 453482
+    },
+    {'word': 'oven.', 'start': 453546, 'end': 454266
+    },
+    {'word': 'And', 'start': 454458, 'end': 454814
+    },
+    {'word': 'I', 'start': 454852, 'end': 455054
+    },
+    {'word': 'fed', 'start': 455092, 'end': 455386
+    },
+    {'word': 'the', 'start': 455418, 'end': 455662
+    },
+    {'word': 'microwaves', 'start': 455716, 'end': 456378
+    },
+    {'word': 'into', 'start': 456394, 'end': 456622
+    },
+    {'word': 'it', 'start': 456676, 'end': 456990
+    },
+    {'word': 'and', 'start': 457060, 'end': 457294
+    },
+    {'word': 'I', 'start': 457332, 'end': 457486
+    },
+    {'word': 'told', 'start': 457508, 'end': 457742
+    },
+    {'word': 'Aldrid,', 'start': 457796, 'end': 458266
+    },
+    {'word': 'now', 'start': 458298, 'end': 458446
+    },
+    {'word': 'put', 'start': 458468, 'end': 458654
+    },
+    {'word': 'your', 'start': 458692, 'end': 458846
+    },
+    {'word': 'hamster', 'start': 458868, 'end': 459354
+    },
+    {'word': 'in', 'start': 459402, 'end': 459566
+    },
+    {'word': 'there,', 'start': 459588, 'end': 460014
+    },
+    {'word': "that's", 'start': 460132, 'end': 460458
+    },
+    {'word': 'a', 'start': 460474, 'end': 460558
+    },
+    {'word': 'microwave.', 'start': 460564, 'end': 461130
+    },
+    {'word': 'James', 'start': 461210, 'end': 461466
+    },
+    {'word': 'Lovelock', 'start': 461498, 'end': 461898
+    },
+    {'word': 'may', 'start': 461914, 'end': 462046
+    },
+    {'word': 'not', 'start': 462068, 'end': 462158
+    },
+    {'word': 'have', 'start': 462164, 'end': 462238
+    },
+    {'word': 'invented', 'start': 462244, 'end': 462682
+    },
+    {'word': 'the', 'start': 462746, 'end': 463022
+    },
+    {'word': 'first', 'start': 463076, 'end': 463342
+    },
+    {'word': 'microwave,', 'start': 463396, 'end': 463866
+    },
+    {'word': 'but', 'start': 463898, 'end': 463998
+    },
+    {'word': 'he', 'start': 464004, 'end': 464126
+    },
+    {'word': 'certainly', 'start': 464148, 'end': 464334
+    },
+    {'word': 'invented', 'start': 464372, 'end': 464794
+    },
+    {'word': 'a', 'start': 464842, 'end': 465006
+    },
+    {'word': 'microwave.', 'start': 465028, 'end': 465482
+    },
+    {'word': 'The', 'start': 465546, 'end': 465678
+    },
+    {'word': 'idea', 'start': 465684, 'end': 465854
+    },
+    {'word': 'of', 'start': 465892, 'end': 466046
+    },
+    {'word': 'using', 'start': 466068, 'end': 466254
+    },
+    {'word': 'magnetrons', 'start': 466292, 'end': 466858
+    },
+    {'word': 'to', 'start': 466874, 'end': 466958
+    },
+    {'word': 'heat', 'start': 466964, 'end': 467146
+    },
+    {'word': 'stuff', 'start': 467178, 'end': 467374
+    },
+    {'word': "wasn't", 'start': 467412, 'end': 467590
+    },
+    {'word': 'his,', 'start': 467610, 'end': 467842
+    },
+    {'word': 'but', 'start': 467896, 'end': 468258
+    },
+    {'word': 'no', 'start': 468344, 'end': 468498
+    },
+    {'word': 'one', 'start': 468504, 'end': 468626
+    },
+    {'word': 'else', 'start': 468648, 'end': 468786
+    },
+    {'word': 'was', 'start': 468808, 'end': 468946
+    },
+    {'word': 'putting', 'start': 468968, 'end': 469106
+    },
+    {'word': 'one', 'start': 469128, 'end': 469266
+    },
+    {'word': 'in', 'start': 469288, 'end': 469378
+    },
+    {'word': 'a', 'start': 469384, 'end': 469458
+    },
+    {'word': 'Faraday', 'start': 469464, 'end': 469806
+    },
+    {'word': 'cage', 'start': 469838, 'end': 470126
+    },
+    {'word': 'box', 'start': 470158, 'end': 470354
+    },
+    {'word': 'on', 'start': 470392, 'end': 470546
+    },
+    {'word': 'a', 'start': 470568, 'end': 470658
+    },
+    {'word': 'desktop.', 'start': 470664, 'end': 471150
+    },
+    {'word': 'Big', 'start': 471230, 'end': 471426
+    },
+    {'word': 'commercial', 'start': 471448, 'end': 471726
+    },
+    {'word': 'microwaves', 'start': 471758, 'end': 472238
+    },
+    {'word': 'for', 'start': 472254, 'end': 472386
+    },
+    {'word': 'restaurant', 'start': 472408, 'end': 472686
+    },
+    {'word': 'kitchens', 'start': 472718, 'end': 473102
+    },
+    {'word': "aren't", 'start': 473166, 'end': 473406
+    },
+    {'word': 'the', 'start': 473438, 'end': 473538
+    },
+    {'word': 'same', 'start': 473544, 'end': 473714
+    },
+    {'word': 'thing.', 'start': 473752, 'end': 473906
+    },
+    {'word': 'And', 'start': 473928, 'end': 474210
+    },
+    {'word': 'besides,', 'start': 474280, 'end': 474686
+    },
+    {'word': 'they', 'start': 474718, 'end': 474818
+    },
+    {'word': "weren't", 'start': 474824, 'end': 475006
+    },
+    {'word': 'even', 'start': 475038, 'end': 475186
+    },
+    {'word': 'on', 'start': 475208, 'end': 475346
+    },
+    {'word': 'sale', 'start': 475368, 'end': 475566
+    },
+    {'word': 'in', 'start': 475598, 'end': 475698
+    },
+    {'word': 'the', 'start': 475704, 'end': 475826
+    },
+    {'word': 'UK', 'start': 475848, 'end': 476058
+    },
+    {'word': 'until', 'start': 476094, 'end': 476294
+    },
+    {'word': 'a', 'start': 476332, 'end': 476438
+    },
+    {'word': 'few', 'start': 476444, 'end': 476566
+    },
+    {'word': 'years', 'start': 476588, 'end': 476774
+    },
+    {'word': 'later.', 'start': 476812, 'end': 477158
+    },
+    {'word': 'I', 'start': 477244, 'end': 477446
+    },
+    {'word': 'put', 'start': 477468, 'end': 477654
+    },
+    {'word': 'a', 'start': 477692, 'end': 477894
+    },
+    {'word': 'potato', 'start': 477932, 'end': 478466
+    },
+    {'word': 'in', 'start': 478498, 'end': 478646
+    },
+    {'word': 'it', 'start': 478668, 'end': 479094
+    },
+    {'word': 'and', 'start': 479212, 'end': 479494
+    },
+    {'word': 'baked', 'start': 479532, 'end': 479986
+    },
+    {'word': 'it', 'start': 480018, 'end': 480600
+    },
+    {'word': 'and', 'start': 481530, 'end': 481894
+    },
+    {'word': 'it', 'start': 481932, 'end': 482038
+    },
+    {'word': 'was', 'start': 482044, 'end': 482214
+    },
+    {'word': 'perfectly', 'start': 482252, 'end': 482594
+    },
+    {'word': 'all', 'start': 482642, 'end': 482806
+    },
+    {'word': 'right.', 'start': 482828, 'end': 483110
+    },
+    {'word': 'The', 'start': 483180, 'end': 483366
+    },
+    {'word': 'safety', 'start': 483388, 'end': 483714
+    },
+    {'word': 'procedures', 'start': 483762, 'end': 484290
+    },
+    {'word': 'were', 'start': 484370, 'end': 484902
+    },
+    {'word': 'occasionally', 'start': 485036, 'end': 485586
+    },
+    {'word': 'a', 'start': 485618, 'end': 485718
+    },
+    {'word': 'bit', 'start': 485724, 'end': 485894
+    },
+    {'word': 'lax', 'start': 485932, 'end': 486274
+    },
+    {'word': 'by', 'start': 486322, 'end': 486534
+    },
+    {'word': 'modern', 'start': 486572, 'end': 486866
+    },
+    {'word': 'standards.', 'start': 486898, 'end': 487538
+    },
+    {'word': 'In', 'start': 487634, 'end': 487846
+    },
+    {'word': 'the', 'start': 487868, 'end': 487970
+    },
+    {'word': 'course', 'start': 487980, 'end': 488154
+    },
+    {'word': 'of', 'start': 488192, 'end': 488394
+    },
+    {'word': 'experiments.', 'start': 488432, 'end': 489126
+    },
+    {'word': 'While', 'start': 489158, 'end': 489354
+    },
+    {'word': "we're", 'start': 489392, 'end': 489606
+    },
+    {'word': 'building', 'start': 489638, 'end': 489978
+    },
+    {'word': 'it,', 'start': 490064, 'end': 490506
+    },
+    {'word': 'the', 'start': 490608, 'end': 490874
+    },
+    {'word': 'thing', 'start': 490912, 'end': 491114
+    },
+    {'word': 'was', 'start': 491152, 'end': 491354
+    },
+    {'word': 'running', 'start': 491392, 'end': 491690
+    },
+    {'word': 'open', 'start': 491760, 'end': 492380
+    },
+    {'word': 'and', 'start': 492750, 'end': 493450
+    },
+    {'word': 'the', 'start': 493600, 'end': 493962
+    },
+    {'word': 'radiation', 'start': 494016, 'end': 494614
+    },
+    {'word': 'was', 'start': 494662, 'end': 494922
+    },
+    {'word': 'bouncing', 'start': 494976, 'end': 495462
+    },
+    {'word': 'all', 'start': 495526, 'end': 495754
+    },
+    {'word': 'around', 'start': 495792, 'end': 495946
+    },
+    {'word': 'the', 'start': 495968, 'end': 496106
+    },
+    {'word': 'room,', 'start': 496128, 'end': 496506
+    },
+    {'word': 'and', 'start': 496608, 'end': 496874
+    },
+    {'word': 'the', 'start': 496912, 'end': 497066
+    },
+    {'word': 'light', 'start': 497088, 'end': 497274
+    },
+    {'word': 'bulbs', 'start': 497312, 'end': 497862
+    },
+    {'word': 'would', 'start': 497926, 'end': 498106
+    },
+    {'word': 'light', 'start': 498128, 'end': 498362
+    },
+    {'word': 'up', 'start': 498416, 'end': 498730
+    },
+    {'word': 'without', 'start': 498800, 'end': 499226
+    },
+    {'word': 'warning.', 'start': 499328, 'end': 500090
+    },
+    {'word': 'The', 'start': 501250, 'end': 501566
+    },
+    {'word': 'filament', 'start': 501588, 'end': 502074
+    },
+    {'word': 'just', 'start': 502122, 'end': 502720
+    },
+    {'word': 'had', 'start': 503650, 'end': 504014
+    },
+    {'word': 'the', 'start': 504052, 'end': 504206
+    },
+    {'word': 'same', 'start': 504228, 'end': 504414
+    },
+    {'word': 'wavelength', 'start': 504452, 'end': 505082
+    },
+    {'word': 'as', 'start': 505146, 'end': 505422
+    },
+    {'word': 'the', 'start': 505476, 'end': 506080
+    },
+    {'word': 'radiation', 'start': 506770, 'end': 507706
+    },
+    {'word': 'and', 'start': 507818, 'end': 508046
+    },
+    {'word': 'it', 'start': 508068, 'end': 508206
+    },
+    {'word': 'would', 'start': 508228, 'end': 508414
+    },
+    {'word': 'absorb', 'start': 508452, 'end': 508954
+    },
+    {'word': 'it', 'start': 509002, 'end': 509310
+    },
+    {'word': 'and', 'start': 509380, 'end': 509950
+    },
+    {'word': 'light', 'start': 510100, 'end': 510510
+    },
+    {'word': 'up.', 'start': 510580, 'end': 511200
+    },
+    {'word': 'And', 'start': 512290, 'end': 512954
+    },
+    {'word': 'pound', 'start': 513092, 'end': 513454
+    },
+    {'word': 'notes', 'start': 513502, 'end': 513934
+    },
+    {'word': 'were', 'start': 513982, 'end': 514146
+    },
+    {'word': 'the', 'start': 514168, 'end': 514306
+    },
+    {'word': 'funniest', 'start': 514328, 'end': 514734
+    },
+    {'word': 'one.', 'start': 514782, 'end': 514946
+    },
+    {'word': "They'll", 'start': 514968, 'end': 515198
+    },
+    {'word': 'catch', 'start': 515214, 'end': 515534
+    },
+    {'word': 'fire', 'start': 515582, 'end': 516180
+    },
+    {'word': 'because', 'start': 516710, 'end': 517122
+    },
+    {'word': 'the', 'start': 517176, 'end': 517346
+    },
+    {'word': 'metal', 'start': 517368, 'end': 517870
+    },
+    {'word': 'strip', 'start': 517950, 'end': 518430
+    },
+    {'word': 'inside', 'start': 518510, 'end': 518946
+    },
+    {'word': 'was', 'start': 519048, 'end': 519266
+    },
+    {'word': 'just', 'start': 519288, 'end': 519522
+    },
+    {'word': 'about', 'start': 519576, 'end': 519794
+    },
+    {'word': 'the', 'start': 519832, 'end': 519986
+    },
+    {'word': 'wavelength', 'start': 520008, 'end': 520622
+    },
+    {'word': 'of', 'start': 520686, 'end': 520866
+    },
+    {'word': 'the', 'start': 520888, 'end': 521074
+    },
+    {'word': 'magnetron.', 'start': 521112, 'end': 521918
+    },
+    {'word': 'And', 'start': 522014, 'end': 522226
+    },
+    {'word': "here's", 'start': 522248, 'end': 522398
+    },
+    {'word': 'the', 'start': 522414, 'end': 522546
+    },
+    {'word': 'really', 'start': 522568, 'end': 522706
+    },
+    {'word': 'amazing', 'start': 522728, 'end': 523010
+    },
+    {'word': 'thing.', 'start': 523080, 'end': 523746
+    },
+    {'word': 'It', 'start': 523928, 'end': 524322
+    },
+    {'word': 'worked.', 'start': 524376, 'end': 525026
+    },
+    {'word': 'We', 'start': 525208, 'end': 525554
+    },
+    {'word': 'put', 'start': 525592, 'end': 525794
+    },
+    {'word': 'the', 'start': 525832, 'end': 525986
+    },
+    {'word': 'hamster', 'start': 526008, 'end': 526542
+    },
+    {'word': 'in', 'start': 526606, 'end': 526798
+    },
+    {'word': 'there,', 'start': 526824, 'end': 527446
+    },
+    {'word': 'frozen', 'start': 527628, 'end': 528194
+    },
+    {'word': 'solid.', 'start': 528242, 'end': 528962
+    },
+    {'word': 'And', 'start': 529106, 'end': 529366
+    },
+    {'word': 'I', 'start': 529388, 'end': 529526
+    },
+    {'word': 'mean', 'start': 529548, 'end': 529782
+    },
+    {'word': 'frozen', 'start': 529836, 'end': 530322
+    },
+    {'word': 'solid.', 'start': 530386, 'end': 530754
+    },
+    {'word': 'It', 'start': 530802, 'end': 530966
+    },
+    {'word': 'was', 'start': 530988, 'end': 531126
+    },
+    {'word': 'like', 'start': 531148, 'end': 531334
+    },
+    {'word': 'a', 'start': 531372, 'end': 531478
+    },
+    {'word': 'bit', 'start': 531484, 'end': 531606
+    },
+    {'word': 'of', 'start': 531628, 'end': 531766
+    },
+    {'word': 'wood', 'start': 531788, 'end': 532066
+    },
+    {'word': 'when', 'start': 532098, 'end': 532246
+    },
+    {'word': 'you', 'start': 532268, 'end': 532454
+    },
+    {'word': 'dropped', 'start': 532492, 'end': 532786
+    },
+    {'word': 'it', 'start': 532818, 'end': 532966
+    },
+    {'word': 'on', 'start': 532988, 'end': 533126
+    },
+    {'word': 'the', 'start': 533148, 'end': 533286
+    },
+    {'word': 'bench,', 'start': 533308, 'end': 533990
+    },
+    {'word': 'turned', 'start': 534970, 'end': 535426
+    },
+    {'word': 'the', 'start': 535458, 'end': 535798
+    },
+    {'word': 'thing', 'start': 535884, 'end': 536182
+    },
+    {'word': 'up', 'start': 536236, 'end': 536454
+    },
+    {'word': 'to', 'start': 536492, 'end': 536646
+    },
+    {'word': 'full', 'start': 536668, 'end': 536902
+    },
+    {'word': 'power', 'start': 536956, 'end': 537222
+    },
+    {'word': 'on', 'start': 537276, 'end': 537446
+    },
+    {'word': 'the', 'start': 537468, 'end': 537618
+    },
+    {'word': 'microwave,', 'start': 537644, 'end': 538358
+    },
+    {'word': 'which', 'start': 538454, 'end': 538714
+    },
+    {'word': 'was', 'start': 538752, 'end': 539050
+    },
+    {'word': 'it', 'start': 539120, 'end': 539354
+    },
+    {'word': 'was', 'start': 539392, 'end': 539594
+    },
+    {'word': 'about', 'start': 539632, 'end': 540026
+    },
+    {'word': 'a', 'start': 540128, 'end': 540346
+    },
+    {'word': 'kilowatt', 'start': 540368, 'end': 540934
+    },
+    {'word': 'coming', 'start': 540982, 'end': 541242
+    },
+    {'word': 'out', 'start': 541296, 'end': 541466
+    },
+    {'word': 'of', 'start': 541488, 'end': 541674
+    },
+    {'word': 'it', 'start': 541712, 'end': 542298
+    },
+    {'word': 'and', 'start': 542464, 'end': 543180
+    },
+    {'word': 'with', 'start': 543630, 'end': 543994
+    },
+    {'word': 'as', 'start': 544032, 'end': 544186
+    },
+    {'word': 'a', 'start': 544208, 'end': 544346
+    },
+    {'word': 'timer.', 'start': 544368, 'end': 545210
+    },
+    {'word': 'And', 'start': 545950, 'end': 546362
+    },
+    {'word': 'after', 'start': 546416, 'end': 546682
+    },
+    {'word': 'so', 'start': 546736, 'end': 546954
+    },
+    {'word': 'many', 'start': 546992, 'end': 547290
+    },
+    {'word': 'seconds,', 'start': 547360, 'end': 548170
+    },
+    {'word': 'the', 'start': 548510, 'end': 549066
+    },
+    {'word': 'hamster', 'start': 549168, 'end': 549654
+    },
+    {'word': 'woke', 'start': 549702, 'end': 550006
+    },
+    {'word': 'up', 'start': 550038, 'end': 550186
+    },
+    {'word': 'and', 'start': 550208, 'end': 550442
+    },
+    {'word': 'started', 'start': 550496, 'end': 550762
+    },
+    {'word': 'wandering', 'start': 550816, 'end': 551366
+    },
+    {'word': 'around.', 'start': 551398, 'end': 551980
+    },
+    {'word': 'Do', 'start': 552350, 'end': 552666
+    },
+    {'word': 'I', 'start': 552688, 'end': 552778
+    },
+    {'word': 'need', 'start': 552784, 'end': 552906
+    },
+    {'word': 'to', 'start': 552928, 'end': 553066
+    },
+    {'word': 'say,', 'start': 553088, 'end': 553322
+    },
+    {'word': "don't", 'start': 553376, 'end': 553558
+    },
+    {'word': 'try', 'start': 553574, 'end': 553754
+    },
+    {'word': 'this', 'start': 553792, 'end': 553946
+    },
+    {'word': 'at', 'start': 553968, 'end': 554106
+    },
+    {'word': 'home?', 'start': 554128, 'end': 554362
+    },
+    {'word': 'I', 'start': 554416, 'end': 554538
+    },
+    {'word': 'mean,', 'start': 554544, 'end': 554618
+    },
+    {'word': 'there', 'start': 554624, 'end': 554746
+    },
+    {'word': 'are', 'start': 554768, 'end': 554906
+    },
+    {'word': 'enough', 'start': 554928, 'end': 555114
+    },
+    {'word': 'people', 'start': 555152, 'end': 555354
+    },
+    {'word': 'of', 'start': 555392, 'end': 555498
+    },
+    {'word': 'all', 'start': 555504, 'end': 555626
+    },
+    {'word': 'ages', 'start': 555648, 'end': 555938
+    },
+    {'word': 'watching', 'start': 555974, 'end': 556174
+    },
+    {'word': 'that.', 'start': 556212, 'end': 556366
+    },
+    {'word': 'Statistically,', 'start': 556388, 'end': 556794
+    },
+    {'word': 'yes,', 'start': 556842, 'end': 557006
+    },
+    {'word': 'I', 'start': 557028, 'end': 557118
+    },
+    {'word': 'do', 'start': 557124, 'end': 557246
+    },
+    {'word': 'need', 'start': 557268, 'end': 557406
+    },
+    {'word': 'to', 'start': 557428, 'end': 557518
+    },
+    {'word': 'say', 'start': 557524, 'end': 557646
+    },
+    {'word': 'it.', 'start': 557668, 'end': 557950
+    },
+    {'word': "Don't", 'start': 558020, 'end': 558218
+    },
+    {'word': 'try', 'start': 558234, 'end': 558414
+    },
+    {'word': 'this', 'start': 558452, 'end': 558606
+    },
+    {'word': 'at', 'start': 558628, 'end': 558766
+    },
+    {'word': 'home.', 'start': 558788, 'end': 558926
+    },
+    {'word': "It's", 'start': 558948, 'end': 559146
+    },
+    {'word': 'unnecessary', 'start': 559178, 'end': 559626
+    },
+    {'word': 'cruelty.', 'start': 559658, 'end': 560026
+    },
+    {'word': 'You', 'start': 560058, 'end': 560158
+    },
+    {'word': "won't", 'start': 560164, 'end': 560298
+    },
+    {'word': 'be', 'start': 560314, 'end': 560398
+    },
+    {'word': 'doing', 'start': 560404, 'end': 560526
+    },
+    {'word': 'medical', 'start': 560548, 'end': 560874
+    },
+    {'word': 'research,', 'start': 560922, 'end': 561230
+    },
+    {'word': 'you', 'start': 561300, 'end': 561438
+    },
+    {'word': 'will', 'start': 561444, 'end': 561566
+    },
+    {'word': 'be', 'start': 561588, 'end': 561726
+    },
+    {'word': 'doing', 'start': 561748, 'end': 561934
+    },
+    {'word': 'a', 'start': 561972, 'end': 562078
+    },
+    {'word': 'crime.', 'start': 562084, 'end': 562682
+    },
+    {'word': 'Context', 'start': 562826, 'end': 563354
+    },
+    {'word': 'is', 'start': 563402, 'end': 563614
+    },
+    {'word': 'really', 'start': 563652, 'end': 563854
+    },
+    {'word': 'important.', 'start': 563892, 'end': 564238
+    },
+    {'word': 'But', 'start': 564324, 'end': 564718
+    },
+    {'word': 'also', 'start': 564804, 'end': 565390
+    },
+    {'word': 'the', 'start': 565540, 'end': 565806
+    },
+    {'word': 'research', 'start': 565828, 'end': 566158
+    },
+    {'word': 'has', 'start': 566244, 'end': 566446
+    },
+    {'word': 'been', 'start': 566468, 'end': 566654
+    },
+    {'word': 'done', 'start': 566692, 'end': 566954
+    },
+    {'word': 'more', 'start': 567012, 'end': 567186
+    },
+    {'word': 'than', 'start': 567208, 'end': 567346
+    },
+    {'word': '50', 'start': 567368, 'end': 567554
+    },
+    {'word': 'years', 'start': 567592, 'end': 567794
+    },
+    {'word': 'ago.', 'start': 567832, 'end': 568034
+    },
+    {'word': 'There', 'start': 568072, 'end': 568178
+    },
+    {'word': 'are', 'start': 568184, 'end': 568354
+    },
+    {'word': 'charts', 'start': 568392, 'end': 568686
+    },
+    {'word': 'of', 'start': 568718, 'end': 568914
+    },
+    {'word': 'survival', 'start': 568952, 'end': 569326
+    },
+    {'word': 'rate', 'start': 569358, 'end': 569602
+    },
+    {'word': 'and', 'start': 569656, 'end': 569826
+    },
+    {'word': 'heating,', 'start': 569848, 'end': 570366
+    },
+    {'word': 'and', 'start': 570478, 'end': 570706
+    },
+    {'word': 'it', 'start': 570728, 'end': 570914
+    },
+    {'word': 'turns', 'start': 570952, 'end': 571166
+    },
+    {'word': 'out', 'start': 571198, 'end': 571394
+    },
+    {'word': 'that', 'start': 571432, 'end': 571682
+    },
+    {'word': 'with', 'start': 571736, 'end': 571906
+    },
+    {'word': 'a', 'start': 571928, 'end': 572018
+    },
+    {'word': 'microwave,', 'start': 572024, 'end': 572494
+    },
+    {'word': 'because', 'start': 572542, 'end': 572754
+    },
+    {'word': "that's", 'start': 572792, 'end': 572958
+    },
+    {'word': 'what', 'start': 572974, 'end': 573106
+    },
+    {'word': 'this', 'start': 573128, 'end': 573266
+    },
+    {'word': 'was,', 'start': 573288, 'end': 573522
+    },
+    {'word': 'with', 'start': 573576, 'end': 573794
+    },
+    {'word': 'a', 'start': 573832, 'end': 573938
+    },
+    {'word': 'precise', 'start': 573944, 'end': 574510
+    },
+    {'word': 'calibrated', 'start': 574590, 'end': 575246
+    },
+    {'word': 'microwave', 'start': 575278, 'end': 575694
+    },
+    {'word': 'and', 'start': 575742, 'end': 575858
+    },
+    {'word': 'with', 'start': 575864, 'end': 576034
+    },
+    {'word': 'artificial', 'start': 576072, 'end': 576446
+    },
+    {'word': 'respiration', 'start': 576478, 'end': 576974
+    },
+    {'word': 'to', 'start': 577022, 'end': 577186
+    },
+    {'word': 'start', 'start': 577208, 'end': 577442
+    },
+    {'word': 'pumping', 'start': 577496, 'end': 577886
+    },
+    {'word': 'oxygen', 'start': 577918, 'end': 578286
+    },
+    {'word': 'around', 'start': 578318, 'end': 578514
+    },
+    {'word': 'the', 'start': 578552, 'end': 578718
+    },
+    {'word': 'body,', 'start': 578744, 'end': 579270
+    },
+    {'word': 'almost', 'start': 579420, 'end': 579878
+    },
+    {'word': 'every', 'start': 579964, 'end': 580262
+    },
+    {'word': 'rodent', 'start': 580316, 'end': 580786
+    },
+    {'word': 'they', 'start': 580818, 'end': 580966
+    },
+    {'word': 'froze', 'start': 580988, 'end': 581490
+    },
+    {'word': 'was', 'start': 581570, 'end': 581814
+    },
+    {'word': 'successfully', 'start': 581852, 'end': 582354
+    },
+    {'word': 'reanimated.', 'start': 582402, 'end': 583010
+    },
+    {'word': "That's", 'start': 583090, 'end': 583378
+    },
+    {'word': 'the', 'start': 583394, 'end': 583478
+    },
+    {'word': 'word', 'start': 583484, 'end': 583606
+    },
+    {'word': 'that', 'start': 583628, 'end': 583718
+    },
+    {'word': 'the', 'start': 583724, 'end': 583798
+    },
+    {'word': 'biologists', 'start': 583804, 'end': 584370
+    },
+    {'word': 'used,', 'start': 584450, 'end': 584838
+    },
+    {'word': 'reanimation.', 'start': 584924, 'end': 585778
+    },
+    {'word': 'Healthy', 'start': 585874, 'end': 586354
+    },
+    {'word': 'behaving', 'start': 586402, 'end': 586738
+    },
+    {'word': 'as', 'start': 586754, 'end': 586886
+    },
+    {'word': 'usual,', 'start': 586908, 'end': 587282
+    },
+    {'word': 'and', 'start': 587346, 'end': 587574
+    },
+    {'word': 'given', 'start': 587612, 'end': 587814
+    },
+    {'word': 'a', 'start': 587852, 'end': 587958
+    },
+    {'word': 'retirement', 'start': 587964, 'end': 588434
+    },
+    {'word': 'at', 'start': 588482, 'end': 588610
+    },
+    {'word': 'an', 'start': 588620, 'end': 588746
+    },
+    {'word': 'animal', 'start': 588768, 'end': 589046
+    },
+    {'word': 'home,', 'start': 589078, 'end': 589274
+    },
+    {'word': 'according', 'start': 589312, 'end': 589558
+    },
+    {'word': 'to', 'start': 589574, 'end': 589658
+    },
+    {'word': 'one', 'start': 589664, 'end': 589786
+    },
+    {'word': 'of', 'start': 589808, 'end': 589898
+    },
+    {'word': 'the', 'start': 589904, 'end': 589978
+    },
+    {'word': 'papers,', 'start': 589984, 'end': 590566
+    },
+    {'word': 'back', 'start': 590678, 'end': 591002
+    },
+    {'word': 'from', 'start': 591056, 'end': 591322
+    },
+    {'word': 'being', 'start': 591376, 'end': 591642
+    },
+    {'word': 'frozen', 'start': 591696, 'end': 592310
+    },
+    {'word': 'to', 'start': 592390, 'end': 592634
+    },
+    {'word': 'death,', 'start': 592672, 'end': 593302
+    },
+    {'word': 'sometimes', 'start': 593446, 'end': 593946
+    },
+    {'word': 'multiple', 'start': 594048, 'end': 594486
+    },
+    {'word': 'times.', 'start': 594518, 'end': 595146
+    },
+    {'word': 'So', 'start': 595328, 'end': 595674
+    },
+    {'word': 'the', 'start': 595712, 'end': 595866
+    },
+    {'word': 'last', 'start': 595888, 'end': 596122
+    },
+    {'word': 'question', 'start': 596176, 'end': 596442
+    },
+    {'word': 'is', 'start': 596496, 'end': 597100
+    },
+    {'word': 'why?', 'start': 597550, 'end': 598154
+    },
+    {'word': 'Well,', 'start': 598272, 'end': 598554
+    },
+    {'word': 'this', 'start': 598592, 'end': 598794
+    },
+    {'word': 'could', 'start': 598832, 'end': 598986
+    },
+    {'word': 'be', 'start': 599008, 'end': 599146
+    },
+    {'word': 'of', 'start': 599168, 'end': 599354
+    },
+    {'word': 'immense', 'start': 599392, 'end': 599922
+    },
+    {'word': 'importance', 'start': 600006, 'end': 600910
+    },
+    {'word': 'to', 'start': 601970, 'end': 602814
+    },
+    {'word': 'medicine', 'start': 603012, 'end': 603674
+    },
+    {'word': 'itself,', 'start': 603722, 'end': 604414
+    },
+    {'word': 'for', 'start': 604612, 'end': 604974
+    },
+    {'word': 'preserving', 'start': 605012, 'end': 605594
+    },
+    {'word': 'tissues,', 'start': 605642, 'end': 606170
+    },
+    {'word': 'for', 'start': 606250, 'end': 606782
+    },
+    {'word': 'transfer', 'start': 606916, 'end': 607694
+    },
+    {'word': 'and', 'start': 607892, 'end': 608446
+    },
+    {'word': 'also', 'start': 608548, 'end': 608958
+    },
+    {'word': 'for', 'start': 609044, 'end': 609774
+    },
+    {'word': 'blood', 'start': 609972, 'end': 610394
+    },
+    {'word': 'transfusions,', 'start': 610442, 'end': 611434
+    },
+    {'word': 'because', 'start': 611562, 'end': 611950
+    },
+    {'word': 'at', 'start': 612020, 'end': 612206
+    },
+    {'word': 'the', 'start': 612228, 'end': 612366
+    },
+    {'word': 'moment,', 'start': 612388, 'end': 612960
+    },
+    {'word': 'blood', 'start': 613410, 'end': 613994
+    },
+    {'word': 'is', 'start': 614042, 'end': 614350
+    },
+    {'word': 'kept', 'start': 614420, 'end': 614746
+    },
+    {'word': 'at', 'start': 614778, 'end': 614926
+    },
+    {'word': 'the', 'start': 614948, 'end': 615086
+    },
+    {'word': 'blood', 'start': 615108, 'end': 615354
+    },
+    {'word': 'bank', 'start': 615402, 'end': 615722
+    },
+    {'word': 'for', 'start': 615786, 'end': 616062
+    },
+    {'word': 'three', 'start': 616116, 'end': 616346
+    },
+    {'word': 'weeks', 'start': 616388, 'end': 616690
+    },
+    {'word': 'and', 'start': 616760, 'end': 616946
+    },
+    {'word': 'then', 'start': 616968, 'end': 617154
+    },
+    {'word': 'thrown', 'start': 617192, 'end': 617454
+    },
+    {'word': 'down', 'start': 617502, 'end': 617666
+    },
+    {'word': 'the', 'start': 617688, 'end': 617874
+    },
+    {'word': 'sink.', 'start': 617912, 'end': 618446
+    },
+    {'word': 'Imagine', 'start': 618558, 'end': 619054
+    },
+    {'word': 'if', 'start': 619102, 'end': 619266
+    },
+    {'word': 'that', 'start': 619288, 'end': 619426
+    },
+    {'word': 'had', 'start': 619448, 'end': 619634
+    },
+    {'word': 'worked', 'start': 619672, 'end': 619922
+    },
+    {'word': 'on', 'start': 619976, 'end': 620290
+    },
+    {'word': 'bigger', 'start': 620360, 'end': 620766
+    },
+    {'word': 'animals', 'start': 620798, 'end': 621278
+    },
+    {'word': 'back', 'start': 621374, 'end': 621634
+    },
+    {'word': 'then.', 'start': 621672, 'end': 621874
+    },
+    {'word': 'Humanity', 'start': 621912, 'end': 622382
+    },
+    {'word': 'did', 'start': 622446, 'end': 622626
+    },
+    {'word': 'not', 'start': 622648, 'end': 622786
+    },
+    {'word': 'know', 'start': 622808, 'end': 622946
+    },
+    {'word': 'what', 'start': 622968, 'end': 623106
+    },
+    {'word': 'the', 'start': 623128, 'end': 623218
+    },
+    {'word': 'limits', 'start': 623224, 'end': 623534
+    },
+    {'word': 'were.', 'start': 623582, 'end': 623746
+    },
+    {'word': 'This', 'start': 623768, 'end': 623906
+    },
+    {'word': 'was', 'start': 623928, 'end': 624018
+    },
+    {'word': 'an', 'start': 624024, 'end': 624098
+    },
+    {'word': 'open', 'start': 624104, 'end': 624370
+    },
+    {'word': 'question.', 'start': 624440, 'end': 625010
+    },
+    {'word': 'The', 'start': 625160, 'end': 625474
+    },
+    {'word': 'reason', 'start': 625512, 'end': 625858
+    },
+    {'word': 'that', 'start': 625944, 'end': 626242
+    },
+    {'word': 'all', 'start': 626296, 'end': 626466
+    },
+    {'word': 'those', 'start': 626488, 'end': 626674
+    },
+    {'word': '1960s', 'start': 626712, 'end': 627506
+    },
+    {'word': 'science', 'start': 627528, 'end': 627806
+    },
+    {'word': 'fiction', 'start': 627838, 'end': 628126
+    },
+    {'word': 'writers', 'start': 628158, 'end': 628478
+    },
+    {'word': 'and', 'start': 628494, 'end': 628638
+    },
+    {'word': 'comic', 'start': 628664, 'end': 628866
+    },
+    {'word': 'book', 'start': 628898, 'end': 629094
+    },
+    {'word': 'authors', 'start': 629132, 'end': 629522
+    },
+    {'word': 'had', 'start': 629586, 'end': 629814
+    },
+    {'word': 'people', 'start': 629852, 'end': 630150
+    },
+    {'word': 'being', 'start': 630220, 'end': 630550
+    },
+    {'word': 'frozen', 'start': 630620, 'end': 631026
+    },
+    {'word': 'in', 'start': 631058, 'end': 631206
+    },
+    {'word': 'time', 'start': 631228, 'end': 631462
+    },
+    {'word': 'or', 'start': 631516, 'end': 631734
+    },
+    {'word': 'astronauts', 'start': 631772, 'end': 632386
+    },
+    {'word': 'being', 'start': 632418, 'end': 632614
+    },
+    {'word': 'sent', 'start': 632652, 'end': 632854
+    },
+    {'word': 'off', 'start': 632892, 'end': 633046
+    },
+    {'word': 'in', 'start': 633068, 'end': 633206
+    },
+    {'word': 'cryo', 'start': 633228, 'end': 633538
+    },
+    {'word': 'sleep,', 'start': 633554, 'end': 634114
+    },
+    {'word': 'it', 'start': 634242, 'end': 634486
+    },
+    {'word': 'might', 'start': 634508, 'end': 634646
+    },
+    {'word': 'be', 'start': 634668, 'end': 634806
+    },
+    {'word': 'because', 'start': 634828, 'end': 635110
+    },
+    {'word': 'for', 'start': 635180, 'end': 635366
+    },
+    {'word': 'a', 'start': 635388, 'end': 635478
+    },
+    {'word': 'little', 'start': 635484, 'end': 635654
+    },
+    {'word': 'while,', 'start': 635692, 'end': 636230
+    },
+    {'word': 'it', 'start': 636380, 'end': 636694
+    },
+    {'word': 'looked', 'start': 636732, 'end': 636934
+    },
+    {'word': 'like', 'start': 636972, 'end': 637174
+    },
+    {'word': 'that', 'start': 637212, 'end': 637414
+    },
+    {'word': 'might', 'start': 637452, 'end': 637654
+    },
+    {'word': 'actually', 'start': 637692, 'end': 637894
+    },
+    {'word': 'be', 'start': 637932, 'end': 638134
+    },
+    {'word': 'possible.', 'start': 638172, 'end': 638566
+    },
+    {'word': 'If', 'start': 638668, 'end': 638982
+    },
+    {'word': 'freezing', 'start': 639036, 'end': 639426
+    },
+    {'word': 'and', 'start': 639458, 'end': 639606
+    },
+    {'word': 'diothermic', 'start': 639628, 'end': 640226
+    },
+    {'word': 'Reheating', 'start': 640258, 'end': 640802
+    },
+    {'word': 'worked', 'start': 640866, 'end': 641046
+    },
+    {'word': 'on', 'start': 641068, 'end': 641206
+    },
+    {'word': 'hamsters,', 'start': 641228, 'end': 641858
+    },
+    {'word': 'then', 'start': 641954, 'end': 642166
+    },
+    {'word': 'maybe', 'start': 642188, 'end': 642338
+    },
+    {'word': "it'd", 'start': 642364, 'end': 642598
+    },
+    {'word': 'work', 'start': 642614, 'end': 642746
+    },
+    {'word': 'on', 'start': 642768, 'end': 642906
+    },
+    {'word': 'rabbits.', 'start': 642928, 'end': 643286
+    },
+    {'word': 'If', 'start': 643318, 'end': 643466
+    },
+    {'word': 'it', 'start': 643488, 'end': 643578
+    },
+    {'word': 'worked', 'start': 643584, 'end': 643706
+    },
+    {'word': 'on', 'start': 643728, 'end': 643866
+    },
+    {'word': 'rabbits,', 'start': 643888, 'end': 644166
+    },
+    {'word': 'then', 'start': 644198, 'end': 644346
+    },
+    {'word': 'maybe', 'start': 644368, 'end': 644458
+    },
+    {'word': "it'd", 'start': 644464, 'end': 644726
+    },
+    {'word': 'work', 'start': 644758, 'end': 644858
+    },
+    {'word': 'on', 'start': 644864, 'end': 644986
+    },
+    {'word': 'primates.', 'start': 645008, 'end': 645446
+    },
+    {'word': 'And', 'start': 645478, 'end': 645578
+    },
+    {'word': 'if', 'start': 645584, 'end': 645706
+    },
+    {'word': 'it', 'start': 645728, 'end': 645818
+    },
+    {'word': 'worked', 'start': 645824, 'end': 645994
+    },
+    {'word': 'on', 'start': 646032, 'end': 646186
+    },
+    {'word': 'primates,', 'start': 646208, 'end': 646982
+    },
+    {'word': 'then', 'start': 647126, 'end': 647386
+    },
+    {'word': 'maybe', 'start': 647408, 'end': 647594
+    },
+    {'word': "it'd", 'start': 647632, 'end': 647878
+    },
+    {'word': 'work', 'start': 647894, 'end': 648026
+    },
+    {'word': 'on', 'start': 648048, 'end': 648234
+    },
+    {'word': 'humans.', 'start': 648272, 'end': 648982
+    },
+    {'word': 'It', 'start': 649126, 'end': 649386
+    },
+    {'word': "didn't.", 'start': 649408, 'end': 649702
+    },
+    {'word': 'Unfortunately,', 'start': 649766, 'end': 650226
+    },
+    {'word': 'it', 'start': 650278, 'end': 650494
+    },
+    {'word': "doesn't", 'start': 650532, 'end': 650746
+    },
+    {'word': 'scale', 'start': 650778, 'end': 651066
+    },
+    {'word': 'up.', 'start': 651098, 'end': 651390
+    },
+    {'word': 'You', 'start': 651460, 'end': 651694
+    },
+    {'word': 'cannot', 'start': 651732, 'end': 652170
+    },
+    {'word': 'freeze', 'start': 652250, 'end': 652666
+    },
+    {'word': 'a', 'start': 652698, 'end': 652846
+    },
+    {'word': 'human.', 'start': 652868, 'end': 653440
+    },
+    {'word': "It's", 'start': 655490, 'end': 655946
+    },
+    {'word': 'partly', 'start': 655978, 'end': 656394
+    },
+    {'word': 'a', 'start': 656442, 'end': 656894
+    },
+    {'word': 'matter', 'start': 657012, 'end': 657726
+    },
+    {'word': 'of', 'start': 657908, 'end': 658640
+    },
+    {'word': 'how', 'start': 659410, 'end': 659822
+    },
+    {'word': 'quickly', 'start': 659876, 'end': 660286
+    },
+    {'word': 'you', 'start': 660388, 'end': 660654
+    },
+    {'word': 'can', 'start': 660692, 'end': 660894
+    },
+    {'word': 'get', 'start': 660932, 'end': 661134
+    },
+    {'word': 'the', 'start': 661172, 'end': 661374
+    },
+    {'word': 'antifreeze', 'start': 661412, 'end': 662266
+    },
+    {'word': 'agent', 'start': 662298, 'end': 662638
+    },
+    {'word': 'to', 'start': 662724, 'end': 662986
+    },
+    {'word': 'diffuse', 'start': 663028, 'end': 663566
+    },
+    {'word': 'into', 'start': 663598, 'end': 663890
+    },
+    {'word': 'the', 'start': 663960, 'end': 664194
+    },
+    {'word': 'cells.', 'start': 664232, 'end': 664846
+    },
+    {'word': 'Humans', 'start': 664958, 'end': 665534
+    },
+    {'word': 'too', 'start': 665582, 'end': 665794
+    },
+    {'word': 'big.', 'start': 665832, 'end': 666514
+    },
+    {'word': "It's", 'start': 666712, 'end': 667118
+    },
+    {'word': 'just', 'start': 667134, 'end': 667314
+    },
+    {'word': 'a', 'start': 667352, 'end': 667458
+    },
+    {'word': 'matter', 'start': 667464, 'end': 667682
+    },
+    {'word': 'of', 'start': 667736, 'end': 667906
+    },
+    {'word': 'size.', 'start': 667928, 'end': 668402
+    },
+    {'word': 'A', 'start': 668536, 'end': 668834
+    },
+    {'word': 'hamster', 'start': 668872, 'end': 669342
+    },
+    {'word': 'is', 'start': 669406, 'end': 669778
+    },
+    {'word': 'an', 'start': 669864, 'end': 670162
+    },
+    {'word': 'acceptable', 'start': 670216, 'end': 670910
+    },
+    {'word': 'size.', 'start': 670990, 'end': 671620
+    },
+    {'word': 'Sometimes', 'start': 671990, 'end': 672594
+    },
+    {'word': 'research', 'start': 672712, 'end': 673090
+    },
+    {'word': 'hits', 'start': 673160, 'end': 673438
+    },
+    {'word': 'a', 'start': 673454, 'end': 673538
+    },
+    {'word': 'brick', 'start': 673544, 'end': 673758
+    },
+    {'word': 'wall,', 'start': 673774, 'end': 674098
+    },
+    {'word': 'find', 'start': 674184, 'end': 674386
+    },
+    {'word': 'out', 'start': 674408, 'end': 674546
+    },
+    {'word': 'a', 'start': 674568, 'end': 674658
+    },
+    {'word': 'neat', 'start': 674664, 'end': 674846
+    },
+    {'word': 'thing', 'start': 674878, 'end': 675026
+    },
+    {'word': 'about', 'start': 675048, 'end': 675186
+    },
+    {'word': 'hamsters.', 'start': 675208, 'end': 675806
+    },
+    {'word': 'Check', 'start': 675918, 'end': 676434
+    },
+    {'word': 'casually', 'start': 676552, 'end': 677018
+    },
+    {'word': 'invent', 'start': 677054, 'end': 677298
+    },
+    {'word': 'a', 'start': 677314, 'end': 677398
+    },
+    {'word': 'microwave', 'start': 677404, 'end': 677826
+    },
+    {'word': 'and', 'start': 677858, 'end': 678006
+    },
+    {'word': 'then', 'start': 678028, 'end': 678166
+    },
+    {'word': "don't", 'start': 678188, 'end': 678338
+    },
+    {'word': 'commercialize', 'start': 678354, 'end': 678866
+    },
+    {'word': 'it.', 'start': 678898, 'end': 679190
+    },
+    {'word': 'Check.', 'start': 679260, 'end': 679734
+    },
+    {'word': 'Find', 'start': 679852, 'end': 680182
+    },
+    {'word': 'a', 'start': 680236, 'end': 680358
+    },
+    {'word': 'way', 'start': 680364, 'end': 680630
+    },
+    {'word': 'to', 'start': 680700, 'end': 680886
+    },
+    {'word': 'safely', 'start': 680908, 'end': 681314
+    },
+    {'word': 'send', 'start': 681362, 'end': 681574
+    },
+    {'word': 'astronauts', 'start': 681612, 'end': 682226
+    },
+    {'word': 'to', 'start': 682258, 'end': 682406
+    },
+    {'word': 'other', 'start': 682428, 'end': 682566
+    },
+    {'word': 'planets.', 'start': 682588, 'end': 683350
+    },
+    {'word': 'Not', 'start': 683690, 'end': 684054
+    },
+    {'word': 'this', 'start': 684092, 'end': 684246
+    },
+    {'word': 'time,', 'start': 684268, 'end': 684550
+    },
+    {'word': 'unfortunately,', 'start': 684620, 'end': 684994
+    },
+    {'word': 'but', 'start': 685042, 'end': 685206
+    },
+    {'word': 'the', 'start': 685228, 'end': 685318
+    },
+    {'word': 'researchers', 'start': 685324, 'end': 685794
+    },
+    {'word': 'tried,', 'start': 685842, 'end': 686198
+    },
+    {'word': 'and', 'start': 686284, 'end': 686822
+    },
+    {'word': 'it', 'start': 686956, 'end': 687206
+    },
+    {'word': 'feels', 'start': 687228, 'end': 687458
+    },
+    {'word': 'like', 'start': 687474, 'end': 687606
+    },
+    {'word': 'a', 'start': 687628, 'end': 687718
+    },
+    {'word': 'story', 'start': 687724, 'end': 687894
+    },
+    {'word': 'that', 'start': 687932, 'end': 688086
+    },
+    {'word': "shouldn't", 'start': 688108, 'end': 688270
+    },
+    {'word': 'be', 'start': 688290, 'end': 688426
+    },
+    {'word': 'buried', 'start': 688448, 'end': 688790
+    },
+    {'word': 'as', 'start': 688870, 'end': 689066
+    },
+    {'word': 'a', 'start': 689088, 'end': 689226
+    },
+    {'word': 'vague', 'start': 689248, 'end': 689526
+    },
+    {'word': 'anecdote', 'start': 689558, 'end': 690054
+    },
+    {'word': 'in', 'start': 690102, 'end': 690266
+    },
+    {'word': 'a', 'start': 690288, 'end': 690378
+    },
+    {'word': 'newspaper', 'start': 690384, 'end': 690886
+    },
+    {'word': 'from', 'start': 690918, 'end': 691066
+    },
+    {'word': 'years', 'start': 691088, 'end': 691274
+    },
+    {'word': 'ago.', 'start': 691312, 'end': 691706
+    },
+    {'word': 'I', 'start': 691808, 'end': 692026
+    },
+    {'word': 'think', 'start': 692048, 'end': 692426
+    },
+    {'word': 'in', 'start': 692528, 'end': 692746
+    },
+    {'word': 'an', 'start': 692768, 'end': 692906
+    },
+    {'word': 'awful', 'start': 692928, 'end': 693174
+    },
+    {'word': 'lot', 'start': 693222, 'end': 693434
+    },
+    {'word': 'of', 'start': 693472, 'end': 693674
+    },
+    {'word': 'science', 'start': 693712, 'end': 694486
+    },
+    {'word': 'where', 'start': 694678, 'end': 694986
+    },
+    {'word': "there's", 'start': 695008, 'end': 695478
+    },
+    {'word': 'success,', 'start': 695574, 'end': 696220
+    },
+    {'word': "it's", 'start': 696590, 'end': 696966
+    },
+    {'word': 'not', 'start': 696998, 'end': 697674
+    },
+    {'word': 'a', 'start': 697872, 'end': 698234
+    },
+    {'word': 'scientific', 'start': 698272, 'end': 698918
+    },
+    {'word': 'thing,', 'start': 699014, 'end': 699514
+    },
+    {'word': "it's", 'start': 699632, 'end': 699974
+    },
+    {'word': 'an', 'start': 700022, 'end': 700234
+    },
+    {'word': 'invention,', 'start': 700272, 'end': 700998
+    },
+    {'word': 'which', 'start': 701174, 'end': 701514
+    },
+    {'word': 'is', 'start': 701552, 'end': 701706
+    },
+    {'word': 'something', 'start': 701728, 'end': 702058
+    },
+    {'word': 'quite', 'start': 702144, 'end': 702442
+    },
+    {'word': 'different.', 'start': 702496, 'end': 703098
+    },
+    {'word': 'And', 'start': 703264, 'end': 703594
+    },
+    {'word': 'I', 'start': 703632, 'end': 703786
+    },
+    {'word': 'think', 'start': 703808, 'end': 704150
+    },
+    {'word': 'personally,', 'start': 704240, 'end': 704762
+    },
+    {'word': "I'm", 'start': 704826, 'end': 705146
+    },
+    {'word': 'much', 'start': 705178, 'end': 705374
+    },
+    {'word': 'more', 'start': 705412, 'end': 705614
+    },
+    {'word': 'of', 'start': 705652, 'end': 705806
+    },
+    {'word': 'an', 'start': 705828, 'end': 706014
+    },
+    {'word': 'inventor', 'start': 706052, 'end': 706554
+    },
+    {'word': 'than', 'start': 706602, 'end': 706814
+    },
+    {'word': 'a', 'start': 706852, 'end': 707006
+    },
+    {'word': 'scientist.', 'start': 707028, 'end': 707786
+    },
+    {'word': 'My', 'start': 707898, 'end': 708174
+    },
+    {'word': 'thanks', 'start': 708212, 'end': 708366
+    },
+    {'word': 'to', 'start': 708388, 'end': 708526
+    },
+    {'word': 'James', 'start': 708548, 'end': 708746
+    },
+    {'word': 'Lovelock', 'start': 708778, 'end': 709226
+    },
+    {'word': 'for', 'start': 709258, 'end': 709358
+    },
+    {'word': 'his', 'start': 709364, 'end': 709486
+    },
+    {'word': 'time.', 'start': 709508, 'end': 709694
+    },
+    {'word': 'His', 'start': 709732, 'end': 709838
+    },
+    {'word': 'latest', 'start': 709844, 'end': 710106
+    },
+    {'word': 'book,', 'start': 710138, 'end': 710334
+    },
+    {'word': 'Novocene,', 'start': 710372, 'end': 710858
+    },
+    {'word': 'is', 'start': 710874, 'end': 711006
+    },
+    {'word': 'part', 'start': 711028, 'end': 711214
+    },
+    {'word': 'memoir', 'start': 711252, 'end': 711706
+    },
+    {'word': 'and', 'start': 711738, 'end': 711886
+    },
+    {'word': 'part', 'start': 711908, 'end': 712046
+    },
+    {'word': 'look', 'start': 712068, 'end': 712206
+    },
+    {'word': 'to', 'start': 712228, 'end': 712366
+    },
+    {'word': 'the', 'start': 712388, 'end': 712478
+    },
+    {'word': 'future.', 'start': 712484, 'end': 712750
+    },
+    {'word': 'And', 'start': 712820, 'end': 713006
+    },
+    {'word': "there's", 'start': 713028, 'end': 713178
+    },
+    {'word': 'a', 'start': 713194, 'end': 713278
+    },
+    {'word': 'link', 'start': 713284, 'end': 713406
+    },
+    {'word': 'to', 'start': 713428, 'end': 713566
+    },
+    {'word': 'it', 'start': 713588, 'end': 713678
+    },
+    {'word': 'in', 'start': 713684, 'end': 713806
+    },
+    {'word': 'the', 'start': 713828, 'end': 713918
+    },
+    {'word': 'description.', 'start': 713924, 'end': 714670
+    },
+    {'word': 'Oh,', 'start': 715570, 'end': 715934
+    },
+    {'word': 'that', 'start': 715972, 'end': 716078
+    },
+    {'word': 'was', 'start': 716084, 'end': 716158
+    },
+    {'word': 'a', 'start': 716164, 'end': 716286
+    },
+    {'word': 'mistake.', 'start': 716308, 'end': 716990
+    },
+    {'word': "That's", 'start': 720930, 'end': 721258
+    },
+    {'word': 'going', 'start': 721274, 'end': 721358
+    },
+    {'word': 'to', 'start': 721364, 'end': 721438
+    },
+    {'word': 'be', 'start': 721444, 'end': 721566
+    },
+    {'word': 'a', 'start': 721588, 'end': 721678
+    },
+    {'word': 'nightmare', 'start': 721684, 'end': 722106
+    },
+    {'word': 'to', 'start': 722138, 'end': 722286
+    },
+    {'word': 'wash.', 'start': 722308, 'end': 722778
+    },
+    {'word': 'All', 'start': 722874, 'end': 723086
+    },
+    {'word': 'right,', 'start': 723108, 'end': 723246
+    },
+    {'word': 'well,', 'start': 723268, 'end': 723358
+    },
+    {'word': 'I', 'start': 723364, 'end': 723486
+    },
+    {'word': 'guess', 'start': 723508, 'end': 723598
+    },
+    {'word': 'I', 'start': 723604, 'end': 723678
+    },
+    {'word': "don't", 'start': 723684, 'end': 723866
+    },
+    {'word': 'get', 'start': 723898, 'end': 723998
+    },
+    {'word': 'a', 'start': 724004, 'end': 724126
+    },
+    {'word': 'second', 'start': 724148, 'end': 724334
+    },
+    {'word': 'take.', 'start': 724372, 'end': 724934
+    },
+    {'word': 'I', 'start': 725092, 'end': 725366
+    },
+    {'word': 'put', 'start': 725388, 'end': 725574
+    },
+    {'word': 'that', 'start': 725612, 'end': 725766
+    },
+    {'word': 'on', 'start': 725788, 'end': 725974
+    },
+    {'word': 'low.', 'start': 726012, 'end': 726100
+    }
+]
