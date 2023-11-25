@@ -128,7 +128,7 @@ class TranscribeView(View):
             template="""You are a course creator that uses Youtube videos as reference. 
             You will be provided a transcript of a video as input. 
             You will analyze the text and break it down into logical components of three to six sentences each so that only one concept is discussed in each of them. 
-            Note that you are not modifying the text but only breaking down it into logical parts so that concepts can be explained piecemeal. 
+            Note that you are not modifying or shortening the text but only breaking it down into logical parts so that concepts can be explained piecemeal.
             You will return your response as json with the following column headers, Headline and Dialog.
             Dialog would be the logically broken up transcript portion and headline would be a title that describes that portions content in brief. 
 
