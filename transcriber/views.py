@@ -24,16 +24,58 @@ from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 from datetime import datetime
 
 import requests
+from datetime import timedelta
+
+import string
+
+def preprocess_text(text):
+    # Convert to lowercase
+    text = text.lower()
+    # Remove punctuation
+    text = text.translate(str.maketrans('', '', string.punctuation))
+    return text
+
+def milliseconds_to_seconds(milliseconds):
+    return milliseconds / 1000.0
+
+def match_timestamps_to_segments(segments, word_timestamps):
+    lessons_data = []
+    last_index = 0
+    for segment in segments:
+        words_in_segment = preprocess_text(segment['Dialog']).split()
+        start_time = None
+        end_time = None
+        word_index = 0
+        for i in range(last_index, len(word_timestamps)):
+            word_info = word_timestamps[i]
+            if preprocess_text(word_info['word']) == words_in_segment[word_index]:
+                if start_time is None:
+                    start_time = word_info['start']
+                end_time = word_info['end']
+                word_index += 1
+                if word_index == len(words_in_segment):
+                    last_index = i + 1  # Update the last index to start the next segment
+                    break
+        if word_index != len(words_in_segment):
+            print(f"Warning: Not all words in the segment '{segment['Dialog']}' were found in the word timestamps")
+        lessons_data.append({
+            'Headline': segment['Headline'],
+            'Dialog': segment['Dialog'],
+            'Start time': start_time,
+            'End time': end_time,
+        })
+    return lessons_data
 
 def create_lessons(course, lessons_data):
+    print("I am in create lessons")
     for index, lesson_data in enumerate(lessons_data, start=1):
-        # Convert start_time and end_time to datetime.time objects
-        start_time = datetime.strptime(lesson_data['Start time'], '%M:%S.%f').time()
-        end_time = datetime.strptime(lesson_data['End time'], '%M:%S.%f').time()
+        
+        start_seconds = milliseconds_to_seconds(lesson_data['Start time'])
+        end_seconds = milliseconds_to_seconds(lesson_data['End time'])
 
-        # Convert start_time and end_time to seconds
-        start_seconds = start_time.minute * 60 + start_time.second + start_time.microsecond / 1e6
-        end_seconds = end_time.minute * 60 + end_time.second + end_time.microsecond / 1e6
+        # Convert seconds to datetime.time
+        start_time = (datetime.min + timedelta(seconds=start_seconds)).time()
+        end_time = (datetime.min + timedelta(seconds=end_seconds)).time()
 
         # Generate a unique filename for the trimmed video
         trimmed_video_filename = 'trimmed_video_' + str(index) + '.mp4'
@@ -74,7 +116,7 @@ class TranscribeView(View):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
     
-    def post_processing(self, response, srt_file):
+    def post_processing(self, response, word_timestamps):
     # Placeholder logic
         print("I am now building lessons")
         
@@ -85,9 +127,8 @@ class TranscribeView(View):
             input_variables=["transcript"],
             template="""You are a course creator that uses Youtube videos as reference. 
             You will be provided a transcript of a video as input. 
-            You will analyze the text and break it down into logical components of two to five sentences each so that only one small concept is discussed in each of them. 
-            Note that you are not modifying the text but only breaking down it into small logical parts so that concepts can be explained piecemeal. 
-            You will also remove text that references sponsors especially if it does not add to the overall concept that is being explained in the transcript directly. 
+            You will analyze the text and break it down into logical components of three to six sentences each so that only one concept is discussed in each of them. 
+            Note that you are not modifying the text but only breaking down it into logical parts so that concepts can be explained piecemeal. 
             You will return your response as json with the following column headers, Headline and Dialog.
             Dialog would be the logically broken up transcript portion and headline would be a title that describes that portions content in brief. 
 
@@ -104,81 +145,16 @@ class TranscribeView(View):
 
         split_lessons = chain.run(inputs)
 
+        print("Here are the split lessons")
+
         print(split_lessons)
 
-        # Now I will try to combine based on time stamps on the srt file
-
+        split_lessons = json.loads(split_lessons)
+        lessons = split_lessons['data']
         print("I am now building lessons based on time stamps")
+
+        lessons_data = match_timestamps_to_segments(lessons, word_timestamps)
         
-        llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo-1106")
-        
-
-        timed_course_creator_prompt = PromptTemplate(
-            input_variables=["input_json","srt_file"],
-            template="""You are a course creators assistant. 
-            You will be provided 2 inputs, a json and a srt files content with time stamps for transcribed text.
-            The json has the following column headers, Headline and Dialog for the various lessons in the course.
-            The srt file has the same general content from the dialog field but it has timestamps.
-            The contents in the srt can have one sentence broken across multiple time frame segments.
-
-            Your job is to create a new json by cross referencing the input json and the srt files time stamps.
-
-            Your new json will have the following column headers, Headline, Dialog, Start time, End time.
-
-            For eg: Headline and Dialog from the json could be 
-
-            "Headline": "The End of the Universe",
-            "Dialog": "The Universe today is happy and healthy, with exciting things going on. But at some point, the night will turn dark. Everything that once was will peacefully sleep forever. But what is the last thing that will ever happen? And when will it be? It turns out there is such a thing, and you probably haven't heard about it."
-
-            and srt file might have 
-
-            00:00.330 --> 00:04.186
-            You. The Universe today is happy and healthy,
-
-            00:04.298 --> 00:08.318
-            with exciting things going on. But at some point, the night
-
-            00:08.404 --> 00:11.742
-            will turn dark. Everything that once was
-
-            00:11.876 --> 00:14.430
-            will peacefully sleep forever.
-
-            00:15.090 --> 00:17.838
-            But what is the last thing that will ever happen?
-
-            00:17.924 --> 00:21.406
-            And when will it be? It turns out there is such
-
-            00:21.428 --> 00:25.030
-            a thing, and you probably haven't heard about it.
-
-            You will then return a json with the same Headline and Dialog and Start time as 00:00.330 and End time as 00:25.030
-
-            Your inputs are:
-
-            Input Json: {input_json}
-
-            Srt file: {srt_file}
-
-            Remember your new json will have the following column headers, Headline, Dialog, Start time, End time (based on the Dialogs text cross referenced against the time stamps in the srt).
-            It will have multiple records in this fashion, make sure to go through all of them.
-
-    """,
-        )
-
-        chain = LLMChain(llm=llm, prompt=timed_course_creator_prompt)
-
-        inputs = {
-            "input_json": split_lessons,
-            "srt_file": srt_file,
-        }
-
-        timed_split_lessons = chain.run(inputs)
-
-        timed_split_lessons = timed_split_lessons.replace("New Json:", "").strip()
-        lessons_data = json.loads(timed_split_lessons)
-
         print("Timed split Lessons : ", lessons_data)
 
         return lessons_data
@@ -236,6 +212,10 @@ class TranscribeView(View):
 
         print("Completed Transcription")
 
+        # Print word-level timestamps
+        for word_info in transcript.words:
+            print(f"Word: {word_info.text}, Start: {word_info.start}, End: {word_info.end}")
+
 
         logo_filename = None
         if logo_file:
@@ -264,10 +244,16 @@ class TranscribeView(View):
 
         course.save()
 
-        # Post processing
-        lessons_data = self.post_processing(transcribed_text, timed_transcribed_text)
+        # Create a list of word-level timestamps
+        word_timestamps = [
+            {"word": word_info.text, "start": word_info.start, "end": word_info.end}
+            for word_info in transcript.words
+        ]
+
+        # Pass the word-level timestamps to the post_processing function
+        lessons_data = self.post_processing(transcribed_text, word_timestamps)
 
         # Create lessons
-        create_lessons(course, lessons_data['data'])
-
+        create_lessons(course, lessons_data)
+        
         return JsonResponse(lessons_data, safe=False)
