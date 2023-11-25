@@ -62,7 +62,7 @@
         <div class="text-center">
             <a href="{% url 'claim_bonus' course.id %}" class="btn btn-success" id="claim-bonus-button">Claim Bonus</a>
         </div>
-        {% else %}
+        {% elif course.completion_token_bonus > 0 %}
         <div class="text-center">
             <p>You earned {{ course.completion_token_bonus }} tokens for completing this course.</p>
         </div>
