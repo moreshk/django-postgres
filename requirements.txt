@@ -16,3 +16,4 @@ django-storages==1.14.2
 assemblyai==0.20.0
 moviepy==1.0.3
 yt-dlp==2023.11.16
+django-sendfile2==0.7.0
