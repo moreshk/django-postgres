@@ -4,9 +4,13 @@
     <!-- <h2 class="text-center my-4">Token Balance: {{ request.user.token }}</h2> -->
 
     <!-- Add the headline here -->
-    {% if lesson.headline %}
-    <h2 class="text-center my-4">{{ lesson.headline }}</h2>
-    {% endif %}
+    <h2 class="text-center my-4">
+        {% if request.user.language == 'Marathi' and lesson.marathi_headline %}
+          {{ lesson.marathi_headline }}
+        {% else %}
+          {{ lesson.headline }}
+        {% endif %}
+      </h2>
     
     {% if lesson.video_file %}
     <div class="text-center">
@@ -31,13 +35,24 @@
     </div>
     {% endif %}
 
-    <p class="my-4">{{ lesson.dialog }}</p>
+    <p class="my-4">
+        {% if request.user.language == 'Marathi' and lesson.marathi_dialog %}
+          {{ lesson.marathi_dialog }}
+        {% else %}
+          {{ lesson.dialog }}
+        {% endif %}
+      </p>
+  
 
-    {% if lesson.audio_path %}
-    <div class="text-center">
-        <audio src="{{ lesson.audio_path.url }}" controls autoplay class="w-100"></audio>
-    </div>
-    {% endif %}
+      {% if request.user.language == 'Marathi' and lesson.marathi_audio_path %}
+      <div class="text-center">
+          <audio src="{{ lesson.marathi_audio_path.url }}" controls autoplay class="w-100"></audio>
+      </div>
+      {% elif lesson.audio_path %}
+      <div class="text-center">
+          <audio src="{{ lesson.audio_path.url }}" controls autoplay class="w-100"></audio>
+      </div>
+      {% endif %}
 
     {% if message %}
     <div class="alert alert-info">{{ message }}</div>
