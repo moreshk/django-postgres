@@ -54,6 +54,13 @@ class CustomUser(AbstractUser):
     referred_by = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
     referral_slots = models.IntegerField(default=2)
     completed_courses = models.ManyToManyField(Course, related_name='completed_by_users')
+
+    LANGUAGE_CHOICES = (
+        ('English', 'English'),
+        ('Marathi', 'Marathi'),
+    )
+
+    language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, default='English')
     
     objects = CustomUserManager()
 

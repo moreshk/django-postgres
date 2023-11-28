@@ -29,6 +29,64 @@ from datetime import timedelta
 import string
 from urllib.request import urlretrieve
 
+
+def chapter_to_dict(chapter):
+    return {
+        'summary': chapter.summary,
+        'gist': chapter.gist,
+        'headline': chapter.headline,
+        'start': chapter.start,
+        'end': chapter.end
+    }   
+
+def milliseconds_to_seconds(milliseconds):
+    return milliseconds / 1000.0
+
+
+def create_lessons(course, chapters):
+    print("I am in create lessons")
+    for index, chapter in enumerate(chapters, start=1):
+
+        start_seconds = milliseconds_to_seconds(chapter.start)
+        end_seconds = milliseconds_to_seconds(chapter.end)
+        
+        # Convert seconds to datetime.time
+        start_time = (datetime.min + timedelta(seconds=start_seconds)).time()
+        end_time = (datetime.min + timedelta(seconds=end_seconds)).time()
+
+        # Generate a unique filename for the trimmed video
+        trimmed_video_filename = 'trimmed_video_' + str(index) + '.mp4'
+
+        # Download the course video file to a local path
+        course_video_path = 'course_video_' + str(index) + '.mp4'
+        response = requests.get(course.video_file.url, stream=True)
+        with open(course_video_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+
+        print("Trimming lesson")
+        # Trim the video
+        ffmpeg_extract_subclip(course_video_path, start_seconds, end_seconds, targetname=trimmed_video_filename)
+
+        # Upload the trimmed video to Azure
+        with open(trimmed_video_filename, 'rb') as f:
+            trimmed_video_file = ContentFile(f.read(), name=trimmed_video_filename)
+            video_file_url = default_storage.save(trimmed_video_filename, trimmed_video_file)
+
+        # Delete the trimmed video file and the downloaded course video file
+        os.remove(trimmed_video_filename)
+        os.remove(course_video_path)
+
+        Lesson.objects.create(
+            course=course,
+            step_id=index * 10,
+            dialog=chapter.summary,
+            headline=chapter.gist,
+            start_time=start_time,
+            end_time=end_time,
+            video_file=video_file_url,
+        )
+
 def preprocess_text(text):
     # Convert to lowercase
     text = text.lower()
@@ -36,8 +94,7 @@ def preprocess_text(text):
     text = text.translate(str.maketrans('', '', string.punctuation))
     return text
 
-def milliseconds_to_seconds(milliseconds):
-    return milliseconds / 1000.0
+
 
 def match_timestamps_to_segments(segments, word_timestamps):
     lessons_data = []
@@ -67,7 +124,7 @@ def match_timestamps_to_segments(segments, word_timestamps):
         })
     return lessons_data
 
-def create_lessons(course, lessons_data):
+def create_lessons_old(course, lessons_data):
     print("I am in create lessons")
     for index, lesson_data in enumerate(lessons_data, start=1):
         
@@ -153,7 +210,7 @@ class TranscribeView(View):
         print(split_lessons)
 
         split_lessons = json.loads(split_lessons)
-        lessons = split_lessons['data']
+        lessons = split_lessons.get('data', split_lessons.get('parts', []))
         print("I am now building lessons based on time stamps")
 
         lessons_data = match_timestamps_to_segments(lessons, word_timestamps)
@@ -206,18 +263,34 @@ class TranscribeView(View):
         audio_url = default_storage.url(audio_filename + '.mp3')
 
         aai.settings.api_key = os.getenv('ASSEMBLY_AI_API_KEY')
-        transcriber = aai.Transcriber()
+        # transcriber = aai.Transcriber()
+        
+        config = aai.TranscriptionConfig(auto_chapters=True)
+
+        transcriber = aai.Transcriber(config=config)
+
         transcript = transcriber.transcribe(audio_url)
 
         # Extract the transcribed text
         transcribed_text = transcript.text
-        timed_transcribed_text = transcript.export_subtitles_vtt()
+        # timed_transcribed_text = transcript.export_subtitles_vtt()
 
         print("Completed Transcription")
 
         # Print word-level timestamps
-        for word_info in transcript.words:
-            print(f"Word: {word_info.text}, Start: {word_info.start}, End: {word_info.end}")
+        # for word_info in transcript.words:
+        #     print(f"Word: {word_info.text}, Start: {word_info.start}, End: {word_info.end}")
+
+    # Print auto chapters
+        if transcript.status == 'completed':
+            for chapter in transcript.chapters:
+                print(f"Chapter Start Time: {chapter.start}")
+                print(f"Chapter End Time: {chapter.end}")
+                print(f"Chapter Headline: {chapter.headline}")
+                print(f"Chapter Gist: {chapter.gist}")
+                print(f"Chapter Summary: {chapter.summary}")
+        elif transcript.status == 'error':
+            print(f"Transcription failed: {transcript.error}")
 
 
         logo_filename = None
@@ -254,7 +327,7 @@ class TranscribeView(View):
             description=description,
             video_link=youtube_url,
             transcript=transcribed_text,
-            timed_transcripts=timed_transcribed_text,
+            # timed_transcripts=timed_transcribed_text,
             logo=logo_filename,
             creator=request.user,  # Set the creator to the current user
         )
@@ -270,16 +343,18 @@ class TranscribeView(View):
 
         course.save()
 
-        # Create a list of word-level timestamps
-        word_timestamps = [
-            {"word": word_info.text, "start": word_info.start, "end": word_info.end}
-            for word_info in transcript.words
-        ]
+        # # Create a list of word-level timestamps
+        # word_timestamps = [
+        #     {"word": word_info.text, "start": word_info.start, "end": word_info.end}
+        #     for word_info in transcript.words
+        # ]
 
-        # Pass the word-level timestamps to the post_processing function
-        lessons_data = self.post_processing(transcribed_text, word_timestamps)
+        # # Pass the word-level timestamps to the post_processing function
+        # lessons_data = self.post_processing(transcribed_text, word_timestamps)
 
         # Create lessons
-        create_lessons(course, lessons_data)
+        create_lessons(course, transcript.chapters)
         
-        return JsonResponse(lessons_data, safe=False)
+        # Convert chapters to dictionaries before passing to JsonResponse
+        chapters_dict = [chapter_to_dict(chapter) for chapter in transcript.chapters]
+        return JsonResponse(chapters_dict, safe=False)
