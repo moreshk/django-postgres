@@ -4,13 +4,11 @@
     <!-- <h2 class="text-center my-4">Token Balance: {{ request.user.token }}</h2> -->
 
     <!-- Add the headline here -->
-    <h2 class="text-center my-4">
-        {% if request.user.language == 'Marathi' and lesson.marathi_headline %}
-          {{ lesson.marathi_headline }}
-        {% else %}
-          {{ lesson.headline }}
-        {% endif %}
-      </h2>
+    {% if request.user.language == 'Marathi' and lesson.marathi_headline %}
+      <h2 class="text-center my-4">{{ lesson.marathi_headline }}</h2>
+    {% elif lesson.headline %}
+      <h2 class="text-center my-4">{{ lesson.headline }}</h2>
+    {% endif %}
     
     {% if lesson.video_file %}
     <div class="text-center">
