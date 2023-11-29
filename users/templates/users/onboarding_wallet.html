@@ -10,13 +10,17 @@
     <button type="submit" class="btn btn-primary mb-3" value="Submit">Submit</button>
 </form> -->
 
-<div class="form-group">
-    <label for="language">Preferred Language:</label>
-    <select class="form-control" id="language" name="language">
-        <option value="English" selected>English</option>
-        <option value="Marathi">Marathi</option>
-    </select>
-    <button type="submit" class="btn btn-primary mb-3" value="Submit">Submit</button>
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="language">Preferred Language:</label>
+        <select class="form-control" id="language" name="language">
+            <option value="English" selected>English</option>
+            <option value="Marathi">Marathi</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mb-3 mt-3" value="Submit">Submit</button>
+</form>
 </div>
 
 {% endblock %}

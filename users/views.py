@@ -292,10 +292,8 @@ def register_with_referral(request, code):
 @login_required
 def onboarding_wallet(request):
     if request.method == 'POST':
-        wallet = request.POST.get('wallet')
         language = request.POST.get('language')
-        if wallet:
-            request.user.wallet = wallet
+        if language:
             request.user.language = language
             request.user.has_completed_onboarding = True  # Set the onboarding complete flag to True
 
