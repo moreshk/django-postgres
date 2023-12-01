@@ -8,6 +8,7 @@ from langchain.chat_models import ChatOpenAI
 from .forms import TranslationForm
 import os
 import json
+from .models import Translation
 
 @login_required
 def random_sentence(request):
@@ -32,3 +33,9 @@ def random_sentence(request):
         form = TranslationForm(initial={'translated_language': request.user.language})
 
     return render(request, 'translator/random_sentence.html', {'sentence': sentence, 'form': form})
+
+
+@login_required
+def user_translations(request):
+    translations = Translation.objects.filter(user=request.user)
+    return render(request, 'translator/user_translations.html', {'translations': translations})
