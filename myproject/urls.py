@@ -56,6 +56,7 @@ urlpatterns = [
     path('register/<str:code>/', register_with_referral, name='register_with_referral'),
     path('register/', views.register, name='register'),  # Assuming you have a register view
     path('transcriber/', include('transcriber.urls')),
+    path('translator/', include('translator.urls')),
 ]
 
 if settings.DEBUG:

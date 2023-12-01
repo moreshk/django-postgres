@@ -203,3 +203,4 @@ def label_task_view(request):
     # Print the data to the console
     print(data[['Open', 'High', 'Low', 'Close']])
     return render(request, 'labeller/label_task.html', {'data': data_list})
+

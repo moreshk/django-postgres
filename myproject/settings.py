@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "labeller",
     "storages",
     "transcriber",
+    'translator',
 ]
 
 MIDDLEWARE = [
