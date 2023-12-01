@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 {% block content %}
-  <h1>Random Sentence</h1>
+<p><strong style="font-size: larger;">Translate the below text to your language, make sure to use colloquial language i.e write it how you would speak in a day to day language rather than aiming for perfect academic translations. Keep technical terms and words that are not common in your language as it is but type them in your local script.</strong></p>
   <p>{{ sentence }}</p>
 
   <form method="post" class="mb-3">
@@ -19,5 +19,6 @@
       </div>
     {% endfor %}
     <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="{% url 'random_sentence' %}" style="margin-left: 20px;">Skip</a>
   </form>
 {% endblock %}

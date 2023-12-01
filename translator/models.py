@@ -15,7 +15,7 @@ class Translation(models.Model):
         ('Hindi', 'Hindi'),
     )
     translated_language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES)
-    translated_text_user_input = models.TextField()
+    translated_text_user_input = models.CharField(max_length=500)
     admin_comment = models.TextField(null=True, blank=True)
     STATUS_CHOICES = (
         ('Submitted', 'Submitted'),
