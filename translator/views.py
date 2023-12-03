@@ -11,12 +11,13 @@ import json
 from .models import Translation
 
 @login_required
-def random_sentence(request):
+def random_sentence(request, topic):
+    print("Topic: ", topic)
     llm = ChatOpenAI(temperature=1, model_name="gpt-3.5-turbo")
-    template = "Generate a random sentence with respect to the following: {input_param}."
+    template = f"Generate a random sentence with respect to the following: {{input_param}}."
     prompt_template = PromptTemplate(input_variables=["input_param"], template=template)
     chain = LLMChain(llm=llm, prompt=prompt_template)
-    result = chain.run({"input_param": "stock trading technical or fundamental analysis"})
+    result = chain.run({"input_param": topic})
     
     sentence = result
 
@@ -28,14 +29,17 @@ def random_sentence(request):
             translation.english_text = sentence
             translation.status = 'Submitted'
             translation.save()
-            return redirect('random_sentence')
+            return redirect('random_sentence', topic=topic)
     else:
         form = TranslationForm(initial={'translated_language': request.user.language})
 
-    return render(request, 'translator/random_sentence.html', {'sentence': sentence, 'form': form})
-
+    return render(request, 'translator/random_sentence.html', {'sentence': sentence, 'form': form, 'topic': topic})
 
 @login_required
 def user_translations(request):
     translations = Translation.objects.filter(user=request.user)
     return render(request, 'translator/user_translations.html', {'translations': translations})
+
+@login_required
+def topics(request):
+    return render(request, 'translator/babbl.html')

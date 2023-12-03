@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Trading Topic Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'random_sentence' 'trading' %}">Trading</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medicine Topic Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'random_sentence' 'medicine' %}">Medicine</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Science Topic Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'random_sentence' 'science' %}">Science</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Translations Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'user_translations' %}">My Translations</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
