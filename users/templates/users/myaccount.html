@@ -14,6 +14,11 @@
     {% endif %}
   </div>
 
+  <div class="form-group">
+    <label>Email:</label>
+    <p>{{ request.user.email }}</p>
+  </div>
+
   {% if request.user.user_type == 'LABELLER' %}
   <div class="form-group">
     <label>Token Balance:</label>
