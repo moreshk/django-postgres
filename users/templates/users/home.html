@@ -5,6 +5,15 @@
     <!-- <h1 class="mb-4">Welcome to the Home Page!</h1> -->
 
     <div class="row">
+        <!-- Babbl Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'topics' %}">Babbl</a>
+                </div>
+            </div>
+        </div>
+
         {% if request.user.user_type == 'LABELLER' %}
         <!-- My Account Tile -->
         <div class="col-md-3 mb-4">
@@ -85,14 +94,7 @@
             </div>
         </div>
 
-        <!-- Babbl Tile -->
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'topics' %}">Babbl</a>
-                </div>
-            </div>
-        </div>
+
 
         <!-- My Account Tile -->
         <div class="col-md-3 mb-4">
