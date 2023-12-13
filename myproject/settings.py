@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "storages",
     "transcriber",
     'translator',
+    'scholar',
 ]
 
 MIDDLEWARE = [

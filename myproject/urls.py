@@ -57,6 +57,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),  # Assuming you have a register view
     path('transcriber/', include('transcriber.urls')),
     path('translator/', include('translator.urls')),
+    path('scholar/', include('scholar.urls')),
 ]
 
 if settings.DEBUG:

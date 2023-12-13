@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'scholar:add' %}">Add</a>
+                </div>
+            </div>
+        </div>
+        <!-- More tiles for other applications like multiplication can be added here later -->
+    </div>
+</div>
+{% endblock %}
