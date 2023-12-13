@@ -27,9 +27,18 @@
     }
 
     #feedback {
-        text-align: center; /* Ensure text is centered */
-        width: 100%; /* Use full width to center text in the container */
-        display: none; /* Initially hidden */
+        text-align: center;
+        /* Ensure text is centered */
+        width: 100%;
+        /* Use full width to center text in the container */
+        display: none;
+        /* Initially hidden */
+    }
+
+    #scoreboard {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        /* Spacing between scoreboard and game area */
     }
 </style>
 
@@ -39,6 +48,11 @@
         <button id="startButton" class="btn btn-primary">Start</button>
     </div>
     <div id="gameArea" class="centered" style="display:none;">
+        <div id="scoreboard" class="centered mb-4">
+            <span id="correctScore" class="text-success">Correct: 0</span> |
+            <span id="wrongScore" class="text-danger">Wrong: 0</span>
+        </div>
+
         <form id="answerForm" class="form-inline mb-3" onsubmit="return false;"> <!-- Added mb-3 for spacing -->
             <div class="form-group">
                 <input type="number" id="userAnswer" class="form-control" style="max-width: 200px;" />
@@ -56,6 +70,7 @@
 
 {% block extra_js %}
 <script>
+
     document.addEventListener('DOMContentLoaded', function () {
         let timerInterval;
         let timeRemaining = 120; // 2 minutes in seconds
@@ -89,24 +104,31 @@
         }
 
         function generateQuestion() {
-            let num1 = Math.floor(Math.random() * 10 * difficulty);
-            let num2 = Math.floor(Math.random() * 10 * difficulty);
+            // Use difficulty to determine the range of numbers for the question
+            let maxNumber = 10 + (difficulty - 1) * 5; // Increase the range as difficulty increases
+            let num1 = Math.floor(Math.random() * maxNumber) + 1; // Ensure non-zero numbers
+            let num2 = Math.floor(Math.random() * maxNumber) + 1;
             document.getElementById('question').textContent = `What is ${num1} + ${num2}?`;
             document.getElementById('userAnswer').value = '';
             document.getElementById('userAnswer').dataset.correctAnswer = num1 + num2;
         }
 
         function showFeedback(message, isSuccess) {
-    let feedbackElement = document.getElementById('feedback');
-    feedbackElement.style.display = 'block';
-    feedbackElement.textContent = message;
-    feedbackElement.className = isSuccess ? 'alert alert-success' : 'alert alert-danger';
+            let feedbackElement = document.getElementById('feedback');
+            feedbackElement.style.display = 'block';
+            feedbackElement.textContent = message;
+            feedbackElement.className = isSuccess ? 'alert alert-success' : 'alert alert-danger';
 
-    // Set a timeout to hide the feedback after 1 second (1000 milliseconds)
-    setTimeout(function() {
-        feedbackElement.style.display = 'none';
-    }, 1000);
-}
+            // Set a timeout to hide the feedback after 1 second (1000 milliseconds)
+            setTimeout(function () {
+                feedbackElement.style.display = 'none';
+            }, 1000);
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('correctScore').textContent = `Correct: ${score.correct}`;
+            document.getElementById('wrongScore').textContent = `Wrong: ${score.wrong}`;
+        }
 
         function checkAnswer() {
             event.preventDefault(); // Prevent the form from submitting normally
@@ -116,16 +138,19 @@
 
             if (userAnswer === correctAnswer) {
                 score.correct++;
-                difficulty += 0.1; // Increase difficulty slightly
+                difficulty++; // Increase difficulty in a predictable manner
                 showFeedback('Correct!', true);
             } else {
                 score.wrong++;
-                difficulty = Math.max(1, difficulty - 0.1); // Decrease difficulty slightly, but not below 1
+                difficulty = Math.max(1, difficulty - 1); // Decrease difficulty, but not below 1
                 showFeedback('Wrong!', false);
             }
 
             generateQuestion();
             document.getElementById('userAnswer').focus(); // Keep the focus on the input field
+
+            // Update the score display after checking the answer
+            updateScoreDisplay();
         }
 
         // Add an event listener for the form's submit event
