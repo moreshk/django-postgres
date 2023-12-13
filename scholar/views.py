@@ -5,10 +5,13 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import random
+from django.contrib.auth.decorators import login_required
+
 
 def index_view(request):
     return render(request, 'scholar/index.html')
 
+@login_required
 def add_view(request):
     return render(request, 'scholar/add.html')
 
