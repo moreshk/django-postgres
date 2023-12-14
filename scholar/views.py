@@ -47,3 +47,8 @@ def check_answer(request):
     response_data['difficulty'] = difficulty
 
     return JsonResponse(response_data)
+
+
+@login_required
+def multiply_view(request):
+    return render(request, 'scholar/multiply.html')
