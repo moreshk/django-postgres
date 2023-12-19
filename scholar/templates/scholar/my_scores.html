@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3>Addition</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Correct</th>
+                <th>Wrong</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in addition_scores %}
+            <tr>
+                <td>{{ score.timestamp }}</td>
+                <td>{{ score.correct_answers_count }}</td>
+                <td>{{ score.wrong_answers_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Multiplication</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Correct</th>
+                <th>Wrong</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in multiplication_scores %}
+            <tr>
+                <td>{{ score.timestamp }}</td>
+                <td>{{ score.correct_answers_count }}</td>
+                <td>{{ score.wrong_answers_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -66,3 +66,37 @@ def save_game_result(request):
         )
         return JsonResponse({'status': 'success'})
     return JsonResponse({'status': 'error'}, status=400)
+
+@login_required
+def my_scores_view(request):
+    # Fetch the latest 20 addition and multiplication scores for the current user
+    addition_scores = GameResult.objects.filter(
+        user=request.user, task_type='addition'
+    ).order_by('-timestamp')[:20]
+
+    multiplication_scores = GameResult.objects.filter(
+        user=request.user, task_type='multiplication'
+    ).order_by('-timestamp')[:20]
+
+    context = {
+        'addition_scores': addition_scores,
+        'multiplication_scores': multiplication_scores,
+    }
+    return render(request, 'scholar/my_scores.html', context)
+
+def leaderboard_view(request):
+    # Fetch the top 10 addition scores
+    addition_leaderboard = GameResult.objects.filter(
+        task_type='addition'
+    ).order_by('-correct_answers_count')[:10]
+
+    # Fetch the top 10 multiplication scores
+    multiplication_leaderboard = GameResult.objects.filter(
+        task_type='multiplication'
+    ).order_by('-correct_answers_count')[:10]
+
+    context = {
+        'addition_leaderboard': addition_leaderboard,
+        'multiplication_leaderboard': multiplication_leaderboard,
+    }
+    return render(request, 'scholar/leaderboard.html', context)

@@ -18,6 +18,23 @@
                 </div>
             </div>
         </div>
+        <!-- Inside the <div class="row"> after other tiles -->
+<div class="col-md-3 mb-4">
+    <div class="card h-100">
+        <div class="card-body text-center">
+            <a href="{% url 'scholar:my_scores' %}">My Scores</a>
+        </div>
+    </div>
+</div>
+
+<!-- Inside the <div class="row"> after other tiles -->
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <a href="{% url 'scholar:leaderboard' %}">Leaderboard</a>
+            </div>
+        </div>
+    </div>
         <!-- More tiles for other applications like multiplication can be added here later -->
     </div>
 </div>

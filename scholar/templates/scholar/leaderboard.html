@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Leaderboard</h2>
+    <h3 class="text-center mb-3">Addition</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Correct</th>
+                <th>Wrong</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in addition_leaderboard %}
+            <tr>
+                <td>{{ score.user.email }}</td>
+                <td>{{ score.correct_answers_count }}</td>
+                <td>{{ score.wrong_answers_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3 class="text-center mb-3">Multiplication</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Correct</th>
+                <th>Wrong</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in multiplication_leaderboard %}
+            <tr>
+                <td>{{ score.user.email }}</td>
+                <td>{{ score.correct_answers_count }}</td>
+                <td>{{ score.wrong_answers_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
