@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import random
 from django.contrib.auth.decorators import login_required
-
+from .models import GameResult
 
 def index_view(request):
     return render(request, 'scholar/index.html')
@@ -52,3 +52,17 @@ def check_answer(request):
 @login_required
 def multiply_view(request):
     return render(request, 'scholar/multiply.html')
+
+
+@login_required
+def save_game_result(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        GameResult.objects.create(
+            task_type=data['task_type'],
+            correct_answers_count=data['correct_answers_count'],
+            wrong_answers_count=data['wrong_answers_count'],
+            user=request.user
+        )
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'error'}, status=400)

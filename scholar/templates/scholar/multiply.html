@@ -65,9 +65,26 @@
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.2"></script>
 <script>
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
     document.addEventListener('DOMContentLoaded', function () {
         let timerInterval;
-        let timeRemaining = 120; // 2 minutes in seconds
+        let timeRemaining = 15; // 2 minutes in seconds
         let score = { correct: 0, wrong: 0 };
         let difficulty = 1;
 
@@ -98,16 +115,16 @@
         }
 
         function generateQuestion() {
-    let num1 = Math.floor(Math.random() * 8) + 2; // 2 to 9
-    let num2;
-    do {
-        num2 = Math.floor(Math.random() * 13) + 2; // 2 to 14, but we'll skip 10
-    } while (num2 === 10);
+            let num1 = Math.floor(Math.random() * 8) + 2; // 2 to 9
+            let num2;
+            do {
+                num2 = Math.floor(Math.random() * 13) + 2; // 2 to 14, but we'll skip 10
+            } while (num2 === 10);
 
-    document.getElementById('question').textContent = `What is ${num1} × ${num2}?`;
-    document.getElementById('userAnswer').value = '';
-    document.getElementById('userAnswer').dataset.correctAnswer = num1 * num2;
-}
+            document.getElementById('question').textContent = `What is ${num1} × ${num2}?`;
+            document.getElementById('userAnswer').value = '';
+            document.getElementById('userAnswer').dataset.correctAnswer = num1 * num2;
+        }
 
         function showFeedback(message, isSuccess) {
             let feedbackElement = document.getElementById('feedback');
@@ -157,6 +174,29 @@
             <p>Wrong answers: ${score.wrong}</p>
             <button id="restartButton" class="btn btn-primary">Restart</button>
         `;
+
+            // Send the results to the server
+    fetch('/scholar/save_game_result/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') // Function to get CSRF token from cookies
+        },
+        body: JSON.stringify({
+            task_type: 'multiplication', // or 'multiplication', depending on the game
+            correct_answers_count: score.correct,
+            wrong_answers_count: score.wrong,
+            // user_id will be determined on the server-side from the session
+        })
+    }).then(response => response.json())
+      .then(data => {
+          console.log('Success:', data);
+      })
+      .catch((error) => {
+          console.error('Error:', error);
+      });
+
+
             document.getElementById('restartButton').addEventListener('click', function () {
                 location.reload(); // Simple page reload to restart the game
             });

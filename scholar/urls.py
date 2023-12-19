@@ -1,7 +1,7 @@
 # scholar/urls.py
 
 from django.urls import path
-from .views import index_view, add_view, check_answer, multiply_view
+from .views import index_view, add_view, check_answer, multiply_view, save_game_result
 
 app_name = 'scholar'  # Define the app namespace
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path('add/', add_view, name='add'),
     path('check_answer/', check_answer, name='check_answer'),
     path('multiply/', multiply_view, name='multiply'),
+    path('save_game_result/', save_game_result, name='save_game_result'),
 ]
