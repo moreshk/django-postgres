@@ -6,6 +6,7 @@ class GameResult(models.Model):
     TASK_TYPES = (
         ('addition', 'Addition'),
         ('multiplication', 'Multiplication'),
+        ('subtraction', 'Subtraction'),
         # Add more task types if needed
     )
 

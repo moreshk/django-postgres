@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Similar styling to add.html -->
+<style>
+    .timer {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .centered {
+        text-align: center;
+    }
+
+    #answerForm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #answerForm .form-group {
+        margin-bottom: 0;
+    }
+
+    #answerForm .form-control,
+    #answerForm .btn {
+        margin: 0 5px;
+    }
+
+    #feedback {
+        text-align: center;
+        /* Ensure text is centered */
+        width: 100%;
+        /* Use full width to center text in the container */
+        display: none;
+        /* Initially hidden */
+    }
+
+    #scoreboard {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        /* Spacing between scoreboard and game area */
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Timer, Start button, and Game area similar to add.html -->
+    <div id="timer" class="timer centered mb-4">02:00</div>
+    <div class="centered mb-3">
+        <button id="startButton" class="btn btn-primary">Start</button>
+    </div>
+    <div id="gameArea" class="centered" style="display:none;">
+        <div id="scoreboard" class="centered mb-4">
+            <span id="correctScore" class="text-success">Correct: 0</span> |
+            <span id="wrongScore" class="text-danger">Wrong: 0</span>
+        </div>
+        <form id="answerForm" class="form-inline mb-3" onsubmit="return false;">
+            <div class="form-group">
+                <input type="number" id="userAnswer" class="form-control" style="max-width: 200px;" />
+                <button type="submit" id="submitAnswer" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        <div id="question" class="my-3"></div>
+    </div>
+    <div id="feedback" class="centered my-3 text-center" style="display:none;"></div>
+    <div id="result" class="centered my-3"></div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+</script>
+
+<script>
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let timerInterval;
+        let timeRemaining = 20; // 2 minutes in seconds
+        let score = { correct: 0, wrong: 0 };
+        let difficulty = 1;
+
+        function startGame() {
+            document.getElementById('startButton').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'block';
+            generateQuestion();
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(function () {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            let minutes = Math.floor(timeRemaining / 60);
+            let seconds = timeRemaining % 60;
+            document.getElementById('timer').textContent =
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+
+
+        // Include the same JavaScript functions as in add.html, but modify the generateQuestion function
+        function generateQuestion() {
+            // Use difficulty to determine the range of numbers for the question
+            let maxNumber = 10 + (difficulty - 1) * 5;
+            let num1 = Math.floor(Math.random() * maxNumber) + 1;
+            let num2 = Math.floor(Math.random() * maxNumber) + 1;
+
+            // Ensure num1 is greater than num2 for subtraction
+            if (num1 < num2) {
+                [num1, num2] = [num2, num1]; // Swap the numbers if num2 is greater
+            }
+
+            document.getElementById('question').textContent = `What is ${num1} - ${num2}?`;
+            document.getElementById('userAnswer').value = '';
+            document.getElementById('userAnswer').dataset.correctAnswer = num1 - num2;
+        }
+
+        function showFeedback(message, isSuccess) {
+            let feedbackElement = document.getElementById('feedback');
+            feedbackElement.style.display = 'block';
+            feedbackElement.textContent = message;
+            feedbackElement.className = isSuccess ? 'alert alert-success' : 'alert alert-danger';
+
+            // Set a timeout to hide the feedback after 1 second (1000 milliseconds)
+            setTimeout(function () {
+                feedbackElement.style.display = 'none';
+            }, 1000);
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('correctScore').textContent = `Correct: ${score.correct}`;
+            document.getElementById('wrongScore').textContent = `Wrong: ${score.wrong}`;
+        }
+
+        function checkAnswer() {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            let userAnswer = parseInt(document.getElementById('userAnswer').value);
+            let correctAnswer = parseInt(document.getElementById('userAnswer').dataset.correctAnswer);
+
+            if (userAnswer === correctAnswer) {
+                score.correct++;
+                difficulty++; // Increase difficulty in a predictable manner
+                showFeedback('Correct!', true);
+            } else {
+                score.wrong++;
+                difficulty = Math.max(1, difficulty - 1); // Decrease difficulty, but not below 1
+                showFeedback('Wrong!', false);
+            }
+
+            generateQuestion();
+            document.getElementById('userAnswer').focus(); // Keep the focus on the input field
+
+            // Update the score display after checking the answer
+            updateScoreDisplay();
+        }
+
+        // Add an event listener for the form's submit event
+        document.getElementById('answerForm').addEventListener('submit', checkAnswer);
+
+        function endGame() {
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('result').innerHTML = `
+                <p>Time's up!</p>
+                <p>Correct answers: ${score.correct}</p>
+                <p>Wrong answers: ${score.wrong}</p>
+                <button id="restartButton" class="btn btn-primary">Restart</button>
+            `;
+
+            // Send the results to the server
+            fetch('/scholar/save_game_result/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // Make sure you have the getCookie function defined
+                },
+                body: JSON.stringify({
+                    task_type: 'subtraction',
+                    correct_answers_count: score.correct,
+                    wrong_answers_count: score.wrong,
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            document.getElementById('restartButton').addEventListener('click', function () {
+                location.reload(); // Simple page reload to restart the game
+            });
+
+            // Trigger confetti drop
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        document.getElementById('startButton').addEventListener('click', startGame);
+        document.getElementById('submitAnswer').addEventListener('click', checkAnswer);
+    });
+</script>
+{% endblock %}

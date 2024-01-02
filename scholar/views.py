@@ -21,6 +21,7 @@ def check_answer(request):
     user_answer = data.get('userAnswer')
     correct_answer = data.get('correctAnswer')
     difficulty = data.get('difficulty')
+    operation = data.get('operation', 'addition')  # Default to 'addition' if not specified
 
     # Initialize the response dictionary
     response_data = {
@@ -39,11 +40,18 @@ def check_answer(request):
         difficulty = max(difficulty - 1, 1)
 
     # Generate the next question based on the new difficulty level
-    num1 = random.randint(1, difficulty)
-    num2 = random.randint(1, difficulty)
+    num1 = random.randint(1, difficulty * 10)  # Adjust the range as needed
+    num2 = random.randint(1, difficulty * 10)
+
+    # Ensure num1 is greater than num2 for subtraction
+    if operation == 'subtraction':
+        num1, num2 = max(num1, num2), min(num1, num2)
+        response_data['next_question']['correctAnswer'] = num1 - num2
+    else:
+        response_data['next_question']['correctAnswer'] = num1 + num2
+
     response_data['next_question']['num1'] = num1
     response_data['next_question']['num2'] = num2
-    response_data['next_question']['correctAnswer'] = num1 + num2
     response_data['difficulty'] = difficulty
 
     return JsonResponse(response_data)
@@ -78,9 +86,15 @@ def my_scores_view(request):
         user=request.user, task_type='multiplication'
     ).order_by('-timestamp')[:20]
 
+    # Fetch the latest 20 subtraction scores for the current user
+    subtraction_scores = GameResult.objects.filter(
+        user=request.user, task_type='subtraction'
+    ).order_by('-timestamp')[:20]
+
     context = {
         'addition_scores': addition_scores,
         'multiplication_scores': multiplication_scores,
+        'subtraction_scores': subtraction_scores,  # Add this line
     }
     return render(request, 'scholar/my_scores.html', context)
 
@@ -88,15 +102,27 @@ def leaderboard_view(request):
     # Fetch the top 10 addition scores
     addition_leaderboard = GameResult.objects.filter(
         task_type='addition'
-    ).order_by('-correct_answers_count')[:10]
+    ).order_by('-correct_answers_count')[:5]
 
     # Fetch the top 10 multiplication scores
     multiplication_leaderboard = GameResult.objects.filter(
         task_type='multiplication'
-    ).order_by('-correct_answers_count')[:10]
+    ).order_by('-correct_answers_count')[:5]
+
+    # Fetch the top 10 subtraction scores
+    subtraction_leaderboard = GameResult.objects.filter(
+        task_type='subtraction'
+    ).order_by('-correct_answers_count')[:5]
+
 
     context = {
         'addition_leaderboard': addition_leaderboard,
         'multiplication_leaderboard': multiplication_leaderboard,
+        'subtraction_leaderboard': subtraction_leaderboard,  # Add this line
     }
     return render(request, 'scholar/leaderboard.html', context)
+
+
+@login_required
+def subtract_view(request):
+    return render(request, 'scholar/subtract.html')
