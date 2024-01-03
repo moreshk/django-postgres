@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="chat-container">
+    <div id="chat-box">
+        <!-- Messages will be displayed here -->
+    </div>
+    <form id="chat-form">
+        <input type="text" id="user-input" placeholder="Type your message..." required>
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+<script>
+// JavaScript to handle sending the message and receiving the response
+document.getElementById('chat-form').onsubmit = function(event) {
+    event.preventDefault();
+    var userInput = document.getElementById('user-input').value;
+    var chatBox = document.getElementById('chat-box');
+
+    // Clear the input field
+    document.getElementById('user-input').value = '';
+
+    // Append user message to the chat box
+    chatBox.innerHTML += '<div class="user-message">' + userInput + '</div>';
+
+    // Send the message to the server
+    fetch('/chatbot/chat/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') // Function to get CSRF token from cookies
+        },
+        body: JSON.stringify({ 'message': userInput })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Append chatbot response to the chat box
+        chatBox.innerHTML += '<div class="chatbot-message">' + data.response + '</div>';
+    })
+    .catch(error => console.error('Error:', error));
+};
+
+// Function to get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+{% endblock %}

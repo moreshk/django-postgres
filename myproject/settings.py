@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "transcriber",
     'translator',
     'scholar',
+    'chatbot',
 ]
 
 MIDDLEWARE = [

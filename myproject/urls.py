@@ -58,6 +58,7 @@ urlpatterns = [
     path('transcriber/', include('transcriber.urls')),
     path('translator/', include('translator.urls')),
     path('scholar/', include('scholar.urls')),
+    path('chatbot/', include('chatbot.urls')),  # Include your app's URLs
 ]
 
 if settings.DEBUG:

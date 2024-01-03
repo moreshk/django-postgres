@@ -58,6 +58,17 @@ class CustomUser(AbstractUser):
     LANGUAGE_CHOICES = (
         ('English', 'English'),
         ('Marathi', 'Marathi'),
+        ('Vietnamese', 'Vietnamese'),
+        ('Gujarati', 'Gujarati'),
+        ('Hindi', 'Hindi'),
+        ('Arabic', 'Arabic'),
+        ('Spanish', 'Spanish'),
+        ('Mandarin', 'Mandarin'),
+        ('French', 'French'),
+        ('Bengali', 'Bengali'),
+        ('Russian', 'Russian'),
+        ('Portuguese', 'Portuguese'),
+        ('Indonesian', 'Indonesian'),
     )
 
     language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, default='English')
