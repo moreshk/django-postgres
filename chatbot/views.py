@@ -51,8 +51,8 @@ def chatbot_view(request):
         )
         prompt = prompt_template.format(language=user_language)
 
-        print(user_language)
-        print(prompt)
+        # print(user_language)
+        # print(prompt)
         # Make the API call to OpenAI to generate the response
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
