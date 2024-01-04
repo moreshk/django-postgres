@@ -2,39 +2,17 @@
 
 {% block content %}
 <div class="container mt-5">
-    <!-- <h1 class="mb-4">Welcome to the Home Page!</h1> -->
 
     <div class="row">
-        <!-- Babbl Tile -->
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'topics' %}">Babbl</a>
-                </div>
+    <!-- Chatbot Tile -->
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <a href="{% url 'chatbot:chat_interface' %}">Chat</a>
             </div>
-        </div>
-
-        <!-- Add this inside the 'row' div where other tiles are located -->
-<div class="col-md-3 mb-4">
-    <div class="card h-100">
-        <div class="card-body text-center">
-            <a href="{% url 'scholar:index' %}">Scholar</a>
         </div>
     </div>
-</div>
 
-
-        <!-- Courses Tile -->
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'courses' %}">Courses</a>
-                </div>
-            </div>
-        </div>
-
-        {% if request.user.user_type == 'LABELLER' %}
-        <!-- My Account Tile -->
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
@@ -43,18 +21,6 @@
             </div>
         </div>
 
-
-
-        <!-- Doji Detector Tile -->
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'candlestick_view' %}">Doji Detector</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Referrals Tile -->
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
@@ -62,65 +28,6 @@
                 </div>
             </div>
         </div>
-        {% else %}
-        <!-- The rest of your tiles go here -->
-        {% if request.user.user_type == 'ADMINISTRATOR' %}
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'create_school' %}">Create School</a>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'v3essay_grader:combined_prompt' %}">Essay Grader</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'v3essay_grader:view_combined_grades' %}">View Results</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'v3essay_grader:create_rubric' %}">Create Rubric</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'v3essay_grader:view_edit_rubric_criteria' %}">View/Add Criteria to Rubric</a>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- My Account Tile -->
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <a href="{% url 'myaccount' %}">My Account</a>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
-
-
-
 
     </div>
 
