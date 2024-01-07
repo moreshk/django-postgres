@@ -189,8 +189,7 @@
             document.getElementById('gameArea').style.display = 'none';
             document.getElementById('result').innerHTML = `
                 <p>Time's up!</p>
-                <p>Correct answers: ${score.correct}</p>
-                <p>Wrong answers: ${score.wrong}</p>
+                <p class="display-3">You earned ${score.correct} <img src="/static/images/subtract_jewel.png" class="img-fluid" style="height: 9rem;" alt="Jewel" /></p>
                 <button id="restartButton" class="btn btn-primary">Restart</button>
             `;
 
