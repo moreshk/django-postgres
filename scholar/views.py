@@ -77,7 +77,7 @@ def save_game_result(request):
 
 @login_required
 def my_scores_view(request):
-    # Fetch the latest 20 addition and multiplication scores for the current user
+    # Fetch the latest 20 addition, multiplication, and subtraction scores for the current user
     addition_scores = GameResult.objects.filter(
         user=request.user, task_type='addition'
     ).order_by('-timestamp')[:20]
@@ -86,15 +86,20 @@ def my_scores_view(request):
         user=request.user, task_type='multiplication'
     ).order_by('-timestamp')[:20]
 
-    # Fetch the latest 20 subtraction scores for the current user
     subtraction_scores = GameResult.objects.filter(
         user=request.user, task_type='subtraction'
     ).order_by('-timestamp')[:20]
 
+    # Calculate the total score
+    total_score = sum(score.correct_answers_count for score in addition_scores) + \
+                  sum(score.correct_answers_count for score in multiplication_scores) + \
+                  sum(score.correct_answers_count for score in subtraction_scores)
+
     context = {
         'addition_scores': addition_scores,
         'multiplication_scores': multiplication_scores,
-        'subtraction_scores': subtraction_scores,  # Add this line
+        'subtraction_scores': subtraction_scores,
+        'total_score': total_score,  # Add this line to include the total score in the context
     }
     return render(request, 'scholar/my_scores.html', context)
 
