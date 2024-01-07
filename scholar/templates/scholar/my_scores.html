@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
-
+{% load static %} <!-- Add this line -->
 {% block content %}
 <div class="container mt-5">
-    <!-- Total Score Section -->
-    <h2 class="mb-3">Total Score: {{ total_score }}</h2>
+    <!-- Responsive Individual Scores Section with larger text and images -->
+<div class="row text-center mb-3">
+    <div class="col-12 col-md-4 mb-4 d-flex align-items-center justify-content-center">
+        <span class="display-4">{{ addition_total }}</span>
+        <img src="{% static 'images/add_jewel.png' %}" alt="Addition Jewel" class="img-fluid" style="width: 5rem;">
+    </div>
+    <div class="col-12 col-md-4 mb-4 d-flex align-items-center justify-content-center">
+        <span class="display-4">{{ subtraction_total }}</span>
+        <img src="{% static 'images/subtract_jewel.png' %}" alt="Subtraction Jewel" class="img-fluid" style="width: 5rem;">
+    </div>
+    <div class="col-12 col-md-4 mb-4 d-flex align-items-center justify-content-center">
+        <span class="display-4">{{ multiplication_total }}</span>
+        <img src="{% static 'images/multiply_jewel.png' %}" alt="Multiplication Jewel" class="img-fluid" style="width: 5rem;">
+    </div>
+</div>
 
     <h3>Addition</h3>
     <table class="table">
