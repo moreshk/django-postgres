@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Alert placeholder -->
+    <div id="alert-placeholder" class="container mt-3" style="display: none;">
+        <div class="alert alert-danger" role="alert" id="screen-time-alert">
+            <!-- The message will be inserted here -->
+        </div>
+    </div>
+
+    <!-- Search form -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <form id="search-form" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search for videos" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <!-- Search results -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <ul id="search-results" class="list-group">
+                <!-- Search results will be inserted here -->
+            </ul>
+        </div>
+    </div>
+    <!-- Video player -->
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-8">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe id="youtube-player" class="embed-responsive-item" src="" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var intervalId;  // Store the interval ID
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    document.getElementById('search-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var searchQuery = this.querySelector('input[type="search"]').value;
+        searchYouTube(searchQuery);
+    });
+
+    function searchYouTube(query) {
+        var apiKey = "{{ YOUTUBE_API_KEY }}";
+        var apiUrl = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=' + encodeURIComponent(query) + '&key=' + apiKey;
+
+        fetch(apiUrl).then(response => response.json()).then(data => {
+            var resultsElement = document.getElementById('search-results');
+            resultsElement.innerHTML = ''; // Clear previous results
+
+            data.items.forEach(item => {
+                var videoId = item.id.videoId;
+                var title = item.snippet.title;
+                var thumbnail = item.snippet.thumbnails.default.url;
+
+                var listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.innerHTML = `
+        <img src="${thumbnail}" alt="${title}" class="img-thumbnail mr-3">
+        <span>${title}</span>
+    `;
+                listItem.addEventListener('click', function () {
+                    checkAndPlayVideo(videoId);
+                });
+
+                resultsElement.appendChild(listItem);
+            });
+        }).catch(error => {
+            console.error('Error fetching data: ', error);
+        });
+    }
+
+    function playVideo(videoId) {
+        var player = document.getElementById('youtube-player');
+        player.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+    }
+
+    // Inside youtube_viewer.html
+
+
+    // Inside youtube_viewer.html
+
+    function showAlert(message) {
+        var alertPlaceholder = document.getElementById('alert-placeholder');
+        var alertMessage = document.getElementById('screen-time-alert');
+
+        alertMessage.textContent = message; // Set the text content of the alert
+        alertPlaceholder.style.display = 'block'; // Show the alert placeholder
+    }
+
+    function hideAlert() {
+        var alertPlaceholder = document.getElementById('alert-placeholder');
+        alertPlaceholder.style.display = 'none'; // Hide the alert placeholder
+    }
+
+    function recordYouTubeScreenTime() {
+        // Clear any existing interval
+        clearInterval(intervalId);
+
+        // Set a new interval
+        intervalId = setInterval(function () {
+            fetch('{% url "scholar:record_youtube_time" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // Get CSRF token from cookies
+                },
+                body: JSON.stringify({
+                    minutes: X // The frequency of insertion in minutes
+                })
+            }).then(response => response.json()).then(data => {
+                // Handle response
+                console.log(data);
+                if (!data.is_allowed) {
+                    clearInterval(intervalId); // Stop recording time
+                    showAlert('You have used up your available screen time for watching YouTube.');
+                    document.getElementById('youtube-player').src = ""; // Disable the video player
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }, X * 60000); // X minutes in milliseconds
+    }
+
+    function checkAndPlayVideo(videoId) {
+        fetch('{% url "scholar:check_screen_time" %}')
+            .then(response => response.json())
+            .then(data => {
+                if (data.is_allowed) {
+                    hideAlert(); // Hide any existing alert
+                    playVideo(videoId);
+                    recordYouTubeScreenTime();
+                } else {
+                    showAlert('You have used up your available screen time for watching YouTube.');
+                    document.getElementById('youtube-player').src = ""; // Optionally, disable the video player
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+{% endblock %}

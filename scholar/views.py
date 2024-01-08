@@ -6,7 +6,10 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import random
 from django.contrib.auth.decorators import login_required
-from .models import GameResult
+from .models import GameResult, ScreenTime
+from django.template import loader
+from django.db.models import Sum
+import os
 
 def index_view(request):
     return render(request, 'scholar/index.html')
@@ -66,12 +69,23 @@ def multiply_view(request):
 def save_game_result(request):
     if request.method == 'POST':
         data = json.loads(request.body)
+        correct_answers_count = data['correct_answers_count']
+        
+        # Save GameResult
         GameResult.objects.create(
             task_type=data['task_type'],
-            correct_answers_count=data['correct_answers_count'],
+            correct_answers_count=correct_answers_count,
             wrong_answers_count=data['wrong_answers_count'],
             user=request.user
         )
+        
+        # Save ScreenTime
+        ScreenTime.objects.create(
+            user=request.user,
+            operation=data['task_type'],
+            minutes=correct_answers_count  # Assuming 1 minute per correct answer
+        )
+        
         return JsonResponse({'status': 'success'})
     return JsonResponse({'status': 'error'}, status=400)
 
@@ -133,3 +147,47 @@ def leaderboard_view(request):
 @login_required
 def subtract_view(request):
     return render(request, 'scholar/subtract.html')
+
+@login_required
+def youtube_viewer(request):
+    context = {
+        'YOUTUBE_API_KEY': os.environ.get('YOUTUBE_API_KEY')
+    }
+    return render(request, 'scholar/youtube_viewer.html', context)
+
+
+@login_required
+@require_http_methods(["POST"])
+def record_youtube_time(request):
+    data = json.loads(request.body)
+    minutes_watched = int(data.get('minutes', 0))
+    
+    # Save ScreenTime for YouTube
+    ScreenTime.objects.create(
+        user=request.user,
+        operation='youtube',
+        minutes=minutes_watched
+    )
+    
+    return JsonResponse({'status': 'success'})
+
+def get_available_screen_time(user):
+    earned_time = ScreenTime.objects.filter(
+        user=user,
+        operation__in=['addition', 'multiplication', 'subtraction']
+    ).aggregate(total_minutes=Sum('minutes'))['total_minutes'] or 0
+    
+    used_time = ScreenTime.objects.filter(
+        user=user,
+        operation='youtube'
+    ).aggregate(total_minutes=Sum('minutes'))['total_minutes'] or 0
+    
+    return earned_time - used_time
+
+@login_required
+def check_screen_time(request):
+    available_time = get_available_screen_time(request.user)
+    return JsonResponse({
+        'is_allowed': available_time > 0,
+        'available_time': available_time
+    })
