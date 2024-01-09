@@ -114,50 +114,70 @@
         alertPlaceholder.style.display = 'none'; // Hide the alert placeholder
     }
 
-    function recordYouTubeScreenTime() {
-        // Clear any existing interval
-        clearInterval(intervalId);
+// Inside youtube_viewer.html
 
-        // Set a new interval
-        intervalId = setInterval(function () {
-            fetch('{% url "scholar:record_youtube_time" %}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken') // Get CSRF token from cookies
-                },
-                body: JSON.stringify({
-                    minutes: X // The frequency of insertion in minutes
-                })
-            }).then(response => response.json()).then(data => {
-                // Handle response
-                console.log(data);
+function recordYouTubeScreenTime(videoId) {
+    // Clear any existing interval
+    clearInterval(intervalId);
+
+    // Set a new interval
+    intervalId = setInterval(function () {
+        // Make an AJAX POST request to record screen time
+        fetch('{% url "scholar:record_youtube_time" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({
+                videoId: videoId, // Pass the videoId to the server
+                minutes: 1 // Record 1 minute of screen time
+            })
+        }).then(response => response.json()).then(data => {
+            // After recording, check if the user still has screen time left
+            if (data.status === 'success') {
+                // If the server indicates no more screen time is available
                 if (!data.is_allowed) {
                     clearInterval(intervalId); // Stop recording time
                     showAlert('You have used up your available screen time for watching YouTube.');
                     document.getElementById('youtube-player').src = ""; // Disable the video player
                 }
-            }).catch(error => {
-                console.error('Error:', error);
-            });
-        }, X * 60000); // X minutes in milliseconds
-    }
+            } else {
+                // Handle any other status messages from the server
+                clearInterval(intervalId); // Stop recording time if there was an error
+                showAlert(data.message || 'An error occurred while recording screen time.');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            clearInterval(intervalId); // Stop recording time if there's an error
+            showAlert('An error occurred while recording screen time.');
+        });
+    }, 60000); // Record every 1 minute
+}
 
-    function checkAndPlayVideo(videoId) {
-        fetch('{% url "scholar:check_screen_time" %}')
-            .then(response => response.json())
-            .then(data => {
-                if (data.is_allowed) {
-                    hideAlert(); // Hide any existing alert
-                    playVideo(videoId);
-                    recordYouTubeScreenTime();
-                } else {
-                    showAlert('You have used up your available screen time for watching YouTube.');
-                    document.getElementById('youtube-player').src = ""; // Optionally, disable the video player
-                }
-            }).catch(error => {
-                console.error('Error:', error);
-            });
-    }
+function checkAndPlayVideo(videoId) {
+    fetch('{% url "scholar:check_screen_time" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.is_allowed) {
+            hideAlert(); // Hide any existing alert
+            playVideo(videoId);
+            recordYouTubeScreenTime(videoId); // Pass the videoId here
+        } else {
+            showAlert('You have used up your available screen time for watching YouTube.');
+            document.getElementById('youtube-player').src = ""; // Optionally, disable the video player
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 </script>
 {% endblock %}
