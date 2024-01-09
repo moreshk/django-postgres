@@ -2,6 +2,11 @@
 {% load static %} <!-- Add this line -->
 {% block content %}
 <div class="container mt-5">
+        <!-- Display available screen time -->
+        <div class="alert alert-info" role="alert">
+            Available Screen Time: {{ available_screen_time }} minutes
+        </div>
+        
     <!-- Responsive Individual Scores Section with larger text and images -->
 <div class="row text-center mb-3">
     <div class="col-12 col-md-4 mb-4 d-flex align-items-center justify-content-center">

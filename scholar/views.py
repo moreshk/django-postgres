@@ -109,6 +109,9 @@ def my_scores_view(request):
     multiplication_total = sum(score.correct_answers_count for score in multiplication_scores)
     subtraction_total = sum(score.correct_answers_count for score in subtraction_scores)
 
+    # Calculate the available screen time
+    available_screen_time = get_available_screen_time(request.user)
+
     context = {
         'addition_scores': addition_scores,
         'multiplication_scores': multiplication_scores,
@@ -116,6 +119,7 @@ def my_scores_view(request):
         'addition_total': addition_total,
         'multiplication_total': multiplication_total,
         'subtraction_total': subtraction_total,
+        'available_screen_time': available_screen_time,  # Add this line
     }
     return render(request, 'scholar/my_scores.html', context)
 
