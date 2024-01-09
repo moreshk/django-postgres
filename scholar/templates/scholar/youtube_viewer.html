@@ -154,6 +154,9 @@ function recordYouTubeScreenTime(videoId) {
         });
     }, 60000); // Record every 1 minute
 }
+// Inside youtube_viewer.html
+
+// Inside youtube_viewer.html
 
 function checkAndPlayVideo(videoId) {
     fetch('{% url "scholar:check_screen_time" %}', {
@@ -169,15 +172,16 @@ function checkAndPlayVideo(videoId) {
         if (data.is_allowed) {
             hideAlert(); // Hide any existing alert
             playVideo(videoId);
-            recordYouTubeScreenTime(videoId); // Pass the videoId here
+            recordYouTubeScreenTime(videoId); // Start recording screen time
         } else {
             showAlert('You have used up your available screen time for watching YouTube.');
-            document.getElementById('youtube-player').src = ""; // Optionally, disable the video player
+            // Optionally, disable the video player
+            document.getElementById('youtube-player').src = "";
         }
     }).catch(error => {
         console.error('Error:', error);
+        showAlert('An error occurred while checking screen time.');
     });
 }
-
 </script>
 {% endblock %}

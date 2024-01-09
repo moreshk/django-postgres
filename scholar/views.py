@@ -165,20 +165,18 @@ def record_youtube_time(request):
     video_id = data.get('videoId')
     minutes_watched = int(data.get('minutes', 0))
     
-    # Save ScreenTime for YouTube
-    screen_time_entry = ScreenTime.objects.create(
+    # Check if the user has available screen time
+    available_time = get_available_screen_time(request.user)
+    if available_time <= 0:
+        # User has no screen time left, do not record and inform the client
+        return JsonResponse({'status': 'success', 'is_allowed': False})
+    
+    # User has screen time left, record the screen time
+    ScreenTime.objects.create(
         user=request.user,
         operation='youtube',
         minutes=minutes_watched
     )
-    
-    # Calculate the available screen time
-    available_time = get_available_screen_time(request.user)
-    
-    # Check if the user has used up their available screen time
-    if available_time <= 0:
-        screen_time_entry.delete()  # Optionally remove the last entry if not allowed
-        return JsonResponse({'status': 'success', 'is_allowed': False})
     
     return JsonResponse({'status': 'success', 'is_allowed': True})
 
@@ -196,7 +194,10 @@ def get_available_screen_time(user):
     
     return earned_time - used_time
 
+# scholar/views.py
+
 @login_required
+@require_http_methods(["POST"])
 def check_screen_time(request):
     available_time = get_available_screen_time(request.user)
     return JsonResponse({
