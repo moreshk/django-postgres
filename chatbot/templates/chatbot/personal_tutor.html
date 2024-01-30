@@ -42,14 +42,27 @@
     }
 
     #input-container {
+        position: relative; /* Ensure this is set to relative */
         padding: 10px;
+        margin-bottom: 20px; /* Add space for the spinner */
     }
 
-    @media (max-width: 576px) { /* Adjust for mobile devices */
-    #messages-container {
-      height: calc(100vh - 300px); /* Further increase if necessary for mobile screens */
+    #spinner {
+        position: absolute; /* Keep this as absolute */
+        bottom: 100%; /* Position the spinner above the input field */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Center horizontally */
+        display: none;
     }
-}
+
+    @media (max-width: 576px) {
+
+        /* Adjust for mobile devices */
+        #messages-container {
+            height: calc(100vh - 300px);
+            /* Further increase if necessary for mobile screens */
+        }
+    }
 </style>
 
 <div id="messages-container">
@@ -57,6 +70,12 @@
 </div>
 
 <div id="input-container">
+    <div id="spinner" class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
     <form id="chat-form">
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Type a message..." id="user-input">
@@ -69,42 +88,55 @@
 
 <script>
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    sendStartMessage();
-});
+    function toggleSpinner(show) {
+        const spinner = document.getElementById('spinner');
+        spinner.style.display = show ? 'block' : 'none';
+    }
 
-function sendStartMessage() {
-    // Simulate user input as "start"
-    const startMessage = 'start';
-
-    // Append the 'start' message to the container as if the user has sent it
-    // appendMessage('user', startMessage);
-
-    // Prepare the data to be sent in the POST request
-    const postData = JSON.stringify({ message: startMessage });
-
-    // Make the AJAX call to the server
-    fetch('/chatbot/personal-tutor/chat/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: postData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            console.error('Error:', data.error);
-        } else {
-            // Append the chatbot's response to the container
-            appendMessage('bot', data.response);
+    function toggleInputField(disabled) {
+        const userInputField = document.getElementById('user-input');
+        userInputField.disabled = disabled;
+        if (!disabled) {
+            userInputField.focus();
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        sendStartMessage();
     });
-}
+
+    function sendStartMessage() {
+        const startMessage = 'start';
+        const postData = JSON.stringify({ message: startMessage });
+
+        toggleSpinner(true); // Show spinner
+        toggleInputField(true); // Disable input field
+
+        fetch('/chatbot/personal-tutor/chat/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: postData
+        })
+            .then(response => response.json())
+            .then(data => {
+                toggleSpinner(false); // Hide spinner
+                toggleInputField(false); // Enable input field
+
+                if (data.error) {
+                    console.error('Error:', data.error);
+                } else {
+                    appendMessage('bot', data.response);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                toggleSpinner(false); // Hide spinner
+                toggleInputField(false); // Enable input field
+            });
+    }
 
     // Function to append messages to the container
     function appendMessage(role, content) {
@@ -123,29 +155,34 @@ function sendStartMessage() {
     }
 
     // Function to handle form submission
+    // Function to handle form submission
     function handleFormSubmit(event) {
         event.preventDefault();
         const userInputField = document.getElementById('user-input');
         const userMessage = userInputField.value.trim();
 
         if (userMessage) {
-            // Append the user's message to the container
             appendMessage('user', userMessage);
+            toggleSpinner(true); // Show spinner
+            toggleInputField(true); // Disable input field
 
             // Prepare the data to be sent in the POST request
             const postData = JSON.stringify({ message: userMessage });
 
             // Make the AJAX call to the server
-            fetch('/chatbot/personal-tutor/chat/', { // Replace with the correct URL to your chatbot view
+            fetch('/chatbot/personal-tutor/chat/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken') // Function to get CSRF token from cookies
+                    'X-CSRFToken': getCookie('csrftoken')
                 },
                 body: postData
             })
                 .then(response => response.json())
                 .then(data => {
+                    toggleSpinner(false); // Hide spinner
+                    toggleInputField(false); // Enable input field
+
                     if (data.error) {
                         console.error('Error:', data.error);
                     } else {
@@ -155,6 +192,8 @@ function sendStartMessage() {
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    toggleSpinner(false); // Hide spinner
+                    toggleInputField(false); // Enable input field
                 });
 
             // Clear the input field after sending the message
