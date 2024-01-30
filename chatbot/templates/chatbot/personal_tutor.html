@@ -68,6 +68,44 @@
 </div>
 
 <script>
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    sendStartMessage();
+});
+
+function sendStartMessage() {
+    // Simulate user input as "start"
+    const startMessage = 'start';
+
+    // Append the 'start' message to the container as if the user has sent it
+    appendMessage('user', startMessage);
+
+    // Prepare the data to be sent in the POST request
+    const postData = JSON.stringify({ message: startMessage });
+
+    // Make the AJAX call to the server
+    fetch('/chatbot/personal-tutor/chat/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: postData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+        } else {
+            // Append the chatbot's response to the container
+            appendMessage('bot', data.response);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
     // Function to append messages to the container
     function appendMessage(role, content) {
         const messagesContainer = document.getElementById('messages-container');
