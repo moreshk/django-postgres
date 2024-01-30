@@ -45,11 +45,14 @@
         padding: 10px;
     }
 
-    @media (max-width: 576px) { /* Adjust for mobile devices */
-    #messages-container {
-      height: calc(100vh - 300px); /* Further increase if necessary for mobile screens */
+    @media (max-width: 576px) {
+
+        /* Adjust for mobile devices */
+        #messages-container {
+            height: calc(100vh - 300px);
+            /* Further increase if necessary for mobile screens */
+        }
     }
-}
 </style>
 
 <div id="messages-container">
@@ -66,8 +69,10 @@
         </div>
     </form>
 </div>
-
+{% endblock %}
+{% block extra_js %}
 <script>
+document.addEventListener('DOMContentLoaded', function () {
     // Function to append messages to the container
     function appendMessage(role, content) {
         const messagesContainer = document.getElementById('messages-container');
@@ -84,44 +89,32 @@
         messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to the latest message
     }
 
-    // Function to handle form submission
-    function handleFormSubmit(event) {
-        event.preventDefault();
-        const userInputField = document.getElementById('user-input');
-        const userMessage = userInputField.value.trim();
+    // Function to handle sending a message
+    function sendMessage(message) {
+        // Prepare the data to be sent in the POST request
+        const postData = JSON.stringify({ message: message });
 
-        if (userMessage) {
-            // Append the user's message to the container
-            appendMessage('user', userMessage);
-
-            // Prepare the data to be sent in the POST request
-            const postData = JSON.stringify({ message: userMessage });
-
-            // Make the AJAX call to the server
-            fetch('/chatbot/personal-tutor/chat/', { // Replace with the correct URL to your chatbot view
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken') // Function to get CSRF token from cookies
-                },
-                body: postData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        console.error('Error:', data.error);
-                    } else {
-                        // Append the chatbot's response to the container
-                        appendMessage('bot', data.response);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-
-            // Clear the input field after sending the message
-            userInputField.value = '';
-        }
+        // Make the AJAX call to the server
+        fetch('/chatbot/personal-tutor/chat/', { // Make sure this URL is correct
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken') // Function to get CSRF token from cookies
+            },
+            body: postData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('Error:', data.error);
+            } else {
+                // Append the chatbot's response to the container
+                appendMessage('bot', data.response);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 
     // Function to get CSRF token from cookies
@@ -140,7 +133,15 @@
         return cookieValue;
     }
 
-    // Add event listener to the form
-    document.getElementById('chat-form').addEventListener('submit', handleFormSubmit);
+    // Function to simulate sending the "start" message
+    function sendStartMessage() {
+        const startMessage = 'start'; // The message to start the conversation
+        sendMessage(startMessage); // Send the "start" message
+    }
+
+    // Call the function to send the start message
+    sendStartMessage();
+});
 </script>
-{% endblock %}
+
+{% endblock extra_js %}

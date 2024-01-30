@@ -4,8 +4,8 @@
 <div class="container mt-5">
 
     <div class="row">
-    <!-- Conditional Tile based on user type -->
-    {% if user.user_type == 'LABELLER' %}
+        <!-- Conditional Tile based on user type -->
+        {% if user.user_type == 'LABELLER' %}
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-    {% else %}
+        {% else %}
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
@@ -21,25 +21,35 @@
                 </div>
             </div>
         </div>
-    {% endif %}
+        {% endif %}
 
-    <!-- My Account Tile -->
-    <div class="col-md-3 mb-4">
-        <div class="card h-100">
-            <div class="card-body text-center">
-                <a href="{% url 'myaccount' %}">My Account</a>
+        <!-- My Account Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'myaccount' %}">My Account</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Referrals Tile -->
-    <div class="col-md-3 mb-4">
-        <div class="card h-100">
-            <div class="card-body text-center">
-                <a href="{% url 'referred_users_view' %}">Referrals</a>
+        <!-- Personal Tutor Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'chatbot:topics' %}" class="stretched-link">Personal Tutor</a>
+                </div>
             </div>
         </div>
-    </div>
+
+
+        <!-- Referrals Tile -->
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <a href="{% url 'referred_users_view' %}">Referrals</a>
+                </div>
+            </div>
+        </div>
 
     </div>
 

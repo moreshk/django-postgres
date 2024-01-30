@@ -132,7 +132,8 @@ def personal_tutor_view(request):
                 "way to maintain a cheerful and playful demeanour to keep the process engaging for the child. You will "
                 "only narrate one or two sentences each time and provide the child options to respond each time. Often the "
                 "only option that can be provided will be 'Continue' so that the child responds with that and you can "
-                "continue your train of thought. If the child needs clarification you can delve into that without getting "
+                "continue your train of thought. If you provide options make sure to have the word Option: before listing them. "
+                "If the child needs clarification you can delve into that without getting "
                 "completely sidetracked from your core objective of teaching a particular concept. You will provide plenty "
                 "of exercises till you are satisfied that the child has learned the particular concept in question at which "
                 "point you will congratulate the child on understanding the concept and conclude the lesson. Remember to "
@@ -148,7 +149,7 @@ def personal_tutor_view(request):
 
             # Make the API call to OpenAI to generate the response
             response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4-turbo-preview",
                 messages=[
                     {"role": "system", "content": prompt}
                 ] + history,
