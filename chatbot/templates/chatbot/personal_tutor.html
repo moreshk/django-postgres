@@ -203,8 +203,16 @@
 
     }
 
+    let currentAudio = null;  // This will reference the currently playing Audio object
+
     // Function to call the server-side Text-to-Speech endpoint
     function fetchTextToSpeech(message) {
+        // Stop any currently playing audio
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;  // Reset the audio play time
+        }
+
         const postData = JSON.stringify({ text: message });
 
         fetch('/chatbot/text-to-speech/', {  // Update with the correct URL to your view
@@ -256,12 +264,20 @@
             .then(blob => {
                 // Create an audio element and play the blob as soon as it's loaded
                 const audioUrl = URL.createObjectURL(blob);
-                const audio = new Audio(audioUrl);
-                audio.play().catch(error => console.error('Error playing audio:', error));
+                currentAudio = new Audio(audioUrl);
+                currentAudio.play().catch(error => console.error('Error playing audio:', error));
             })
             .catch(error => {
                 console.error('Text-to-Speech fetch error:', error);
             });
+    }
+
+    // Function to stop the currently playing audio
+    function stopCurrentAudio() {
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
     }
 
 
@@ -271,7 +287,7 @@
         const messageDiv = document.createElement('div');
         const clearfixDiv = document.createElement('div'); // Clearfix div
 
-        
+
         // Check if the message is from the bot and contains options
         if (role === 'bot') {
             const optionsMatch = content.match(/Options:(.*)/);
@@ -308,6 +324,7 @@
     // Function to handle form submission
     function handleFormSubmit(event) {
         event.preventDefault();
+        stopCurrentAudio(); 
         const userInputField = document.getElementById('user-input');
         const userMessage = userInputField.value.trim();
 
