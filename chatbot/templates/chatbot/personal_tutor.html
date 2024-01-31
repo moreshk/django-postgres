@@ -198,10 +198,26 @@
     }
 
     // Modify the appendMessage function to handle dynamic options
+    // Modify the appendMessage function to trim options from the bot message
     function appendMessage(role, content) {
         const messagesContainer = document.getElementById('messages-container');
         const messageDiv = document.createElement('div');
         const clearfixDiv = document.createElement('div'); // Clearfix div
+
+        // Check if the message is from the bot and contains options
+        if (role === 'bot') {
+            const optionsMatch = content.match(/Options:(.*)/);
+            if (optionsMatch) {
+                // Extract options and create an array
+                const options = optionsMatch[1].split(',').map(option => option.trim().replace(/\.$/, ''));
+                updatePresetButtons(options);
+                // Trim the content to remove the options text
+                content = content.replace(/Options:.*$/, '').trim();
+            } else {
+                // If no options are present, show only the 'I have a question' button
+                updatePresetButtons([]);
+            }
+        }
 
         messageDiv.classList.add('message', role === 'user' ? 'user-message' : 'bot-message');
         messageDiv.textContent = content;
@@ -211,19 +227,6 @@
         messagesContainer.appendChild(messageDiv);
         messagesContainer.appendChild(clearfixDiv); // Append clearfix after the message
         messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to the latest message
-
-        // Check if the message is from the bot and contains options
-        if (role === 'bot') {
-            const optionsMatch = content.match(/Options:(.*)/);
-            if (optionsMatch) {
-                // Extract options and create an array
-                const options = optionsMatch[1].split(',').map(option => option.trim());
-                updatePresetButtons(options);
-            } else {
-                // If no options are present, show default buttons
-                updatePresetButtons([]);
-            }
-        }
     }
 
     // Function to handle form submission
