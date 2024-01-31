@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 import json
 import openai
+import os
+from django.http import StreamingHttpResponse
+import requests
 
 # Define your CHARACTER_PROMPTS dictionary and any other constants here
 def limit_conversation_history(conversation: list, limit: int = 30) -> list:
@@ -184,3 +187,53 @@ def personal_tutor_interface(request):
 def topics_view(request):
     # This view will render the topics.html template
     return render(request, 'chatbot/topics.html')
+
+
+@login_required
+@require_http_methods(["POST"])
+def text_to_speech_view(request):
+    try:
+        # Read the OpenAI API key from the environment variable
+        openai_api_key = os.getenv('OPENAI_API_KEY')
+        if not openai_api_key:
+            return JsonResponse({'error': 'OpenAI API key not found'}, status=500)
+
+        # Parse the user input from the POST request
+        data = json.loads(request.body)
+        text = data.get('text')
+
+        # Ensure there is text to process
+        if not text:
+            return JsonResponse({'error': 'No text provided'}, status=400)
+
+        # Set up the headers with the OpenAI API key
+        headers = {
+            'Authorization': f'Bearer {openai_api_key}',
+            'Content-Type': 'application/json'
+        }
+
+        # Set up the data for the Text-to-Speech API request
+        tts_data = {
+            'model': 'tts-1',
+            'voice': 'alloy',  # You can allow the user to choose a voice or set a default one
+            'input': text,
+            'response_format': 'mp3'  # You can also allow the user to choose a format or set a default one
+        }
+
+        # Make the API call to OpenAI to generate the speech
+        response = requests.post(
+            'https://api.openai.com/v1/audio/speech',
+            headers=headers,
+            json=tts_data,
+            stream=True  # Ensure the response is streamed
+        )
+
+        # Stream the response back to the client
+        return StreamingHttpResponse(
+            streaming_content=response.iter_content(32 * 1024),
+            content_type='audio/mpeg'
+        )
+
+    except Exception as e:
+        # If something goes wrong, send back an error message
+        return JsonResponse({'error': str(e)}, status=500)
