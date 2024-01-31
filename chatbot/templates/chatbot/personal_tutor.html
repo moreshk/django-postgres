@@ -42,33 +42,48 @@
     }
 
     #input-container {
-        position: relative; /* Ensure this is set to relative */
+        position: relative;
+        /* Ensure this is set to relative */
         padding: 10px;
-        margin-bottom: 20px; /* Add space for the spinner */
+        margin-bottom: 20px;
+        /* Add space for the spinner */
     }
 
     #spinner {
-        position: absolute; /* Keep this as absolute */
-        bottom: 100%; /* Position the spinner above the input field */
-        left: 50%; /* Center horizontally */
-        transform: translateX(-50%); /* Center horizontally */
+        position: absolute;
+        /* Keep this as absolute */
+        bottom: 100%;
+        /* Position the spinner above the input field */
+        left: 50%;
+        /* Center horizontally */
+        transform: translateX(-50%);
+        /* Center horizontally */
         display: none;
     }
 
     .preset-btn {
         margin: 0 5px;
-        border-radius: 15px; /* Rounded corners */
-        border: none; /* Remove borders for a flat look */
-        color: #333; /* Button text color */
-        background-color: #f0f0f0; /* Button background color */
-        padding: 5px 15px; /* Padding inside the button */
-        cursor: pointer; /* Change cursor to pointer on hover */
-        outline: none; /* Remove the outline to maintain the flat look */
-        transition: background-color 0.3s; /* Smooth background color transition */
+        border-radius: 15px;
+        /* Rounded corners */
+        border: none;
+        /* Remove borders for a flat look */
+        color: #333;
+        /* Button text color */
+        background-color: #f0f0f0;
+        /* Button background color */
+        padding: 5px 15px;
+        /* Padding inside the button */
+        cursor: pointer;
+        /* Change cursor to pointer on hover */
+        outline: none;
+        /* Remove the outline to maintain the flat look */
+        transition: background-color 0.3s;
+        /* Smooth background color transition */
     }
 
     .preset-btn:hover {
-        background-color: #e0e0e0; /* Slightly darker on hover */
+        background-color: #e0e0e0;
+        /* Slightly darker on hover */
     }
 
     @media (max-width: 576px) {
@@ -161,7 +176,28 @@
             });
     }
 
-    // Function to append messages to the container
+
+    // Function to update preset buttons dynamically
+    function updatePresetButtons(options) {
+        const presetContainer = document.getElementById('preset-messages');
+        // Clear existing buttons and only keep the 'I have a question' button
+        presetContainer.innerHTML = '<button class="preset-btn" onclick="sendPresetMessage(\'I have a question\')">I have a question</button>';
+
+        // If there are options, create buttons for them
+        if (options.length > 0) {
+            options.forEach(option => {
+                // Trim the period from the end of the option if it exists
+                option = option.replace(/\.$/, '').trim();
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = 'preset-btn';
+                button.onclick = function () { sendPresetMessage(option); };
+                presetContainer.appendChild(button);
+            });
+        }
+    }
+
+    // Modify the appendMessage function to handle dynamic options
     function appendMessage(role, content) {
         const messagesContainer = document.getElementById('messages-container');
         const messageDiv = document.createElement('div');
@@ -175,9 +211,21 @@
         messagesContainer.appendChild(messageDiv);
         messagesContainer.appendChild(clearfixDiv); // Append clearfix after the message
         messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to the latest message
+
+        // Check if the message is from the bot and contains options
+        if (role === 'bot') {
+            const optionsMatch = content.match(/Options:(.*)/);
+            if (optionsMatch) {
+                // Extract options and create an array
+                const options = optionsMatch[1].split(',').map(option => option.trim());
+                updatePresetButtons(options);
+            } else {
+                // If no options are present, show default buttons
+                updatePresetButtons([]);
+            }
+        }
     }
 
-    // Function to handle form submission
     // Function to handle form submission
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -260,22 +308,22 @@
             },
             body: postData
         })
-        .then(response => response.json())
-        .then(data => {
-            toggleSpinner(false); // Hide spinner
-            toggleInputField(false); // Enable input field
+            .then(response => response.json())
+            .then(data => {
+                toggleSpinner(false); // Hide spinner
+                toggleInputField(false); // Enable input field
 
-            if (data.error) {
-                console.error('Error:', data.error);
-            } else {
-                appendMessage('bot', data.response); // Append the bot's response
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            toggleSpinner(false); // Hide spinner
-            toggleInputField(false); // Enable input field
-        });
+                if (data.error) {
+                    console.error('Error:', data.error);
+                } else {
+                    appendMessage('bot', data.response); // Append the bot's response
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                toggleSpinner(false); // Hide spinner
+                toggleInputField(false); // Enable input field
+            });
     }
 </script>
 {% endblock %}
