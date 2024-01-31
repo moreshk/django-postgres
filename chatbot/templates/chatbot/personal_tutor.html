@@ -177,24 +177,30 @@
     }
 
 
-    // Function to update preset buttons dynamically
-    function updatePresetButtons(options) {
+    // Function to update preset buttons dynamically and conditionally show 'I have a question'
+    function updatePresetButtons(options, skipQuestionPreset = false) {
         const presetContainer = document.getElementById('preset-messages');
-        // Clear existing buttons and only keep the 'I have a question' button
-        presetContainer.innerHTML = '<button class="preset-btn" onclick="sendPresetMessage(\'I have a question\')">I have a question</button>';
+        presetContainer.innerHTML = '';
 
-        // If there are options, create buttons for them
-        if (options.length > 0) {
-            options.forEach(option => {
-                // Trim the period from the end of the option if it exists
-                option = option.replace(/\.$/, '').trim();
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.className = 'preset-btn';
-                button.onclick = function () { sendPresetMessage(option); };
-                presetContainer.appendChild(button);
-            });
+         // Add dynamic options if any
+         options.forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.className = 'preset-btn';
+            button.onclick = function () { sendPresetMessage(option); };
+            presetContainer.appendChild(button);
+        });
+
+        // Only add 'I have a question' if not skipping it
+        if (!skipQuestionPreset) {
+            const questionButton = document.createElement('button');
+            questionButton.textContent = 'I have a question';
+            questionButton.className = 'preset-btn';
+            questionButton.onclick = function () { sendPresetMessage('I have a question'); };
+            presetContainer.appendChild(questionButton);
         }
+
+       
     }
 
     // Modify the appendMessage function to handle dynamic options
@@ -214,8 +220,11 @@
                 // Trim the content to remove the options text
                 content = content.replace(/Options:.*$/, '').trim();
             } else {
-                // If no options are present, show only the 'I have a question' button
-                updatePresetButtons([]);
+                // If no options are present, decide whether to show 'I have a question'
+                const skipQuestionPreset = sessionStorage.getItem('skipQuestionPreset') === 'true';
+                updatePresetButtons([], skipQuestionPreset);
+                // Reset the flag after showing the message
+                sessionStorage.removeItem('skipQuestionPreset');
             }
         }
 
@@ -297,6 +306,11 @@
     // Function to send a preset message
     function sendPresetMessage(message) {
         const postData = JSON.stringify({ message: message });
+
+        // Set a flag if 'I have a question' is sent
+        if (message === 'I have a question') {
+            sessionStorage.setItem('skipQuestionPreset', 'true');
+        }
 
         appendMessage('user', message); // Append the user message
         toggleSpinner(true); // Show spinner
