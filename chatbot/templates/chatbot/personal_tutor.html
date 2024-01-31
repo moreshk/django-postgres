@@ -126,6 +126,13 @@
 
 <script>
 
+    function togglePresetButtons(disabled) {
+        const presetButtons = document.querySelectorAll('.preset-btn');
+        presetButtons.forEach(button => {
+            button.disabled = disabled;
+        });
+    }
+
     function toggleSpinner(show) {
         const spinner = document.getElementById('spinner');
         spinner.style.display = show ? 'block' : 'none';
@@ -149,6 +156,7 @@
 
         toggleSpinner(true); // Show spinner
         toggleInputField(true); // Disable input field
+        togglePresetButtons(true); // Disable preset buttons
 
         fetch('/chatbot/personal-tutor/chat/', {
             method: 'POST',
@@ -162,7 +170,7 @@
             .then(data => {
                 toggleSpinner(false); // Hide spinner
                 toggleInputField(false); // Enable input field
-
+                togglePresetButtons(false);
                 if (data.error) {
                     console.error('Error:', data.error);
                 } else {
@@ -173,6 +181,7 @@
                 console.error('Error:', error);
                 toggleSpinner(false); // Hide spinner
                 toggleInputField(false); // Enable input field
+                togglePresetButtons(false);
             });
     }
 
@@ -324,7 +333,7 @@
     // Function to handle form submission
     function handleFormSubmit(event) {
         event.preventDefault();
-        stopCurrentAudio(); 
+        stopCurrentAudio();
         const userInputField = document.getElementById('user-input');
         const userMessage = userInputField.value.trim();
 
@@ -332,6 +341,7 @@
             appendMessage('user', userMessage);
             toggleSpinner(true); // Show spinner
             toggleInputField(true); // Disable input field
+            togglePresetButtons(true);
 
             // Prepare the data to be sent in the POST request
             const postData = JSON.stringify({ message: userMessage });
@@ -349,6 +359,7 @@
                 .then(data => {
                     toggleSpinner(false); // Hide spinner
                     toggleInputField(false); // Enable input field
+                    togglePresetButtons(false);
 
                     if (data.error) {
                         console.error('Error:', data.error);
@@ -361,6 +372,7 @@
                     console.error('Error:', error);
                     toggleSpinner(false); // Hide spinner
                     toggleInputField(false); // Enable input field
+                    togglePresetButtons(false);
                 });
 
             // Clear the input field after sending the message
@@ -387,6 +399,7 @@
     // Add event listener to the form
     document.getElementById('chat-form').addEventListener('submit', handleFormSubmit);
 
+
     // Function to send a preset message
     function sendPresetMessage(message) {
         const postData = JSON.stringify({ message: message });
@@ -399,6 +412,7 @@
         appendMessage('user', message); // Append the user message
         toggleSpinner(true); // Show spinner
         toggleInputField(true); // Disable input field
+        togglePresetButtons(true); // Disable preset buttons <-- This should be true to disable
 
         // Make the AJAX call to the server
         fetch('/chatbot/personal-tutor/chat/', {
@@ -413,7 +427,7 @@
             .then(data => {
                 toggleSpinner(false); // Hide spinner
                 toggleInputField(false); // Enable input field
-
+                togglePresetButtons(false); // Enable preset buttons <-- This should be false to enable
                 if (data.error) {
                     console.error('Error:', data.error);
                 } else {
@@ -424,6 +438,7 @@
                 console.error('Error:', error);
                 toggleSpinner(false); // Hide spinner
                 toggleInputField(false); // Enable input field
+                togglePresetButtons(false); // Enable preset buttons <-- This should be false to enable
             });
     }
 </script>

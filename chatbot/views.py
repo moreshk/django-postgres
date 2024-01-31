@@ -144,7 +144,7 @@ def personal_tutor_view(request):
                 "break down the topic into multiple small concepts, and discuss only one small concept in each message. A "
                 "concept can straddle multiple messages and your responses must only have one or two sentences each time in "
                 "your message and allow the child to pace themselves. Start by asking {child_name} if they are ready to "
-                "learn the concept. Make sure to reference the child by their name in messages to keep it personalized. "
+                "learn the concept. Make sure to reference the child by their name periodically in messages to keep it personalized."
                 "Make sure to ask questions that test the child's background knowledge and adjust your teaching accordingly "
                 "by covering any background concepts as needed. Make sure to start the conversation with a joke that is relevant to the topic. The child might ask for more jokes after that, gently nudge them to the topic in that case and do not tell back to back jokes even if requested."
                 "Pepper your conversation with a relevant interesting and fun facts, jokes (not back to back) to keep it engaging."
