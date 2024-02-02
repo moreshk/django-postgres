@@ -7,6 +7,7 @@ import openai
 import os
 from django.http import StreamingHttpResponse
 import requests
+from .models import Topic
 
 # Define your CHARACTER_PROMPTS dictionary and any other constants here
 def limit_conversation_history(conversation: list, limit: int = 30) -> list:
@@ -185,8 +186,8 @@ def personal_tutor_interface(request):
 
 @login_required
 def topics_view(request):
-    # This view will render the topics.html template
-    return render(request, 'chatbot/topics.html')
+    topics = Topic.objects.all()  # Retrieve all Topic objects from the database
+    return render(request, 'chatbot/topics.html', {'topics': topics})
 
 
 @login_required

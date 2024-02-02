@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import CustomUser,  GlobalSettings  
+from .models import CustomUser,  GlobalSettings
 
 from v3essay_grader.models import SampleTopic
 from payments.models import UserSubscription
+from chatbot.models import Topic
 
 class UserSubscriptionInline(admin.TabularInline):
     model = UserSubscription
@@ -26,3 +27,8 @@ class SampleTopicAdmin(admin.ModelAdmin):
 @admin.register(GlobalSettings)
 class GlobalSettingsAdmin(admin.ModelAdmin):
     list_display = ('referring_user_bonus', 'referred_user_bonus')
+
+@admin.register(Topic)
+class TopicAdmin(admin.ModelAdmin):
+    list_display = ('topic', 'genre', 'subgenre', 'step_id')
+    search_fields = ('topic', 'genre', 'subgenre')
