@@ -6,6 +6,9 @@
     <div class="col-md-4 mb-4">
         <a href="{% url 'chatbot:personal_tutor_view' %}?topic={{ topic.topic|urlencode }},{{ topic.description|urlencode }}" class="card text-decoration-none">
             <div class="card-body text-center">
+                {% if topic.image %}
+                <img src="{{ topic.image.url }}" class="card-img-top" alt="{{ topic.topic }}" style="object-fit: cover; width: 100%; height: auto; aspect-ratio: 1 / 1; border-radius: 5px; margin-bottom: 1rem;">
+                {% endif %}
                 <h5 class="card-title">{{ topic.topic }}</h5>
                 <p class="card-text">{{ topic.description }}</p>
             </div>
