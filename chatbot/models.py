@@ -10,3 +10,21 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.topic
+    
+
+# chatbot/models.py
+
+class CachedResponse(models.Model):
+    user_input = models.TextField()
+    conversation_history = models.JSONField()  # Stores the list of previous interactions
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)  # Link to the Topic model
+    api_response = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['user_input', 'topic']),  # Index to speed up searches
+        ]
+
+    def __str__(self):
+        return f"CachedResponse for {self.topic}"
