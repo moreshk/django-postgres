@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Topic(models.Model):
     topic = models.CharField(max_length=200, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
@@ -11,20 +12,17 @@ class Topic(models.Model):
     def __str__(self):
         return self.topic
     
-
-# chatbot/models.py
-
-class CachedResponse(models.Model):
-    user_input = models.TextField()
-    conversation_history = models.JSONField()  # Stores the list of previous interactions
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)  # Link to the Topic model
-    api_response = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+class CachedAPIResponse(models.Model):
+    topic = models.CharField(max_length=200)
+    history = models.JSONField()  # Updated to use the new JSONField
+    message = models.TextField()
+    response = models.TextField()
+    audio_response = models.FileField(upload_to='audio_responses/', null=True, blank=True)
 
     class Meta:
         indexes = [
-            models.Index(fields=['user_input', 'topic']),  # Index to speed up searches
+            models.Index(fields=['topic', 'message']),
         ]
 
     def __str__(self):
-        return f"CachedResponse for {self.topic}"
+        return f"Cached response for topic {self.topic}"
