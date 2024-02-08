@@ -81,7 +81,7 @@ def personal_tutor_view(request):
                     "If the child needs clarification you can delve into that without getting "
                     "completely sidetracked from your core objective of teaching a particular concept. You will provide plenty "
                     "of exercises till you are satisfied that the child has learned the particular concept in question at which "
-                    "point you will congratulate the child on understanding the concept and conclude the lesson. Remember to "
+                    "point you will congratulate the child on understanding the concept and conclude the lesson. Always end the concluding message by saying 'Well done on mastering this concept!' and do not provide options on the concluding message. Remember to "
                     "break down the topic into multiple small concepts, and discuss only one small concept in each message. A "
                     "concept can straddle multiple messages and your responses must only have one or two sentences each time in "
                     "your message and allow the child to pace themselves. Start by asking the user if they are ready to "

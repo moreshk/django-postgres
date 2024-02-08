@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 
 class Topic(models.Model):
     topic = models.CharField(max_length=200, null=False, blank=False)
@@ -19,7 +19,7 @@ class CachedAPIResponse(models.Model):
     response = models.TextField()
     audio_response = models.FileField(upload_to='audio_responses/', null=True, blank=True)
     history_hash = models.CharField(max_length=32)  # MD5 hash is 32 characters
-    
+    created_at = models.DateTimeField(default=timezone.now)
     class Meta:
         indexes = [
             models.Index(fields=['topic', 'message']),
