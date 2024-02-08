@@ -4,6 +4,7 @@ from django.test import Client
 from django.contrib.auth import get_user_model
 from chatbot.models import Topic
 import json
+import copy
 
 User = get_user_model()
 
@@ -88,7 +89,7 @@ class Command(BaseCommand):
             for option in options:
                 self.stdout.write(f"Exploring option: {option}")
                 # Create a new history for the next interaction, including the user's choice
-                next_history = history.copy()
+                next_history = copy.deepcopy(history) 
                 next_history.append({'role': 'user', 'content': option})  # Add user's response
                 # Recursively call simulate_interaction with the updated history
                 self.simulate_interaction(client, topic, description, next_history)

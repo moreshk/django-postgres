@@ -19,7 +19,7 @@ class CachedAPIResponse(models.Model):
     response = models.TextField()
     audio_response = models.FileField(upload_to='audio_responses/', null=True, blank=True)
     history_hash = models.CharField(max_length=32)  # MD5 hash is 32 characters
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
         indexes = [
             models.Index(fields=['topic', 'message']),
