@@ -8,6 +8,7 @@ class Topic(models.Model):
     subgenre = models.TextField(null=False, blank=False)
     step_id = models.IntegerField(null=False, blank=False)
     image = models.ImageField(upload_to='topics/', null=True, blank=True)
+    publish = models.BooleanField(default=False)
 
     def __str__(self):
         return self.topic

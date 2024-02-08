@@ -130,7 +130,7 @@ def personal_tutor_interface(request):
 
 @login_required
 def topics_view(request):
-    topics = Topic.objects.all()  # Retrieve all Topic objects from the database
+    topics = Topic.objects.filter(publish=True)  # Retrieve only Topic objects where publish is True
     return render(request, 'chatbot/topics.html', {'topics': topics})
 
 
