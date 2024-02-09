@@ -41,12 +41,7 @@ User = get_user_model()
 # Initialize a logger
 logger = logging.getLogger(__name__)
 
-
 def register(request):
-    if 'referrer_id' not in request.session:
-        # Redirect the user to a page that tells them to use a referral link
-        return redirect('referral_required')
-
     context = {}
     if 'referral_error' in request.session:
         context['referral_error'] = request.session['referral_error']
@@ -77,7 +72,6 @@ def register(request):
     else:
         form = RegistrationForm()
     return render(request, 'users/register.html', {'form': form})
-
 
 def send_verification_email(request, user):
     token = default_token_generator.make_token(user)
